@@ -1396,6 +1396,7 @@ public partial class PlayerSpawnpoint
         player.playerBuilding.building = null;
         player.playerBuilding.actualBuilding = null;
         player.playerBuilding.inventoryIndex = -1;
+        player.playerInjury.injured = false;
         for (int i = 0; i < player.equipment.Count; i++)
         {
             int index = i;
@@ -3074,16 +3075,30 @@ public partial class PlayerMove
 
         if (player.playerCar.car)
         {
-            player.playerMove.run = true;
-            player.playerMove.sneak = false;
-            if (run)
-            {
-                player.agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.carMultiplier;
-            }
+            //player.playerMove.run = true;
+            //player.playerMove.sneak = false;
+            //if (run)
+            //{
+            player.agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.carMultiplier;
+            //}
         }
         else
         {
             player.JoystickManager(player);
+            if (player.playerInjury.injured)
+            {
+                if (!run)
+                {
+                    player.JoystickMultiplierSneak(player);
+                    player.agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.sneakMultiplier;
+                }
+                else
+                {
+                    player.JoystickMultiplierNormal(player);
+                    player.agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.normalMultiplier;
+                }
+                return;
+            }
             if (player.playerWeight.currentWeight > player.playerWeight.maxWeight)
             {
                 player.playerMove.run = false;
@@ -5837,16 +5852,6 @@ public partial class PlayerDance
                 player.gold -= dance.goldToBuy;
             }
         }
-
-        //for (int i = 0; i < player.quests.Count; i++)
-        //{
-        //    Quest quest = player.quests[i];
-        //    if (quest.data.buyEmoji == true)
-        //    {
-        //        quest.checkBuyEmoji = true;
-        //    }
-        //    player.quests[i] = quest;
-        //}
     }
 
     [Command]
@@ -5855,6 +5860,45 @@ public partial class PlayerDance
         if (GeneralManager.singleton.FindNetworkDance(danceName, playerName) >= 0 && player.playerCar.car == null)
         {
             player.playerDance.danceIndex = index;
+        }
+    }
+}
+
+public partial class PlayerInjury : NetworkBehaviour
+{
+    public Player player;
+
+    [SyncVar]
+    public bool injured;
+
+    public bool prevInjuredState;
+
+    public void Start()
+    {
+        if (player.isServer)
+        {
+            if (player.HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc)
+            {
+                injured = true;
+            }
+            else
+            {
+                injured = false;
+            }
+        }
+        if (player.isClient)
+            InvokeRepeating(nameof(SetInjuredState), 1.0f, 1.0f);
+    }
+
+    public void SetInjuredState()
+    {
+        if (prevInjuredState != injured)
+        {
+            foreach (Animator anim in player.animators)
+            {
+                anim.SetBool("INJURED", injured);
+                prevInjuredState = injured;
+            }
         }
     }
 }

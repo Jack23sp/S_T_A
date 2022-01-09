@@ -435,6 +435,7 @@ public class GeneralManager : MonoBehaviour
     //public List<ScriptableBuilding> verticalWall;
     //public List<ScriptableBuilding> horizontalWall;
 
+
     public DateTime ChangeServerToClientTime(DateTime time, int seconds = 0)
     {
         return DateTime.ParseExact(time.ToString(), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);

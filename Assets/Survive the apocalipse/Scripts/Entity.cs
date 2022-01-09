@@ -1549,6 +1549,14 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
                             lastCombatTime = NetworkTime.time;
                             entity.lastCombatTime = NetworkTime.time;
                         }
+                        if (((Player)entity).HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc)
+                        {
+                            ((Player)entity).playerInjury.injured = true;
+                        }
+                        else
+                        {
+                            ((Player)entity).playerInjury.injured = false;
+                        }
                     }
                     else
                     {
@@ -1665,6 +1673,14 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
                                 entity.stunTimeEnd = Math.Max(newStunEndTime, stunTimeEnd);
                             }
                         }
+                    }
+                    if (((Player)entity).HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc)
+                    {
+                        ((Player)entity).playerInjury.injured = true;
+                    }
+                    else
+                    {
+                        ((Player)entity).playerInjury.injured = false;
                     }
                 }
             }
