@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2721682320236621932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2721682318866848231}
+  - component: {fileID: 3767080046161650754}
+  m_Layer: 5
+  m_Name: GFF Item Rarity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2721682318866848231
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2721682320236621932}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3767080046161650754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2721682320236621932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50900dd8b096b0442bd07da0fa9186a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useRarityTypeA: 0
+  useRarityTypeB: 1
+  raritySpriteA: {fileID: 21300000, guid: fd56e9a4e73556f41bd4f59c96c6250d, type: 3}
+  raritySpriteB: {fileID: 21300000, guid: 147ff30c364aa9d49a287b1815f43c18, type: 3}
+  ColorNull: {r: 0.28235295, g: 0.28235295, b: 0.28235295, a: 1}
+  ItemRarityList:
+  - name: Normal
+    color: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 0.7058824}
+  - name: Rare
+    color: {r: 0.41418445, g: 1, b: 0.33490568, a: 0.67058825}
+  - name: Elite
+    color: {r: 0.36320752, g: 0.63900995, b: 1, a: 1}
+  - name: Epic
+    color: {r: 1, g: 0.3455882, b: 1, a: 0.7058824}
+  - name: Legendary
+    color: {r: 1, g: 0.5201141, b: 0.2216981, a: 0.7607843}

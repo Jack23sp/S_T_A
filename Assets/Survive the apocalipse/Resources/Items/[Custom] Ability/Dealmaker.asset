@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d1a53259558234eb69e9fb2c5e8140, type: 3}
+  m_Name: Dealmaker
+  m_EditorClassIdentifier: 
+  image: {fileID: 21300000, guid: 587821ee74801b94ea2b6c9cb4aa8cd2, type: 3}
+  level: 
+  maxLevel: 50
+  baseValue: 5
+  Description: Allow you to claim building if ability level is major of building
+    level
+  DescriptionIta: Permette di risquotere l'edificio se l'abilta' e' maggiore del
+    livello dell'edificio

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eddf84969a87eb14099e8036b3a6263c, type: 3}
+  m_Name: 02_The Melo
+  m_EditorClassIdentifier: 
+  animator: {fileID: 9100000, guid: 012a23522bf8f37429faf416816aea82, type: 2}
+  coinToBuy: 100
+  goldToBuy: 2500
+  maleImage: {fileID: 21300000, guid: 59421cbfc3a85b642a0c31ecff4330d8, type: 3}
+  femaleImage: {fileID: 21300000, guid: 32c090adad70a4b49a67b207c0debdc5, type: 3}

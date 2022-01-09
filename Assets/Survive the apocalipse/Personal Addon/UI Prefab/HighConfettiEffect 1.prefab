@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1489205220493648
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4496467097245152}
+  - component: {fileID: 114386069933180572}
+  m_Layer: 0
+  m_Name: HighConfettiEffect 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4496467097245152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489205220493648}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 503.4597, y: 295.8346, z: 4.625}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114386069933180572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489205220493648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cfe660bc51acbf4eabe47e09f3fff5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  confettiCount: 50
+  canvasGUI: {fileID: 0}
+  confettiTemplate: {fileID: 1106526198577940, guid: f1ca1f195b4732a4eb1e239630cf136c,
+    type: 3}
+  referenceObject: {fileID: 0}
+  isMouseClick: 0
+  gravityConfetti: 0.3
+  dragConfetti: 0.075
+  terminalVelocity: 3
+  positionSpawn: {x: 0, y: 0, z: 0}
+  positionToSpawn: {fileID: 0}
+  colors:
+  - frontColor: {r: 0.92941177, g: 1, b: 0.36078432, a: 1}
+    backColor: {r: 0.8039216, g: 0.87058824, b: 0.27058825, a: 1}
+  - frontColor: {r: 1, g: 0.91764706, b: 0.078431375, a: 1}
+    backColor: {r: 1, g: 0.73333335, b: 0, a: 1}
+  - frontColor: {r: 1, g: 0.5882353, b: 0.18431373, a: 1}
+    backColor: {r: 1, g: 0.3882353, b: 0, a: 1}

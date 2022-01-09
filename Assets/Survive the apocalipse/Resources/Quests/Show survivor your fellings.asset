@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f16ec852cfc43438165ab2f523e128, type: 3}
+  m_Name: Show survivor your fellings
+  m_EditorClassIdentifier: 
+  italianTitle: Mostra ai sopravvisuti il tuo umore
+  toolTip: 
+  requiredLevel: 1
+  predecessor: {fileID: 0}
+  rewardGold: 175
+  rewardCoin: 3
+  rewardExperience: 20
+  rewardItem: {fileID: 0}
+  ability: []
+  Boosts: []
+  enterPremium: 0
+  createBuilding: 0
+  equipWeapon: 0
+  equipBag: 0
+  createGuild: 0
+  createParty: 0
+  makeGroupAlly: 0
+  drink: 0
+  eat: 0
+  run: 0
+  sneak: 0
+  makeMarriage: 0
+  sendAMessage: 0
+  buyEmoji: 1
+  openShop: 0
+  amountPlayerToKill: 0
+  amountWoodToGather: 0
+  amountRockToGather: 0
+  useTeleport: 0
+  useInstantResurrect: 0
+  makeATrade: 0
+  reachAmountOfFriends: 0
+  killZombie: []
+  buildingUpgrade: []
+  itemUpgrade: []
+  setSpawnpoint:
+    numberOfSpawnpointToCreate: 0
+  itemRewards: []
+  nextQuest: {fileID: 0}
+  gatherItem: {fileID: 0}
+  gatherAmount: 0

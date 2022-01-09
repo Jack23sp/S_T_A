@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d1a53259558234eb69e9fb2c5e8140, type: 3}
+  m_Name: Conservative
+  m_EditorClassIdentifier: 
+  image: {fileID: 21300000, guid: 57fddd8b9308e014ca623b7e8a612e1f, type: 3}
+  level: 
+  maxLevel: 50
+  baseValue: 5
+  Description: Allow to decrease the possibility of lost 1 item at death every 10
+    ability point
+  DescriptionIta: Permette di dimunuire la possibilita' di perdere 1 item alla morte
+    ogni 10 punti abilita'

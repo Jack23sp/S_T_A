@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18be07406029d49d1b7f4bde9b48d5d0, type: 3}
+  m_Name: Baseball bat
+  m_EditorClassIdentifier: 
+  Group: 
+  subGroup: 
+  ItemRarity: 0
+  isStealable: 0
+  isLostable: 1
+  maxWeightLevel: 0
+  maxWeight:
+    baseValue: 10
+    bonusPerLevel: 0
+  possibleBagWeight:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxDurability:
+    baseValue: 100
+    bonusPerLevel: 5
+  maxDurabilityLevel: 5
+  goldPrice: 300
+  coinPrice: 5
+  craftDescription: 
+  timeToCraft: 360
+  maxCarItemInventory: 0
+  repairTimer: 300
+  repairItems:
+  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+    amount: 15
+  - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
+    amount: 10
+  goldsToRepair: 1000
+  coinsToRepair: 10
+  upgradeTimer: 300
+  upgradeItems:
+  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+    amount: 15
+  - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
+    amount: 10
+  goldsToUpgrade: 1000
+  coinsToUpgrade: 10
+  generalLiquidContainer: 0
+  italianName: Mazza da baseball
+  maxStack: 1
+  buyPrice: 10000
+  sellPrice: 5000
+  sellable: 1
+  tradable: 1
+  destroyable: 1
+  toolTip: '
+
+
+'
+  image: {fileID: 21300000, guid: 2b81d82122404504f87a29594049d182, type: 3}
+  craftMinLevel: 0
+  minLevel: 0
+  cooldown: 0
+  _cooldownCategory: 
+  accuracy:
+    baseValue: 1
+    bonusPerLevel: 1
+  maxAccuracyLevel: 10
+  miss:
+    baseValue: 1
+    bonusPerLevel: 1
+  maxMissLevel: 10
+  armor:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxArmorLevel: 0
+  coverTemperature: 0
+  additionalSlot:
+    baseValue: 0
+    bonusPerLevel: 0
+  protectedSlot:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxBagLevel: 0
+  chargeMunition:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxChargeLevel: 0
+  ammoItems: []
+  poisonedAttack: 0
+  armorBreak: 0
+  electricWeapon: 0
+  firedWeapon: 0
+  maxWet: 0
+  clothes: {fileID: 1850600616112740, guid: 860ade0594eaba94d888d4073f07a490, type: 3}
+  animatorToSet: {fileID: 9100000, guid: d7fff420d4ece8348b4d123b099ea4aa, type: 2}
+  indexToSpawnWeapon: 3
+  indexHat: -1
+  indexAccessory: -1
+  indexShirt: -1
+  indexPants: -1
+  indexShoes: -1
+  ignorePants: 0
+  category: Weapon
+  healthBonus: 0
+  manaBonus: 0
+  damageBonus: 15
+  defenseBonus: 0
+  blockChanceBonus: 0
+  criticalChanceBonus: 0
+  sprites: []
+  distamceToGrab: 2
+  requiredSkill: {fileID: 11400000, guid: 4f7f036fa5389a342a607a4d90ae4860, type: 2}
+  requiredAmmo: {fileID: 0}
+  shotClip: {fileID: 8300000, guid: 6020fa240fb3c43ff8a4d8d3bd55a24b, type: 3}
+  reloadClip: {fileID: 0}
+  bullettDrops: {fileID: 0}

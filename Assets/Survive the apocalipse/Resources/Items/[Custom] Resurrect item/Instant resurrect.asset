@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ca52a2d0c310fc4ca4d26b3c6ed943a, type: 3}
+  m_Name: Instant resurrect
+  m_EditorClassIdentifier: 
+  Group: 
+  subGroup: 
+  ItemRarity: 0
+  isStealable: 0
+  isLostable: 0
+  maxWeightLevel: 0
+  maxWeight:
+    baseValue: 0
+    bonusPerLevel: 0
+  possibleBagWeight:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxDurability:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxDurabilityLevel: 0
+  goldPrice: 2500
+  coinPrice: 6
+  craftDescription: 
+  timeToCraft: 0
+  maxCarItemInventory: 30
+  repairTimer: 0
+  repairItems: []
+  goldsToRepair: 0
+  coinsToRepair: 0
+  upgradeTimer: 0
+  upgradeItems: []
+  goldsToUpgrade: 0
+  coinsToUpgrade: 0
+  generalLiquidContainer: 0
+  italianName: Resurrezione istantanea
+  maxStack: 1000
+  buyPrice: 0
+  sellPrice: 0
+  sellable: 0
+  tradable: 0
+  destroyable: 0
+  toolTip: 
+  image: {fileID: 21300000, guid: 27b8c0b017477e54db9288dfe2affcad, type: 3}
+  craftMinLevel: 0

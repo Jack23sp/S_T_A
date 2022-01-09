@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f3276a3272a4a5497f45d0b40febc9, type: 3}
+  m_Name: Glock armor breaker munition
+  m_EditorClassIdentifier: 
+  Group: 
+  subGroup: 
+  ItemRarity: 0
+  isStealable: 0
+  isLostable: 1
+  maxWeightLevel: 0
+  maxWeight:
+    baseValue: 1
+    bonusPerLevel: 0
+  possibleBagWeight:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxDurability:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxDurabilityLevel: 0
+  goldPrice: 10
+  coinPrice: 1
+  craftDescription: 
+  timeToCraft: 5
+  maxCarItemInventory: 0
+  repairTimer: 0
+  repairItems: []
+  goldsToRepair: 0
+  coinsToRepair: 0
+  upgradeTimer: 0
+  upgradeItems: []
+  goldsToUpgrade: 0
+  coinsToUpgrade: 0
+  generalLiquidContainer: 0
+  italianName: Munizioni glock perforanti
+  maxStack: 5000
+  buyPrice: 20
+  sellPrice: 10
+  sellable: 1
+  tradable: 1
+  destroyable: 1
+  toolTip: '
+
+'
+  image: {fileID: 21300000, guid: 8ce54a400836bd94fa03361c4ee0513f, type: 3}
+  craftMinLevel: 0
+  minLevel: 0
+  cooldown: 0
+  _cooldownCategory: 
+  accuracy:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxAccuracyLevel: 0
+  miss:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxMissLevel: 0
+  armor:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxArmorLevel: 0
+  coverTemperature: 0
+  additionalSlot:
+    baseValue: 0
+    bonusPerLevel: 0
+  protectedSlot:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxBagLevel: 0
+  chargeMunition:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxChargeLevel: 0
+  ammoItems: []
+  poisonedAttack: 0
+  armorBreak: 0
+  electricWeapon: 0
+  firedWeapon: 0
+  maxWet: 0
+  clothes: {fileID: 0}
+  category: Ammo
+  healthBonus: 0
+  manaBonus: 0
+  damageBonus: 8
+  defenseBonus: 0
+  blockChanceBonus: 0
+  criticalChanceBonus: 0
+  sprites: []
+  poisoned: 0
+  armorBreaker: 1
+  fired: 0

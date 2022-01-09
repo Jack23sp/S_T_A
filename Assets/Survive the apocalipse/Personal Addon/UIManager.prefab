@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9061030878584196254
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9061030878584196248}
+  - component: {fileID: 9061030878584196255}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9061030878584196248
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9061030878584196254}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 625.217, y: 111.03759, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9061030878584196255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9061030878584196254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6739e388defc8bf46be0569646720097, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  change:
+  - category: Normal
+    active: 1
+    changeUITypes:
+    - imageType: 0
+      spriteImg: {fileID: 21300000, guid: 1430e41db55d0410eae9ca1f4cfd6554, type: 3}
+    - imageType: 1
+      spriteImg: {fileID: 21300000, guid: a617980d22dbd13498ea4eaf68b85b0b, type: 3}
+    - imageType: 2
+      spriteImg: {fileID: 21300000, guid: d4c0d50c6039f4b89b1cd08c9d1b4c53, type: 3}
+    - imageType: 3
+      spriteImg: {fileID: 21300000, guid: 1430e41db55d0410eae9ca1f4cfd6554, type: 3}
+    - imageType: 4
+      spriteImg: {fileID: 21300000, guid: e54d4835eed401e47aa8b325f439a194, type: 3}
+    - imageType: 5
+      spriteImg: {fileID: 21300000, guid: dd52ce6f32a05b9488e754d97d6c236b, type: 3}
+    - imageType: 6
+      spriteImg: {fileID: 21300000, guid: d4c0d50c6039f4b89b1cd08c9d1b4c53, type: 3}
+    - imageType: 7
+      spriteImg: {fileID: 21300000, guid: 531ec83020de24b7f80dd45b4fca5db6, type: 3}
+    - imageType: 8
+      spriteImg: {fileID: 21300000, guid: d4c0d50c6039f4b89b1cd08c9d1b4c53, type: 3}
+    - imageType: 9
+      spriteImg: {fileID: 21300000, guid: 531ec83020de24b7f80dd45b4fca5db6, type: 3}
+    - imageType: 10
+      spriteImg: {fileID: 21300000, guid: d4c0d50c6039f4b89b1cd08c9d1b4c53, type: 3}
+    - imageType: 11
+      spriteImg: {fileID: 21300000, guid: aa80aa208f907a94d9b9199f4892a50d, type: 3}
+    - imageType: 12
+      spriteImg: {fileID: 21300000, guid: aa80aa208f907a94d9b9199f4892a50d, type: 3}
+    - imageType: 13
+      spriteImg: {fileID: 21300000, guid: 1430e41db55d0410eae9ca1f4cfd6554, type: 3}
+    - imageType: 14
+      spriteImg: {fileID: 21300000, guid: 431680e4c1d544238a4745d795cc0ac9, type: 3}
+    - imageType: 15
+      spriteImg: {fileID: 21300000, guid: 3e5224fe88e144f68b198fdee4a58b2d, type: 3}
+  fontStyle: {fileID: 12800000, guid: 29d1861da7232b847ad1337bd27c3113, type: 3}

@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18be07406029d49d1b7f4bde9b48d5d0, type: 3}
+  m_Name: Uzi
+  m_EditorClassIdentifier: 
+  Group: 
+  subGroup: 
+  ItemRarity: 0
+  isStealable: 0
+  isLostable: 1
+  maxWeightLevel: 0
+  maxWeight:
+    baseValue: 10
+    bonusPerLevel: 0
+  possibleBagWeight:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxDurability:
+    baseValue: 200
+    bonusPerLevel: 5
+  maxDurabilityLevel: 10
+  goldPrice: 300
+  coinPrice: 3
+  craftDescription: 
+  timeToCraft: 360
+  maxCarItemInventory: 0
+  repairTimer: 180
+  repairItems:
+  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+    amount: 15
+  - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
+    amount: 10
+  goldsToRepair: 500
+  coinsToRepair: 10
+  upgradeTimer: 180
+  upgradeItems:
+  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+    amount: 15
+  - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
+    amount: 10
+  goldsToUpgrade: 500
+  coinsToUpgrade: 10
+  generalLiquidContainer: 0
+  italianName: Uzi
+  maxStack: 1
+  buyPrice: 5000
+  sellPrice: 2500
+  sellable: 1
+  tradable: 1
+  destroyable: 1
+  toolTip: 
+  image: {fileID: 21300000, guid: 986b58a8482b216458e13073a98113f6, type: 3}
+  craftMinLevel: 0
+  minLevel: 0
+  cooldown: 0
+  _cooldownCategory: 
+  accuracy:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxAccuracyLevel: 0
+  miss:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxMissLevel: 0
+  armor:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxArmorLevel: 0
+  coverTemperature: 0
+  additionalSlot:
+    baseValue: 0
+    bonusPerLevel: 0
+  protectedSlot:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxBagLevel: 0
+  chargeMunition:
+    baseValue: 20
+    bonusPerLevel: 1
+  maxChargeLevel: 10
+  ammoItems:
+  - {fileID: 11400000, guid: f851488314b8a344cac3463bd4ddfe17, type: 2}
+  - {fileID: 11400000, guid: 3d20add4e74fd524294e54cc152d9231, type: 2}
+  - {fileID: 11400000, guid: ee1481c227c85ae45b4f6b6974c498f5, type: 2}
+  - {fileID: 11400000, guid: f93e4a810c755e84987d30607519d3b2, type: 2}
+  poisonedAttack: 0
+  armorBreak: 0
+  electricWeapon: 0
+  firedWeapon: 0
+  maxWet: 0
+  clothes: {fileID: 1095254202041702, guid: 6273e2936e9d6a24e9f64c7c70d6bd19, type: 3}
+  animatorToSet: {fileID: 9100000, guid: f88fa37837acf9b46ad2eed8c4adb2e4, type: 2}
+  indexToSpawnWeapon: 12
+  indexHat: -1
+  indexAccessory: -1
+  indexShirt: -1
+  indexPants: -1
+  indexShoes: -1
+  ignorePants: 0
+  category: Weapon
+  healthBonus: 0
+  manaBonus: 0
+  damageBonus: 13
+  defenseBonus: 0
+  blockChanceBonus: 0
+  criticalChanceBonus: 0
+  sprites: []
+  distamceToGrab: 0
+  requiredSkill: {fileID: 11400000, guid: 74889b2c6bafa1a468c1ba8c1e5aa577, type: 2}
+  requiredAmmo: {fileID: 0}
+  shotClip: {fileID: 8300000, guid: 5fd227551ee53d14c81c2ca57bbeec3e, type: 3}
+  reloadClip: {fileID: 8300000, guid: 62babbcf8fb42ec419bf20c813be6d7d, type: 3}
+  bullettDrops: {fileID: 8300000, guid: f6d45893723b58946933a188bbe9ef09, type: 3}
+  stopMusic: 1

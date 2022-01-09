@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48f16ec852cfc43438165ab2f523e128, type: 3}
+  m_Name: Let grown up abilities
+  m_EditorClassIdentifier: 
+  italianTitle: Facciamo salire le abilita'
+  toolTip: 
+  requiredLevel: 1
+  predecessor: {fileID: 0}
+  rewardGold: 375
+  rewardCoin: 20
+  rewardExperience: 20
+  rewardItem: {fileID: 0}
+  ability:
+  - ability: {fileID: 11400000, guid: 3a2f1d40bdf4d5a4fa3aa31d3c772424, type: 2}
+    level: 10
+    completed: 0
+  - ability: {fileID: 11400000, guid: fa5c67cbe19987a4b92af56fa42a631b, type: 2}
+    level: 10
+    completed: 0
+  Boosts: []
+  enterPremium: 0
+  createBuilding: 0
+  equipWeapon: 0
+  equipBag: 0
+  createGuild: 0
+  createParty: 0
+  makeGroupAlly: 0
+  drink: 0
+  eat: 0
+  run: 0
+  sneak: 0
+  makeMarriage: 0
+  sendAMessage: 0
+  buyEmoji: 0
+  openShop: 0
+  amountPlayerToKill: 0
+  amountWoodToGather: 0
+  amountRockToGather: 0
+  useTeleport: 0
+  useInstantResurrect: 0
+  makeATrade: 0
+  reachAmountOfFriends: 0
+  killZombie: []
+  buildingUpgrade: []
+  itemUpgrade: []
+  setSpawnpoint:
+    numberOfSpawnpointToCreate: 0
+  itemRewards: []
+  nextQuest: {fileID: 0}
+  gatherItem: {fileID: 0}
+  gatherAmount: 0

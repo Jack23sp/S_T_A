@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - 2d_object_generator_parent
+  - MinimapCamera
+  - Npc
+  - Obstacle
+  - Monster
+  - Pet
+  - Weapon
+  - Pants
+  - Shirt
+  - LootSlot
+  - JoyStick
+  - Bag
+  - Hair
+  - Eyes
+  - SkillsSlot
+  - InventorySlot
+  - TradingSlot
+  - TrashSlot
+  - Stars_Small
+  - Stars_Big
+  - Nebula
+  - EquipmentSlot
+  - SkillbarSlot
+  - ItemMallSlot
+  - Shoes
+  - QuestLocation
+  - Building
+  - WoodWall
+  - Mine
+  - FxTemporaire
+  - SpawnTrigger
+  - Gate
+  - PhysicalBodyPlayer
+  - ArcherPositioning
+  - Collide
+  - LocalPlayerVisibleOnly
+  - Canvas
+  - Grass
+  - GrassSetted
+  - Barbwire
+  - SpawnWallCollider
+  - Basement
+  - BasementSpawnpoint
+  - BasementParent
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Bulding
+  - Player
+  - Monster
+  - Decoration
+  - Decoration Checker
+  - Resource Manager
+  - Resource Manager Catcher
+  - WoodWallHorizontalPlacement
+  - WoodWallVerticalPlacement
+  - SpawnTrigger
+  - WoodWallHorizontalPlacementGate
+  - RenderPlayer
+  - MyRenderPlayer
+  - LocalPlayerVisibleOnly
+  - PuffAnimation
+  - GrassDetector
+  - Grass
+  - 
+  - 
+  - 
+  - BarbwireHorizontalPlacement
+  - BarbwireVerticalPlacement
+  - ColllideBase
+  - SpawnObjectInBase
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3325841
+    locked: 0
+  - name: Foreground
+    uniqueID: 201509443
+    locked: 0
+  - name: Placement
+    uniqueID: 2511048679
+    locked: 0
+  - name: Building
+    uniqueID: 3424602241
+    locked: 0
+  - name: Player
+    uniqueID: 1242795895
+    locked: 0
+  - name: Building_UP
+    uniqueID: 763793875
+    locked: 0
+  - name: Snow
+    uniqueID: 2319248743
+    locked: 0
+  - name: Puff
+    uniqueID: 1649855783
+    locked: 0

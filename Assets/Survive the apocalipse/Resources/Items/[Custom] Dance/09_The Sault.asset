@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eddf84969a87eb14099e8036b3a6263c, type: 3}
+  m_Name: 09_The Sault
+  m_EditorClassIdentifier: 
+  animator: {fileID: 9100000, guid: 368675b5ad4d805458c3308b5cc65ef1, type: 2}
+  coinToBuy: 100
+  goldToBuy: 2500
+  maleImage: {fileID: 21300000, guid: 9b4e5db0893ec6948aa26858d443575b, type: 3}
+  femaleImage: {fileID: 21300000, guid: bb4e04703e0e173428ad0f96d9edab66, type: 3}

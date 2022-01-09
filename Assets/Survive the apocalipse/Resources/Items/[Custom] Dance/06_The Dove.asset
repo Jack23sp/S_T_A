@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eddf84969a87eb14099e8036b3a6263c, type: 3}
+  m_Name: 06_The Dove
+  m_EditorClassIdentifier: 
+  animator: {fileID: 9100000, guid: 224c1ed2df1a79d4e8830c49ce8ac240, type: 2}
+  coinToBuy: 100
+  goldToBuy: 2500
+  maleImage: {fileID: 21300000, guid: 534969c89378d8f4d847ba5c2c4e88ad, type: 3}
+  femaleImage: {fileID: 21300000, guid: 7a15d1f56d71b3b4ea0b86ac8518fb45, type: 3}

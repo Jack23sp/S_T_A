@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 182471f527d59574fbc682374ac36599, type: 3}
+  m_Name: Mushrooms
+  m_EditorClassIdentifier: 
+  Group: 
+  subGroup: 
+  ItemRarity: 0
+  isStealable: 0
+  isLostable: 1
+  maxWeightLevel: 0
+  maxWeight:
+    baseValue: 3
+    bonusPerLevel: 0
+  possibleBagWeight:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxDurability:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxDurabilityLevel: 0
+  goldPrice: 60
+  coinPrice: 1
+  craftDescription: '
+
+'
+  timeToCraft: 0
+  maxCarItemInventory: 0
+  repairTimer: 0
+  repairItems: []
+  goldsToRepair: 0
+  coinsToRepair: 0
+  upgradeTimer: 0
+  upgradeItems: []
+  goldsToUpgrade: 0
+  coinsToUpgrade: 0
+  generalLiquidContainer: 0
+  italianName: Funghi
+  maxStack: 100
+  buyPrice: 10
+  sellPrice: 5
+  sellable: 1
+  tradable: 1
+  destroyable: 1
+  toolTip: 
+  image: {fileID: 21300000, guid: da9be85c44bbb6a41a8eb1660947d3f7, type: 3}
+  craftMinLevel: 0
+  minLevel: 0
+  cooldown: 0
+  _cooldownCategory: 
+  GrowAmount: 0.05
+  GrowInterval: 3
+  GrowSeason: Spring
+  scaleDimension: {x: 1, y: 1}
+  maxSeeds: 2
+  plantAmountHarvest: 5
+  harvestPlant: {fileID: 11400000}
+  harvestSeeds: {fileID: 11400000}
+  foodToAdd: 7
+  waterToAdd: 0

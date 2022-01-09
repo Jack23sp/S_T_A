@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eddf84969a87eb14099e8036b3a6263c, type: 3}
+  m_Name: 01_The Vice
+  m_EditorClassIdentifier: 
+  animator: {fileID: 9100000, guid: f738ee3ecdc05594c99316c4b42edbc0, type: 2}
+  coinToBuy: 100
+  goldToBuy: 2500
+  maleImage: {fileID: 21300000, guid: 2eafc227b0914184d8ca2830a97e0323, type: 3}
+  femaleImage: {fileID: 21300000, guid: b6b88519ce8e3e447a40b4c0d717f20b, type: 3}

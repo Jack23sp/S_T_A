@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4403857630713749939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4403857630713749941}
+  - component: {fileID: 4403857630713749943}
+  - component: {fileID: 4403857630713749940}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4403857630713749941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4403857630713749939}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 367.7534, y: 241.67131, z: -3.4375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4403857630713749943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4403857630713749939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serverOnly: 0
+  m_AssetId: 
+  m_SceneId: 0
+--- !u!114 &4403857630713749940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4403857630713749939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23041abd781807748ad8e799072ec7a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  season: Winter
+  nextSeason: 
+  isComing: 0
+  actualSafeTemperature: 0
+  time: 
+  colorSync: 
+  isRainy: 0
+  isWindy: 0
+  isSunny: 0
+  isSnowy: 0
+  seconds: 0
+  minutes: 0
+  hours: 0
+  days: 0
+  WinterDayDuration: 3
+  SpringDayDuration: 3
+  SummerDuration: 3
+  AutumnDayDuration: 3
+  winterSunset: 8
+  winterLightestPoint: 13
+  winterSunrise: 16
+  springSunset: 7
+  springLightestPoint: 12
+  springSunrise: 17
+  summerSunset: 6
+  summerLightestPoint: 12
+  summerSunrise: 21
+  autumunSunset: 8
+  autumunLightestPoint: 13
+  autumunSunrise: 16
+  requiredCoverWinter: 1
+  requiredCoverSpring: 0.5
+  requiredCoverSummer: 0.2
+  requiredCoverAutumn: 0.6
+  winter: Winter
+  spring: Spring
+  summer: Summer
+  autumn: Autumn
+  winterProbabilityOfRainStart: 0
+  winterProbabilityOfRainEnd: 0.5
+  winterProbabilityOfSunStart: 0.51
+  winterProbabilityOfSunEnd: 0.6
+  winterProbabilityOfSnowStart: 0.61
+  winterProbabilityOfSnowEnd: 1
+  winterProbabilityWindy: 0.3
+  springProbabilityOfRainStart: 0
+  springProbabilityOfRainEnd: 0.3
+  springProbabilityOfSunStart: 0.31
+  springProbabilityOfSunEnd: 1
+  springProbabilityOfSnowStart: -1
+  springProbabilityOfSnowEnd: -1
+  springProbabilityWindy: 0.1
+  summerProbabilityOfRainStart: 0
+  summerProbabilityOfRainEnd: 0.2
+  summerProbabilityOfSunStart: 0.21
+  summerProbabilityOfSunEnd: 1
+  summerProbabilityOfSnowStart: -1
+  summerProbabilityOfSnowEnd: -1
+  summerProbabilityWindy: 0.1
+  autumnProbabilityOfRainStart: 0
+  autumnProbabilityOfRainEnd: 0.6
+  autumnProbabilityOfSunStart: 0.61
+  autumnProbabilityOfSunEnd: 1
+  autumnProbabilityOfSnowStart: -1
+  autumnProbabilityOfSnowEnd: -1
+  autumnProbabilityWindy: 0.3
+  sunsetSunriseColor: {r: 0, g: 1, b: 0.043819427, a: 1}
+  halfDayColor: {r: 1, g: 0, b: 0, a: 1}
+  MidnightColor: {r: 0, g: 0, b: 0, a: 1}
+  desiredColor: {r: 0, g: 0, b: 0, a: 1}
+  smooth: 100
+  changeTime: []

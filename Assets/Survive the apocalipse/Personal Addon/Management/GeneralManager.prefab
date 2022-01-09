@@ -1,0 +1,561 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2637610271925382507
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2637610271925382509}
+  - component: {fileID: 2637610271925382506}
+  m_Layer: 0
+  m_Name: GeneralManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2637610271925382509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2637610271925382507}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 779.4533, y: 112.24737, z: -25.936863}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2637610271925382506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2637610271925382507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e5c9584f20c0604a925597e6bdc0b60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingSensibility: 0.1
+  buildingManager: {fileID: 4172794196791113430, guid: 2b79cb56e85fff54898b7e7aac4fd81d,
+    type: 3}
+  attackManager: {fileID: 5044455699621956805, guid: 6f9ed19df7345bb4c8aca8d1fac2ed23,
+    type: 3}
+  buildingCheckObstacle:
+    serializedVersion: 2
+    m_Bits: 3840
+  buildingCountdown:
+  - building: {fileID: 11400000, guid: e041f1fb1c82ff642b2bc6ce70308b3a, type: 2}
+    countdownEachLevel:
+      baseValue: 30
+      bonusPerLevel: 5
+  - building: {fileID: 11400000, guid: f57e99231d1ebb34aac9f5cdd8a47093, type: 2}
+    countdownEachLevel:
+      baseValue: 30
+      bonusPerLevel: 5
+  - building: {fileID: 11400000, guid: f2895a8e5a714b2428c181449eda82b9, type: 2}
+    countdownEachLevel:
+      baseValue: 75
+      bonusPerLevel: 18
+  buildingExperience: 0
+  spawnedBuildingObject: {fileID: 0}
+  spawnedAttackObject: {fileID: 0}
+  canSpawn: {r: 0, g: 1, b: 0.052033424, a: 0.76862746}
+  notSpawn: {r: 1, g: 0, b: 0, a: 0.76862746}
+  canvas: {fileID: 0}
+  buttonDungeon:
+    placeToSpawn: {fileID: 0}
+    entity: {fileID: 0}
+    objectToSpawn: {fileID: 7158786679747202441, guid: 2ee4cbbec7b1caa4883a202bd16beab0,
+      type: 3}
+  dungeonTeleport:
+  - npc: {fileID: 0}
+    teleportPoint: {fileID: 0}
+  emojiSpawner:
+    placeToSpawn: {fileID: 0}
+    entity: {fileID: 0}
+    objectToSpawn: {fileID: 6612976049848337670, guid: a02b00040ca738f4ebe7b9799a31d681,
+      type: 3}
+  listCompleteOfBoost:
+  - {fileID: 11400000, guid: 4efaa6ecee6ea3948ae7b55ea4f7ace5, type: 2}
+  listCompleteOfEmoji:
+  - {fileID: 11400000, guid: e901f099941001948ae436a96b32da3d, type: 2}
+  - {fileID: 11400000, guid: 8288ca333263b14479de30996b37e3ab, type: 2}
+  emojiToSpawn: {fileID: 7045690215827679474, guid: c9429b40cf207ad4dbac41190bf50591,
+    type: 3}
+  premiumZoneSpawn: {x: 0, y: 0}
+  ticketImage: {fileID: 21300000, guid: 08344df6af628495895d418c53ce126c, type: 3}
+  radioImg: {fileID: 21300000, guid: 39236856a8f6a401f8bddefef9e24729, type: 3}
+  torchImg: {fileID: 21300000, guid: 1b7175db89ad4413891e374b8d49597d, type: 3}
+  torchInvoke: 100
+  radioInvoke: 60
+  boostInvoke: 1
+  unsanityInvoke: 60
+  hungryInvoke: 60
+  poisoningInvoke: 60
+  thirstyInvoke: 60
+  temperatureInvoke: 60
+  prefered: {fileID: 21300000, guid: 156c6c860c11543648721bc9b3d22ad0, type: 3}
+  notPrefered: {fileID: 21300000, guid: 5f3791aa2fa5f468bb767e805b5e4922, type: 3}
+  Instantresurrect: {fileID: 11400000, guid: efcd52c07805b4550930638bb90d380c, type: 2}
+  spawnpointPanelToCreate: {fileID: 1600881697048282700, guid: 794a14a78ac058545a9148ea50e4ae2b,
+    type: 3}
+  messageInDescription: You cannot set a spawnpoint when dead or when in dungeon
+    or in premium zone.
+  chestItem: {fileID: 1862907754274882, guid: 0fb8e7923eff39d47a2ae0345cd9c1da, type: 3}
+  uiChestPanel: {fileID: 8577683055255909237, guid: 9d6cc7d73d628cd4a90a088764df2b48,
+    type: 3}
+  spawnAtStart: {fileID: 1199, guid: a26b2b1beb4371b4f879d1dbca8d1ded, type: 3}
+  tradingPanelToSpawn: {fileID: 6710798200551898906, guid: e855f9311c59bf24e9514c91b48fffbe,
+    type: 3}
+  spawnedTradingPanel: {fileID: 0}
+  abilityList:
+  - {fileID: 11400000, guid: 808c9ed661edf9e41bf08f9485600888, type: 2}
+  allianceAbility: {fileID: 11400000, guid: 808c9ed661edf9e41bf08f9485600888, type: 2}
+  conservativeAbility: {fileID: 11400000, guid: 808c9ed661edf9e41bf08f9485600888,
+    type: 2}
+  spawnpointAbility: {fileID: 11400000, guid: 808c9ed661edf9e41bf08f9485600888, type: 2}
+  stealAbility: {fileID: 11400000, guid: 808c9ed661edf9e41bf08f9485600888, type: 2}
+  firedEffectToSpawnAtPlayer: {fileID: 1987394715921876, guid: 55e51ce29f07544b98f55e8da33e201c,
+    type: 3}
+  firedDamage: 10
+  cycleAmountFireToAdd: 3
+  firePlayerInvoke: 2
+  electricDamage: 10
+  cycleAmountElectricToAdd: 3
+  electricPlayerInvoke: 2
+  armor: {fileID: 21300000, guid: 156c6c860c11543648721bc9b3d22ad0, type: 3}
+  health: {fileID: 21300000, guid: 39236856a8f6a401f8bddefef9e24729, type: 3}
+  adrenaline: {fileID: 21300000, guid: 496c3159dd4584e3c8bd5b886097f454, type: 3}
+  damage: {fileID: 21300000, guid: 842edca4295084a5fb84bf99699adcda, type: 3}
+  defense: {fileID: 21300000, guid: 02ea833e3a0b840549de62d868b1932d, type: 3}
+  accuracy: {fileID: 21300000, guid: 5f3791aa2fa5f468bb767e805b5e4922, type: 3}
+  miss: {fileID: 21300000, guid: c89e207b9261246a591f7c0709c6cacd, type: 3}
+  critPerc: {fileID: 21300000, guid: 1d886492699df438f90ebc31f33f1307, type: 3}
+  weight: {fileID: 21300000, guid: 12c88845cc65f4c2f83608de60569403, type: 3}
+  poisoned: {fileID: 21300000, guid: cb7d494e3bd2a4dff83f6ddc3e7ce638, type: 3}
+  hungry: {fileID: 21300000, guid: 8d22fd8d10b8645d7a8d348159aa5e30, type: 3}
+  thirsty: {fileID: 21300000, guid: cfbe8d32bbe794097ada11a240f123b9, type: 3}
+  marriage: {fileID: 21300000, guid: 2bf13d00a7d534ad886959c28fe0fa21, type: 3}
+  activeBoost: {fileID: 21300000, guid: 9bfb0da6051d94d318c09fe6b9c6a2b5, type: 3}
+  defenseBonus: {fileID: 21300000, guid: 1b7175db89ad4413891e374b8d49597d, type: 3}
+  healthBonus: {fileID: 21300000, guid: 08344df6af628495895d418c53ce126c, type: 3}
+  damageBonus: {fileID: 21300000, guid: 590c9ec1f8e2c46599799b103c07a758, type: 3}
+  marriageHealth: 5
+  marriageDefense: 10
+  marriageDamage: 15
+  activeMarriageBonusPerc: 0.3
+  marriageRemovePanel: {fileID: 1694, guid: 493f0dcca96844349bcb219a5df084b0, type: 3}
+  alreadyRefresh: 0
+  buildingSpawn:
+  - building: {fileID: 11400000, guid: 9dbb9e7e27e64934598651b32277caa1, type: 2}
+    uiToSpawn: {fileID: 8181955524529407568, guid: b23ecabcb1904ad4fa5cbf6d59dcee6c,
+      type: 3}
+  - building: {fileID: 11400000, guid: 02d6901c41f2e4542b90e1d18751f830, type: 2}
+    uiToSpawn: {fileID: 6475038616784378831, guid: 32077769ff9772044936c30d6189bdea,
+      type: 3}
+  - building: {fileID: 11400000, guid: f2895a8e5a714b2428c181449eda82b9, type: 2}
+    uiToSpawn: {fileID: 6475038616784378831, guid: f08ee411b20871e4e8a06040d454e627,
+      type: 3}
+  - building: {fileID: 11400000, guid: e041f1fb1c82ff642b2bc6ce70308b3a, type: 2}
+    uiToSpawn: {fileID: 6475038616784378831, guid: 8dd392cf3b5a32048bfdecc9fae8ad63,
+      type: 3}
+  - building: {fileID: 11400000, guid: a64b0ed5f5ff01a4d834baa2d6128b99, type: 2}
+    uiToSpawn: {fileID: 6475038616784378831, guid: 10c1ec66423c3904eaed29f6ca9cf670,
+      type: 3}
+  - building: {fileID: 11400000, guid: a05edde3e4032fc46868a0221bb72c40, type: 2}
+    uiToSpawn: {fileID: 8371108985228370418, guid: 039ca5fd3cd68bc44b228c412f8d1bb8,
+      type: 3}
+  - building: {fileID: 11400000, guid: 3167279e4dbfb6047940661d9a0a1311, type: 2}
+    uiToSpawn: {fileID: 6475038616784378831, guid: 208209aafc008f54c875d8b71a494dc5,
+      type: 3}
+  - building: {fileID: 11400000, guid: 40d10e005330b9444b26787b0ccaf6e4, type: 2}
+    uiToSpawn: {fileID: 6841937431231828959, guid: 26f817585381ad645b7dd80dcce9133c,
+      type: 3}
+  - building: {fileID: 11400000, guid: 588f0918547c33f4ea1e358f5245480b, type: 2}
+    uiToSpawn: {fileID: 6841937431231828959, guid: 852598034c66d2c4e811fa842114d5fa,
+      type: 3}
+  - building: {fileID: 11400000, guid: 02d6901c41f2e4542b90e1d18751f830, type: 2}
+    uiToSpawn: {fileID: 6475038616784378831, guid: 32077769ff9772044936c30d6189bdea,
+      type: 3}
+  - building: {fileID: 11400000, guid: 8b94bd72549b74740b50830ea04e0b86, type: 2}
+    uiToSpawn: {fileID: 6475038616784378831, guid: 78b37686296ad7948b19af422883f345,
+      type: 3}
+  - building: {fileID: 11400000, guid: d06b0d292b4bf1e44823e1b6ca630e70, type: 2}
+    uiToSpawn: {fileID: 2945250111266371172, guid: 184ecfea6c0ea8849ab909a6e3da83d6,
+      type: 3}
+  runMultiplier: 1.5
+  sneakMultiplier: 0.5
+  normalMultiplier: 1
+  initialSpeed: 3
+  carMultiplier: 2.5
+  maxFriends: 20
+  maxFriendRequest: 20
+  onlineColor: {r: 0, g: 0, b: 0, a: 0}
+  offlineColor: {r: 0, g: 0, b: 0, a: 0}
+  friendMessageInvite: {fileID: 1506, guid: 9dff67262c0e93741934fb8f76410d10, type: 3}
+  spawnedUIInvite: {fileID: 0}
+  allAnimal:
+  - {fileID: 11400000, guid: b870c1248c069104cbece07fe285f19d, type: 2}
+  - {fileID: 11400000, guid: 086dff9857136c344b26e3f3580eaa19, type: 2}
+  - {fileID: 11400000, guid: 1109bc9dad0f50248b45b9ecb02686b7, type: 2}
+  - {fileID: 11400000, guid: cad366b77f919194e9048b92b7ce3dcf, type: 2}
+  issueSuggestion: {fileID: 6841937431231828959, guid: c20a1c9ec86397544ad9120a4613d350,
+    type: 3}
+  maxBlood: 150
+  decreaseBloodTimer: 5
+  itemMallPanel: {fileID: 2313618620676622502, guid: 991fd6d5229397240b377cd4bfcaa7cd,
+    type: 3}
+  uiItemMallPanel: {fileID: 0}
+  selectedItemMallPanel: {fileID: 6841937431231828959, guid: 446c2c22f72af544c8de8fa3385709a5,
+    type: 3}
+  ListRewards:
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 7c79c11de18f2441c88df3e38606ccda, type: 2}
+      amount: 5
+    - item: {fileID: 0}
+      amount: 10
+    gold: 1000
+    coins: 13
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  - name: 
+    reward: []
+    gold: 0
+    coins: 0
+  buildingItems:
+  - specificBuilding: {fileID: 11400000, guid: 9dbb9e7e27e64934598651b32277caa1, type: 2}
+    buildingItem:
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 8c3bd80b7ac42b4429174caff2e70af7, type: 2}
+        amount: 5
+      buildingLevel: 1
+      craftablengredient:
+      - item: {fileID: 11400000, guid: b870c1248c069104cbece07fe285f19d, type: 2}
+        amount: 1
+  alreadyCraftPanel: {fileID: 5905771984717760873, guid: bb2d832021083bf41998751ec9306995,
+    type: 3}
+  carPanelToSpawn: {fileID: 6841937431231828959, guid: 7a522303e0acbf5479f915ff1c9ff029,
+    type: 3}
+  passengerDummy: {fileID: 8709346954376842307, guid: 52e246a47cc0d944c8ba9aa308011c3a,
+    type: 3}
+  carManager: {fileID: 6841937431231828959, guid: 7049f9324248a5245a302a38bd7589d4,
+    type: 3}
+  carInventory: {fileID: 6475038616784378831, guid: 45cd422dece5f244a88bf0d39e1eacfe,
+    type: 3}
+  gasolineDecreaseTimer: 1
+  carItem:
+  - car: {fileID: 11400000, guid: 390829d9bbc5b3c4081973d3b526a343, type: 2}
+    carItems:
+    - {fileID: 11400000, guid: 38cf787e5075f420a94548551ce92f7f, type: 2}
+    - {fileID: 11400000, guid: efcd52c07805b4550930638bb90d380c, type: 2}
+    - {fileID: 11400000, guid: ff3a0b3446ea94daaad3be97b3a3d15e, type: 2}
+  plants: []
+  rocks:
+  - resource: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+    allowedWeapons:
+    - {fileID: 11400000, guid: 7d021443f7d35d2418ec93bf3676ef3d, type: 2}
+    normalRewards: {fileID: 11400000, guid: efcd52c07805b4550930638bb90d380c, type: 2}
+    specialRewards: {fileID: 11400000, guid: 38cf787e5075f420a94548551ce92f7f, type: 2}
+    superSpecialRewards: {fileID: 11400000, guid: 26b404de2c160499bab1fcda06a555f4,
+      type: 2}
+  damageToResource: 10
+  trees:
+  - resource: {fileID: 11400000, guid: 86fdf51535ad9284caa7dd04de2a86fc, type: 2}
+    allowedWeapons:
+    - {fileID: 0}
+    normalRewards: {fileID: 11400000, guid: 0673a99a171f7418e918fed69b37622c, type: 2}
+    specialRewards: {fileID: 11400000, guid: efcd52c07805b4550930638bb90d380c, type: 2}
+    superSpecialRewards: {fileID: 11400000, guid: 38cf787e5075f420a94548551ce92f7f,
+      type: 2}
+  playerItems:
+  - resource: {fileID: 0}
+    allowedWeapons:
+    - {fileID: 11400000, guid: 7d021443f7d35d2418ec93bf3676ef3d, type: 2}
+    normalRewards: {fileID: 0}
+    specialRewards: {fileID: 0}
+    superSpecialRewards: {fileID: 0}
+  resourceRewardImage:
+  - resourceType: RockNormal
+    spriteImage: {fileID: 21300000, guid: c89e207b9261246a591f7c0709c6cacd, type: 3}
+  - resourceType: TreeNormal
+    spriteImage: {fileID: 21300000, guid: 9a720ade646914885b49c192a8a70f72, type: 3}
+  - resourceType: PlantNormal
+    spriteImage: {fileID: 21300000, guid: bf1a404bdf15344abbc4c0e4d89e48c9, type: 3}
+  plantPoint: 1
+  rockPoint: 2
+  treePoint: 3
+  monsterPoint: 4
+  bossKill: 5
+  upgradeItemPoint: 6
+  craftItemPoint: 7
+  playerPoint: 8
+  buyBoostPoint: 9
+  buildingCreatePoint: 10
+  buildingClaimPoint: 11
+  buildingUpgradePoint: 12
+  buildingRepaorPoint: 13
+  buildingCutPoint: 0
+  personalPoints: 1000
+  groupPoint: 1000
+  AlliancePoint: 50000000
+  leaderboardReward:
+  - personalPoint: 10
+    groupPoint: 0
+    allyPoint: 0
+    items: {fileID: 11400000, guid: e359f64305d0a6c409b47ba7af8a8c6e, type: 2}
+    amount: 3
+  - personalPoint: 0
+    groupPoint: 20
+    allyPoint: 0
+    items: {fileID: 11400000, guid: 28e020df4f1fa449dafcad0216c8403b, type: 2}
+    amount: 2
+  - personalPoint: 0
+    groupPoint: 0
+    allyPoint: 30
+    items: {fileID: 0}
+    amount: 5
+  leaderboardPanelToSpawn: {fileID: 1200, guid: ab1ddf1d5214659489ea901d8826eb18,
+    type: 3}
+  personalColor: {r: 0.039850973, g: 1, b: 0.0047169924, a: 1}
+  groupColor: {r: 1, g: 0.23113209, b: 0.23113209, a: 1}
+  allyClor: {r: 1, g: 0.9780377, b: 0, a: 1}
+  maxBeeForContainer: 200
+  maxHoneyForContainer: 200
+  maxBeeForHours: 11
+  beeInvoke: 40000
+  levelWater:
+    baseValue: 123
+    bonusPerLevel: 5
+  waterInvoke: 5
+  intervalPregnantGrow: 10
+  intervalYear: 30
+  intervalWater: 0
+  intervalFood: 0
+  intervalDistanceBetweenSex: 5
+  intervalTake: 1
+  intervalCheckAfterDeath: 10
+  intervalGrownPlant: 1
+  intervalConsumeWoodCampfire: 5
+  intervalCookCampfire: 5
+  intervalDryCampfire: 30
+  intervalIllness: 10
+  addAnimalPanel: {fileID: 5224675453256505908, guid: e24e91f5f2715924cbaa9b9ddfad5e07,
+    type: 3}
+  animalListPanel: {fileID: 5224675453256505908, guid: 74c1e87d10f61ce4f992883e3c991f29,
+    type: 3}
+  cow: 2
+  horse: 2
+  sheep: 5
+  pig: 3
+  chicken: 10
+  contentAnimalChild: {fileID: 1801037487391204124, guid: 2ad847f826e265a43b4878e28057d758,
+    type: 3}
+  animalImage:
+  - currentAnimal: {fileID: 11400000, guid: b870c1248c069104cbece07fe285f19d, type: 2}
+    fatherImage:
+      leftImage: {fileID: 21300000, guid: 156c6c860c11543648721bc9b3d22ad0, type: 3}
+      rightImage: {fileID: 21300000, guid: 39236856a8f6a401f8bddefef9e24729, type: 3}
+    childImage:
+      leftImage: {fileID: 21300000, guid: cfbe8d32bbe794097ada11a240f123b9, type: 3}
+      rightImage: {fileID: 21300000, guid: 1b7175db89ad4413891e374b8d49597d, type: 3}
+  - currentAnimal: {fileID: 11400000, guid: 086dff9857136c344b26e3f3580eaa19, type: 2}
+    fatherImage:
+      leftImage: {fileID: 21300000, guid: 91c77b10cac2b408a9247ca012c1b939, type: 3}
+      rightImage: {fileID: 21300000, guid: 590c9ec1f8e2c46599799b103c07a758, type: 3}
+    childImage:
+      leftImage: {fileID: 21300000, guid: 97295df96b2374edf8af419cea534021, type: 3}
+      rightImage: {fileID: 21300000, guid: 34978b719a1b54ef09a7656745d13047, type: 3}
+  buildingManagerPanel: {fileID: 6475038616784378831, guid: 4002e257ac56eca4190cdf13e8dcaa42,
+    type: 3}
+  plantSelectorPanel: {fileID: 6475038616784378831, guid: 8c4ce5d9a5d7fc844a86d197d76fae72,
+    type: 3}
+  groupWarehouseSlot: 50
+  personalWarehouseSlot: 100
+  itemSpawner:
+  - items: {fileID: 11400000, guid: 38cf787e5075f420a94548551ce92f7f, type: 2}
+    amount: 5
+  - items: {fileID: 11400000, guid: efcd52c07805b4550930638bb90d380c, type: 2}
+    amount: 8
+  - items: {fileID: 11400000, guid: 7c79c11de18f2441c88df3e38606ccda, type: 2}
+    amount: 2
+  maxItemInWorldHouse: 7
+  intervalCheckWorldHouse: 1
+  maxGasStationGasoline: 5000
+  explosionPrefab: {fileID: 1987394715921876, guid: 55e51ce29f07544b98f55e8da33e201c,
+    type: 3}
+  affectedByMineExplosion:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  mineDamage:
+    baseValue: 70
+    bonusPerLevel: 0
+  nearEntityExplosionRange: 3
+  confirmDeletePanel: {fileID: 8886715316965372330, guid: 05263f9e913cd564ba1cc0bb8da80bf9,
+    type: 3}
+  totemPrefab: {fileID: 6475038616784378831, guid: 78b37686296ad7948b19af422883f345,
+    type: 3}
+  uiTotem: {fileID: 0}
+  amountToDryWithCampfire: 0
+  woodAmount:
+    baseValue: 30
+    bonusPerLevel: 10
+  maxCookedAmount:
+    baseValue: 5
+    bonusPerLevel: 0
+  cookedItemPanel: {fileID: 6475038616784378831, guid: 9adb2e2ab829a964ea4abc191f61bbd1,
+    type: 3}
+  campfireLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  auctionHousePanel: {fileID: 1165934152068870, guid: 54d2291de2f623a4083ffcd2ae2f3aeb,
+    type: 3}
+  teslaDamage:
+    baseValue: 1
+    bonusPerLevel: 1
+  upgradeRepairMaterialPanel: {fileID: 9063535281153156210, guid: c6896f8debde1e3458d262734cf23048,
+    type: 3}
+  upgradebuyMaterial: {fileID: 6841937431231828959, guid: 5e62122b04d72d24481dfbb3578d10fe,
+    type: 3}
+  illnessImage: {fileID: 21300000, guid: 590c9ec1f8e2c46599799b103c07a758, type: 3}
+  wetImage: {fileID: 21300036, guid: 7aec6926d2f40475fb928cf6354a6060, type: 3}
+  temperatureImage: {fileID: 21300040, guid: bc2a9e6f563d44bb6a44fec40dcc1558, type: 3}
+  coinsImage: {fileID: 21300040, guid: 57539dfb4705943fb849661279492410, type: 3}
+  goldImage: {fileID: 21300194, guid: 8fe1a28a11d43499c9bfb7c7c1182f81, type: 3}
+  decreaseHealthIfIllness: 30
+  characterCreationPanel: {fileID: 2278860575543273085, guid: 6a397cad91142d94cbfb6a28dfd6a841,
+    type: 3}
+  playerRank:
+  - points: 1
+    rankImage: {fileID: 21300000, guid: 1c1bef4b40e990c42aed6432ebd324ef, type: 3}
+  - points: 4
+    rankImage: {fileID: 21300000, guid: 87258a2e98839004986e33d9a04e825e, type: 3}
+  - points: 10
+    rankImage: {fileID: 21300000, guid: 03e3778d7fcbf9243a5787a6adac408f, type: 3}
+  guildInvite: {fileID: 0}
+  guildAllyInvite: {fileID: 0}
+  partnerInvite: {fileID: 0}
+  partyInvite: {fileID: 0}
+  tradeInvite: {fileID: 0}
