@@ -1891,7 +1891,7 @@ public partial class Player : Entity
                     }
                 }
 
-                if (itemData is FoodItem)
+                if (itemData is FoodItem || itemData is ScriptablePlant)
                 {
                     for (int i = 0; i < quests.Count; i++)
                     {
@@ -1902,6 +1902,7 @@ public partial class Player : Entity
                             quests[i] = quest;
                         }
                     }
+                    playerMove.TargetSetEatAnimation(connectionToClient);
                 }
 
                 if (itemData is TeleportItem)
@@ -4209,7 +4210,7 @@ public partial class Player : Entity
                     }
                     quests[i] = quest;
                 }
-
+                playerMove.Drink();
             }
         }
         else
@@ -4231,7 +4232,7 @@ public partial class Player : Entity
                     }
                     quests[i] = quest;
                 }
-
+                playerMove.Drink();
             }
 
         }

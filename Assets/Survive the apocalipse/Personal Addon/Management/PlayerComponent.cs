@@ -2887,7 +2887,11 @@ public partial class PlayerMove
 
     public Vector3 positioningVector = new Vector3(7.960999f, -1.264f, 7.457145f);
 
-    // Start is called before the first frame update
+    [SyncVar]
+    public bool drink;
+    [SyncVar]
+    public bool eat;
+
     void Start()
     {
         player.agent.speed = GeneralManager.singleton.initialSpeed;
@@ -3280,10 +3284,59 @@ public partial class PlayerMove
     {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(player.transform.position, 15.0f);
+    }
 
+    public void Drink()
+    {
+        CancelInvoke(nameof(StopDrink));
+        drink = true;
+        Invoke(nameof(StopDrink), 3.0f);
+        player.agent.ResetPath();
+        TargetSetDrinkAnimation(player.connectionToClient);
+    }
+
+    public void StopDrink()
+    {
+        drink = false;
+    }
+
+    public void Eat()
+    {
+        CancelInvoke(nameof(StopEat));
+        eat = true;
+        player.agent.ResetPath();
+        Invoke(nameof(StopEat), 3.0f);
+        TargetSetEatAnimation(player.connectionToClient);
+    }
+
+    public void StopEat()
+    {
+        eat = false;
+    }
+
+    [TargetRpc]
+    public void TargetSetDrinkAnimation(NetworkConnection connection)
+    {
+        Player player = connection.identity.GetComponent<Player>();
+
+        for (int i = 0; i < player.animators.Count; i++)
+        {
+            player.animators[i].Play("Item-Drink");
+        }
+    }
+
+    [TargetRpc]
+    public void TargetSetEatAnimation(NetworkConnection connection)
+    {
+        Player player = connection.identity.GetComponent<Player>();
+
+        for (int i = 0; i < player.animators.Count; i++)
+        {
+            player.animators[i].Play("Item-Eat");
+        }
     }
 }
-// testato
+
 public partial class PlayerFriend
 {
     public Player player;
@@ -4962,7 +5015,7 @@ public partial class PlayerBelt
                     }
                 }
 
-                if (itemData is FoodItem)
+                if (itemData is FoodItem || itemData is ScriptablePlant)
                 {
                     for (int i = 0; i < player.quests.Count; i++)
                     {
@@ -4973,6 +5026,7 @@ public partial class PlayerBelt
                             player.quests[i] = quest;
                         }
                     }
+                    player.playerMove.TargetSetEatAnimation(connectionToClient);
                 }
 
                 if (itemData is TeleportItem)
@@ -5888,6 +5942,20 @@ public partial class PlayerInjury : NetworkBehaviour
         }
         if (player.isClient)
             InvokeRepeating(nameof(SetInjuredState), 1.0f, 1.0f);
+        else
+            InvokeRepeating(nameof(CheckInjuredState), 0.6f, 0.6f);
+    }
+
+    public void CheckInjuredState()
+    {
+        if (player.HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc)
+        {
+            injured = true;
+        }
+        else
+        {
+            injured = false;
+        }
     }
 
     public void SetInjuredState()

@@ -433,8 +433,7 @@ public class GeneralManager : MonoBehaviour
     //public GameObject customPanel;
     //public GameObject basementPlacer;
     //public List<ScriptableBuilding> verticalWall;
-    //public List<ScriptableBuilding> horizontalWall;
-
+    //public List<ScriptableBuilding> horizontalWall;s
 
     public DateTime ChangeServerToClientTime(DateTime time, int seconds = 0)
     {

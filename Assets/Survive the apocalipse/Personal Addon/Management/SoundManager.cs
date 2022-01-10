@@ -20,9 +20,12 @@ public class SoundManager : MonoBehaviour
 
     public bool shoot;
 
+    [Header("Sound drink and eat")]
+    public AudioClip drinkSound;
+    public AudioClip eatSound;
 
-    // Start is called before the first frame update
-    void Start()
+ // Start is called before the first frame update
+ void Start()
     {
         if (!singleton) singleton = this;
         InvokeRepeating(nameof(SetMusic), 0.0f, 1.5f);
