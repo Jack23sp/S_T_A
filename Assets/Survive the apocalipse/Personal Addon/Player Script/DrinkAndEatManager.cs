@@ -51,13 +51,19 @@ public class DrinkAndEatManager : MonoBehaviour
 
     public void PlayDrinkSound()
     {
-        eatDrinkSource.clip = SoundManager.singleton.drinkSound;
-        eatDrinkSource.Play();
+        if (Player.localPlayer && !Player.localPlayer.playerOptions.blockSound)
+        {
+            eatDrinkSource.clip = SoundManager.singleton.drinkSound;
+            eatDrinkSource.Play();
+        }
     }
 
     public void PlayEatSound()
     {
-        eatDrinkSource.clip = SoundManager.singleton.eatSound;
-        eatDrinkSource.Play();
+        if (Player.localPlayer && !Player.localPlayer.playerOptions.blockSound)
+        {
+            eatDrinkSource.clip = SoundManager.singleton.eatSound;
+            eatDrinkSource.Play();
+        }
     }
 }

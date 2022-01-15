@@ -30,8 +30,8 @@ public class BuildingManager : NetworkBehaviour
     public List<StreetLamp> streetLamps = new List<StreetLamp>();
     public List<Flag> flags = new List<Flag>();
     public List<Gate> gates = new List<Gate>();
+    public List<ModularPiece> modularPieces = new List<ModularPiece>();
 
-    //public List<BasementSpawnPoint> basementSpawnPoints = new List<BasementSpawnPoint>();
 
     public GameObject beeKeeperObject;
     public GameObject breedingsObject;
@@ -53,14 +53,13 @@ public class BuildingManager : NetworkBehaviour
     public GameObject streetLampsObject;
     public GameObject flagObject;
     public GameObject gateObject;
-    //public List<GameObject> basementObject = new List<GameObject>();
+    public GameObject modularObject;
 
     public float saveInterval = 50.0f;
 
     public bool isLoaded;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         if (!singleton) singleton = this;
@@ -78,7 +77,6 @@ public class BuildingManager : NetworkBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
     }
@@ -238,14 +236,13 @@ public class BuildingManager : NetworkBehaviour
                 gates.Add(building.GetComponent<Gate>());
             }
         }
-
-        //if (building.GetComponent<BasementSpawnPoint>())
-        //{
-        //    if (!basementSpawnPoints.Contains(building.GetComponent<BasementSpawnPoint>()))
-        //    {
-        //        basementSpawnPoints.Add(building.GetComponent<BasementSpawnPoint>());
-        //    }
-        //}
+        if (building.GetComponent<ModularPiece>())
+        {
+            if (!modularPieces.Contains(building.GetComponent<ModularPiece>()))
+            {
+                modularPieces.Add(building.GetComponent<ModularPiece>());
+            }
+        }
     }
 
     public void RemoveFromList(GameObject building)
@@ -399,13 +396,13 @@ public class BuildingManager : NetworkBehaviour
             }
         }
 
-        //if (building.GetComponent<BasementSpawnPoint>())
-        //{
-        //    if (basementSpawnPoints.Contains(building.GetComponent<BasementSpawnPoint>()))
-        //    {
-        //        basementSpawnPoints.Remove(building.GetComponent<BasementSpawnPoint>());
-        //    }
-        //}
+        if (building.GetComponent<ModularPiece>())
+        {
+            if (modularPieces.Contains(building.GetComponent<ModularPiece>()))
+            {
+                modularPieces.Remove(building.GetComponent<ModularPiece>());
+            }
+        }
     }
 
 
@@ -453,6 +450,7 @@ public class BuildingManager : NetworkBehaviour
 
         gates = gates.Where(item => item != null).ToList();
 
-        //basementSpawnPoints = basementSpawnPoints.Where(item => item != null).ToList();
+        modularPieces = modularPieces.Where(item => item != null).ToList();
+
     }
 }

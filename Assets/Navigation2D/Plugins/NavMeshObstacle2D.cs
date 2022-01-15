@@ -24,9 +24,13 @@ public class NavMeshObstacle2D : MonoBehaviour
 
     public void Awake()
     {
-        //if(isPermanentObject)
-        //{
-            // create projection
+        Spawn();
+    }
+
+    public void Spawn()
+    {
+        if (!go)
+        {
             go = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             go.name = "NAVIGATION2D_OBSTACLE";
             go.transform.tag = "Obstacle";
@@ -66,25 +70,29 @@ public class NavMeshObstacle2D : MonoBehaviour
 
             ////project position to 3d
             obstacle.transform.position = NavMeshUtils2D.ProjectTo3D(transform.position);
-        //}
-        if(!identity) identity = GetComponent<NetworkIdentity>();
+
+            if (!identity) identity = GetComponent<NetworkIdentity>();
+        }
+
     }
 
-    void OnDestroy()
+    public void OnDestroy()
     {
         //destroy projection if not destroyed yet
         if (obstacle) Destroy(obstacle.gameObject);
-        Destroy(go.gameObject);
+        if(go) Destroy(go.gameObject);
     }
 
     public void OnEnable()
     {
         if (obstacle) obstacle.enabled = true;
+        if (go) go.SetActive(true);
     }
 
     public void OnDisable()
     {
         if (obstacle) obstacle.enabled = false;
+        if (go) go.SetActive(false);
     }
 
     // radius gizmo (gizmos.matrix for correct rotation)

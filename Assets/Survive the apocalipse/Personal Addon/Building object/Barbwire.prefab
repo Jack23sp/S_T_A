@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 6371329864756430002}
   m_Layer: 8
   m_Name: Barbwire
-  m_TagString: Barbwire
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -573,8 +573,6 @@ MonoBehaviour:
   isHide: 0
   mainEntity: {fileID: 0}
   isPremiumZone: 0
-  prevRename: 
-  prevCountdown: -1
   placement: {fileID: 0}
 --- !u!61 &712099764
 BoxCollider2D:

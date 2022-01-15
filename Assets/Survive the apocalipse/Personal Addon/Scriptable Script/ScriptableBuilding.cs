@@ -45,6 +45,11 @@ public partial class ScriptableBuilding : ScriptableItem
     [Header("Prefab to instantiate")]
     public List<BuildingToCreate> buildingList = new List<BuildingToCreate>();
 
+    public bool isBasement;
+    public bool isWall;
+    public bool isDoor;
+    public bool modularAccessory;
+
 
     public bool CanUse(Player player, int inventoryIndex)
     {

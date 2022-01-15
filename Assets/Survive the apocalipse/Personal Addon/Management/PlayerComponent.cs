@@ -2215,6 +2215,59 @@ public partial class PlayerBuilding
 
     public string flagSelectedNation;
 
+    public GameObject selectedGameObject;
+    public int selectedInventoryIndex;
+    public string selectedNation;
+
+    public void CheckSpawnInventory()
+    {
+        if (selectedGameObject.GetComponent<Building>().CanSpawn())
+        {
+            if (((ScriptableBuilding)player.inventory[selectedInventoryIndex].item.data).groupWarehouse && player.InGuild() || !((ScriptableBuilding)player.inventory[selectedInventoryIndex].item.data).groupWarehouse)
+            {
+                BuildingManager.singleton.AddToList(selectedGameObject);
+                Building buildingObject = selectedGameObject.GetComponent<Building>();
+                buildingObject.owner = name;
+                buildingObject.guild = player.InGuild() ? player.guild.name : string.Empty;
+                buildingObject.buildingName = ((ScriptableBuilding)player.inventory[selectedInventoryIndex].item.data).name;
+                buildingObject.obstacle = ((ScriptableBuilding)player.inventory[selectedInventoryIndex].item.data).isObstacle;
+                if (buildingObject.GetComponent<WoodWall>())
+                {
+                    buildingObject.GetComponent<WoodWall>().side = buildingObject.actualBuildinigRotation;
+                }
+                if (buildingObject.GetComponent<Flag>() && selectedNation != string.Empty)
+                {
+                    buildingObject.GetComponent<Flag>().selectedNation = selectedNation;
+                }
+                if (buildingObject.GetComponent<Mine>())
+                {
+                    buildingObject.GetComponent<SpriteRenderer>().sprite = null;
+                }
+                Destroy(buildingObject.placement.gameObject);
+                NetworkServer.Spawn(selectedGameObject);
+
+                ItemSlot slot = player.inventory[selectedInventoryIndex];
+                slot.amount--;
+                player.inventory[selectedInventoryIndex] = slot;
+                player.playerLeaderPoints.buildinPoint += GeneralManager.singleton.buildingCreatePoint;
+                for (int i = 0; i < player.quests.Count; i++)
+                {
+                    Quest quest = player.quests[i];
+                    if (quest.createBuilding == true)
+                    {
+                        quest.checkCreateBuilding = true;
+                        player.quests[i] = quest;
+                    }
+                }
+            }
+        }
+        else
+        {
+            Destroy(selectedGameObject);
+        }
+
+    }
+
     [Command]
     public void CmdSpawnBuilding(int inventoryIndex, string itemName, int buildingRotation, Vector2 buildingTransform, bool inventory, string selectedNation)
     {
@@ -2223,54 +2276,70 @@ public partial class PlayerBuilding
             if (player.playerPremiumZoneManager.inPremiumZone) return;
             if (player.inventory[inventoryIndex].amount > 0 && player.inventory[inventoryIndex].item.name == itemName && player.inventory[inventoryIndex].item.data is ScriptableBuilding)
             {
+                //Debug.Log("Spawn function step 1");
                 GameObject g = Instantiate(((ScriptableBuilding)player.inventory[inventoryIndex].item.data).buildingList[buildingRotation].buildingObject, buildingTransform, Quaternion.identity);
-                if (g.GetComponent<Building>().CanSpawn())
-                {
-                    if (((ScriptableBuilding)player.inventory[inventoryIndex].item.data).groupWarehouse && player.InGuild() || !((ScriptableBuilding)player.inventory[inventoryIndex].item.data).groupWarehouse)
-                    {
-                        BuildingManager.singleton.AddToList(g);
-                        Building buildingObject = g.GetComponent<Building>();
-                        buildingObject.owner = name;
-                        buildingObject.guild = player.InGuild() ? player.guild.name : string.Empty;
-                        buildingObject.buildingName = ((ScriptableBuilding)player.inventory[inventoryIndex].item.data).name;
-                        buildingObject.obstacle = ((ScriptableBuilding)player.inventory[inventoryIndex].item.data).isObstacle;
-                        if (buildingObject.GetComponent<WoodWall>())
-                        {
-                            buildingObject.GetComponent<WoodWall>().side = buildingObject.actualBuildinigRotation;
-                        }
-                        if (buildingObject.GetComponent<Flag>() && selectedNation != string.Empty)
-                        {
-                            buildingObject.GetComponent<Flag>().selectedNation = selectedNation;
-                        }
-                        if (buildingObject.GetComponent<Mine>())
-                        {
-                            buildingObject.GetComponent<SpriteRenderer>().sprite = null;
-                        }
-                        NetworkServer.Spawn(g);
 
-                        ItemSlot slot = player.inventory[inventoryIndex];
-                        slot.amount--;
-                        player.inventory[inventoryIndex] = slot;
-                        player.playerLeaderPoints.buildinPoint += GeneralManager.singleton.buildingCreatePoint;
-                        for (int i = 0; i < player.quests.Count; i++)
-                        {
-                            Quest quest = player.quests[i];
-                            if (quest.createBuilding == true)
-                            {
-                                quest.checkCreateBuilding = true;
-                                player.quests[i] = quest;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    Destroy(g);
-                }
+                selectedGameObject = g;
+                selectedInventoryIndex = inventoryIndex;
+                //Debug.Log("Position : " + buildingTransform);
+                //Debug.Log("Inventory index : " + inventoryIndex);
+                //Debug.Log("Item name : " + ((ScriptableBuilding)player.inventory[inventoryIndex].item.data).name);
+                //Debug.Log("Passed item name : " + itemName);
+                //Debug.Log("Spawn : " + g.GetComponent<Building>().CanSpawn());
+
+                Invoke(nameof(CheckSpawnInventory), 1.0f);
+
+                //if (g.GetComponent<Building>().CanSpawn())
+                //{
+                //    Debug.Log("Spawn function step 2");
+                //    if (((ScriptableBuilding)player.inventory[inventoryIndex].item.data).groupWarehouse && player.InGuild() || !((ScriptableBuilding)player.inventory[inventoryIndex].item.data).groupWarehouse)
+                //    {
+                //        Debug.Log("Spawn function step 3");
+                //        BuildingManager.singleton.AddToList(g);
+                //        Building buildingObject = g.GetComponent<Building>();
+                //        buildingObject.owner = name;
+                //        buildingObject.guild = player.InGuild() ? player.guild.name : string.Empty;
+                //        buildingObject.buildingName = ((ScriptableBuilding)player.inventory[inventoryIndex].item.data).name;
+                //        buildingObject.obstacle = ((ScriptableBuilding)player.inventory[inventoryIndex].item.data).isObstacle;
+                //        if (buildingObject.GetComponent<WoodWall>())
+                //        {
+                //            buildingObject.GetComponent<WoodWall>().side = buildingObject.actualBuildinigRotation;
+                //        }
+                //        if (buildingObject.GetComponent<Flag>() && selectedNation != string.Empty)
+                //        {
+                //            buildingObject.GetComponent<Flag>().selectedNation = selectedNation;
+                //        }
+                //        if (buildingObject.GetComponent<Mine>())
+                //        {
+                //            buildingObject.GetComponent<SpriteRenderer>().sprite = null;
+                //        }
+                //        NetworkServer.Spawn(g);
+
+                //        ItemSlot slot = player.inventory[inventoryIndex];
+                //        slot.amount--;
+                //        player.inventory[inventoryIndex] = slot;
+                //        player.playerLeaderPoints.buildinPoint += GeneralManager.singleton.buildingCreatePoint;
+                //        for (int i = 0; i < player.quests.Count; i++)
+                //        {
+                //            Quest quest = player.quests[i];
+                //            if (quest.createBuilding == true)
+                //            {
+                //                quest.checkCreateBuilding = true;
+                //                player.quests[i] = quest;
+                //            }
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    Debug.Log("Spawn function step 4");
+                //    Destroy(g);
+                //}
             }
         }
         else
         {
+            if (player.playerPremiumZoneManager.inPremiumZone) return;
             if (player.playerBelt.belt[inventoryIndex].amount > 0 && player.playerBelt.belt[inventoryIndex].item.name == itemName && player.playerBelt.belt[inventoryIndex].item.data is ScriptableBuilding)
             {
                 GameObject g = Instantiate(((ScriptableBuilding)player.playerBelt.belt[inventoryIndex].item.data).buildingList[buildingRotation].buildingObject, buildingTransform, Quaternion.identity);
@@ -2287,6 +2356,15 @@ public partial class PlayerBuilding
                         {
                             buildingObject.GetComponent<WoodWall>().side = buildingObject.actualBuildinigRotation;
                         }
+                        if (buildingObject.GetComponent<Flag>() && selectedNation != string.Empty)
+                        {
+                            buildingObject.GetComponent<Flag>().selectedNation = selectedNation;
+                        }
+                        if (buildingObject.GetComponent<Mine>())
+                        {
+                            buildingObject.GetComponent<SpriteRenderer>().sprite = null;
+                        }
+
                         NetworkServer.Spawn(g);
                         ItemSlot slot = player.playerBelt.belt[inventoryIndex];
                         slot.amount--;
@@ -2310,6 +2388,135 @@ public partial class PlayerBuilding
             }
         }
     }
+
+    [Command]
+    public void CmdSpawnBasement(int inventoryIndex, string itemName, Vector2 buildingTransform, bool inventory)
+    {
+        if (!inventory)
+        {
+            if (player.playerPremiumZoneManager.inPremiumZone) return;
+            if (player.inventory[inventoryIndex].amount > 0 && player.inventory[inventoryIndex].item.name == itemName && player.inventory[inventoryIndex].item.data is ScriptableBuilding)
+            {
+                GameObject g = Instantiate(((ScriptableBuilding)player.inventory[inventoryIndex].item.data).buildingList[0].buildingObject, buildingTransform, Quaternion.identity);
+                if (g.GetComponent<ModularPiece>().CanSpawn())
+                {
+                    BuildingManager.singleton.AddToList(g);
+                    ModularPiece buildingObject = g.GetComponent<ModularPiece>();
+                    buildingObject.owner = name;
+                    buildingObject.guild = player.InGuild() ? player.guild.name : string.Empty;
+                    buildingObject.modularIndex = ModularBuildingManager.singleton.GetNewIndex();
+                    NetworkServer.Spawn(g);
+
+                    ItemSlot slot = player.inventory[inventoryIndex];
+                    slot.amount--;
+                    player.inventory[inventoryIndex] = slot;
+                    for (int i = 0; i < player.quests.Count; i++)
+                    {
+                        Quest quest = player.quests[i];
+                        if (quest.createBuilding == true)
+                        {
+                            quest.checkCreateBuilding = true;
+                            player.quests[i] = quest;
+                        }
+                    }
+                }
+                else
+                {
+                    Destroy(g);
+                }
+            }
+        }
+        else
+        {
+            if (player.playerPremiumZoneManager.inPremiumZone) return;
+            if (player.playerBelt.belt[inventoryIndex].amount > 0 && player.playerBelt.belt[inventoryIndex].item.name == itemName && player.playerBelt.belt[inventoryIndex].item.data is ScriptableBuilding)
+            {
+                GameObject g = Instantiate(((ScriptableBuilding)player.playerBelt.belt[inventoryIndex].item.data).buildingList[0].buildingObject, buildingTransform, Quaternion.identity);
+                if (g.GetComponent<ModularPiece>().CanSpawn())
+                {
+                    BuildingManager.singleton.AddToList(g);
+                    ModularPiece buildingObject = g.GetComponent<ModularPiece>();
+                    buildingObject.owner = name;
+                    buildingObject.guild = player.InGuild() ? player.guild.name : string.Empty;
+                    buildingObject.modularIndex = ModularBuildingManager.singleton.GetNewIndex();
+                    NetworkServer.Spawn(g);
+                    ItemSlot slot = player.playerBelt.belt[inventoryIndex];
+                    slot.amount--;
+                    player.playerBelt.belt[inventoryIndex] = slot;
+                    for (int i = 0; i < player.quests.Count; i++)
+                    {
+                        Quest quest = player.quests[i];
+                        if (quest.createBuilding == true)
+                        {
+                            quest.checkCreateBuilding = true;
+                            player.quests[i] = quest;
+                        }
+                    }
+                }
+                else
+                {
+                    Destroy(g);
+                }
+            }
+        }
+    }
+
+    [Command]
+    public void CmdSyncWallDoor(NetworkIdentity identity, int up, int down, int left, int right)
+    {
+        ModularPiece modular = identity.GetComponent<ModularPiece>();
+        if (modular)
+        {
+            if (modular.upComponent == -5) modular.upComponent = up;
+            if (modular.downComponent == -5) modular.downComponent = down;
+            if (modular.leftComponent == -5) modular.leftComponent = left;
+            if (modular.rightComponent == -5) modular.rightComponent = right;
+        }
+        TargetSyncClientModular(identity);
+    }
+
+    [Command]
+    public void CmdClearWallDoor(NetworkIdentity identity, int up, int down, int left, int right)
+    {
+        ModularPiece modular = identity.GetComponent<ModularPiece>();
+        if (modular)
+        {
+            if (modular.upComponent != -5) modular.upComponent = up;
+            if (modular.downComponent != -5) modular.downComponent = down;
+            if (modular.leftComponent != -5) modular.leftComponent = left;
+            if (modular.rightComponent != -5) modular.rightComponent = right;
+        }
+        TargetSyncClientModular(identity);
+    }
+
+    [Command]
+    public void CmdDestroyBasement(NetworkIdentity identity)
+    {
+        ModularPiece modular = identity.GetComponent<ModularPiece>();
+        if (modular)
+        {
+
+            modular.upComponent = -5;
+            modular.downComponent = -5;
+            modular.leftComponent = -5;
+            modular.rightComponent = -5;
+        }
+        TargetSyncClientModular(identity);
+        NetworkServer.Destroy(modular.gameObject);
+    }
+
+    [TargetRpc]
+    public void TargetSyncClientModular(NetworkIdentity identity)
+    {
+        ModularPiece piece = identity.GetComponent<ModularPiece>();
+        Debug.Log("Is piece present ? " + piece);
+        piece.clientdownComponent = piece.downComponent;
+        piece.clientleftComponent = piece.leftComponent;
+        piece.clientrightComponent = piece.rightComponent;
+        piece.clientupComponent = piece.upComponent;
+        piece.CheckWall();
+    }
+
 
     [Command]
     public void CmdCraftItem(string buildingItem, int itemIndex, int currencyType, string actualTime)

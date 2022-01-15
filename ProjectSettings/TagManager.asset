@@ -48,6 +48,12 @@ TagManager:
   - Basement
   - BasementSpawnpoint
   - BasementParent
+  - FloorPositioning
+  - FloorPlacement
+  - FloorBasement
+  - WallPositioning
+  - Rock
+  - Tree
   layers:
   - Default
   - TransparentFX
@@ -79,8 +85,8 @@ TagManager:
   - 
   - BarbwireHorizontalPlacement
   - BarbwireVerticalPlacement
-  - ColllideBase
-  - SpawnObjectInBase
+  - FloorBasement
+  - FloorPositioning
   m_SortingLayers:
   - name: Default
     uniqueID: 0

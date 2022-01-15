@@ -58,21 +58,21 @@ public class UISelectedItemMultiple : MonoBehaviour
 
         itemImage.sprite = item.image;
 
-        coinText.text = (item.coinPrice * amount).ToString();
+        coinText.text = (item.data.coinPrice * amount).ToString();
 
         if (player.playerBoost.networkBoost.Count > 0 && !string.IsNullOrEmpty(player.playerBoost.networkBoost[0].hiddenIslandTimer))
         {
             difference = DateTime.Parse(player.playerBoost.networkBoost[0].hiddenIslandTimer.ToString()) - System.DateTime.Now;
         }
 
-        if (player.playerBoost.networkBoost.Count > 0 && !string.IsNullOrEmpty(player.playerBoost.networkBoost[0].hiddenIslandTimer) && difference.TotalSeconds > 0) goldButton.GetComponentInChildren<TextMeshProUGUI>().text = (Convert.ToInt32(item.goldPrice / 2) * amount).ToString();
-        else goldButton.GetComponentInChildren<TextMeshProUGUI>().text = (item.goldPrice * amount).ToString();
+        if (player.playerBoost.networkBoost.Count > 0 && !string.IsNullOrEmpty(player.playerBoost.networkBoost[0].hiddenIslandTimer) && difference.TotalSeconds > 0) goldButton.GetComponentInChildren<TextMeshProUGUI>().text = (Convert.ToInt32(item.data.goldPrice / 2) * amount).ToString();
+        else goldButton.GetComponentInChildren<TextMeshProUGUI>().text = (item.data.goldPrice * amount).ToString();
 
 
-        goldButton.interactable = item.name != null && amount > 0 && (Player.localPlayer.gold >= (item.goldPrice * amount));
+        goldButton.interactable = item.name != null && amount > 0 && (Player.localPlayer.gold >= (item.data.goldPrice * amount));
         goldButton.onClick.SetListener(() =>
         {
-            if (item.name != null && Convert.ToInt32(inputFieldAmount) != 0)
+            if (Convert.ToInt32(inputFieldAmount) != 0)
             {
                 if (player.CheckBuyUpgradeRepairItem(item.name, amount, 0))
                 {
@@ -94,7 +94,7 @@ public class UISelectedItemMultiple : MonoBehaviour
             closeItemButton.onClick.Invoke();
         });
 
-        coinButton.interactable = item.name != null && amount > 0 && (Player.localPlayer.coins >= (item.coinPrice * amount));
+        coinButton.interactable = item.name != null && amount > 0 && (Player.localPlayer.coins >= (item.data.coinPrice * amount));
         coinButton.onClick.SetListener(() =>
         {
             if (player.CheckBuyUpgradeRepairItem(item.name, amount, 1))

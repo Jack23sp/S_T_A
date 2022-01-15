@@ -604,7 +604,7 @@ GameObject:
   - component: {fileID: 1201710219493501124}
   m_Layer: 8
   m_Name: Gate
-  m_TagString: Gate
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -754,8 +754,6 @@ MonoBehaviour:
   isHide: 0
   mainEntity: {fileID: 6405369390056753848}
   isPremiumZone: 0
-  prevRename: 
-  prevCountdown: -1
   placement: {fileID: 9189198339986741127}
 --- !u!114 &6405369390056753851
 MonoBehaviour:

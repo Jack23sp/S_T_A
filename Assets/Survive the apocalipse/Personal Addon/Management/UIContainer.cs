@@ -943,6 +943,7 @@ public partial class UIBuilding : MonoBehaviour
     public Button spawn;
     public Button cancel;
     public Button changePerspective;
+    public Button modularBuildingManager;
 
     public WoodWall selectedWoodwall;
 
@@ -967,34 +968,83 @@ public partial class UIBuilding : MonoBehaviour
 
         up.onClick.SetListener(() =>
         {
-            player.playerBuilding.actualBuilding.GetComponent<Building>().Up();
+            if (player.playerBuilding.actualBuilding)
+            {
+                if (player.playerBuilding.actualBuilding.GetComponent<Building>())
+                    player.playerBuilding.actualBuilding.GetComponent<Building>().Up();
+                else
+                    player.playerBuilding.actualBuilding.GetComponent<ModularPiece>().Up();
+            }
         });
 
         left.onClick.SetListener(() =>
         {
-            player.playerBuilding.actualBuilding.GetComponent<Building>().Left();
+            if (player.playerBuilding.actualBuilding)
+            {
+                if (player.playerBuilding.actualBuilding.GetComponent<Building>())
+                    player.playerBuilding.actualBuilding.GetComponent<Building>().Left();
+                else
+                    player.playerBuilding.actualBuilding.GetComponent<ModularPiece>().Left();
+            }
         });
 
         down.onClick.SetListener(() =>
         {
-            player.playerBuilding.actualBuilding.GetComponent<Building>().Down();
+            if (player.playerBuilding.actualBuilding)
+            {
+                if (player.playerBuilding.actualBuilding.GetComponent<Building>())
+                    player.playerBuilding.actualBuilding.GetComponent<Building>().Down();
+                else
+                    player.playerBuilding.actualBuilding.GetComponent<ModularPiece>().Down();
+            }
         });
 
         right.onClick.SetListener(() =>
         {
-            player.playerBuilding.actualBuilding.GetComponent<Building>().Right();
+            if (player.playerBuilding.actualBuilding)
+            {
+                if (player.playerBuilding.actualBuilding.GetComponent<Building>())
+                    player.playerBuilding.actualBuilding.GetComponent<Building>().Right();
+                else
+                    player.playerBuilding.actualBuilding.GetComponent<ModularPiece>().Right();
+            }
         });
 
         spawn.onClick.SetListener(() =>
         {
-            player.playerBuilding.actualBuilding.GetComponent<Building>().SpawnBuilding();
+            if (ModularBuildingManager.singleton.selectedPoint && ModularBuildingManager.singleton.ableModificationWallMode)
+            {
+                ModularPiece piece = ModularBuildingManager.singleton.selectedPoint.GetComponentInParent<ModularPiece>();
+                player.playerBuilding.CmdSyncWallDoor(piece.GetComponent<NetworkIdentity>(), piece.clientupComponent, piece.clientdownComponent, piece.clientleftComponent, piece.clientrightComponent);
+                DestroyBuilding();
+            }
+            else
+            {
+                if (player.playerBuilding.actualBuilding)
+                {
+                    if (player.playerBuilding.actualBuilding.GetComponent<Building>())
+                        player.playerBuilding.actualBuilding.GetComponent<Building>().SpawnBuilding();
+                    else
+                        player.playerBuilding.actualBuilding.GetComponent<ModularPiece>().SpawnBuilding();
+                }
+            }
         });
 
         cancel.onClick.SetListener(() =>
         {
-            player.playerBuilding.actualBuilding.GetComponent<Building>().DestroyBuilding();
+            if (player.playerBuilding.actualBuilding)
+            {
+                if (player.playerBuilding.actualBuilding.GetComponent<Building>())
+                    player.playerBuilding.actualBuilding.GetComponent<Building>().DestroyBuilding();
+                else
+                    player.playerBuilding.actualBuilding.GetComponent<ModularPiece>().DestroyBuilding();
+            }
+            ModularBuildingManager.singleton.selectedPoint = null;
+            ModularBuildingManager.singleton.ResetComponent(ModularBuildingManager.singleton.modularPiece);
+            DestroyBuilding();
         });
 
+        changePerspective.gameObject.SetActive(player.playerBuilding.building && player.playerBuilding.building.buildingList.Count > 1);
         changePerspective.onClick.SetListener(() =>
         {
             if (childpositioning.Count > 0)
@@ -1010,7 +1060,46 @@ public partial class UIBuilding : MonoBehaviour
             }
         });
 
+        modularBuildingManager.gameObject.SetActive(ModularBuildingManager.singleton && ModularBuildingManager.singleton.selectedPiece);
+        modularBuildingManager.onClick.SetListener(() =>
+        {
+            Instantiate(GeneralManager.singleton.modularBuildingManager, GeneralManager.singleton.canvas);
+        });
+
+        if(ModularBuildingManager.singleton && ModularBuildingManager.singleton.ableModificationWallMode)
+        {
+            if(ModularBuildingManager.singleton.selectedPoint)
+            {
+                spawn.interactable = true;
+            }
+        }
+
     }
+
+    public void DisableButton()
+    {
+        up.gameObject.SetActive(false);
+        left.gameObject.SetActive(false);
+        down.gameObject.SetActive(false);
+        right.gameObject.SetActive(false);
+        changePerspective.gameObject.SetActive(false);
+        spawn.interactable = false;
+    }
+
+    public void DestroyBuilding()
+    {
+        Player player = Player.localPlayer;
+
+        if (player.playerBuilding.actualBuilding) Destroy(player.playerBuilding.actualBuilding);
+        player.playerBuilding.actualBuilding = null;
+        player.playerBuilding.building = null;
+        player.playerBuilding.inventoryIndex = -1;
+        if (GeneralManager.singleton.spawnedBuildingObject) Destroy(GeneralManager.singleton.spawnedBuildingObject);
+        ModularBuildingManager.singleton.ableModificationMode = false;
+        ModularBuildingManager.singleton.ableModificationWallMode = false;
+        ModularBuildingManager.singleton.DisableNearestWall();
+    }
+
 }
 
 public partial class UIEquipmentCustom
@@ -1282,6 +1371,7 @@ public partial class UIAttackManager
     public GameObject carManager;
     public Button badgeButton;
     public Button menuButton;
+    public Button modularBuildingButton;
 
     public GameObject ammoTypeSelector;
     private Building building;
@@ -1376,6 +1466,11 @@ public partial class UIAttackManager
             player.playerMove.CmdSneak();
         });
 
+        modularBuildingButton.gameObject.SetActive(ModularBuildingManager.singleton && ModularBuildingManager.singleton.selectedPiece);
+        modularBuildingButton.onClick.SetListener(() =>
+        {
+            Instantiate(GeneralManager.singleton.modularBuildingManager, GeneralManager.singleton.canvas);
+        });
 
         badgeButton.interactable = NetworkTime.time >= player.nextRiskyActionTime;
         carManager.SetActive(player.playerCar._car != null);
@@ -2836,6 +2931,12 @@ public partial class UIBuildingCrafting
     public bool canCraft;
     private int selectedIndex;
 
+    public void Start()
+    {
+        buildingTarget = Player.localPlayer.target.GetComponent<Building>();
+        buildingCraft = buildingTarget.GetComponent<BuildingCraft>();
+    }
+
     void Update()
     {
         if (!player) player = Player.localPlayer;
@@ -2989,9 +3090,9 @@ public partial class UICraftInProgress
     // Start is called before the first frame update
     void Start()
     {
-        if (!player.target) return;
-        if (!player.target.GetComponent<BuildingCraft>()) return;
-        if (!buildingCraft) buildingCraft = player.target.GetComponent<BuildingCraft>();
+        if (!Player.localPlayer.target) return;
+        if (!Player.localPlayer.target.GetComponent<BuildingCraft>()) return;
+        if (!buildingCraft) buildingCraft = Player.localPlayer.target.GetComponent<BuildingCraft>();
 
     }
 

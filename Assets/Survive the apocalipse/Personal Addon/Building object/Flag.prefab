@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 8849647196183680154}
   m_Layer: 8
   m_Name: Flag
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -294,8 +294,6 @@ MonoBehaviour:
   isHide: 0
   mainEntity: {fileID: 4707857612832092641}
   isPremiumZone: 0
-  prevRename: 
-  prevCountdown: -1
   placement: {fileID: 7911943681082550629}
 --- !u!95 &7333685114515535905
 Animator:

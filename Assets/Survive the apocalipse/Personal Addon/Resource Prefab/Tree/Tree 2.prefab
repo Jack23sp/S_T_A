@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 948196086571551984}
   m_Layer: 8
   m_Name: Tree 2
-  m_TagString: Untagged
+  m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -632,18 +632,6 @@ MonoBehaviour:
   plantObject: {fileID: 0}
   monsterObject: {fileID: 0}
   spawnManager: 0
-  moveProbability: 0
-  moveDistance: 0
-  followDistance: 0
-  attackToMoveRangeRatio: 0.8
-  rewardExperience: 10
-  rewardSkillExperience: 2
-  lootGoldMin: 0
-  lootGoldMax: 10
-  dropChances: []
-  deathTime: 0
-  respawn: 0
-  respawnTime: 0
   tree: {fileID: 11400000, guid: 86fdf51535ad9284caa7dd04de2a86fc, type: 2}
 --- !u!114 &-3665538601826214521
 MonoBehaviour:

@@ -39,6 +39,8 @@ public class Building : Entity
     public bool isPremiumZone;
     public GameObject placement;
 
+    [SyncVar]
+    public int floorIndex;
 
     public void ManageObstacleObject()
     {
@@ -75,30 +77,48 @@ public class Building : Entity
 
         buildingTransform = GetComponent<Transform>();
         name.Replace("(Clone)", "");
-        if (isClient || isServer) Destroy(transform.GetChild(0).gameObject);
+        if (!placement) placement = transform.GetChild(0).GetChild(0).gameObject;
         if (isServer)
         {
             health = healthMax;
             CancelInvoke(nameof(Recover));
         }
         if (!mainEntity) mainEntity = GetComponent<Entity>();
-        if (!placement) placement = transform.GetChild(0).GetChild(0).gameObject;
 
         InvokeRepeating(nameof(ManageBuilding), 0.3f, 0.3f);
+        InvokeRepeating(nameof(CheckPlacement), 0.3f, 0.3f);
         obstacle = building && building.isObstacle;
         if (navMeshObstacle2D && obstacle)
         {
-            navMeshObstacle2D.Awake();
             navMeshObstacle2D.enabled = true;
         }
+        if(building.modularAccessory)
+        {
+            InvokeRepeating(nameof(AssignObjectToUnderFloor), 0.3f, 0.3f);
+        }
+    }
 
+    public void AssignObjectToUnderFloor()
+    {
+        if (netIdentity.netId != 0)
+        {
+            for (int i = 0; i < colliders.Count; i++)
+            {
+                int index = i;
+                if (colliders[index].CompareTag("FloorBasement"))
+                {
+                    floorIndex = colliders[index].GetComponent<ModularPiece>().modularIndex;
+                    CancelInvoke(nameof(AssignObjectToUnderFloor));
+                    return;
+                }
+            }
+        }
     }
 
     void Update()
     {
         if (isServer)
         {
-
             if (mainEntity.health == 0)
             {
                 GameObject g = Instantiate(GeneralManager.singleton.smokePrefab, transform.position, Quaternion.identity);
@@ -109,6 +129,14 @@ public class Building : Entity
         }
     }
 
+    public void CheckPlacement()
+    {
+        if(isClient || isServer)
+        {
+            if (placement) Destroy(placement.gameObject);
+            CancelInvoke(nameof(CheckPlacement));
+        }
+    }
 
     public void ManageBuilding()
     {
@@ -215,10 +243,13 @@ public class Building : Entity
 
         if (CanSpawn())
         {
-            if ((((ScriptableBuilding)player.playerBuilding.building).groupWarehouse && player.InGuild()) || !(((ScriptableBuilding)player.playerBuilding.building).groupWarehouse))
+            if ((player.playerBuilding.building.groupWarehouse && player.InGuild()) || !(player.playerBuilding.building.groupWarehouse))
             {
-                player.playerBuilding.CmdSpawnBuilding(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, player.playerBuilding.actualBuilding.GetComponent<Building>().actualBuildinigRotation, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt , player.playerBuilding.flagSelectedNation);
+                Transform actualBuilding = player.playerBuilding.actualBuilding.transform;
+                int inventoryIndex = player.playerBuilding.inventoryIndex;
+                ScriptableBuilding building = player.playerBuilding.building;
                 DestroyBuilding();
+                player.playerBuilding.CmdSpawnBuilding(inventoryIndex, building.name, actualBuilding.GetComponent<Building>().actualBuildinigRotation, new Vector2(actualBuilding.transform.position.x, actualBuilding.transform.position.y), player.playerBuilding.invBelt, player.playerBuilding.flagSelectedNation);
             }
         }
     }
@@ -227,7 +258,7 @@ public class Building : Entity
     {
         if (!colliders.Contains(collider))
         {
-            if((GeneralManager.singleton.buildingCheckSpawn.value & (1 << collider.gameObject.layer)) > 0)
+            if ((GeneralManager.singleton.buildingCheckSpawn.value & (1 << collider.gameObject.layer)) > 0)
                 colliders.Add(collider);
         }
     }
@@ -250,24 +281,67 @@ public class Building : Entity
         if (placement)
         {
             pColor = placement.GetComponent<SpriteRenderer>().color;
-            //placement.GetComponent<SpriteRenderer>().sortingOrder = mainEntity.GetComponent<SpriteRenderer>().sortingOrder - 1;
 
-            if (colliders.Count <= 0)
+            if (!building.modularAccessory)
             {
-                pColor = GeneralManager.singleton.canSpawn;
-                placement.gameObject.GetComponent<SpriteRenderer>().color = pColor;
+                if (colliders.Count <= 0)
+                {
+                    pColor = GeneralManager.singleton.canSpawn;
+                    placement.gameObject.GetComponent<SpriteRenderer>().color = pColor;
+                }
+                else
+                {
+                    pColor = GeneralManager.singleton.notSpawn;
+                    placement.gameObject.GetComponent<SpriteRenderer>().color = pColor;
+                }
             }
             else
             {
-                pColor = GeneralManager.singleton.notSpawn;
-                placement.gameObject.GetComponent<SpriteRenderer>().color = pColor;
+                if(CanSpawn())
+                {
+                    pColor = GeneralManager.singleton.canSpawn;
+                    placement.gameObject.GetComponent<SpriteRenderer>().color = pColor;
+                }
+                else
+                {
+                    pColor = GeneralManager.singleton.notSpawn;
+                    placement.gameObject.GetComponent<SpriteRenderer>().color = pColor;
+                }
             }
         }
     }
 
     public bool CanSpawn()
     {
-        return colliders.Count <= 0;
+        if (!building.modularAccessory)
+        {
+            return colliders.Count <= 0;
+        }
+        else if (building.modularAccessory)
+        {
+            for (int e = 0; e < colliders.Count; e++)
+            {
+                int index = e;
+                if (colliders[index].CompareTag("Building") || colliders[index].CompareTag("Rock") || colliders[index].CompareTag("Tree"))
+                {
+                    return false;
+                }
+            }
+
+            for (int i = 0; i < colliders.Count; i++)
+            {
+                int index = i;
+
+                if (colliders[index].CompareTag("FloorBasement"))
+                {
+                    if (GeneralManager.singleton.IsInside(((BoxCollider2D)colliders[index]), ((BoxCollider2D)collider)))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     [Server]

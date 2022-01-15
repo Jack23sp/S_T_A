@@ -81,3 +81,7 @@ MonoBehaviour:
   - buildingName: UP
     buildingObject: {fileID: 1529476062757820, guid: 97ac33734d88d35498f27daebb845914,
       type: 3}
+  isBasement: 0
+  isWall: 0
+  isDoor: 0
+  modularAccessory: 1

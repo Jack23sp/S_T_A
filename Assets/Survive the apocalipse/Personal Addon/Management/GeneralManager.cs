@@ -46,8 +46,8 @@ public class GeneralManager : MonoBehaviour
     public GameObject flagManager;
     public List<Sprite> flagSprite = new List<Sprite>();
 
-    [HideInInspector] public GameObject spawnedBuildingObject;
-    [HideInInspector] public GameObject spawnedAttackObject;
+    public GameObject spawnedBuildingObject;
+    public GameObject spawnedAttackObject;
 
     public Color canSpawn;
     public Color notSpawn;
@@ -434,6 +434,9 @@ public class GeneralManager : MonoBehaviour
     //public GameObject basementPlacer;
     //public List<ScriptableBuilding> verticalWall;
     //public List<ScriptableBuilding> horizontalWall;s
+
+    [Header("Modular Building")]
+    public GameObject modularBuildingManager;
 
     public DateTime ChangeServerToClientTime(DateTime time, int seconds = 0)
     {
@@ -1852,6 +1855,50 @@ public class GeneralManager : MonoBehaviour
         return false;
     }
 
+    public bool CanDoOtherActionFloor(ModularPiece building, Player player)
+    {
+        if (!player) return false;
+
+        //Premium
+        if (building.guild == string.Empty && building.owner == string.Empty)
+        {
+            return false;
+        }
+
+        // building with guild
+        if (building.guild != string.Empty)
+        {
+
+            // if un guild check
+            if (player.InGuild())
+            {
+                // if building of my guild
+                if (building.guild == player.guild.name)
+                {
+                    return true;
+                }
+                else
+                {
+                    // if building of my ally guild
+                    if (player.playerAlliance.guildAlly.Contains(building.guild))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (building.owner == player.name)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
     public bool CanManageExplosiveBuilding(Building building, Player player)
     {
         if (!player) return false;
@@ -1941,53 +1988,46 @@ public class GeneralManager : MonoBehaviour
         return false;
     }
 
-    //public bool CanEnterHome(string playerName, string guild, Player player)
-    //{
-    //    if (!player) return false;
+    public bool CanEnterHome( ModularPiece piece, Player player)
+    {
+        if (!player) return false;
 
-    //    //Premium
-    //    if (guild == string.Empty && playerName == string.Empty)
-    //    {
-    //        return true;
-    //    }
+        //Premium
+        if (piece.guild == string.Empty && piece.owner == string.Empty)
+        {
+            return true;
+        }
 
-    //    // building with guild
-    //    if (guild != string.Empty)
-    //    {
-    //        Debug.Log("1");
-    //        // if un guild check
-    //        if (player.InGuild())
-    //        {
-    //            Debug.Log("2");
-    //            // if building of my guild
-    //            if (guild == player.guild.name)
-    //            {
-    //                Debug.Log("3");
-    //                return true;
-    //            }
-    //            else
-    //            {
-    //                Debug.Log("4");
-    //                // if building of my ally guild
-    //                if (player.playerAlliance.guildAlly.Contains(guild))
-    //                {
-    //                    Debug.Log("5");
-    //                    return true;
-    //                }
-    //            }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (playerName == player.name)
-    //        {
-    //            Debug.Log("6");
-    //            return true;
-    //        }
-    //    }
-    //    Debug.Log("7");
-    //    return false;
-    //}
+        // building with guild
+        if (piece.guild != string.Empty)
+        {
+            // if un guild check
+            if (player.InGuild())
+            {
+                // if building of my guild
+                if (piece.guild == player.guild.name)
+                {
+                    return true;
+                }
+                else
+                {
+                    // if building of my ally guild
+                    if (player.playerAlliance.guildAlly.Contains(piece.guild))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (piece.owner == player.name)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public bool MineCanDamagePlayer(Building mine, Player player)
     {
@@ -2172,7 +2212,7 @@ public class GeneralManager : MonoBehaviour
         return testValue >= bound1 && testValue <= bound2;
     }
 
-    bool IsInside(BoxCollider2D enterableCollider, BoxCollider2D enteringCollider)
+    public bool IsInside(BoxCollider2D enterableCollider, BoxCollider2D enteringCollider)
     {
         Bounds enterableBounds = enterableCollider.bounds;
         Bounds enteringBounds = enteringCollider.bounds;
@@ -2196,6 +2236,29 @@ public class GeneralManager : MonoBehaviour
         return true;
     }
 
+    public bool IsInsideGeneric(Collider2D enterableCollider, BoxCollider2D enteringCollider)
+    {
+        Bounds enterableBounds = enterableCollider.bounds;
+        Bounds enteringBounds = enteringCollider.bounds;
+
+        Vector2 center = enteringBounds.center;
+        Vector2 extents = enteringBounds.extents;
+        Vector2[] enteringVerticles = new Vector2[4];
+
+        enteringVerticles[0] = new Vector2(center.x + extents.x, center.y + extents.y);
+        enteringVerticles[1] = new Vector2(center.x - extents.x, center.y + extents.y);
+        enteringVerticles[2] = new Vector2(center.x + extents.x, center.y - extents.y);
+        enteringVerticles[3] = new Vector2(center.x - extents.x, center.y - extents.y);
+
+        foreach (Vector2 verticle in enteringVerticles)
+        {
+            if (!enterableBounds.Contains(verticle))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 public partial class Player

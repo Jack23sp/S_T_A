@@ -22,6 +22,7 @@ public class UISelectedItem : MonoBehaviour
 
     public List<Entity> woodWall = new List<Entity>();
     public List<Gate> gates = new List<Gate>();
+    public List<GameObject> wallOrdered = new List<GameObject>();
 
     private bool instantiate;
 
@@ -333,10 +334,76 @@ public class UISelectedItem : MonoBehaviour
                     {
                         Instantiate(GeneralManager.singleton.flagManager, GeneralManager.singleton.canvas);
                     }
-                    else
+                    else if (((ScriptableBuilding)UIInventory.singleton.player.inventory[UIInventory.singleton.selectedItem].item.data).isBasement)
                     {
-                        GameObject g = Instantiate(((ScriptableBuilding)UIInventory.singleton.player.inventory[UIInventory.singleton.selectedItem].item.data).buildingList[0].buildingObject, new Vector3(Player.localPlayer.transform.position.x, Player.localPlayer.transform.position.y, 0.0f), Quaternion.identity);
+                        if (FindNearestFloor())
+                        {
+                            GameObject g = Instantiate(((ScriptableBuilding)UIInventory.singleton.player.inventory[UIInventory.singleton.selectedItem].item.data).buildingList[0].buildingObject, new Vector3(Player.localPlayer.transform.position.x, Player.localPlayer.transform.position.y, 0.0f), Quaternion.identity);
+                            UIInventory.singleton.player.playerBuilding.actualBuilding = g;
+                            if (GeneralManager.singleton.spawnedAttackObject)
+                            {
+                                Destroy(GeneralManager.singleton.spawnedAttackObject);
+                                GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                            }
+                            else
+                            {
+                                GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                            }
+                        }
+                        else
+                        {
+                            ModularBuildingManager.singleton.building = ((ScriptableBuilding)UIInventory.singleton.player.inventory[UIInventory.singleton.selectedItem].item.data);
+                            UIInventory.singleton.player.playerBuilding.actualBuilding = Instantiate(((ScriptableBuilding)UIInventory.singleton.player.inventory[UIInventory.singleton.selectedItem].item.data).buildingList[0].buildingObject, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
+
+                            ModularBuildingManager.singleton.ableModificationMode = true;
+
+                            if (GeneralManager.singleton.spawnedAttackObject)
+                            {
+                                Destroy(GeneralManager.singleton.spawnedAttackObject);
+                                GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                            }
+                            else
+                            {
+                                GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                            }
+
+                            GeneralManager.singleton.spawnedBuildingObject.GetComponent<UIBuilding>().DisableButton();
+                        }
+                    }
+                    else if (((ScriptableBuilding)UIInventory.singleton.player.inventory[UIInventory.singleton.selectedItem].item.data).isWall ||
+                            ((ScriptableBuilding)UIInventory.singleton.player.inventory[UIInventory.singleton.selectedItem].item.data).isDoor)
+                    {
+
+                        if (FindNearestFloorForWallDoor())
+                        {
+                            ModularBuildingManager.singleton.building = ((ScriptableBuilding)UIInventory.singleton.player.inventory[UIInventory.singleton.selectedItem].item.data);
+                            ModularBuildingManager.singleton.ableModificationWallMode = true;
+                            if (GeneralManager.singleton.spawnedAttackObject)
+                            {
+                                Destroy(GeneralManager.singleton.spawnedAttackObject);
+                                GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                            }
+                            else
+                            {
+                                GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                            }
+
+                            GeneralManager.singleton.spawnedBuildingObject.GetComponent<UIBuilding>().DisableButton();
+                        }
+                        else
+                        {
+                            UIInventory.singleton.player.playerBuilding.building = null;
+                            UIInventory.singleton.player.playerBuilding.inventoryIndex = -1;
+                            UIInventory.singleton.selectedItem = -1;
+                            ModularBuildingManager.singleton.ableModificationWallMode = false;
+                            ModularBuildingManager.singleton.ableModificationMode = false;
+                        }
+                    }
+                    else if (((ScriptableBuilding)UIInventory.singleton.player.inventory[UIInventory.singleton.selectedItem].item.data).modularAccessory)
+                    {
+                        GameObject g = Instantiate(((ScriptableBuilding)Player.localPlayer.inventory[UIInventory.singleton.selectedItem].item.data).buildingList[0].buildingObject, new Vector3(Player.localPlayer.transform.position.x, Player.localPlayer.transform.position.y, 0.0f), Quaternion.identity);
                         UIInventory.singleton.player.playerBuilding.actualBuilding = g;
+
                         if (GeneralManager.singleton.spawnedAttackObject)
                         {
                             Destroy(GeneralManager.singleton.spawnedAttackObject);
@@ -347,8 +414,22 @@ public class UISelectedItem : MonoBehaviour
                             GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
                         }
                     }
-                    UIOrderManager.singleton.btnCloseLastPanel.onClick.Invoke();
-                }
+                    else
+                    {
+                        GameObject g = Instantiate(((ScriptableBuilding)UIInventory.singleton.player.inventory[Player.localPlayer.playerBuilding.inventoryIndex].item.data).buildingList[0].buildingObject, new Vector3(Player.localPlayer.transform.position.x, Player.localPlayer.transform.position.y, 0.0f), Quaternion.identity);
+                        Player.localPlayer.playerBuilding.actualBuilding = g;
+                        if (GeneralManager.singleton.spawnedAttackObject)
+                        {
+                            Destroy(GeneralManager.singleton.spawnedAttackObject);
+                            GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                        }
+                        else
+                        {
+                            GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                        }
+                        Destroy(this.gameObject);
+                    }
+                }               
                 else
                 {
                     if (UIInventory.singleton.player.inventory[UIInventory.singleton.selectedItem].item.data is ScriptableItem &&
@@ -715,6 +796,83 @@ public class UISelectedItem : MonoBehaviour
 
     }
 
+    public bool FindNearestFloor()
+    {
+        GameObject[] floor = GameObject.FindGameObjectsWithTag("FloorBasement");
+        wallOrdered = floor.Where(go => go.GetComponent<ModularPiece>() && GeneralManager.singleton.CanDoOtherActionFloor(go.GetComponent<ModularPiece>(), Player.localPlayer)).ToList();
+
+        wallOrdered = wallOrdered.OrderBy(m => Vector2.Distance(Player.localPlayer.transform.position, m.transform.position)).ToList();
+
+        if (wallOrdered.Count > 0)
+        {
+            if (Vector2.Distance(Player.localPlayer.transform.position, wallOrdered[0].transform.position) > 10)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public bool FindNearestFloorForWallDoor()
+    {
+        GameObject[] floor = GameObject.FindGameObjectsWithTag("FloorBasement");
+        wallOrdered = floor.Where(go => go.GetComponent<ModularPiece>() && GeneralManager.singleton.CanDoOtherActionFloor(go.GetComponent<ModularPiece>(), Player.localPlayer)).ToList();
+
+        wallOrdered = wallOrdered.OrderBy(m => Vector2.Distance(Player.localPlayer.transform.position, m.transform.position)).ToList();
+
+        if (wallOrdered.Count > 0)
+        {
+            if (Vector2.Distance(Player.localPlayer.transform.position, wallOrdered[0].transform.position) > 10)
+            {
+                Debug.Log("Not find object by distance");
+                return false;
+            }
+            else
+            {
+                Debug.Log("Find  Object");
+                return true;
+            }
+        }
+        else
+        {
+            Debug.Log("Not find  Object");
+            return false;
+        }
+    }
+
+    public GameObject FindNearestFloorObject()
+    {
+        GameObject[] floor = GameObject.FindGameObjectsWithTag("FloorBasement");
+        wallOrdered = floor.Where(go => go.GetComponent<ModularPiece>() && GeneralManager.singleton.CanDoOtherActionFloor(go.GetComponent<ModularPiece>(), Player.localPlayer)).ToList();
+
+        wallOrdered = wallOrdered.OrderBy(m => Vector2.Distance(Player.localPlayer.transform.position, m.transform.position)).ToList();
+
+        return wallOrdered[0];
+    }
+
+    public int FindNearestFloorPointAvailable(ModularPiece floorObject)
+    {
+        float distance = 100000.0f;
+        int flooriIndex = -1;
+        for (int i = 0; i < floorObject.modularFloorPoint.Count; i++)
+        {
+            int index = i;
+            if (Vector2.Distance(Player.localPlayer.transform.position, floorObject.modularFloorPoint[index].transform.position) < distance)
+            {
+                if (index == 0 && floorObject.occupiedLEFT) continue;
+                if (index == 1 && floorObject.occupiedRIGHT) continue;
+                if (index == 2 && floorObject.occupiedUP) continue;
+                if (index == 3 && floorObject.occupiedDOWN) continue;
+                distance = Vector2.Distance(Player.localPlayer.transform.position, floorObject.modularFloorPoint[index].transform.position);
+                flooriIndex = index;
+            }
+        }
+        return flooriIndex;
+    }
 
     public void FindNearestWoodwall()
     {

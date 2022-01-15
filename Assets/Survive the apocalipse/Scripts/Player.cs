@@ -6672,11 +6672,11 @@ public partial class Player : Entity
     {
         if (target && target is Building && !target.GetComponent<Plant>() && !target.GetComponent<Tree>() && !target.GetComponent<Rock>() && GeneralManager.singleton.CanManageExplosiveBuilding(((Building)target), this))
         {
-            NetworkServer.Destroy(target.gameObject);
             if (((Building)target).navMeshObstacle2D)
             {
                 Destroy(((Building)target).navMeshObstacle2D.go);
             }
+            NetworkServer.Destroy(target.gameObject);
             target = null;
         }
     }

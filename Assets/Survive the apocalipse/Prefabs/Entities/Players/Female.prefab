@@ -1669,6 +1669,9 @@ MonoBehaviour:
   actualBuilding: {fileID: 0}
   invBelt: 1
   flagSelectedNation: 
+  selectedGameObject: {fileID: 0}
+  selectedInventoryIndex: 0
+  selectedNation: 
 --- !u!114 &5084283181373623402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2029,6 +2032,8 @@ MonoBehaviour:
   monsters: []
   monstersSorted: []
   positioningVector: {x: 7.960999, y: -1.264, z: 7.457145}
+  drink: 0
+  eat: 0
 --- !u!114 &3522398725796050547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2720,6 +2725,7 @@ MonoBehaviour:
   syncInterval: 0.1
   player: {fileID: 114732280623991920}
   injured: 0
+  prevInjuredState: 0
 --- !u!1 &1568550255999872
 GameObject:
   m_ObjectHideFlags: 0
@@ -4768,7 +4774,7 @@ PrefabInstance:
     - target: {fileID: 1572261082714340468, guid: 26248c08890376542bb105d149556e20,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.69
+      value: -2.2259998
       objectReference: {fileID: 0}
     - target: {fileID: 1572261082714340468, guid: 26248c08890376542bb105d149556e20,
         type: 3}
@@ -5422,7 +5428,7 @@ PrefabInstance:
     - target: {fileID: 1572261082714340468, guid: 26248c08890376542bb105d149556e20,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3.486
+      value: 1.95
       objectReference: {fileID: 0}
     - target: {fileID: 1572261082714340468, guid: 26248c08890376542bb105d149556e20,
         type: 3}

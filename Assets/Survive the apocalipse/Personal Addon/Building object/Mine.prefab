@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: -5337615523649351664}
   m_Layer: 8
   m_Name: Mine
-  m_TagString: Mine
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -429,8 +429,6 @@ MonoBehaviour:
   isHide: 0
   mainEntity: {fileID: 0}
   isPremiumZone: 0
-  prevRename: 
-  prevCountdown: -1
   placement: {fileID: 0}
 --- !u!61 &36828230571190366
 BoxCollider2D:

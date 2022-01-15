@@ -501,8 +501,6 @@ MonoBehaviour:
   isHide: 0
   mainEntity: {fileID: 0}
   isPremiumZone: 0
-  prevRename: 
-  prevCountdown: -1
   placement: {fileID: 0}
 --- !u!61 &4373340983212058395
 BoxCollider2D:

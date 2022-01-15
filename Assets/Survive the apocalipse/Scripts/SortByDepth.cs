@@ -9,7 +9,7 @@ public class SortByDepth : MonoBehaviour
 
     // precision is useful for cases where two players stand at
     //   y=0 and y=0.1, which would both be sortingOrder=0 otherwise
-    public int precision = 100;
+    public float precision = 100;
 
     // offset in case it's needed (e.g. for mounts that should be behind the
     // player, even if the player is above it in .y)

@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 5132607697671405590}
   m_Layer: 8
   m_Name: Rock 2
-  m_TagString: Untagged
+  m_TagString: Rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -467,18 +467,6 @@ MonoBehaviour:
   plantObject: {fileID: 0}
   monsterObject: {fileID: 0}
   spawnManager: 0
-  moveProbability: 0
-  moveDistance: 0
-  followDistance: 5
-  attackToMoveRangeRatio: 0.8
-  rewardExperience: 10
-  rewardSkillExperience: 2
-  lootGoldMin: 0
-  lootGoldMax: 10
-  dropChances: []
-  deathTime: 0
-  respawn: 0
-  respawnTime: 0
   rock: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
 --- !u!114 &223160048120564808
 MonoBehaviour:
