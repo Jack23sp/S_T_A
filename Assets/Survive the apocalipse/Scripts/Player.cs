@@ -627,7 +627,7 @@ public partial class Player : Entity
 
     }
 
-    public void CheckJoystick ()
+    public void CheckJoystick()
     {
         if (isClient)
         {
@@ -1601,7 +1601,7 @@ public partial class Player : Entity
         experience -= loss;
 
         // send an info chat message
-        if(GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+        if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
         {
             message = "Sei morto e hai perso " + loss + " esperienza.";
 
@@ -2031,15 +2031,15 @@ public partial class Player : Entity
                 }
             }
         }
-        if(index == 4)
+        if (index == 4)
         {
             playerRadio.CheckRadio();
         }
-        if(index == 5)
+        if (index == 5)
         {
             playerMunitionManager.CheckMunition();
         }
-        if(index == 9)
+        if (index == 9)
         {
             playerMunitionManager.CheckWeapon();
         }
@@ -2094,7 +2094,7 @@ public partial class Player : Entity
                 playerCreation.shoes = -1;
             }
         }
-        if(index == 9)
+        if (index == 9)
         {
             playerTorch.CheckTorch();
         }
@@ -2116,28 +2116,28 @@ public partial class Player : Entity
     {
         PlayerPlaceholderWeapon playerPlaceholderWeapon = playerMove.bodyPlayer.GetComponent<PlayerPlaceholderWeapon>();
         List<GameObject> toEliminate = new List<GameObject>();
-            for (int i = 0; i < playerPlaceholderWeapon.placeholderWeapon.Count; i++)
+        for (int i = 0; i < playerPlaceholderWeapon.placeholderWeapon.Count; i++)
+        {
+            int placeholderWeaponIndex = i;
+            for (int e = 0; e < playerPlaceholderWeapon.placeholderWeapon[placeholderWeaponIndex].childCount; e++)
             {
-                int placeholderWeaponIndex = i;
-                for (int e = 0; e < playerPlaceholderWeapon.placeholderWeapon[placeholderWeaponIndex].childCount; e++)
-                {
-                    toEliminate.Add(playerPlaceholderWeapon.placeholderWeapon[placeholderWeaponIndex].GetChild(e).gameObject);
-                }
+                toEliminate.Add(playerPlaceholderWeapon.placeholderWeapon[placeholderWeaponIndex].GetChild(e).gameObject);
             }
+        }
 
-            for (int a = 0; a < toEliminate.Count; a++)
-            {
-                Destroy(toEliminate[a]);
-            }
+        for (int a = 0; a < toEliminate.Count; a++)
+        {
+            Destroy(toEliminate[a]);
+        }
 
-            playerItemEquipment.weapon = Instantiate(toSpawn, playerMove.bodyPlayer.GetComponent<PlayerPlaceholderWeapon>().placeholderWeapon[index]);
-            playerItemEquipment.weapon.transform.localRotation = new Quaternion(0.0f, 0.0f, 0.0f, 0);
-            if (!isLocalPlayer)
-            {
-                ItemLayerSelector itemLayerSelector = playerItemEquipment.weapon.GetComponent<ItemLayerSelector>();
-                itemLayerSelector.player = this;
-                itemLayerSelector.SetLayer();
-            }
+        playerItemEquipment.weapon = Instantiate(toSpawn, playerMove.bodyPlayer.GetComponent<PlayerPlaceholderWeapon>().placeholderWeapon[index]);
+        playerItemEquipment.weapon.transform.localRotation = new Quaternion(0.0f, 0.0f, 0.0f, 0);
+        if (!isLocalPlayer)
+        {
+            ItemLayerSelector itemLayerSelector = playerItemEquipment.weapon.GetComponent<ItemLayerSelector>();
+            itemLayerSelector.player = this;
+            itemLayerSelector.SetLayer();
+        }
     }
 
     [Server]
@@ -3170,8 +3170,11 @@ public partial class Player : Entity
             if (currentType == 1)
             {
                 TimeSpan difference;
-                if (!string.IsNullOrEmpty(playerBoost.networkBoost[0].hiddenIslandTimerServer))
-                    difference = DateTime.Parse(playerBoost.networkBoost[0].hiddenIslandTimerServer.ToString()) - System.DateTime.Now;
+                //if (!string.IsNullOrEmpty(playerBoost.networkBoost[0].hiddenIslandTimerServer))
+                //    difference = DateTime.Parse(playerBoost.networkBoost[0].hiddenIslandTimerServer.ToString()) - System.DateTime.Now;
+
+                if (playerBoost.networkBoost.Count > 0 && !string.IsNullOrEmpty(playerBoost.networkBoost[0].hiddenIslandTimer))
+                    difference = DateTime.Parse(playerBoost.networkBoost[0].hiddenIslandTimer.ToString()) - System.DateTime.Now;
 
                 if (playerBoost.networkBoost.Count > 0 && !string.IsNullOrEmpty(playerBoost.networkBoost[0].hiddenIslandTimer) && Convert.ToInt32(difference.TotalSeconds) > 0)
                 {
@@ -3618,82 +3621,50 @@ public partial class Player : Entity
     [Command]
     public void CmdSetTarget(NetworkIdentity ni)
     {
-        // validate
         if (ni != null)
         {
-            // can directly change it, or change it after casting?
-            if (state == "IDLE" || state == "MOVING" || state == "STUNNED")
+            if (ni.GetComponent<Building>())
             {
-                if (ni.GetComponent<Building>())
-                {
-                    Building building = ni.GetComponent<Building>();
+                Building building = ni.GetComponent<Building>();
 
+                if (building.GetComponent<Mine>())
+                {
                     if (building && GeneralManager.singleton.CanManageExplosiveBuilding(building, this))
                         target = ni.GetComponent<Entity>();
-                    else if (building && CanInteractBuildingTarget(building, this))
-                    {
-                        target = ni.GetComponent<Entity>();
-                    }
                 }
                 else
                 {
                     target = ni.GetComponent<Entity>();
                 }
             }
-            else if (state == "CASTING")
+            else
             {
-                if (ni.GetComponent<Building>())
-                {
-                    Building building = ni.GetComponent<Building>();
-
-                    if (building && GeneralManager.singleton.CanManageExplosiveBuilding(building, this))
-                        target = ni.GetComponent<Entity>();
-                    else if (building && CanInteractBuildingTarget(building, this))
-                    {
-                        target = ni.GetComponent<Entity>();
-                    }
-                }
+                target = ni.GetComponent<Entity>();
             }
         }
     }
 
     public void SetTarget(NetworkIdentity ni)
     {
-        // validate
         if (ni != null)
         {
-            // can directly change it, or change it after casting?
-            if (state == "IDLE" || state == "MOVING" || state == "STUNNED")
+            if (ni.GetComponent<Building>())
             {
-                if (ni.GetComponent<Building>())
-                {
-                    Building building = ni.GetComponent<Building>();
+                Building building = ni.GetComponent<Building>();
 
+                if (building.GetComponent<Mine>())
+                {
                     if (building && GeneralManager.singleton.CanManageExplosiveBuilding(building, this))
                         target = ni.GetComponent<Entity>();
-                    else if (building && CanInteractBuildingTarget(building, this))
-                    {
-                        target = ni.GetComponent<Entity>();
-                    }
                 }
                 else
                 {
                     target = ni.GetComponent<Entity>();
                 }
             }
-            else if (state == "CASTING")
+            else
             {
-                if (ni.GetComponent<Building>())
-                {
-                    Building building = ni.GetComponent<Building>();
-
-                    if (building && GeneralManager.singleton.CanManageExplosiveBuilding(building, this))
-                        target = ni.GetComponent<Entity>();
-                    else if (building && CanInteractBuildingTarget(building, this))
-                    {
-                        target = ni.GetComponent<Entity>();
-                    }
-                }
+                target = ni.GetComponent<Entity>();
             }
         }
     }
@@ -6043,6 +6014,53 @@ public partial class Player : Entity
                     {
                         InventoryAdd(new Item(itemData), amount);
                         gold -= itemData.goldPrice * amount;
+                    }
+                }
+            }
+            if (currency == 1)
+            {
+                if (InventoryCanAdd(new Item(itemData), amount))
+                {
+                    if (coins >= (itemData.coinPrice * amount))
+                    {
+                        InventoryAdd(new Item(itemData), amount);
+                        coins -= itemData.coinPrice * amount;
+                    }
+                }
+            }
+        }
+    }
+
+    [Command]
+    public void CmdBuyItemMallItem(string itemName, int amount, int currency)
+    {
+        if (ScriptableItem.dict.TryGetValue(itemName.GetStableHashCode(), out ScriptableItem itemData))
+        {
+            if (currency == 0)
+            {
+                TimeSpan difference;
+
+                if (playerBoost.networkBoost.Count > 0 && !string.IsNullOrEmpty(playerBoost.networkBoost[0].hiddenIslandTimer))
+                    difference = DateTime.Parse(playerBoost.networkBoost[0].hiddenIslandTimer.ToString()) - System.DateTime.Now;
+
+
+                if (InventoryCanAdd(new Item(itemData), amount))
+                {
+                    if (difference.TotalSeconds > 0)
+                    {
+                        if (gold >= Convert.ToInt32((itemData.goldPrice * amount) / 2))
+                        {
+                            InventoryAdd(new Item(itemData), amount);
+                            gold -= Convert.ToInt32((itemData.goldPrice * amount) / 2);
+                        }
+                    }
+                    else
+                    {
+                        if (gold >= (itemData.goldPrice * amount))
+                        {
+                            InventoryAdd(new Item(itemData), amount);
+                            gold -= itemData.goldPrice * amount;
+                        }
                     }
                 }
             }

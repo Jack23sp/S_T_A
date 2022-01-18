@@ -50,6 +50,8 @@ public partial class ScriptableBuilding : ScriptableItem
     public bool isDoor;
     public bool modularAccessory;
 
+    public List<string> necessaryTagObject = new List<string>();
+
 
     public bool CanUse(Player player, int inventoryIndex)
     {

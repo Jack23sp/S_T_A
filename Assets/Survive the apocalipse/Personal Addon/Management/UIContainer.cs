@@ -855,6 +855,14 @@ public partial class UIInventory
                         int icopy = i; // needed for lambdas, otherwise i is Count
                         slot.button.onClick.SetListener(() =>
                         {
+                            if (player.playerBuilding.actualBuilding) Destroy(player.playerBuilding.actualBuilding);
+                            player.playerBuilding.actualBuilding = null;
+                            player.playerBuilding.building = null;
+                            player.playerBuilding.inventoryIndex = -1;
+                            if (GeneralManager.singleton.spawnedBuildingObject) Destroy(GeneralManager.singleton.spawnedBuildingObject);
+                            ModularBuildingManager.singleton.ableModificationMode = false;
+                            ModularBuildingManager.singleton.ableModificationWallMode = false;
+
                             player.playerBuilding.invBelt = false;
                             selectedItem = icopy;
                             UIOrderManager.singleton.SingleInstantePanel(itemDisplayer);
@@ -1015,7 +1023,7 @@ public partial class UIBuilding : MonoBehaviour
             if (ModularBuildingManager.singleton.selectedPoint && ModularBuildingManager.singleton.ableModificationWallMode)
             {
                 ModularPiece piece = ModularBuildingManager.singleton.selectedPoint.GetComponentInParent<ModularPiece>();
-                player.playerBuilding.CmdSyncWallDoor(piece.GetComponent<NetworkIdentity>(), piece.clientupComponent, piece.clientdownComponent, piece.clientleftComponent, piece.clientrightComponent);
+                player.playerBuilding.CmdSyncWallDoor(piece.GetComponent<NetworkIdentity>(), piece.clientupComponent, piece.clientdownComponent, piece.clientleftComponent, piece.clientrightComponent, player.playerBuilding.invBelt, player.playerBuilding.inventoryIndex);
                 DestroyBuilding();
             }
             else
@@ -1295,6 +1303,14 @@ public partial class UISkillbarCustom
                 {
                     slot.button.onClick.SetListener(() =>
                     {
+                        if (player.playerBuilding.actualBuilding) Destroy(player.playerBuilding.actualBuilding);
+                        player.playerBuilding.actualBuilding = null;
+                        player.playerBuilding.building = null;
+                        player.playerBuilding.inventoryIndex = -1;
+                        if (GeneralManager.singleton.spawnedBuildingObject) Destroy(GeneralManager.singleton.spawnedBuildingObject);
+                        ModularBuildingManager.singleton.ableModificationMode = false;
+                        ModularBuildingManager.singleton.ableModificationWallMode = false;
+
                         player.playerBuilding.invBelt = true;
                         player.playerBuilding.inventoryIndex = index;
                         GameObject g = Instantiate(GeneralManager.singleton.itemDisplayer, GeneralManager.singleton.canvas);

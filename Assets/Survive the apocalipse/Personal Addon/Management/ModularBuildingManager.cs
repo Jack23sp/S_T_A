@@ -31,7 +31,8 @@ public class ModularBuildingManager : NetworkBehaviour
 
     void Update()
     {
-        FindNearestFloor(ableModificationMode);
+        if(ableModificationMode)
+            FindNearestFloor(ableModificationMode);
 
         if (ableModificationWallMode)
             FindNearestWall();
@@ -61,8 +62,8 @@ public class ModularBuildingManager : NetworkBehaviour
                         selectedPoint = hit[index].collider.GetComponent<SpriteRenderer>();
                         if (Player.localPlayer.playerBuilding.actualBuilding)
                             Player.localPlayer.playerBuilding.actualBuilding.transform.position = selectedPoint.transform.position;
-                        selectedPoint = null;
                         selectedPiece = selectedPoint.transform.GetComponentInParent<ModularPiece>();
+                        selectedPoint = null;
                     }
                 }
             }

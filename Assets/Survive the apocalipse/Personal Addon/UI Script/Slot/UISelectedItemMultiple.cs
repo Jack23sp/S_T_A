@@ -76,7 +76,7 @@ public class UISelectedItemMultiple : MonoBehaviour
             {
                 if (player.CheckBuyUpgradeRepairItem(item.name, amount, 0))
                 {
-                    Player.localPlayer.CmdBuyUpgradeRepairItem(item.name, amount, 0);
+                    Player.localPlayer.CmdBuyItemMallItem(item.name, amount, 0);
                     if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
                         ScreenNotificationManager.singleton.SpawnNotification("Grazie per l'acquisto!", "Item");
                     else
@@ -99,7 +99,7 @@ public class UISelectedItemMultiple : MonoBehaviour
         {
             if (player.CheckBuyUpgradeRepairItem(item.name, amount, 1))
             {
-                Player.localPlayer.CmdBuyUpgradeRepairItem(item.name, amount, 1);
+                Player.localPlayer.CmdBuyItemMallItem(item.name, amount, 1);
                 if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
                     ScreenNotificationManager.singleton.SpawnNotification("Grazie per l'acquisto!", "Item");
                 else

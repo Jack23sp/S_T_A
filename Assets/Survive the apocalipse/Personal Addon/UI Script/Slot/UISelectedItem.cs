@@ -757,6 +757,87 @@ public class UISelectedItem : MonoBehaviour
                         {
                             Instantiate(GeneralManager.singleton.flagManager, GeneralManager.singleton.canvas);
                         }
+                        else if (((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data).isBasement)
+                        {
+                            if (FindNearestFloor())
+                            {
+                                GameObject g = Instantiate(((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data).buildingList[0].buildingObject, new Vector3(Player.localPlayer.transform.position.x, Player.localPlayer.transform.position.y, 0.0f), Quaternion.identity);
+                                Debug.Log("Instantiate object : " + g);
+                                Player.localPlayer.playerBuilding.actualBuilding = g;
+                                if (GeneralManager.singleton.spawnedAttackObject)
+                                {
+                                    Destroy(GeneralManager.singleton.spawnedAttackObject);
+                                    GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                                }
+                                else
+                                {
+                                    GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                                }
+                            }
+                            else
+                            {
+                                ModularBuildingManager.singleton.building = ((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data);
+                                Player.localPlayer.playerBuilding.actualBuilding = Instantiate(((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data).buildingList[0].buildingObject, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
+
+                                ModularBuildingManager.singleton.ableModificationMode = true;
+
+                                if (GeneralManager.singleton.spawnedAttackObject)
+                                {
+                                    Destroy(GeneralManager.singleton.spawnedAttackObject);
+                                    GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                                }
+                                else
+                                {
+                                    GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                                }
+
+                                GeneralManager.singleton.spawnedBuildingObject.GetComponent<UIBuilding>().DisableButton();
+                            }
+                        }
+                        else if (((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data).isWall ||
+                                ((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data).isDoor)
+                        {
+
+                            if (FindNearestFloorForWallDoor())
+                            {
+                                ModularBuildingManager.singleton.building = ((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data);
+                                ModularBuildingManager.singleton.ableModificationWallMode = true;
+                                if (GeneralManager.singleton.spawnedAttackObject)
+                                {
+                                    Destroy(GeneralManager.singleton.spawnedAttackObject);
+                                    GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                                }
+                                else
+                                {
+                                    GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                                }
+
+                                GeneralManager.singleton.spawnedBuildingObject.GetComponent<UIBuilding>().DisableButton();
+                            }
+                            else
+                            {
+                                Player.localPlayer.playerBuilding.building = null;
+                                Player.localPlayer.playerBuilding.inventoryIndex = -1;
+                                //UIInventory.singleton.selectedItem = -1;
+                                ModularBuildingManager.singleton.ableModificationWallMode = false;
+                                ModularBuildingManager.singleton.ableModificationMode = false;
+                            }
+                        }
+                        else if (((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data).modularAccessory)
+                        {
+                            GameObject g = Instantiate(((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data).buildingList[0].buildingObject, new Vector3(Player.localPlayer.transform.position.x, Player.localPlayer.transform.position.y, 0.0f), Quaternion.identity);
+                            UIInventory.singleton.player.playerBuilding.actualBuilding = g;
+
+                            if (GeneralManager.singleton.spawnedAttackObject)
+                            {
+                                Destroy(GeneralManager.singleton.spawnedAttackObject);
+                                GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                            }
+                            else
+                            {
+                                GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                            }
+                        }
                         else
                         {
                             GameObject g = Instantiate(((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data).buildingList[0].buildingObject, new Vector3(Player.localPlayer.transform.position.x, Player.localPlayer.transform.position.y, 0.0f), Quaternion.identity);
@@ -891,7 +972,7 @@ public class UISelectedItem : MonoBehaviour
 
         foreach (Entity wood in woodWall)
         {
-            if (Vector2.Distance(Player.localPlayer.transform.position, wood.transform.position) > 5.0f)
+            if (Vector2.Distance(Player.localPlayer.transform.position, wood.transform.position) > 10.0f)
             {
                 woodwallToDelete.Add(wood);
             }

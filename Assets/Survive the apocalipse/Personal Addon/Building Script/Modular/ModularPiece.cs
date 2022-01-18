@@ -90,6 +90,9 @@ public class ModularPiece : NetworkBehaviour
     [SyncVar]
     public int playerInsideDownDoor;
 
+    public List<Collider2D> buildingColliders = new List<Collider2D>();
+    public List<Collider2D> fornitureColliders = new List<Collider2D>();
+
     public void OnDestroy()
     {
         clientdownComponent = -5;
@@ -126,9 +129,9 @@ public class ModularPiece : NetworkBehaviour
 
     public void CheckWall()
     {
-        if(clientleftComponent != -5)
+        if(leftComponent != -5)
         {
-            if (clientleftComponent == 0 || leftComponent == 0)
+            if (leftComponent == 0)
             {
                 leftWall.SetActive(true);
                 navMeshObstacle2Ds = leftWall.GetComponents<NavMeshObstacle2D>();
@@ -137,7 +140,7 @@ public class ModularPiece : NetworkBehaviour
                     obstacle2D.Spawn();
                 }
             }
-            else if (clientleftComponent == 1 || leftComponent == 1)
+            else if (leftComponent == 1)
             {
                 leftDoor.SetActive(true);
                 navMeshObstacle2Ds = leftDoor.GetComponents<NavMeshObstacle2D>();
@@ -165,9 +168,26 @@ public class ModularPiece : NetworkBehaviour
             }
         }
 
-        if (clientrightComponent != -5)
+        if (clientleftComponent != -5)
         {
-            if (clientrightComponent == 0 || rightComponent == 0)
+            if (clientleftComponent == 0)
+            {
+                leftWall.SetActive(true);
+            }
+            else if (clientleftComponent == 1)
+            {
+                leftDoor.SetActive(true);
+            }
+        }
+        else
+        {
+            leftWall.SetActive(false);
+            leftDoor.SetActive(false);
+        }
+
+        if (rightComponent != -5)
+        {
+            if (rightComponent == 0)
             {
                 rightWall.SetActive(true);
                 navMeshObstacle2Ds = rightWall.GetComponents<NavMeshObstacle2D>();
@@ -176,7 +196,7 @@ public class ModularPiece : NetworkBehaviour
                     obstacle2D.Spawn();
                 }
             }
-            else if (clientrightComponent == 1 || rightComponent == 1)
+            else if (rightComponent == 1)
             {
                 rightDoor.SetActive(true);
                 navMeshObstacle2Ds = rightDoor.GetComponents<NavMeshObstacle2D>();
@@ -203,9 +223,27 @@ public class ModularPiece : NetworkBehaviour
                 obstacle2D.go = null;
             }
         }
-        if (clientupComponent != -5)
+
+        if (clientrightComponent != -5)
         {
-            if (clientupComponent == 0 || upComponent == 0)
+            if (clientrightComponent == 0)
+            {
+                rightWall.SetActive(true);
+            }
+            else if (clientrightComponent == 1)
+            {
+                rightDoor.SetActive(true);
+            }
+        }
+        else
+        {
+            rightWall.SetActive(false);
+            rightDoor.SetActive(false);
+        }
+
+        if (upComponent != -5)
+        {
+            if (upComponent == 0)
             {
                 upWall.SetActive(true);
                 navMeshObstacle2Ds = upWall.GetComponents<NavMeshObstacle2D>();
@@ -214,7 +252,7 @@ public class ModularPiece : NetworkBehaviour
                     obstacle2D.Spawn();
                 }
             }
-            else if (clientupComponent == 1 || upComponent == 1)
+            else if (upComponent == 1)
             {
                 upDoor.SetActive(true);
                 navMeshObstacle2Ds = upDoor.GetComponents<NavMeshObstacle2D>();
@@ -241,9 +279,27 @@ public class ModularPiece : NetworkBehaviour
                 obstacle2D.go = null;
             }
         }
-        if (clientdownComponent != -5)
+
+        if (clientupComponent != -5)
         {
-            if (clientdownComponent == 0 || downComponent == 0)
+            if (clientupComponent == 0)
+            {
+                upWall.SetActive(true);
+            }
+            else if (clientupComponent == 1)
+            {
+                upDoor.SetActive(true);
+            }
+        }
+        else
+        {
+            upWall.SetActive(false);
+            upDoor.SetActive(false);
+        }
+
+        if (downComponent != -5)
+        {
+            if (downComponent == 0)
             {
                 downWall.SetActive(true);
                 navMeshObstacle2Ds = downWall.GetComponents<NavMeshObstacle2D>();
@@ -252,7 +308,7 @@ public class ModularPiece : NetworkBehaviour
                     obstacle2D.Spawn();
                 }
             }
-            else if (clientdownComponent == 1 || downComponent == 1)
+            else if (downComponent == 1)
             {
                 downDoor.SetActive(true);
                 navMeshObstacle2Ds = downDoor.GetComponents<NavMeshObstacle2D>();
@@ -278,7 +334,23 @@ public class ModularPiece : NetworkBehaviour
                 Destroy(obstacle2D.go);
                 obstacle2D.go = null;
             }
+        }
 
+        if (clientdownComponent != -5)
+        {
+            if (clientdownComponent == 0)
+            {
+                downWall.SetActive(true);
+            }
+            else if (clientdownComponent == 1)
+            {
+                downDoor.SetActive(true);
+            }
+        }
+        else
+        {
+            downWall.SetActive(false);
+            downDoor.SetActive(false);
         }
     }
 
@@ -381,11 +453,49 @@ public class ModularPiece : NetworkBehaviour
                 }
                 else if (player.playerBuilding.building.isWall || player.playerBuilding.building.isDoor)
                 {
-                    player.playerBuilding.CmdSyncWallDoor(player.playerBuilding.actualBuilding.GetComponent<NetworkIdentity>(), modularPiece.clientupComponent, modularPiece.clientdownComponent, modularPiece.clientleftComponent, modularPiece.clientrightComponent);
+                    player.playerBuilding.CmdSyncWallDoor(player.playerBuilding.actualBuilding.GetComponent<NetworkIdentity>(), modularPiece.clientupComponent, modularPiece.clientdownComponent, modularPiece.clientleftComponent, modularPiece.clientrightComponent, player.playerBuilding.invBelt, player.playerBuilding.inventoryIndex);
                     DestroyBuilding();
                 }
             }
         }
     }
+
+    public void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Building"))
+        {
+            if (!buildingColliders.Contains(collider))
+            {
+                buildingColliders.Add(collider);
+            }
+        }
+        else if(collider.CompareTag("Forniture"))
+        {
+            if (!fornitureColliders.Contains(collider))
+            {
+                fornitureColliders.Add(collider);
+            }
+        }
+    }
+
+
+    public void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.CompareTag("Building"))
+        {
+            if (buildingColliders.Contains(collider))
+            {
+                buildingColliders.Remove(collider);
+            }
+        }
+        else if (collider.CompareTag("Forniture"))
+        {
+            if (fornitureColliders.Contains(collider))
+            {
+                fornitureColliders.Remove(collider);
+            }
+        }
+    }
+
 
 }

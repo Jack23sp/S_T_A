@@ -22,7 +22,9 @@ public class NavMeshObstacle2D : MonoBehaviour
 
     public bool isPermanentObject = false;
 
-    public void Awake()
+    public GameObject parent;
+
+    public void Start()
     {
         Spawn();
     }
@@ -32,11 +34,14 @@ public class NavMeshObstacle2D : MonoBehaviour
         if (!go)
         {
             go = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            go.name = "NAVIGATION2D_OBSTACLE";
+            go.name = "NAVIGATION2D_OBSTACLE" + name;
+            parent = gameObject;
             go.transform.tag = "Obstacle";
             go.transform.position = NavMeshUtils2D.ProjectTo3D(transform.position);
             go.transform.rotation = Quaternion.Euler(NavMeshUtils2D.RotationTo3D(transform.eulerAngles));
             obstacle = go.AddComponent<NavMeshObstacle>();
+            go.AddComponent<NavMeshObjstaclePlacer>();
+            go.GetComponent<NavMeshObjstaclePlacer>().placer = gameObject;
 
             // disable mesh and collider (no collider for now)
             Destroy(obstacle.GetComponent<Collider>());
@@ -73,14 +78,13 @@ public class NavMeshObstacle2D : MonoBehaviour
 
             if (!identity) identity = GetComponent<NetworkIdentity>();
         }
-
     }
 
     public void OnDestroy()
     {
         //destroy projection if not destroyed yet
         if (obstacle) Destroy(obstacle.gameObject);
-        if(go) Destroy(go.gameObject);
+        if (go) Destroy(go.gameObject);
     }
 
     public void OnEnable()

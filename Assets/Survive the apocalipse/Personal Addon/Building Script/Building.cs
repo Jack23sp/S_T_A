@@ -70,10 +70,10 @@ public class Building : Entity
         }
     }
 
-    protected override void Awake()
+    protected override void Start()
     {
         buildingObject = this;
-        base.Awake();
+        base.Start();
 
         buildingTransform = GetComponent<Transform>();
         name.Replace("(Clone)", "");
@@ -117,16 +117,17 @@ public class Building : Entity
 
     void Update()
     {
-        if (isServer)
-        {
-            if (mainEntity.health == 0)
-            {
-                GameObject g = Instantiate(GeneralManager.singleton.smokePrefab, transform.position, Quaternion.identity);
-                NetworkServer.Spawn(g);
-                BuildingManager.singleton.RemoveFromList(this.gameObject);
-                NetworkServer.Destroy(this.gameObject);
-            }
-        }
+        //if (isServer)
+        //{
+        //    if (mainEntity.health == 0)
+        //    {
+        //        Debug.Log("Dentro health == 0 per l'edificio " + name);
+        //        GameObject g = Instantiate(GeneralManager.singleton.smokePrefab, transform.position, Quaternion.identity);
+        //        NetworkServer.Spawn(g);
+        //        BuildingManager.singleton.RemoveFromList(this.gameObject);
+        //        NetworkServer.Destroy(this.gameObject);
+        //    }
+        //}
     }
 
     public void CheckPlacement()

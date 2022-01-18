@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 712099774}
-  precision: 100
+  precision: 101.91
   offset: 0
 --- !u!114 &712099769
 MonoBehaviour:
@@ -573,6 +573,7 @@ MonoBehaviour:
   mainEntity: {fileID: 0}
   isPremiumZone: 0
   placement: {fileID: 0}
+  floorIndex: 0
 --- !u!61 &712099764
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -727,7 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 1
-  center: {x: 0.01, y: -0.82}
+  center: {x: 0.01, y: -0.35}
   size: {x: 1.02, y: 0.01}
   carve: 1
   go: {fileID: 0}
