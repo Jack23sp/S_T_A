@@ -437,6 +437,15 @@ public class GeneralManager : MonoBehaviour
 
     [Header("Modular Building")]
     public GameObject modularBuildingManager;
+    //public LayerMask modularLayerMask;
+    public LayerMask modularFloorCheckSpawn;
+    public LayerMask modularObjectLayerMask;
+    public LayerMask modularObjectNeedBaseLayerMask;
+    public LayerMask modularObjectWallLayerMask;
+
+
+    public LayerMask modularObjecObstacleLayerMask;
+    public LayerMask modularObjecObstaclePlacementLayerMask;
 
     public DateTime ChangeServerToClientTime(DateTime time, int seconds = 0)
     {

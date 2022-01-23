@@ -980,6 +980,8 @@ public partial class UIBuilding : MonoBehaviour
             {
                 if (player.playerBuilding.actualBuilding.GetComponent<Building>())
                     player.playerBuilding.actualBuilding.GetComponent<Building>().Up();
+                else if (player.playerBuilding.actualBuilding.GetComponent<ModularObject>())
+                    player.playerBuilding.actualBuilding.GetComponent<ModularObject>().Up();
                 else
                     player.playerBuilding.actualBuilding.GetComponent<ModularPiece>().Up();
             }
@@ -991,6 +993,8 @@ public partial class UIBuilding : MonoBehaviour
             {
                 if (player.playerBuilding.actualBuilding.GetComponent<Building>())
                     player.playerBuilding.actualBuilding.GetComponent<Building>().Left();
+                else if (player.playerBuilding.actualBuilding.GetComponent<ModularObject>())
+                    player.playerBuilding.actualBuilding.GetComponent<ModularObject>().Left();
                 else
                     player.playerBuilding.actualBuilding.GetComponent<ModularPiece>().Left();
             }
@@ -1002,6 +1006,8 @@ public partial class UIBuilding : MonoBehaviour
             {
                 if (player.playerBuilding.actualBuilding.GetComponent<Building>())
                     player.playerBuilding.actualBuilding.GetComponent<Building>().Down();
+                else if (player.playerBuilding.actualBuilding.GetComponent<ModularObject>())
+                    player.playerBuilding.actualBuilding.GetComponent<ModularObject>().Down();
                 else
                     player.playerBuilding.actualBuilding.GetComponent<ModularPiece>().Down();
             }
@@ -1013,6 +1019,8 @@ public partial class UIBuilding : MonoBehaviour
             {
                 if (player.playerBuilding.actualBuilding.GetComponent<Building>())
                     player.playerBuilding.actualBuilding.GetComponent<Building>().Right();
+                else if (player.playerBuilding.actualBuilding.GetComponent<ModularObject>())
+                    player.playerBuilding.actualBuilding.GetComponent<ModularObject>().Right();
                 else
                     player.playerBuilding.actualBuilding.GetComponent<ModularPiece>().Right();
             }
@@ -1024,6 +1032,11 @@ public partial class UIBuilding : MonoBehaviour
             {
                 ModularPiece piece = ModularBuildingManager.singleton.selectedPoint.GetComponentInParent<ModularPiece>();
                 player.playerBuilding.CmdSyncWallDoor(piece.GetComponent<NetworkIdentity>(), piece.clientupComponent, piece.clientdownComponent, piece.clientleftComponent, piece.clientrightComponent, player.playerBuilding.invBelt, player.playerBuilding.inventoryIndex);
+                DestroyBuilding();
+            }
+            else if(player.playerBuilding.actualBuilding && player.playerBuilding.actualBuilding.GetComponent<ModularObject>())
+            {
+                player.playerBuilding.CmdSpawnBasement(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt);
                 DestroyBuilding();
             }
             else
@@ -1044,6 +1057,10 @@ public partial class UIBuilding : MonoBehaviour
             {
                 if (player.playerBuilding.actualBuilding.GetComponent<Building>())
                     player.playerBuilding.actualBuilding.GetComponent<Building>().DestroyBuilding();
+                else if (player.playerBuilding.actualBuilding && player.playerBuilding.actualBuilding.GetComponent<ModularObject>())
+                {
+                    player.playerBuilding.actualBuilding.GetComponent<ModularObject>().DestroyBuilding();
+                }
                 else
                     player.playerBuilding.actualBuilding.GetComponent<ModularPiece>().DestroyBuilding();
             }

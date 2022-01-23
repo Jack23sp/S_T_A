@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb53f768bb9c0ac4aa68e73e9ad8d208, type: 3}
+  m_Name: Sofa
+  m_EditorClassIdentifier: 
+  Group: 
+  subGroup: 
+  ItemRarity: 0
+  isStealable: 0
+  isLostable: 1
+  maxWeightLevel: 0
+  maxWeight:
+    baseValue: 0
+    bonusPerLevel: 0
+  possibleBagWeight:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxDurability:
+    baseValue: 0
+    bonusPerLevel: 0
+  maxDurabilityLevel: 0
+  goldPrice: 750
+  coinPrice: 5
+  craftDescription: 
+  timeToCraft: 360
+  maxCarItemInventory: 0
+  repairTimer: 360
+  repairItems: []
+  goldsToRepair: 350
+  coinsToRepair: 5
+  upgradeTimer: 360
+  upgradeItems: []
+  goldsToUpgrade: 350
+  coinsToUpgrade: 5
+  generalLiquidContainer: 0
+  italianName: Divano
+  maxStack: 100
+  buyPrice: 10
+  sellPrice: 4
+  sellable: 1
+  tradable: 1
+  destroyable: 1
+  toolTip: 
+  image: {fileID: 21300000, guid: 02e6ebd8e255e3e46a48899e62572307, type: 2}
+  craftMinLevel: 0
+  groupWarehouse: 0
+  itemToClaim: []
+  coinToClaim: 5
+  goldToClaim: 0
+  abilityToClaim: {fileID: 11400000, guid: f9bd93e5f9ccd704e99f13b8c88cf8ae, type: 2}
+  abilityLevelToClaim: 0
+  itemToUpgrade: []
+  coinToUpgrade: 5
+  goldToUpgrade: 0
+  abilityToUpgrade: {fileID: 11400000, guid: c406e956ee963904db6fcfdfa9955665, type: 2}
+  abilityLevelToUpgrade: 0
+  itemToRepair: []
+  coinToRepair: 5
+  goldToRepair: 0
+  abilityToRepair: {fileID: 11400000, guid: c406e956ee963904db6fcfdfa9955665, type: 2}
+  abilityLevelToRepair: 0
+  coinToHalve: 100
+  goldToHalve: 15000
+  abilityToHalve: {fileID: 11400000, guid: fffcf7aff1507744493ad5581c605b33, type: 2}
+  buildingExperience: 50
+  craftableItem: []
+  isObstacle: 1
+  countdownToCreate:
+    baseValue: 100
+    bonusPerLevel: 30
+  buildingList:
+  - buildingName: UP
+    buildingObject: {fileID: 1529476062757820, guid: 4fa0fff8a72c88c49ab196731a7ccdde,
+      type: 3}
+  isBasement: 0
+  isWall: 0
+  isDoor: 0
+  modularAccessory: 0
+  necessaryTagObject: []

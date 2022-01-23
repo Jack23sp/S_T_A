@@ -55,6 +55,8 @@ TagManager:
   - Rock
   - Tree
   - Forniture
+  - FornitureObstacle
+  - ForniturePlacer
   layers:
   - Default
   - TransparentFX
@@ -79,11 +81,11 @@ TagManager:
   - MyRenderPlayer
   - LocalPlayerVisibleOnly
   - PuffAnimation
-  - GrassDetector
+  - WallObstacle
   - Grass
-  - 
-  - 
-  - 
+  - Forniture
+  - WallForniture
+  - Wall
   - BarbwireHorizontalPlacement
   - BarbwireVerticalPlacement
   - FloorBasement

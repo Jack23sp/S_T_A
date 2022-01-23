@@ -49,6 +49,7 @@ public partial class ScriptableBuilding : ScriptableItem
     public bool isWall;
     public bool isDoor;
     public bool modularAccessory;
+    public bool modularForniture;
 
     public List<string> necessaryTagObject = new List<string>();
 

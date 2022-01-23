@@ -2219,6 +2219,9 @@ public partial class PlayerBuilding
     public int selectedInventoryIndex;
     public string selectedNation;
 
+    public GameObject g;
+    public ModularObject ModularObject;
+
     public void CheckSpawnInventory()
     {
         if (selectedGameObject.GetComponent<Building>().CanSpawn())
@@ -2315,6 +2318,133 @@ public partial class PlayerBuilding
         }
     }
 
+    public void CheckSpawnFornitureInventory()
+    {
+        if (player.playerBuilding.actualBuilding)
+        {
+            ModularObject modularObject = player.playerBuilding.actualBuilding.GetComponent<ModularObject>();
+            if (modularObject)
+            {
+                if (((ScriptableBuilding)player.inventory[selectedInventoryIndex].item.data).groupWarehouse && player.InGuild() || !((ScriptableBuilding)player.inventory[selectedInventoryIndex].item.data).groupWarehouse)
+                {
+                    BuildingManager.singleton.AddToList(selectedGameObject);
+                    Destroy(modularObject.placement.gameObject);
+                    NetworkServer.Spawn(selectedGameObject);
+
+                    ItemSlot slot = player.inventory[selectedInventoryIndex];
+                    slot.amount--;
+                    player.inventory[selectedInventoryIndex] = slot;
+                    player.playerLeaderPoints.buildinPoint += GeneralManager.singleton.buildingCreatePoint;
+                    for (int i = 0; i < player.quests.Count; i++)
+                    {
+                        Quest quest = player.quests[i];
+                        if (quest.createBuilding == true)
+                        {
+                            quest.checkCreateBuilding = true;
+                            player.quests[i] = quest;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Destroy(selectedGameObject);
+            }
+        }
+    }
+
+    public void CheckSpawnFornitureBelt()
+    {
+        if (player.playerBuilding.actualBuilding)
+        {
+            ModularObject modularObject = player.playerBuilding.actualBuilding.GetComponent<ModularObject>();
+            if (modularObject)
+            {
+                if (((ScriptableBuilding)player.inventory[selectedInventoryIndex].item.data).groupWarehouse && player.InGuild() || !((ScriptableBuilding)player.inventory[selectedInventoryIndex].item.data).groupWarehouse)
+                {
+                    BuildingManager.singleton.AddToList(selectedGameObject);
+                    Destroy(modularObject.placement.gameObject);
+                    NetworkServer.Spawn(selectedGameObject);
+
+                    ItemSlot slot = player.inventory[selectedInventoryIndex];
+                    slot.amount--;
+                    player.inventory[selectedInventoryIndex] = slot;
+                    player.playerLeaderPoints.buildinPoint += GeneralManager.singleton.buildingCreatePoint;
+                    for (int i = 0; i < player.quests.Count; i++)
+                    {
+                        Quest quest = player.quests[i];
+                        if (quest.createBuilding == true)
+                        {
+                            quest.checkCreateBuilding = true;
+                            player.quests[i] = quest;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Destroy(selectedGameObject);
+            }
+        }
+    }
+
+
+    public void CheckSpawnFornitureObjectInventory()
+    {
+        if (ModularObject.canSpawn)
+        {
+            BuildingManager.singleton.AddToList(g);
+            Destroy(ModularObject.placement.gameObject);
+            NetworkServer.Spawn(g);
+
+            ItemSlot slot = player.inventory[selectedInventoryIndex];
+            slot.amount--;
+            player.inventory[selectedInventoryIndex] = slot;
+            player.playerLeaderPoints.buildinPoint += GeneralManager.singleton.buildingCreatePoint;
+            for (int i = 0; i < player.quests.Count; i++)
+            {
+                Quest quest = player.quests[i];
+                if (quest.createBuilding == true)
+                {
+                    quest.checkCreateBuilding = true;
+                    player.quests[i] = quest;
+                }
+            }
+        }
+        else
+        {
+            Destroy(g);
+        }
+    }
+
+    public void CheckSpawnFornitureObjectBelt()
+    {
+        if (ModularObject.canSpawn)
+        {
+            BuildingManager.singleton.AddToList(g);
+            Destroy(ModularObject.placement.gameObject);
+            NetworkServer.Spawn(g);
+
+            ItemSlot slot = player.playerBelt.belt[selectedInventoryIndex];
+            slot.amount--;
+            player.playerBelt.belt[selectedInventoryIndex] = slot;
+            player.playerLeaderPoints.buildinPoint += GeneralManager.singleton.buildingCreatePoint;
+            for (int i = 0; i < player.quests.Count; i++)
+            {
+                Quest quest = player.quests[i];
+                if (quest.createBuilding == true)
+                {
+                    quest.checkCreateBuilding = true;
+                    player.quests[i] = quest;
+                }
+            }
+        }
+        else
+        {
+            Destroy(g);
+        }
+    }
+
     [Command]
     public void CmdSpawnBuilding(int inventoryIndex, string itemName, int buildingRotation, Vector2 buildingTransform, bool inventory, string selectedNation)
     {
@@ -2354,28 +2484,49 @@ public partial class PlayerBuilding
             if (player.playerPremiumZoneManager.inPremiumZone) return;
             if (player.inventory[inventoryIndex].amount > 0 && player.inventory[inventoryIndex].item.name == itemName && player.inventory[inventoryIndex].item.data is ScriptableBuilding)
             {
-                GameObject g = Instantiate(((ScriptableBuilding)player.inventory[inventoryIndex].item.data).buildingList[0].buildingObject, buildingTransform, Quaternion.identity);
-                if (g.GetComponent<ModularPiece>().CanSpawn())
-                {
-                    BuildingManager.singleton.AddToList(g);
-                    ModularPiece buildingObject = g.GetComponent<ModularPiece>();
-                    buildingObject.owner = name;
-                    buildingObject.guild = player.InGuild() ? player.guild.name : string.Empty;
-                    buildingObject.modularIndex = ModularBuildingManager.singleton.GetNewIndex();
-                    NetworkServer.Spawn(g);
+                g = Instantiate(((ScriptableBuilding)player.inventory[inventoryIndex].item.data).buildingList[0].buildingObject, buildingTransform, Quaternion.identity);
 
-                    ItemSlot slot = player.inventory[inventoryIndex];
-                    slot.amount--;
-                    player.inventory[inventoryIndex] = slot;
-                    for (int i = 0; i < player.quests.Count; i++)
+                ModularPiece modularPiece = g.GetComponent<ModularPiece>();
+                ModularObject modularObject = g.GetComponent<ModularObject>();
+
+                if (modularPiece)
+                {
+                    if (modularPiece.CanSpawn())
                     {
-                        Quest quest = player.quests[i];
-                        if (quest.createBuilding == true)
+                        BuildingManager.singleton.AddToList(g);
+                        ModularPiece buildingObject = modularPiece;
+                        buildingObject.owner = name;
+                        buildingObject.guild = player.InGuild() ? player.guild.name : string.Empty;
+                        buildingObject.modularIndex = ModularBuildingManager.singleton.GetNewIndex();
+                        NetworkServer.Spawn(g);
+
+                        ItemSlot slot = player.inventory[inventoryIndex];
+                        slot.amount--;
+                        player.inventory[inventoryIndex] = slot;
+                        for (int i = 0; i < player.quests.Count; i++)
                         {
-                            quest.checkCreateBuilding = true;
-                            player.quests[i] = quest;
+                            Quest quest = player.quests[i];
+                            if (quest.createBuilding == true)
+                            {
+                                quest.checkCreateBuilding = true;
+                                player.quests[i] = quest;
+                            }
                         }
                     }
+                    else
+                    {
+                        Destroy(g);
+                    }
+                }
+                else if (modularObject)
+                {
+
+                    selectedGameObject = g;
+                    selectedInventoryIndex = inventoryIndex;
+                    ModularObject = modularObject;
+
+                    Invoke(nameof(CheckSpawnFornitureObjectInventory), 1.0f);
+
                 }
                 else
                 {
@@ -2388,38 +2539,59 @@ public partial class PlayerBuilding
             if (player.playerPremiumZoneManager.inPremiumZone) return;
             if (player.playerBelt.belt[inventoryIndex].amount > 0 && player.playerBelt.belt[inventoryIndex].item.name == itemName && player.playerBelt.belt[inventoryIndex].item.data is ScriptableBuilding)
             {
-                GameObject g = Instantiate(((ScriptableBuilding)player.playerBelt.belt[inventoryIndex].item.data).buildingList[0].buildingObject, buildingTransform, Quaternion.identity);
-                if (g.GetComponent<ModularPiece>().CanSpawn())
+                g = Instantiate(((ScriptableBuilding)player.playerBelt.belt[inventoryIndex].item.data).buildingList[0].buildingObject, buildingTransform, Quaternion.identity);
+
+                ModularPiece modularPiece = g.GetComponent<ModularPiece>();
+                ModularObject modularObject = g.GetComponent<ModularObject>();
+
+                if (modularPiece)
                 {
-                    BuildingManager.singleton.AddToList(g);
-                    ModularPiece buildingObject = g.GetComponent<ModularPiece>();
-                    buildingObject.owner = name;
-                    buildingObject.guild = player.InGuild() ? player.guild.name : string.Empty;
-                    buildingObject.modularIndex = ModularBuildingManager.singleton.GetNewIndex();
-                    NetworkServer.Spawn(g);
-                    ItemSlot slot = player.playerBelt.belt[inventoryIndex];
-                    slot.amount--;
-                    player.playerBelt.belt[inventoryIndex] = slot;
-                    for (int i = 0; i < player.quests.Count; i++)
+                    if (modularPiece.CanSpawn())
                     {
-                        Quest quest = player.quests[i];
-                        if (quest.createBuilding == true)
+                        BuildingManager.singleton.AddToList(g);
+                        ModularPiece buildingObject = modularPiece;
+                        buildingObject.owner = name;
+                        buildingObject.guild = player.InGuild() ? player.guild.name : string.Empty;
+                        buildingObject.modularIndex = ModularBuildingManager.singleton.GetNewIndex();
+                        NetworkServer.Spawn(g);
+                        ItemSlot slot = player.playerBelt.belt[inventoryIndex];
+                        slot.amount--;
+                        player.playerBelt.belt[inventoryIndex] = slot;
+                        for (int i = 0; i < player.quests.Count; i++)
                         {
-                            quest.checkCreateBuilding = true;
-                            player.quests[i] = quest;
+                            Quest quest = player.quests[i];
+                            if (quest.createBuilding == true)
+                            {
+                                quest.checkCreateBuilding = true;
+                                player.quests[i] = quest;
+                            }
                         }
                     }
+                    else
+                    {
+                        Destroy(g);
+                    }
+                }
+                else if (modularObject)
+                {
+                    selectedGameObject = g;
+                    selectedInventoryIndex = inventoryIndex;
+                    ModularObject = modularObject;
+
+                    Invoke(nameof(CheckSpawnFornitureObjectBelt), 1.0f);
+
                 }
                 else
                 {
                     Destroy(g);
                 }
+
             }
         }
     }
 
     [Command]
-    public void CmdSyncWallDoor(NetworkIdentity identity, int up, int down, int left, int right, bool inventory , int inventoryIndex)
+    public void CmdSyncWallDoor(NetworkIdentity identity, int up, int down, int left, int right, bool inventory, int inventoryIndex)
     {
         ModularPiece modular = identity.GetComponent<ModularPiece>();
         if (modular)
@@ -2492,7 +2664,7 @@ public partial class PlayerBuilding
         }
         TargetSyncClientModular(identity);
 
-        for(int i = 0; i < modular.buildingColliders.Count; i++)
+        for (int i = 0; i < modular.buildingColliders.Count; i++)
         {
             int index = i;
             BuildingManager.singleton.RemoveFromList(modular.buildingColliders[index].gameObject);

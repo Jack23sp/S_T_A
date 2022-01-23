@@ -794,6 +794,21 @@ public class UISelectedItem : MonoBehaviour
                                 GeneralManager.singleton.spawnedBuildingObject.GetComponent<UIBuilding>().DisableButton();
                             }
                         }
+                        else if (((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data).modularForniture)
+                        {
+                            GameObject g = Instantiate(((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data).buildingList[0].buildingObject, new Vector3(Player.localPlayer.transform.position.x, Player.localPlayer.transform.position.y, 0.0f), Quaternion.identity);
+                            Player.localPlayer.playerBuilding.actualBuilding = g;
+                            if (GeneralManager.singleton.spawnedAttackObject)
+                            {
+                                Destroy(GeneralManager.singleton.spawnedAttackObject);
+                                GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                            }
+                            else
+                            {
+                                GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
+                            }
+
+                        }
                         else if (((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data).isWall ||
                                 ((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data).isDoor)
                         {

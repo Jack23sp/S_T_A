@@ -93,6 +93,8 @@ public class ModularPiece : NetworkBehaviour
     public List<Collider2D> buildingColliders = new List<Collider2D>();
     public List<Collider2D> fornitureColliders = new List<Collider2D>();
 
+    public GameObject roof;
+
     public void OnDestroy()
     {
         clientdownComponent = -5;
@@ -432,7 +434,6 @@ public class ModularPiece : NetworkBehaviour
         ModularBuildingManager.singleton.ableModificationWallMode = false;
     }
 
-
     public void SpawnBuilding()
     {
         Player player = Player.localPlayer;
@@ -469,6 +470,7 @@ public class ModularPiece : NetworkBehaviour
                 buildingColliders.Add(collider);
             }
         }
+
         else if(collider.CompareTag("Forniture"))
         {
             if (!fornitureColliders.Contains(collider))

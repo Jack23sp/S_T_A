@@ -8,6 +8,8 @@ public class ModularBuildingManager : NetworkBehaviour
 {
     public static ModularBuildingManager singleton;
 
+    public Player player;
+
     [SyncVar]
     public int lastModularPieceIndexSpawn;
 
@@ -24,13 +26,36 @@ public class ModularBuildingManager : NetworkBehaviour
 
     public ModularPiece selectedPiece;
 
+    public Collider2D[] allColliders;
+
+    public List<ModularPiece> allRoof = new List<ModularPiece>();
+
+
     void Start()
     {
         if (!singleton) singleton = this;
     }
 
+    public void AbleRoof()
+    {
+        foreach (Collider2D modularPiece in allColliders)
+        {
+            modularPiece.GetComponent<ModularPiece>().roof.SetActive(true);
+        }
+    }
+
+    public void DisableRoof()
+    {
+        foreach (Collider2D modularPiece in allColliders)
+        {
+            modularPiece.GetComponent<ModularPiece>().roof.SetActive(false);
+        }
+    }
+
     void Update()
     {
+        if (!player) player = Player.localPlayer;
+
         if(ableModificationMode)
             FindNearestFloor(ableModificationMode);
 
