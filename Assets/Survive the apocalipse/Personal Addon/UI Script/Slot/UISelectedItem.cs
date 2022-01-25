@@ -841,7 +841,7 @@ public class UISelectedItem : MonoBehaviour
                         else if (((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data).modularAccessory)
                         {
                             GameObject g = Instantiate(((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data).buildingList[0].buildingObject, new Vector3(Player.localPlayer.transform.position.x, Player.localPlayer.transform.position.y, 0.0f), Quaternion.identity);
-                            UIInventory.singleton.player.playerBuilding.actualBuilding = g;
+                            Player.localPlayer.playerBuilding.actualBuilding = g;
 
                             if (GeneralManager.singleton.spawnedAttackObject)
                             {

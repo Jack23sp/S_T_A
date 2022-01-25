@@ -30,6 +30,7 @@ public class ModularBuildingManager : NetworkBehaviour
 
     public List<ModularPiece> allRoof = new List<ModularPiece>();
 
+    public GameObject instantiatedUI;
 
     void Start()
     {
@@ -55,6 +56,7 @@ public class ModularBuildingManager : NetworkBehaviour
     void Update()
     {
         if (!player) player = Player.localPlayer;
+        if (!player) return;
 
         if(ableModificationMode)
             FindNearestFloor(ableModificationMode);
@@ -62,10 +64,45 @@ public class ModularBuildingManager : NetworkBehaviour
         if (ableModificationWallMode)
             FindNearestWall();
 
+        if(player.playerMove.forniture != null)
+        {
+            if(instantiatedUI == null)
+            {
+                instantiatedUI = Instantiate(Player.localPlayer.SearchUiToSpawnInManager(player.playerMove.forniture.GetComponent<Forniture>().scriptableBuilding), GeneralManager.singleton.canvas);
+            }
+        }
+        else
+        {
+            if (instantiatedUI) Destroy(instantiatedUI.gameObject);
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 screenPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D[] hit = Physics2D.RaycastAll(screenPos, Vector2.zero);
+
+            bool roofClosed = false;
+
+            for (int i = 0; i < hit.Length; i++)
+            {
+                int index = i;
+                if (hit[index].collider.CompareTag("Roof"))
+                {
+                    roofClosed = true;
+                }
+            }
+
+            if (!roofClosed)
+            {
+                for (int i = 0; i < hit.Length; i++)
+                {
+                    int index = i;
+                    if (hit[index].collider.gameObject.layer == LayerMask.NameToLayer("Forniture"))
+                    {
+                        player.CmdSetForniture(hit[index].collider.GetComponent<NetworkIdentity>());
+                    }
+                }
+            }
 
             for (int i = 0; i < hit.Length; i++)
             {

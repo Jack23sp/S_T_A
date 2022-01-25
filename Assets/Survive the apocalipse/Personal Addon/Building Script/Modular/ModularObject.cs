@@ -1,19 +1,49 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Mirror;
 using CustomType;
 using System.Linq;
 
-public class ModularObject : NetworkBehaviour
+public enum ModularType
 {
+    furnace,
+    medicalTable,
+    warehouse,
+    groupWarehouse,
+    waterWell,
+    stove,
+    fridge,
+    sewingTable,
+    upgradeTable,
+    airConditioner,
+    armChair,
+    bathroomSink,
+    bed,
+    bedsideTable,
+    cabinet,
+    kitchenSink,
+    chair,
+    table,
+    paint,
+    shower,
+    sofa,
+    trashCan,
+    tv
+}
+
+public class ModularObject : Forniture
+{
+    public ModularType fornitureType;
+
     public SpriteRenderer placement;
     public BoxCollider2D collider;
 
     public List<BoxCollider2D> allColliders;
     public List<BoxCollider2D> wallColliders;
     public List<BoxCollider2D> obstacleColliders;
-    public ScriptableBuilding scriptableBuilding;
+
 
     public NetworkIdentity identity;
 
@@ -24,33 +54,43 @@ public class ModularObject : NetworkBehaviour
 
     public NavMeshObstacle2D navMeshObstacle2D;
 
+    public int oldPositioning = 0;
+
+    public void OnDisable()
+    {
+        CancelInvoke();
+    }
+
     public void Start()
     {
-        if (!isClient || !isServer)
+        Invoke(nameof(ManagePlacement), 0.5f);
+    }
+
+    public void ManagePlacement()
+    {
+        if (!identity.isClient && !identity.isServer)
         {
             placement.enabled = true;
-            InvokeRepeating(nameof(CheckPlacement), 0.5f, 1.0f);
         }
         else
             if (navMeshObstacle2D) navMeshObstacle2D.enabled = true;
     }
 
-    public void CheckPlacement()
+    public void Update()
     {
-        if (isClient || isServer)
+        if (identity.isClient || identity.isServer)
         {
-            Destroy(placement.gameObject);
-            CancelInvoke(nameof(CheckPlacement));
+            if (placement) Destroy(placement.gameObject);
         }
         else
         {
-            placement.color = canSpawn ? GeneralManager.singleton.canSpawn : GeneralManager.singleton.notSpawn;
+            if (placement) placement.color = canSpawn ? GeneralManager.singleton.canSpawn : GeneralManager.singleton.notSpawn;
         }
     }
 
     public void OnDestroy()
     {
-        CancelInvoke(nameof(CheckPlacement));
+        CancelInvoke();
     }
 
     public void DestroyBuilding()
@@ -70,27 +110,37 @@ public class ModularObject : NetworkBehaviour
         pos.y += GeneralManager.singleton.buildingSensibility;
         transform.position = pos;
     }
+
     public void Left()
     {
         Vector3 pos = transform.position;
         pos.x -= GeneralManager.singleton.buildingSensibility;
         transform.position = pos;
     }
+
     public void Down()
     {
         Vector3 pos = transform.position;
         pos.y -= GeneralManager.singleton.buildingSensibility;
         transform.position = pos;
     }
+
     public void Right()
     {
         Vector3 pos = transform.position;
         pos.x += GeneralManager.singleton.buildingSensibility;
         transform.position = pos;
     }
-    public void chengePerspective(Positioning positioning)
-    {
 
+    public void chengePerspective()
+    {
+        oldPositioning++;
+        if (oldPositioning > (Player.localPlayer.playerBuilding.building.buildingList.Count -1) ) oldPositioning = 0;
+
+        Vector3 pos = Player.localPlayer.playerBuilding.actualBuilding.transform.position;
+        Destroy(Player.localPlayer.playerBuilding.actualBuilding);
+        GameObject g = Instantiate(Player.localPlayer.playerBuilding.building.buildingList[oldPositioning].buildingObject, pos, Quaternion.identity);
+        Player.localPlayer.playerBuilding.actualBuilding = g;
     }
 
     public void OnTriggerEnter2D(Collider2D collision)

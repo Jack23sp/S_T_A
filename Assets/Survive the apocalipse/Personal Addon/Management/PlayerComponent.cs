@@ -2222,6 +2222,8 @@ public partial class PlayerBuilding
     public GameObject g;
     public ModularObject ModularObject;
 
+    public Forniture nearForniture;
+
     public void CheckSpawnInventory()
     {
         if (selectedGameObject.GetComponent<Building>().CanSpawn())
@@ -2388,7 +2390,6 @@ public partial class PlayerBuilding
         }
     }
 
-
     public void CheckSpawnFornitureObjectInventory()
     {
         if (ModularObject.canSpawn)
@@ -2477,14 +2478,16 @@ public partial class PlayerBuilding
     }
 
     [Command]
-    public void CmdSpawnBasement(int inventoryIndex, string itemName, Vector2 buildingTransform, bool inventory)
+    public void CmdSpawnBasement(int inventoryIndex, string itemName, Vector2 buildingTransform, bool inventory, int buildingType)
     {
+        if (buildingType < 0) buildingType = 0;
+
         if (!inventory)
         {
             if (player.playerPremiumZoneManager.inPremiumZone) return;
             if (player.inventory[inventoryIndex].amount > 0 && player.inventory[inventoryIndex].item.name == itemName && player.inventory[inventoryIndex].item.data is ScriptableBuilding)
             {
-                g = Instantiate(((ScriptableBuilding)player.inventory[inventoryIndex].item.data).buildingList[0].buildingObject, buildingTransform, Quaternion.identity);
+                g = Instantiate(((ScriptableBuilding)player.inventory[inventoryIndex].item.data).buildingList[buildingType].buildingObject, buildingTransform, Quaternion.identity);
 
                 ModularPiece modularPiece = g.GetComponent<ModularPiece>();
                 ModularObject modularObject = g.GetComponent<ModularObject>();
@@ -2539,7 +2542,7 @@ public partial class PlayerBuilding
             if (player.playerPremiumZoneManager.inPremiumZone) return;
             if (player.playerBelt.belt[inventoryIndex].amount > 0 && player.playerBelt.belt[inventoryIndex].item.name == itemName && player.playerBelt.belt[inventoryIndex].item.data is ScriptableBuilding)
             {
-                g = Instantiate(((ScriptableBuilding)player.playerBelt.belt[inventoryIndex].item.data).buildingList[0].buildingObject, buildingTransform, Quaternion.identity);
+                g = Instantiate(((ScriptableBuilding)player.playerBelt.belt[inventoryIndex].item.data).buildingList[buildingType].buildingObject, buildingTransform, Quaternion.identity);
 
                 ModularPiece modularPiece = g.GetComponent<ModularPiece>();
                 ModularObject modularObject = g.GetComponent<ModularObject>();
@@ -3271,6 +3274,17 @@ public partial class PlayerMove
     [SyncVar]
     public bool eat;
 
+    [SyncVar] public GameObject _forniture;
+    public Forniture forniture
+    {
+        get { return _forniture != null ? _forniture.GetComponent<Forniture>() : null; }
+        set { _forniture = value != null ? value.gameObject : null; }
+    }
+
+    public float distanceToCheckForniture = 3.0f;
+    public float distanceToCheckEntity = 15.0f;
+
+
     void Start()
     {
         player.agent.speed = GeneralManager.singleton.initialSpeed;
@@ -3453,6 +3467,8 @@ public partial class PlayerMove
     {
         if (player.agent.velocity == Vector2.zero) return;
 
+        player.playerMove.forniture = null;
+
         if (player.mana == 0 && player.playerCar.car == null)
             run = false;
 
@@ -3625,7 +3641,7 @@ public partial class PlayerMove
     [Server]
     public void SmartTargeting()
     {
-        monsters = Physics2D.OverlapCircleAll(transform.position, 15.0f, GeneralManager.singleton.entityLayerMask);
+        monsters = Physics2D.OverlapCircleAll(transform.position, distanceToCheckEntity, GeneralManager.singleton.entityLayerMask);
         monstersSorted = monsters.Select(go => go.GetComponent<Entity>()).Where(m => m != null && m.health >= 0).ToList();
         sorted = monstersSorted.OrderBy(m => Vector2.Distance(transform.position, m.transform.position)).ToList();
 
@@ -3656,13 +3672,14 @@ public partial class PlayerMove
                 }
             }
         }
-
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(player.transform.position, 15.0f);
+        Gizmos.color = Color.gray;
+        Gizmos.DrawWireSphere(player.transform.position, 3.0f);
     }
 
     public void Drink()

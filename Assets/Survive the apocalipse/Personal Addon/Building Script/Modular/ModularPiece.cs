@@ -448,7 +448,7 @@ public class ModularPiece : NetworkBehaviour
                 {
                     if (modularPiece.CanSpawn())
                     {
-                        player.playerBuilding.CmdSpawnBasement(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt);
+                        player.playerBuilding.CmdSpawnBasement(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt, 0);
                         DestroyBuilding();
                     }
                 }

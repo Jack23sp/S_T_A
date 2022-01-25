@@ -1036,7 +1036,7 @@ public partial class UIBuilding : MonoBehaviour
             }
             else if(player.playerBuilding.actualBuilding && player.playerBuilding.actualBuilding.GetComponent<ModularObject>())
             {
-                player.playerBuilding.CmdSpawnBasement(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt);
+                player.playerBuilding.CmdSpawnBasement(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt, player.playerBuilding.actualBuilding.GetComponent<ModularObject>().oldPositioning);
                 DestroyBuilding();
             }
             else
@@ -1072,16 +1072,23 @@ public partial class UIBuilding : MonoBehaviour
         changePerspective.gameObject.SetActive(player.playerBuilding.building && player.playerBuilding.building.buildingList.Count > 1);
         changePerspective.onClick.SetListener(() =>
         {
-            if (childpositioning.Count > 0)
+            if (player.playerBuilding.actualBuilding.GetComponent<ModularObject>())
             {
-                currentPositioning++;
-                if (currentPositioning > childpositioning.Count - 1) currentPositioning = 0;
-
-                player.playerBuilding.actualBuilding.GetComponent<Building>().chengePerspective(childpositioning[currentPositioning]);
+                player.playerBuilding.actualBuilding.GetComponent<ModularObject>().chengePerspective();
             }
             else
             {
-                player.playerBuilding.actualBuilding.GetComponent<Building>().chengePerspective(new Positioning(null, -1));
+                if (childpositioning.Count > 0)
+                {
+                    currentPositioning++;
+                    if (currentPositioning > childpositioning.Count - 1) currentPositioning = 0;
+
+                    player.playerBuilding.actualBuilding.GetComponent<Building>().chengePerspective(childpositioning[currentPositioning]);
+                }
+                else
+                {
+                    player.playerBuilding.actualBuilding.GetComponent<Building>().chengePerspective(new Positioning(null, -1));
+                }
             }
         });
 

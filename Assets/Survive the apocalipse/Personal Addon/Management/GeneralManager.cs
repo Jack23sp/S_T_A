@@ -447,6 +447,8 @@ public class GeneralManager : MonoBehaviour
     public LayerMask modularObjecObstacleLayerMask;
     public LayerMask modularObjecObstaclePlacementLayerMask;
 
+    public LayerMask searchFornitureLayerMask;
+
     public DateTime ChangeServerToClientTime(DateTime time, int seconds = 0)
     {
         return DateTime.ParseExact(time.ToString(), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);

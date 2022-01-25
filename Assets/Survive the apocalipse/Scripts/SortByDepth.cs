@@ -15,6 +15,9 @@ public class SortByDepth : MonoBehaviour
     // player, even if the player is above it in .y)
     public int offset = 0;
 
+    public bool relatedToPlayer = false;
+    public int amountRelatedToPlayer = 1;
+
     private void Start()
     {
         if (!renderer) renderer = GetComponent<SpriteRenderer>();
@@ -22,12 +25,27 @@ public class SortByDepth : MonoBehaviour
 
     void Update()
     {
-        // we negate it because that's how Unity's sorting order works
-        renderer.sortingOrder = -Mathf.RoundToInt((transform.position.y + offset) * precision);
+        if (relatedToPlayer)
+        {
+            renderer.sortingOrder = Player.localPlayer.spriteRenderer.sortingOrder - amountRelatedToPlayer;
+        }
+        else
+        {
+            // we negate it because that's how Unity's sorting order works
+            renderer.sortingOrder = -Mathf.RoundToInt((transform.position.y + offset) * precision);
+        }
     }
 
     public void SetOrder()
     {
-        renderer.sortingOrder = -Mathf.RoundToInt((transform.position.y + offset) * precision);
+        if (relatedToPlayer)
+        {
+
+        }
+        else
+        {
+            // we negate it because that's how Unity's sorting order works
+            renderer.sortingOrder = -Mathf.RoundToInt((transform.position.y + offset) * precision);
+        }
     }
 }

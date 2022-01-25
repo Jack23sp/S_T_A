@@ -3669,6 +3669,25 @@ public partial class Player : Entity
         }
     }
 
+    [Command]
+    public void CmdSetForniture(NetworkIdentity ni)
+    {
+        if (ni != null)
+        {
+            if(Vector2.Distance(transform.position, ni.transform.position) <= 7.0f)
+                playerMove.forniture = ni.GetComponent<Forniture>();
+        }
+    }
+
+    public void SetForniture(NetworkIdentity ni)
+    {
+        if (ni != null)
+        {
+            playerMove.forniture = ni.GetComponent<Forniture>();
+        }
+    }
+
+
     public Vector3 lastDirection;
     public float horizontal;
     public float vertical;
@@ -6347,6 +6366,50 @@ public partial class Player : Entity
                 }
             }
         }
+    }
+
+    [Command]
+    public void CmdTakeWaterFromFurniture(int amountHoney)
+    {
+        int totalHoney = amountHoney;
+        int freeInventoryHoney = amountHoney;
+        if (!playerMove.forniture) return;
+        if (amountHoney > GetEmptyWaterBootle()) return;
+        if (amountHoney > playerMove.forniture.GetComponent<KitchenSink>().currentWater) return;
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].amount > 0)
+            {
+                if (inventory[i].item.data.generalLiquidContainer > 0)
+                {
+                    freeInventoryHoney = inventory[i].item.data.generalLiquidContainer - inventory[i].item.waterContainer;
+                    if (amountHoney <= freeInventoryHoney)
+                    {
+                        ItemSlot itm = new ItemSlot();
+                        itm = inventory[i];
+                        playerMove.forniture.GetComponent<KitchenSink>().currentWater -= amountHoney;
+                        itm.item.waterContainer += amountHoney;
+                        inventory[i] = itm;
+                        amountHoney = 0;
+                    }
+                    else
+                    {
+                        ItemSlot itm = new ItemSlot();
+                        itm = inventory[i];
+                        itm.item.waterContainer = itm.item.data.generalLiquidContainer;
+                        inventory[i] = itm;
+                        amountHoney -= freeInventoryHoney;
+                        playerMove.forniture.GetComponent<KitchenSink>().currentWater -= freeInventoryHoney;
+                    }
+                }
+            }
+        }
+    }
+
+    [Command]
+    public void CmdRemoveForniture()
+    {
+        playerMove._forniture = null;
     }
 
     #endregion

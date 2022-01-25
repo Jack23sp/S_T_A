@@ -85,4 +85,5 @@ MonoBehaviour:
   isWall: 0
   isDoor: 0
   modularAccessory: 0
+  modularForniture: 1
   necessaryTagObject: []

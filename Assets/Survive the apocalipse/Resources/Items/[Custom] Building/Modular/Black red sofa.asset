@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb53f768bb9c0ac4aa68e73e9ad8d208, type: 3}
-  m_Name: Sofa 2
+  m_Name: Black red sofa
   m_EditorClassIdentifier: 
   Group: 
   subGroup: 
@@ -42,7 +42,7 @@ MonoBehaviour:
   goldsToUpgrade: 350
   coinsToUpgrade: 5
   generalLiquidContainer: 0
-  italianName: Divano
+  italianName: Divano nero rosso
   maxStack: 100
   buyPrice: 10
   sellPrice: 4
@@ -78,11 +78,21 @@ MonoBehaviour:
     baseValue: 100
     bonusPerLevel: 30
   buildingList:
+  - buildingName: DOWN
+    buildingObject: {fileID: 1404549255279718722, guid: 688f81c100972994cb53593716ac0ad3,
+      type: 3}
+  - buildingName: SX
+    buildingObject: {fileID: 1404549255279718722, guid: cfa7fa9d1735fb546bbb0f2eeecc2908,
+      type: 3}
+  - buildingName: DX
+    buildingObject: {fileID: 1404549255279718722, guid: 644b45bd0adcaf24da6a8d3fa5c91a70,
+      type: 3}
   - buildingName: UP
-    buildingObject: {fileID: 1529476062757820, guid: 4fa0fff8a72c88c49ab196731a7ccdde,
+    buildingObject: {fileID: 1404549255279718722, guid: 1da5367a0d3eeee4eaf8522aea39a0e9,
       type: 3}
   isBasement: 0
   isWall: 0
   isDoor: 0
   modularAccessory: 0
+  modularForniture: 1
   necessaryTagObject: []
