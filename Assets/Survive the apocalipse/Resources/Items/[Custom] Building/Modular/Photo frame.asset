@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb53f768bb9c0ac4aa68e73e9ad8d208, type: 3}
-  m_Name: Paint 1
+  m_Name: Photo frame
   m_EditorClassIdentifier: 
   Group: 
   subGroup: 
@@ -42,7 +42,7 @@ MonoBehaviour:
   goldsToUpgrade: 350
   coinsToUpgrade: 5
   generalLiquidContainer: 0
-  italianName: Quadro
+  italianName: Portafoto
   maxStack: 100
   buyPrice: 10
   sellPrice: 4
@@ -79,10 +79,20 @@ MonoBehaviour:
     bonusPerLevel: 30
   buildingList:
   - buildingName: UP
-    buildingObject: {fileID: 1529476062757820, guid: 4fa0fff8a72c88c49ab196731a7ccdde,
+    buildingObject: {fileID: 8481587374756549699, guid: e4f1df24efb28d845bc53461161da7ce,
+      type: 3}
+  - buildingName: SX
+    buildingObject: {fileID: 8481587374756549699, guid: 576fba2e6d902b944aa8ca10e8032bd0,
+      type: 3}
+  - buildingName: DX
+    buildingObject: {fileID: 8481587374756549699, guid: a3d44ab048c2180438c326767f7de90a,
+      type: 3}
+  - buildingName: DOWN
+    buildingObject: {fileID: 8481587374756549699, guid: 3a82fd35c4666d14e93970223dae08b1,
       type: 3}
   isBasement: 0
   isWall: 0
   isDoor: 0
-  modularAccessory: 0
-  necessaryTagObject: []
+  modularAccessory: 1
+  modularForniture: 0
+  necessaryTagObject: FornitureSupport

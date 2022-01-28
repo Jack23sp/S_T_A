@@ -9,23 +9,4 @@ public class KitchenSink : ModularObject
     public int currentWater;
     public int maxWater = 250;
 
-    public void Start()
-    {
-        InvokeRepeating(nameof(TakeWater), 0.0f, 5.0f);
-    }
-
-    public void TakeWater()
-    {
-        if (identity.isServer)
-        {
-            if (currentWater < maxWater)
-            {
-                currentWater++;
-            }
-        }
-        else
-        {
-            CancelInvoke();
-        }
-    }
 }

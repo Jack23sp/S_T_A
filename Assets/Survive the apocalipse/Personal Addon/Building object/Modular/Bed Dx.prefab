@@ -150,8 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  scriptableBuilding: {fileID: 11400000, guid: 7f7cc9c3ee5440f458ea71de5fe6f66d, type: 2}
-  fornitureType: 0
+  scriptableBuilding: {fileID: 11400000, guid: 72dbe395c149c044b87f5e89ba3dc811, type: 2}
+  fornitureType: 12
   placement: {fileID: 7339747833613281943}
   collider: {fileID: 4988423368897892409}
   allColliders: []

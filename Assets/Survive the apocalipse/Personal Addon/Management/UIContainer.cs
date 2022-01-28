@@ -1049,6 +1049,8 @@ public partial class UIBuilding : MonoBehaviour
                         player.playerBuilding.actualBuilding.GetComponent<ModularPiece>().SpawnBuilding();
                 }
             }
+            ModularBuildingManager.singleton.ableModificationWallMode = false;
+            ModularBuildingManager.singleton.ableModificationMode = false;
         });
 
         cancel.onClick.SetListener(() =>
@@ -1066,6 +1068,8 @@ public partial class UIBuilding : MonoBehaviour
             }
             ModularBuildingManager.singleton.selectedPoint = null;
             ModularBuildingManager.singleton.ResetComponent(ModularBuildingManager.singleton.modularPiece);
+            ModularBuildingManager.singleton.ableModificationWallMode = false;
+            ModularBuildingManager.singleton.ableModificationMode = false;
             DestroyBuilding();
         });
 
@@ -1126,10 +1130,16 @@ public partial class UIBuilding : MonoBehaviour
         player.playerBuilding.actualBuilding = null;
         player.playerBuilding.building = null;
         player.playerBuilding.inventoryIndex = -1;
+        if (player.playerMove.forniture)
+        {
+            Destroy(player.playerMove.forniture);
+            player.playerMove.forniture = null;
+        }
         if (GeneralManager.singleton.spawnedBuildingObject) Destroy(GeneralManager.singleton.spawnedBuildingObject);
         ModularBuildingManager.singleton.ableModificationMode = false;
         ModularBuildingManager.singleton.ableModificationWallMode = false;
         ModularBuildingManager.singleton.DisableNearestWall();
+        ModularBuildingManager.singleton.CheckModularWallAfterDeath();
     }
 
 }
@@ -1873,12 +1883,14 @@ public partial class UISpawnpoint
         spawnHere.onClick.SetListener(() =>
         {
             player.playerSpawnpoint.CmdSpawnpointRevive(1.0f);
+            ModularBuildingManager.singleton.CheckModularWallAfterDeath();
             Destroy(this.gameObject);
         });
 
         spawnSomewhere.onClick.SetListener(() =>
         {
             player.playerSpawnpoint.CmdSpawnSomewhere();
+            ModularBuildingManager.singleton.CheckModularWallAfterDeath();
             Destroy(this.gameObject);
         });
 

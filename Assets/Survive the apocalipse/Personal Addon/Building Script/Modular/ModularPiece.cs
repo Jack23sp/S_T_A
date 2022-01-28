@@ -432,6 +432,7 @@ public class ModularPiece : NetworkBehaviour
         if (GeneralManager.singleton.spawnedBuildingObject) Destroy(GeneralManager.singleton.spawnedBuildingObject);
         ModularBuildingManager.singleton.ableModificationMode = false;
         ModularBuildingManager.singleton.ableModificationWallMode = false;
+        ModularBuildingManager.singleton.CheckModularWallAfterDeath();
     }
 
     public void SpawnBuilding()

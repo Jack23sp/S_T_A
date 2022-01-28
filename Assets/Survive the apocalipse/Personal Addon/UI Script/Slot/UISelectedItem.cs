@@ -349,6 +349,7 @@ public class UISelectedItem : MonoBehaviour
                             {
                                 GeneralManager.singleton.spawnedBuildingObject = Instantiate(GeneralManager.singleton.buildingManager, GeneralManager.singleton.canvas);
                             }
+                            ModularBuildingManager.singleton.ableModificationMode = false;
                         }
                         else
                         {

@@ -53,6 +53,20 @@ public class ModularBuildingManager : NetworkBehaviour
         }
     }
 
+    public void CheckModularWallAfterDeath()
+    {
+        if(modularPiece)
+        {
+            if (modularPiece.leftComponent != modularPiece.clientleftComponent) modularPiece.clientleftComponent = -5;
+            if (modularPiece.rightComponent != modularPiece.clientrightComponent) modularPiece.clientrightComponent = -5;
+            if (modularPiece.upComponent != modularPiece.clientupComponent) modularPiece.clientupComponent = -5;
+            if (modularPiece.downComponent != modularPiece.clientdownComponent) modularPiece.clientdownComponent = -5;
+            modularPiece.CheckWall();
+            selectedPiece = null;
+            modularPiece = null;
+        }
+    }
+
     void Update()
     {
         if (!player) player = Player.localPlayer;

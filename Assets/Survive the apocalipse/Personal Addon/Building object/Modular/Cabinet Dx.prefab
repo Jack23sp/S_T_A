@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 9135437231136764325}
   m_Layer: 25
   m_Name: Cabinet Dx
-  m_TagString: ForniturePlacer
+  m_TagString: FornitureSupport
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,8 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  scriptableBuilding: {fileID: 11400000, guid: 7f7cc9c3ee5440f458ea71de5fe6f66d, type: 2}
-  fornitureType: 0
+  scriptableBuilding: {fileID: 11400000, guid: d61a4b5d16ab57844b5f88752555222a, type: 2}
+  fornitureType: 14
   placement: {fileID: 7339747833613281943}
   collider: {fileID: 4988423368897892409}
   allColliders: []

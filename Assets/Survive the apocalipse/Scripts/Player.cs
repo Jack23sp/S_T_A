@@ -6374,8 +6374,8 @@ public partial class Player : Entity
         int totalHoney = amountHoney;
         int freeInventoryHoney = amountHoney;
         if (!playerMove.forniture) return;
-        if (amountHoney > GetEmptyWaterBootle()) return;
-        if (amountHoney > playerMove.forniture.GetComponent<KitchenSink>().currentWater) return;
+        //if (amountHoney > GetEmptyWaterBootle()) return;
+        if (!playerMove.forniture.GetComponent<KitchenSink>()) return;
         for (int i = 0; i < inventory.Count; i++)
         {
             if (inventory[i].amount > 0)
@@ -6387,7 +6387,7 @@ public partial class Player : Entity
                     {
                         ItemSlot itm = new ItemSlot();
                         itm = inventory[i];
-                        playerMove.forniture.GetComponent<KitchenSink>().currentWater -= amountHoney;
+                        //playerMove.forniture.GetComponent<KitchenSink>().currentWater -= amountHoney;
                         itm.item.waterContainer += amountHoney;
                         inventory[i] = itm;
                         amountHoney = 0;
@@ -6399,7 +6399,7 @@ public partial class Player : Entity
                         itm.item.waterContainer = itm.item.data.generalLiquidContainer;
                         inventory[i] = itm;
                         amountHoney -= freeInventoryHoney;
-                        playerMove.forniture.GetComponent<KitchenSink>().currentWater -= freeInventoryHoney;
+                        //playerMove.forniture.GetComponent<KitchenSink>().currentWater -= freeInventoryHoney;
                     }
                 }
             }

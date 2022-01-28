@@ -58,6 +58,7 @@ TagManager:
   - FornitureObstacle
   - ForniturePlacer
   - Roof
+  - FornitureSupport
   layers:
   - Default
   - TransparentFX

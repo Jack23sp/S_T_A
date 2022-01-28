@@ -245,6 +245,8 @@ MonoBehaviour:
   renderer: {fileID: 6459912377840944600}
   precision: 102.3
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &767249614812889619
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,6 +492,8 @@ MonoBehaviour:
   renderer: {fileID: 6537934491028648515}
   precision: 100.6
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &1244481240354732142
 GameObject:
   m_ObjectHideFlags: 0
@@ -889,6 +893,8 @@ MonoBehaviour:
   renderer: {fileID: 9037855030301484024}
   precision: 102.15
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &1636801517595368728
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,6 +905,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5587872124168591325}
   - component: {fileID: 9064407504572154725}
+  - component: {fileID: 2753722003498775196}
   m_Layer: 0
   m_Name: New Sprite (1)
   m_TagString: Untagged
@@ -956,8 +963,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -870365055
-  m_SortingLayer: 4
+  m_SortingLayerID: 1242795895
+  m_SortingLayer: 5
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: af2d67693368c8c4ca0d172edaa80f3f, type: 3}
   m_Color: {r: 0.44705883, g: 0.42745098, b: 0.42352942, a: 1}
@@ -970,6 +977,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2753722003498775196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636801517595368728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b5fb9ce1492452499576f473de1123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 9064407504572154725}
+  precision: 101.73
+  offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &1687497058854824333
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,7 +1008,7 @@ GameObject:
   - component: {fileID: 8640925209470458851}
   - component: {fileID: 9062831172160848974}
   - component: {fileID: 101643976257938469}
-  m_Layer: 0
+  m_Layer: 27
   m_Name: RIGHTDOOR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1212,7 +1236,7 @@ GameObject:
   - component: {fileID: 6842685489696520525}
   - component: {fileID: 7855807864915319153}
   - component: {fileID: 8482221720075171484}
-  m_Layer: 0
+  m_Layer: 27
   m_Name: DOWNDOOR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1575,6 +1599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2233743245056166580}
   - component: {fileID: 2233743245056166583}
+  - component: {fileID: 283271207157728041}
   m_Layer: 0
   m_Name: New Sprite (1)
   m_TagString: Untagged
@@ -1632,8 +1657,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -870365055
-  m_SortingLayer: 4
+  m_SortingLayerID: 1242795895
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: af2d67693368c8c4ca0d172edaa80f3f, type: 3}
   m_Color: {r: 0.44705886, g: 0.427451, b: 0.42352945, a: 1}
@@ -1646,6 +1671,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &283271207157728041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2233743245056166581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b5fb9ce1492452499576f473de1123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 2233743245056166583}
+  precision: 101.73
+  offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &2233743245247524407
 GameObject:
   m_ObjectHideFlags: 0
@@ -1657,7 +1699,7 @@ GameObject:
   - component: {fileID: 2233743245247524406}
   - component: {fileID: 2233743245247524360}
   - component: {fileID: 2233743245247524361}
-  m_Layer: 0
+  m_Layer: 27
   m_Name: RIGHTWALL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2037,7 +2079,7 @@ GameObject:
   - component: {fileID: 2233743245667972636}
   - component: {fileID: 2233743245667972637}
   - component: {fileID: 8921174187480025626}
-  m_Layer: 0
+  m_Layer: 27
   m_Name: LEFTDOOR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2519,7 +2561,7 @@ GameObject:
   - component: {fileID: 2233743246270048623}
   - component: {fileID: 2233743246270048620}
   - component: {fileID: 3390906163777550344}
-  m_Layer: 0
+  m_Layer: 27
   m_Name: DOWNWALL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2626,6 +2668,8 @@ MonoBehaviour:
   renderer: {fileID: 2233743246270048623}
   precision: 102.15
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &2233743246277448079
 GameObject:
   m_ObjectHideFlags: 0
@@ -2799,7 +2843,7 @@ GameObject:
   - component: {fileID: 2233743246724207618}
   - component: {fileID: 2233743246724207620}
   - component: {fileID: 2233743246724207621}
-  m_Layer: 0
+  m_Layer: 27
   m_Name: LEFTWALL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3111,6 +3155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2233743246864485222}
   - component: {fileID: 2233743246864485241}
+  - component: {fileID: 3724077856571531277}
   m_Layer: 0
   m_Name: New Sprite (1)
   m_TagString: Untagged
@@ -3168,8 +3213,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -870365055
-  m_SortingLayer: 4
+  m_SortingLayerID: 1242795895
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: af2d67693368c8c4ca0d172edaa80f3f, type: 3}
   m_Color: {r: 0.44705883, g: 0.42745098, b: 0.42352942, a: 1}
@@ -3182,6 +3227,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3724077856571531277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2233743246864485223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b5fb9ce1492452499576f473de1123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 2233743246864485241}
+  precision: 101.73
+  offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &2233743247018522741
 GameObject:
   m_ObjectHideFlags: 0
@@ -3192,6 +3254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2233743247018522740}
   - component: {fileID: 2233743247018522743}
+  - component: {fileID: 6275614967491237520}
   m_Layer: 0
   m_Name: New Sprite (1)
   m_TagString: Untagged
@@ -3249,8 +3312,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -870365055
-  m_SortingLayer: 4
+  m_SortingLayerID: 1242795895
+  m_SortingLayer: 5
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: af2d67693368c8c4ca0d172edaa80f3f, type: 3}
   m_Color: {r: 0.44705883, g: 0.42745098, b: 0.42352942, a: 1}
@@ -3263,6 +3326,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6275614967491237520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2233743247018522741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b5fb9ce1492452499576f473de1123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 2233743247018522743}
+  precision: 101.73
+  offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &2233743247159163630
 GameObject:
   m_ObjectHideFlags: 0
@@ -3423,7 +3503,7 @@ GameObject:
   - component: {fileID: 3686957655493485647}
   - component: {fileID: 246903552433828067}
   - component: {fileID: 7959598391196141517}
-  m_Layer: 0
+  m_Layer: 27
   m_Name: UPWALL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3531,6 +3611,8 @@ MonoBehaviour:
   renderer: {fileID: 3686957655493485647}
   precision: 102.15
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &3242816457628668472
 GameObject:
   m_ObjectHideFlags: 0
@@ -3628,6 +3710,8 @@ MonoBehaviour:
   renderer: {fileID: 1986823577853375068}
   precision: 102.15
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &3575243116488540725
 GameObject:
   m_ObjectHideFlags: 0
@@ -3725,6 +3809,8 @@ MonoBehaviour:
   renderer: {fileID: 2460960022497758209}
   precision: 102.15
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &3595465766103666673
 GameObject:
   m_ObjectHideFlags: 0
@@ -3822,6 +3908,8 @@ MonoBehaviour:
   renderer: {fileID: 8843421689382088141}
   precision: 102.15
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &4205121096212949546
 GameObject:
   m_ObjectHideFlags: 0
@@ -4000,6 +4088,8 @@ MonoBehaviour:
   renderer: {fileID: 1294565629890484848}
   precision: 100.83
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &4733074569799257465
 GameObject:
   m_ObjectHideFlags: 0
@@ -4175,6 +4265,8 @@ MonoBehaviour:
   renderer: {fileID: 302911469093186018}
   precision: 100.6
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &5203141376404466065
 GameObject:
   m_ObjectHideFlags: 0
@@ -4420,7 +4512,7 @@ GameObject:
   - component: {fileID: 7041802574441620243}
   - component: {fileID: 4459411517155528048}
   - component: {fileID: 8562034145731661763}
-  m_Layer: 0
+  m_Layer: 27
   m_Name: UPDOOR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4724,6 +4816,8 @@ MonoBehaviour:
   renderer: {fileID: 8911196871735108319}
   precision: 102.15
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &7246124488266947180
 GameObject:
   m_ObjectHideFlags: 0
@@ -4899,6 +4993,8 @@ MonoBehaviour:
   renderer: {fileID: 3745766416866688374}
   precision: 102.15
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &8435522750600512573
 GameObject:
   m_ObjectHideFlags: 0
@@ -4996,6 +5092,8 @@ MonoBehaviour:
   renderer: {fileID: 6938270686839387317}
   precision: 102.3
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &8482830056756403205
 GameObject:
   m_ObjectHideFlags: 0
@@ -5093,6 +5191,8 @@ MonoBehaviour:
   renderer: {fileID: 753074050182650212}
   precision: 102.15
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &8507524074928584591
 GameObject:
   m_ObjectHideFlags: 0
@@ -5190,6 +5290,8 @@ MonoBehaviour:
   renderer: {fileID: 7764524803638652691}
   precision: 102.15
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &9142521938805346842
 GameObject:
   m_ObjectHideFlags: 0
@@ -5287,3 +5389,5 @@ MonoBehaviour:
   renderer: {fileID: 939178974006084724}
   precision: 102.15
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1

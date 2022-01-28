@@ -40,7 +40,7 @@ public class SortByDepth : MonoBehaviour
     {
         if (relatedToPlayer)
         {
-
+            renderer.sortingOrder = Player.localPlayer.spriteRenderer.sortingOrder - amountRelatedToPlayer;
         }
         else
         {

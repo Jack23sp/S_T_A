@@ -51,7 +51,7 @@ public partial class ScriptableBuilding : ScriptableItem
     public bool modularAccessory;
     public bool modularForniture;
 
-    public List<string> necessaryTagObject = new List<string>();
+    public string necessaryTagObject;
 
 
     public bool CanUse(Player player, int inventoryIndex)

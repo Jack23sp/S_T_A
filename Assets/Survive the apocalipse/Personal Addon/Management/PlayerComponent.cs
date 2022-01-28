@@ -1394,7 +1394,16 @@ public partial class PlayerSpawnpoint
         player.mana = player.manaMax;
         player.playerCar.Exit();
         player.playerBuilding.building = null;
-        player.playerBuilding.actualBuilding = null;
+        if (player.playerBuilding.actualBuilding)
+        {
+            Destroy(player.playerBuilding.actualBuilding);
+            player.playerBuilding.actualBuilding = null;
+        }
+        if (player.playerMove.forniture)
+        {
+            Destroy(player.playerMove.forniture);
+            player.playerMove.forniture = null;
+        }
         player.playerBuilding.inventoryIndex = -1;
         player.playerInjury.injured = false;
         for (int i = 0; i < player.equipment.Count; i++)
@@ -2604,7 +2613,7 @@ public partial class PlayerBuilding
             if (modular.leftComponent == -5) modular.leftComponent = left;
             if (modular.rightComponent == -5) modular.rightComponent = right;
 
-            if (inventory)
+            if (!inventory)
             {
                 ItemSlot slot = player.inventory[inventoryIndex];
                 slot.amount--;

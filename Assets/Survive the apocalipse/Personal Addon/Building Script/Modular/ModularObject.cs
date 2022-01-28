@@ -101,6 +101,12 @@ public class ModularObject : Forniture
         player.playerBuilding.actualBuilding = null;
         player.playerBuilding.building = null;
         player.playerBuilding.inventoryIndex = -1;
+        if (player.playerMove.forniture)
+        {
+            Destroy(player.playerMove.forniture);
+            player.playerMove.forniture = null;
+        }
+        ModularBuildingManager.singleton.CheckModularWallAfterDeath();
         if (GeneralManager.singleton.spawnedBuildingObject) Destroy(GeneralManager.singleton.spawnedBuildingObject);
     }
 
@@ -156,14 +162,15 @@ public class ModularObject : Forniture
                         allColliders.Add(((BoxCollider2D)collision));
                     }
                 }
+
                 if (allColliders.Count > 1) { canSpawn = false; return; }
                 else
                 {
-                    if (allColliders.Count == 1)
+                    if (allColliders.Count == 1 && allColliders[0].CompareTag(scriptableBuilding.necessaryTagObject))
                     {
-                        if (GeneralManager.singleton.IsInsideGeneric(allColliders[0], collider))
+                        if (GeneralManager.singleton.IsInside(allColliders[0], collider))
                         {
-                            canSpawn = false; return;
+                            canSpawn = true; return;
                         }
                     }
 
@@ -197,7 +204,7 @@ public class ModularObject : Forniture
                     {
                         if (allColliders.Count == 1)
                         {
-                            if (GeneralManager.singleton.IsInsideGeneric(allColliders[0], collider))
+                            if (GeneralManager.singleton.IsInside(allColliders[0], collider))
                             {
                                 canSpawn = true; return;
                             }
@@ -246,7 +253,7 @@ public class ModularObject : Forniture
                         {
                             if (GeneralManager.singleton.IsInside(allColliders[0], collider))
                             {
-                                canSpawn = true; 
+                                canSpawn = true;
                                 return;
                             }
                         }
@@ -270,14 +277,15 @@ public class ModularObject : Forniture
                         allColliders.Add(((BoxCollider2D)collision));
                     }
                 }
+
                 if (allColliders.Count > 1) { canSpawn = false; return; }
                 else
                 {
-                    if (allColliders.Count == 1)
+                    if (allColliders.Count == 1 && allColliders[0].CompareTag(scriptableBuilding.necessaryTagObject))
                     {
-                        if (GeneralManager.singleton.IsInsideGeneric(allColliders[0], collider))
+                        if (GeneralManager.singleton.IsInside(allColliders[0], collider))
                         {
-                            canSpawn = false; return;
+                            canSpawn = true; return;
                         }
                     }
 
@@ -311,8 +319,10 @@ public class ModularObject : Forniture
                     {
                         if (allColliders.Count == 1)
                         {
-                            if (GeneralManager.singleton.IsInsideGeneric(allColliders[0], collider))
+                            Debug.Log("Inside collider : " + GeneralManager.singleton.IsInsideGeneric(allColliders[0], collider));
+                            if (GeneralManager.singleton.IsInside(allColliders[0], collider))
                             {
+                                Debug.Log("Can spawn wall object");
                                 canSpawn = true; return;
                             }
                         }
@@ -373,14 +383,14 @@ public class ModularObject : Forniture
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (allColliders.Contains(((BoxCollider2D)collision)))
+        if (allColliders.Contains((BoxCollider2D)collision))
         {
-            allColliders.Remove(((BoxCollider2D)collision));
+            allColliders.Remove((BoxCollider2D)collision);
         }
 
-        if (obstacleColliders.Contains(((BoxCollider2D)collision)))
+        if (obstacleColliders.Contains((BoxCollider2D)collision))
         {
-            obstacleColliders.Remove(((BoxCollider2D)collision));
+            obstacleColliders.Remove((BoxCollider2D)collision);
         }
     }
 }

@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 9135437231136764325}
   m_Layer: 25
   m_Name: Bedside Down
-  m_TagString: ForniturePlacer
+  m_TagString: FornitureSupport
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -150,8 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  scriptableBuilding: {fileID: 11400000, guid: 7f7cc9c3ee5440f458ea71de5fe6f66d, type: 2}
-  fornitureType: 0
+  scriptableBuilding: {fileID: 11400000, guid: 602f9f4acadcad14da2ff4b1b8a4b2ee, type: 2}
+  fornitureType: 13
   placement: {fileID: 7339747833613281943}
   collider: {fileID: 4988423368897892409}
   allColliders: []

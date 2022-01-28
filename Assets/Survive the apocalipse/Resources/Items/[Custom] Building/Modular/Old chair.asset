@@ -79,10 +79,20 @@ MonoBehaviour:
     bonusPerLevel: 30
   buildingList:
   - buildingName: UP
-    buildingObject: {fileID: 1529476062757820, guid: 4fa0fff8a72c88c49ab196731a7ccdde,
+    buildingObject: {fileID: 8481587374756549699, guid: ab5c3bd3b100a94439d24df5e82b3539,
+      type: 3}
+  - buildingName: SX
+    buildingObject: {fileID: 8481587374756549699, guid: fd35e86a4595210409ecdf644882d14d,
+      type: 3}
+  - buildingName: DX
+    buildingObject: {fileID: 8481587374756549699, guid: 6b217dca5d8227240b5132e862b42665,
+      type: 3}
+  - buildingName: DOWN
+    buildingObject: {fileID: 8481587374756549699, guid: d08cae014ce16f44d8a8ad8ebdc09659,
       type: 3}
   isBasement: 0
   isWall: 0
   isDoor: 0
   modularAccessory: 0
+  modularForniture: 1
   necessaryTagObject: []
