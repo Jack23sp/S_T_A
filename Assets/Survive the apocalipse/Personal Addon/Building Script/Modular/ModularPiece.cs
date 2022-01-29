@@ -68,6 +68,11 @@ public class ModularPiece : NetworkBehaviour
     public SpriteRenderer upWallPointer;
     public SpriteRenderer downWallPointer;
 
+    public SpriteRenderer leftFloorPointer;
+    public SpriteRenderer rightFloorPointer;
+    public SpriteRenderer upFloorPointer;
+    public SpriteRenderer downFloorPointer;
+
     public GameObject upWall;
     public GameObject upDoor;
     public GameObject leftWall;
@@ -94,6 +99,10 @@ public class ModularPiece : NetworkBehaviour
     public List<Collider2D> fornitureColliders = new List<Collider2D>();
 
     public GameObject roof;
+
+    public List<SortByDepth> sortPlus = new List<SortByDepth>();
+    public List<SortByDepth> sortMinus = new List<SortByDepth>();
+
 
     public void OnDestroy()
     {

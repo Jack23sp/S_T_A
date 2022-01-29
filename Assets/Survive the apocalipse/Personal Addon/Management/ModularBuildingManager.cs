@@ -32,6 +32,8 @@ public class ModularBuildingManager : NetworkBehaviour
 
     public GameObject instantiatedUI;
 
+    public ModularPiece loopModularPiece;
+
     void Start()
     {
         if (!singleton) singleton = this;
@@ -41,7 +43,8 @@ public class ModularBuildingManager : NetworkBehaviour
     {
         foreach (Collider2D modularPiece in allColliders)
         {
-            modularPiece.GetComponent<ModularPiece>().roof.SetActive(true);
+            loopModularPiece = modularPiece.GetComponent<ModularPiece>();
+            loopModularPiece.roof.SetActive(true);
         }
     }
 
@@ -49,7 +52,27 @@ public class ModularBuildingManager : NetworkBehaviour
     {
         foreach (Collider2D modularPiece in allColliders)
         {
-            modularPiece.GetComponent<ModularPiece>().roof.SetActive(false);
+            loopModularPiece = modularPiece.GetComponent<ModularPiece>();
+            loopModularPiece.roof.SetActive(false);
+
+            foreach (SortByDepth sortByDepth in loopModularPiece.sortPlus)
+            {
+                sortByDepth.relatedToPlayer = true;
+                sortByDepth.amountRelatedToPlayer = 1;
+                sortByDepth.SetOrder();
+                //sortByDepth.enabled = false;
+            }
+
+            //loopModularPiece.sortPlus.Clear();
+
+            foreach (SortByDepth sortByDepth in loopModularPiece.sortMinus)
+            {
+                sortByDepth.relatedToPlayer = true;
+                sortByDepth.amountRelatedToPlayer = -1;
+                sortByDepth.SetOrder();
+                //sortByDepth.enabled = false;
+            }
+            //////loopModularPiece.sortMinus.Clear();
         }
     }
 
@@ -65,6 +88,11 @@ public class ModularBuildingManager : NetworkBehaviour
             selectedPiece = null;
             modularPiece = null;
         }
+    }
+
+    public void DisableAllPlacer()
+    {
+
     }
 
     void Update()
@@ -150,6 +178,10 @@ public class ModularBuildingManager : NetworkBehaviour
                     int index = i;
                     if (hit[index].collider.CompareTag("WallPositioning"))
                     {
+                        if(modularPiece)
+                        {
+                            ResetComponent(modularPiece);
+                        }
                         selectedPoint = hit[index].collider.GetComponent<SpriteRenderer>();
 
                         modularPiece = selectedPoint.transform.GetComponentInParent<ModularPiece>();
@@ -221,6 +253,7 @@ public class ModularBuildingManager : NetworkBehaviour
             if (modular.leftComponent == -5) modular.clientleftComponent = -5;
             if (modular.rightComponent == -5) modular.clientrightComponent = -5;
             if (modular.upComponent == -5) modular.clientupComponent = -5;
+            modular.CheckWall();
         }
     }
 
@@ -256,15 +289,59 @@ public class ModularBuildingManager : NetworkBehaviour
 
         wallOrdered = wallOrdered.OrderBy(m => Vector2.Distance(Player.localPlayer.transform.position, m.transform.position)).ToList();
 
+        ModularPiece nearModularPiece = null;
+
         for (int i = 0; i < wallOrdered.Count; i++)
         {
             int index = i;
             ModularPiece piece = wallOrdered[index].GetComponent<ModularPiece>();
 
-            piece.leftWallPointer.enabled = piece.clientleftComponent == -5;
-            piece.rightWallPointer.enabled = piece.clientrightComponent == -5;
-            piece.upWallPointer.enabled = piece.clientupComponent == -5;
-            piece.downWallPointer.enabled = piece.clientdownComponent == -5;
+
+            //piece.leftWallPointer.enabled = piece.clientleftComponent == -5;
+            //piece.rightWallPointer.enabled = piece.clientrightComponent == -5;
+            //piece.upWallPointer.enabled = piece.clientupComponent == -5;
+            //piece.downWallPointer.enabled = piece.clientdownComponent == -5;
+
+            nearModularPiece = (CheckFloorPresence(piece.leftFloorPointer.transform));
+            //CheckFloorPresenceDebug(piece.leftFloorPointer.transform, piece);
+            piece.leftWallPointer.enabled = ((nearModularPiece == null && piece.leftComponent == -5) || (nearModularPiece != null && (nearModularPiece.rightComponent == -5 && piece.leftComponent == -5)));
+
+            nearModularPiece = (CheckFloorPresence(piece.rightFloorPointer.transform));
+            //CheckFloorPresenceDebug(piece.rightFloorPointer.transform, piece);
+            piece.rightWallPointer.enabled = ((nearModularPiece == null && piece.rightComponent == -5) || (nearModularPiece != null && (nearModularPiece.leftComponent == -5 && piece.rightComponent == -5)));
+
+            nearModularPiece = (CheckFloorPresence(piece.upFloorPointer.transform));
+            //CheckFloorPresenceDebug(piece.upFloorPointer.transform, piece);
+            piece.upWallPointer.enabled = ((nearModularPiece == null && piece.upComponent == -5) || (nearModularPiece != null && (nearModularPiece.downComponent == -5 && piece.upComponent == -5)));
+
+            nearModularPiece = (CheckFloorPresence(piece.downFloorPointer.transform));
+            //CheckFloorPresenceDebug(piece.downFloorPointer.transform, piece);
+            piece.downWallPointer.enabled = ((nearModularPiece == null && piece.downComponent == -5) || (nearModularPiece != null && (nearModularPiece.upComponent == -5 && piece.downComponent == -5)));
+        }
+    }
+
+    public ModularPiece CheckFloorPresence(Transform pieceTransform)
+    {
+        Collider2D[] floorCollider = Physics2D.OverlapBoxAll(pieceTransform.position, new Vector2(pieceTransform.localScale.x, pieceTransform.localScale.y), GeneralManager.singleton.modularObjectLayerMask);
+
+        for(int i = 0; i < floorCollider.Length; i++)
+        {
+            int index = i;
+            if(floorCollider[index].gameObject.layer == LayerMask.NameToLayer("FloorBasement"))
+            {
+                return floorCollider[index].GetComponent<ModularPiece>();
+            }
+        }
+        return null;
+    }
+
+    public void CheckFloorPresenceDebug(Transform pieceTransform, ModularPiece modular)
+    {
+        Collider2D[] floorCollider = Physics2D.OverlapBoxAll(pieceTransform.position, new Vector2(pieceTransform.localScale.x, pieceTransform.localScale.y), GeneralManager.singleton.modularObjectLayerMask);
+        for(int i = 0; i < floorCollider.Length; i++)
+        {
+            int index = i;
+            Debug.Log("Modular principal = " + modular.name + "pieceTransform name " + pieceTransform.gameObject.name + " modular near = " + floorCollider[index].gameObject.name);
         }
     }
 
@@ -284,6 +361,11 @@ public class ModularBuildingManager : NetworkBehaviour
             piece.rightWallPointer.enabled = false;
             piece.upWallPointer.enabled = false;
             piece.downWallPointer.enabled = false;
+
+            piece.leftFloorPointer.enabled = false;
+            piece.rightFloorPointer.enabled = false;
+            piece.upFloorPointer.enabled = false;
+            piece.downFloorPointer.enabled = false;
         }
     }
 

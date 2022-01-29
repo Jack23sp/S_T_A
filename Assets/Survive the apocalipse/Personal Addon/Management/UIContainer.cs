@@ -1031,13 +1031,12 @@ public partial class UIBuilding : MonoBehaviour
             if (ModularBuildingManager.singleton.selectedPoint && ModularBuildingManager.singleton.ableModificationWallMode)
             {
                 ModularPiece piece = ModularBuildingManager.singleton.selectedPoint.GetComponentInParent<ModularPiece>();
-                player.playerBuilding.CmdSyncWallDoor(piece.GetComponent<NetworkIdentity>(), piece.clientupComponent, piece.clientdownComponent, piece.clientleftComponent, piece.clientrightComponent, player.playerBuilding.invBelt, player.playerBuilding.inventoryIndex);
-                DestroyBuilding();
+                player.playerBuilding.CmdSyncWallDoor(piece.GetComponent<NetworkIdentity>(), piece.clientupComponent, piece.clientdownComponent, piece.clientleftComponent, piece.clientrightComponent, player.playerBuilding.invBelt, player.playerBuilding.inventoryIndex);                
+                piece.DestroyBuilding();
             }
             else if(player.playerBuilding.actualBuilding && player.playerBuilding.actualBuilding.GetComponent<ModularObject>())
             {
                 player.playerBuilding.CmdSpawnBasement(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt, player.playerBuilding.actualBuilding.GetComponent<ModularObject>().oldPositioning);
-                DestroyBuilding();
             }
             else
             {
@@ -1051,6 +1050,7 @@ public partial class UIBuilding : MonoBehaviour
             }
             ModularBuildingManager.singleton.ableModificationWallMode = false;
             ModularBuildingManager.singleton.ableModificationMode = false;
+            DestroyBuilding();
         });
 
         cancel.onClick.SetListener(() =>
@@ -1064,7 +1064,9 @@ public partial class UIBuilding : MonoBehaviour
                     player.playerBuilding.actualBuilding.GetComponent<ModularObject>().DestroyBuilding();
                 }
                 else
+                {
                     player.playerBuilding.actualBuilding.GetComponent<ModularPiece>().DestroyBuilding();
+                }
             }
             ModularBuildingManager.singleton.selectedPoint = null;
             ModularBuildingManager.singleton.ResetComponent(ModularBuildingManager.singleton.modularPiece);
@@ -1133,6 +1135,7 @@ public partial class UIBuilding : MonoBehaviour
         if (player.playerMove.forniture)
         {
             Destroy(player.playerMove.forniture);
+            player.CmdRemoveForniture();
             player.playerMove.forniture = null;
         }
         if (GeneralManager.singleton.spawnedBuildingObject) Destroy(GeneralManager.singleton.spawnedBuildingObject);

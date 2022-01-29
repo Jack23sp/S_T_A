@@ -81,12 +81,6 @@ MonoBehaviour:
   - buildingName: UP
     buildingObject: {fileID: 8481587374756549699, guid: 71181bbfd75f538479856b83b4b6e94a,
       type: 3}
-  - buildingName: SX
-    buildingObject: {fileID: 8481587374756549699, guid: 76f2c0e8ebd510243844422e98bdf768,
-      type: 3}
-  - buildingName: DX
-    buildingObject: {fileID: 8481587374756549699, guid: f9e80dd2475844a4db2deafd34e11ffb,
-      type: 3}
   isBasement: 0
   isWall: 0
   isDoor: 0
