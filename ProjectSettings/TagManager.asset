@@ -59,6 +59,7 @@ TagManager:
   - ForniturePlacer
   - Roof
   - FornitureSupport
+  - FloorChecker
   layers:
   - Default
   - TransparentFX
@@ -71,7 +72,7 @@ TagManager:
   - Bulding
   - Player
   - Monster
-  - Decoration
+  - IgnorePlayer
   - Decoration Checker
   - Resource Manager
   - Resource Manager Catcher

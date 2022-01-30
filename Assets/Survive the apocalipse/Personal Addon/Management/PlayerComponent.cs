@@ -2345,16 +2345,6 @@ public partial class PlayerBuilding
                     ItemSlot slot = player.inventory[selectedInventoryIndex];
                     slot.amount--;
                     player.inventory[selectedInventoryIndex] = slot;
-                    player.playerLeaderPoints.buildinPoint += GeneralManager.singleton.buildingCreatePoint;
-                    for (int i = 0; i < player.quests.Count; i++)
-                    {
-                        Quest quest = player.quests[i];
-                        if (quest.createBuilding == true)
-                        {
-                            quest.checkCreateBuilding = true;
-                            player.quests[i] = quest;
-                        }
-                    }
                 }
             }
             else
@@ -2380,16 +2370,6 @@ public partial class PlayerBuilding
                     ItemSlot slot = player.inventory[selectedInventoryIndex];
                     slot.amount--;
                     player.inventory[selectedInventoryIndex] = slot;
-                    player.playerLeaderPoints.buildinPoint += GeneralManager.singleton.buildingCreatePoint;
-                    for (int i = 0; i < player.quests.Count; i++)
-                    {
-                        Quest quest = player.quests[i];
-                        if (quest.createBuilding == true)
-                        {
-                            quest.checkCreateBuilding = true;
-                            player.quests[i] = quest;
-                        }
-                    }
                 }
             }
             else
@@ -2410,16 +2390,6 @@ public partial class PlayerBuilding
             ItemSlot slot = player.inventory[selectedInventoryIndex];
             slot.amount--;
             player.inventory[selectedInventoryIndex] = slot;
-            player.playerLeaderPoints.buildinPoint += GeneralManager.singleton.buildingCreatePoint;
-            for (int i = 0; i < player.quests.Count; i++)
-            {
-                Quest quest = player.quests[i];
-                if (quest.createBuilding == true)
-                {
-                    quest.checkCreateBuilding = true;
-                    player.quests[i] = quest;
-                }
-            }
         }
         else
         {
@@ -2438,16 +2408,6 @@ public partial class PlayerBuilding
             ItemSlot slot = player.playerBelt.belt[selectedInventoryIndex];
             slot.amount--;
             player.playerBelt.belt[selectedInventoryIndex] = slot;
-            player.playerLeaderPoints.buildinPoint += GeneralManager.singleton.buildingCreatePoint;
-            for (int i = 0; i < player.quests.Count; i++)
-            {
-                Quest quest = player.quests[i];
-                if (quest.createBuilding == true)
-                {
-                    quest.checkCreateBuilding = true;
-                    player.quests[i] = quest;
-                }
-            }
         }
         else
         {
@@ -2487,7 +2447,7 @@ public partial class PlayerBuilding
     }
 
     [Command]
-    public void CmdSpawnBasement(int inventoryIndex, string itemName, Vector2 buildingTransform, bool inventory, int buildingType)
+    public void CmdSpawnBasement(int inventoryIndex, string itemName, Vector2 buildingTransform, bool inventory, int buildingType, bool isInitialBasement, int modularIndex)
     {
         if (buildingType < 0) buildingType = 0;
 
@@ -2509,7 +2469,7 @@ public partial class PlayerBuilding
                         ModularPiece buildingObject = modularPiece;
                         buildingObject.owner = name;
                         buildingObject.guild = player.InGuild() ? player.guild.name : string.Empty;
-                        buildingObject.modularIndex = ModularBuildingManager.singleton.GetNewIndex();
+                        buildingObject.modularIndex = isInitialBasement ? ModularBuildingManager.singleton.GetNewIndex() : modularIndex == -5 ? ModularBuildingManager.singleton.GetNewIndex() : modularIndex;
                         NetworkServer.Spawn(g);
 
                         ItemSlot slot = player.inventory[inventoryIndex];
@@ -2564,7 +2524,7 @@ public partial class PlayerBuilding
                         ModularPiece buildingObject = modularPiece;
                         buildingObject.owner = name;
                         buildingObject.guild = player.InGuild() ? player.guild.name : string.Empty;
-                        buildingObject.modularIndex = ModularBuildingManager.singleton.GetNewIndex();
+                        buildingObject.modularIndex = isInitialBasement ? ModularBuildingManager.singleton.GetNewIndex() : modularIndex;
                         NetworkServer.Spawn(g);
                         ItemSlot slot = player.playerBelt.belt[inventoryIndex];
                         slot.amount--;

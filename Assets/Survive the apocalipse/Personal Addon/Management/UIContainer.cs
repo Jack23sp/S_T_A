@@ -1036,7 +1036,8 @@ public partial class UIBuilding : MonoBehaviour
             }
             else if(player.playerBuilding.actualBuilding && player.playerBuilding.actualBuilding.GetComponent<ModularObject>())
             {
-                player.playerBuilding.CmdSpawnBasement(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt, player.playerBuilding.actualBuilding.GetComponent<ModularObject>().oldPositioning);
+                player.playerBuilding.CmdSpawnBasement(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt, player.playerBuilding.actualBuilding.GetComponent<ModularObject>().oldPositioning, ModularBuildingManager.singleton.isInitialBasement, ModularBuildingManager.singleton.selectedPiece == null ? -5 : ModularBuildingManager.singleton.selectedPiece.modularIndex);
+                ModularBuildingManager.singleton.isInitialBasement = true;
             }
             else
             {

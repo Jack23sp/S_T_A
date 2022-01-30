@@ -32,47 +32,49 @@ public class ModularBuildingManager : NetworkBehaviour
 
     public GameObject instantiatedUI;
 
-    public ModularPiece loopModularPiece;
+    public BoxCollider2D inThisCollider;
+
+    public bool isInitialBasement = true;
+
+    public HashSet<ModularPiece> allModularPiece = new HashSet<ModularPiece>();
 
     void Start()
     {
         if (!singleton) singleton = this;
     }
 
+    public void ActiveRoof()
+    {
+    }
+
     public void AbleRoof()
     {
-        foreach (Collider2D modularPiece in allColliders)
+        foreach (ModularPiece modularPiece in allModularPiece)
         {
-            loopModularPiece = modularPiece.GetComponent<ModularPiece>();
-            loopModularPiece.roof.SetActive(true);
+            modularPiece.roof.SetActive(true);
         }
     }
 
     public void DisableRoof()
     {
-        foreach (Collider2D modularPiece in allColliders)
+        int insideIndex = inThisCollider.GetComponent<ModularPiece>().modularIndex;
+        foreach (ModularPiece modularPiece in allModularPiece)
         {
-            loopModularPiece = modularPiece.GetComponent<ModularPiece>();
-            loopModularPiece.roof.SetActive(false);
+            if(modularPiece.modularIndex == insideIndex) modularPiece.roof.SetActive(false);
 
-            foreach (SortByDepth sortByDepth in loopModularPiece.sortPlus)
+            foreach (SortByDepth sortByDepth in modularPiece.sortPlus)
             {
                 sortByDepth.relatedToPlayer = true;
                 sortByDepth.amountRelatedToPlayer = 1;
                 sortByDepth.SetOrder();
-                //sortByDepth.enabled = false;
             }
 
-            //loopModularPiece.sortPlus.Clear();
-
-            foreach (SortByDepth sortByDepth in loopModularPiece.sortMinus)
+            foreach (SortByDepth sortByDepth in modularPiece.sortMinus)
             {
                 sortByDepth.relatedToPlayer = true;
                 sortByDepth.amountRelatedToPlayer = -1;
                 sortByDepth.SetOrder();
-                //sortByDepth.enabled = false;
             }
-            //////loopModularPiece.sortMinus.Clear();
         }
     }
 
@@ -87,12 +89,8 @@ public class ModularBuildingManager : NetworkBehaviour
             modularPiece.CheckWall();
             selectedPiece = null;
             modularPiece = null;
+            isInitialBasement = true;
         }
-    }
-
-    public void DisableAllPlacer()
-    {
-
     }
 
     void Update()
@@ -168,6 +166,7 @@ public class ModularBuildingManager : NetworkBehaviour
                             Player.localPlayer.playerBuilding.actualBuilding.transform.position = selectedPoint.transform.position;
                         selectedPiece = selectedPoint.transform.GetComponentInParent<ModularPiece>();
                         selectedPoint = null;
+                        isInitialBasement = false;
                     }
                 }
             }

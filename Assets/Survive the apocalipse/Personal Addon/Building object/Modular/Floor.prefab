@@ -1235,7 +1235,6 @@ GameObject:
   - component: {fileID: 212106630382620487}
   - component: {fileID: 6842685489696520525}
   - component: {fileID: 7855807864915319153}
-  - component: {fileID: 8482221720075171484}
   m_Layer: 27
   m_Name: DOWNDOOR
   m_TagString: Untagged
@@ -1422,26 +1421,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8482221720075171484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2023501832757866026}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10caea5808f5f754b836d7796a42190f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 7855807864915319153}
-  modularPiece: {fileID: 7763156348568254892}
-  playerInside: []
-  up: 0
-  down: 1
-  left: 0
-  right: 0
-  navMeshObstacle2D: {fileID: 212106630382620487}
 --- !u!1 &2108641040400592356
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,7 +1646,7 @@ MonoBehaviour:
   down: 0
   left: 0
   right: 0
-  navMeshObstacle2D: {fileID: 2233743245667972637}
+  navMeshObstacle2D: {fileID: 3475987496591530850}
 --- !u!1 &2233743245056166581
 GameObject:
   m_ObjectHideFlags: 0
@@ -2531,7 +2510,7 @@ GameObject:
   - component: {fileID: 2233743246108896664}
   - component: {fileID: 2233743246108896667}
   - component: {fileID: 4889962594774731076}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ROOF
   m_TagString: Roof
   m_Icon: {fileID: 0}
@@ -3173,6 +3152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  modularCollider: {fileID: 2233743246782775841}
   modularIndex: 0
   occupiedLEFT: 0
   occupiedRIGHT: 0
@@ -3227,6 +3207,7 @@ MonoBehaviour:
   playerInsideDownDoor: 0
   buildingColliders: []
   fornitureColliders: []
+  playerInside: []
   roof: {fileID: 2233743246108896665}
   sortPlus:
   - {fileID: 6063289447998066285}
@@ -4079,10 +4060,10 @@ MonoBehaviour:
   modularPiece: {fileID: 7763156348568254892}
   playerInside: []
   up: 0
-  down: 0
+  down: 1
   left: 0
-  right: 1
-  navMeshObstacle2D: {fileID: 2233743245667972637}
+  right: 0
+  navMeshObstacle2D: {fileID: 212106630382620487}
 --- !u!1 &4205121096212949546
 GameObject:
   m_ObjectHideFlags: 0
@@ -4684,7 +4665,6 @@ GameObject:
   - component: {fileID: 3475987496591530850}
   - component: {fileID: 7041802574441620243}
   - component: {fileID: 4459411517155528048}
-  - component: {fileID: 8562034145731661763}
   m_Layer: 27
   m_Name: UPDOOR
   m_TagString: Untagged
@@ -4873,26 +4853,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8562034145731661763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6306549381129653232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10caea5808f5f754b836d7796a42190f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 4459411517155528048}
-  modularPiece: {fileID: 7763156348568254892}
-  playerInside: []
-  up: 1
-  down: 0
-  left: 0
-  right: 0
-  navMeshObstacle2D: {fileID: 3475987496591530850}
 --- !u!1 &6347403027355853351
 GameObject:
   m_ObjectHideFlags: 0

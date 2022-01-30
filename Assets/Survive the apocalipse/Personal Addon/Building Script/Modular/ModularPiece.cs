@@ -6,6 +6,8 @@ using Mirror;
 
 public class ModularPiece : NetworkBehaviour
 {
+    public BoxCollider2D modularCollider;
+
     [SyncVar]
     public int modularIndex;
 
@@ -97,15 +99,16 @@ public class ModularPiece : NetworkBehaviour
 
     public List<Collider2D> buildingColliders = new List<Collider2D>();
     public List<Collider2D> fornitureColliders = new List<Collider2D>();
+    public List<Collider2D> playerInside = new List<Collider2D>();
 
     public GameObject roof;
 
     public List<SortByDepth> sortPlus = new List<SortByDepth>();
     public List<SortByDepth> sortMinus = new List<SortByDepth>();
 
-
     public void OnDestroy()
     {
+        ModularBuildingManager.singleton.allModularPiece.Remove(this);
         clientdownComponent = -5;
         clientupComponent = -5;
         clientleftComponent = -5;
@@ -121,7 +124,12 @@ public class ModularPiece : NetworkBehaviour
 
         if (isClient)
         {
-            InvokeRepeating(nameof(SetColor), 0.2f, 0.2f);
+            Invoke(nameof(SetColor), 0.2f);
+            ModularBuildingManager.singleton.allModularPiece.Add(this);
+        }
+        else if(isServer)
+        {
+
         }
         Invoke(nameof(SyncStartValue), 0.7f);
         CheckWall();
@@ -388,6 +396,7 @@ public class ModularPiece : NetworkBehaviour
                     pColor = GeneralManager.singleton.notSpawn;
                     floorPlacementSprite.color = pColor;
                 }
+                Invoke(nameof(SetColor), 0.2f);
             }
             else
             {
@@ -442,6 +451,8 @@ public class ModularPiece : NetworkBehaviour
         ModularBuildingManager.singleton.ableModificationMode = false;
         ModularBuildingManager.singleton.ableModificationWallMode = false;
         ModularBuildingManager.singleton.CheckModularWallAfterDeath();
+        ModularBuildingManager.singleton.isInitialBasement = true;
+
     }
 
     public void SpawnBuilding()
@@ -458,7 +469,7 @@ public class ModularPiece : NetworkBehaviour
                 {
                     if (modularPiece.CanSpawn())
                     {
-                        player.playerBuilding.CmdSpawnBasement(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt, 0);
+                        player.playerBuilding.CmdSpawnBasement(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt, 0, ModularBuildingManager.singleton.isInitialBasement, ModularBuildingManager.singleton.selectedPiece == null ? -5 :ModularBuildingManager.singleton.selectedPiece.modularIndex);
                         DestroyBuilding();
                     }
                 }
@@ -471,7 +482,7 @@ public class ModularPiece : NetworkBehaviour
         }
     }
 
-    public void OnTriggerEnter2D(Collider2D collider)
+    public void OnTriggerStay2D(Collider2D collider)
     {
         if (collider.CompareTag("Building"))
         {
@@ -480,12 +491,19 @@ public class ModularPiece : NetworkBehaviour
                 buildingColliders.Add(collider);
             }
         }
-
         else if(collider.CompareTag("Forniture"))
         {
             if (!fornitureColliders.Contains(collider))
             {
                 fornitureColliders.Add(collider);
+            }
+        }
+        else if (collider.CompareTag("FloorChecker"))
+        {
+            if (!playerInside.Contains(collider))
+            {
+                playerInside.Add(collider);
+                ModularBuildingManager.singleton.inThisCollider = modularCollider;
             }
         }
     }
@@ -506,6 +524,23 @@ public class ModularPiece : NetworkBehaviour
             {
                 fornitureColliders.Remove(collider);
             }
+        }
+        else if (collider.CompareTag("FloorChecker"))
+        {
+            if (playerInside.Contains(collider))
+            {
+                playerInside.Remove(collider);
+                if (ModularBuildingManager.singleton.inThisCollider == modularCollider) ModularBuildingManager.singleton.inThisCollider = null;
+                Invoke(nameof(CheckPlayerInside), 1.0f);
+            }
+        }
+    }
+
+    public void CheckPlayerInside()
+    {
+        if (ModularBuildingManager.singleton.inThisCollider == null)
+        {
+            ModularBuildingManager.singleton.DisableRoof();
         }
     }
 
