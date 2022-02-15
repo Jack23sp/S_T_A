@@ -60,6 +60,7 @@ TagManager:
   - Roof
   - FornitureSupport
   - FloorChecker
+  - WallMine
   layers:
   - Default
   - TransparentFX
@@ -73,7 +74,7 @@ TagManager:
   - Player
   - Monster
   - IgnorePlayer
-  - Decoration Checker
+  - AmbientObstacle
   - Resource Manager
   - Resource Manager Catcher
   - WoodWallHorizontalPlacement
@@ -83,7 +84,7 @@ TagManager:
   - RenderPlayer
   - MyRenderPlayer
   - LocalPlayerVisibleOnly
-  - PuffAnimation
+  - AmbientStuff
   - WallObstacle
   - Grass
   - Forniture
@@ -102,6 +103,9 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 201509443
+    locked: 0
+  - name: Road
+    uniqueID: 1779083501
     locked: 0
   - name: Placement
     uniqueID: 2511048679

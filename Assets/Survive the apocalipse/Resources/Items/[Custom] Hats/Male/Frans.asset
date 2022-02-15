@@ -31,7 +31,7 @@ MonoBehaviour:
   goldPrice: 250
   coinPrice: 5
   craftDescription: 
-  timeToCraft: 0
+  timeToCraft: 60
   maxCarItemInventory: 0
   repairTimer: 0
   repairItems: []
@@ -106,7 +106,9 @@ MonoBehaviour:
   sprites: []
   distamceToGrab: 0
   requiredSkill: {fileID: 0}
+  isClothes: 1
   requiredAmmo: {fileID: 0}
   shotClip: {fileID: 0}
   reloadClip: {fileID: 0}
   bullettDrops: {fileID: 0}
+  stopMusic: 0

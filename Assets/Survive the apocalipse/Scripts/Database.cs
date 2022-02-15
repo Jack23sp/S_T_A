@@ -1198,6 +1198,32 @@ public partial class Database : MonoBehaviour
         public int checkCountryZombie { get; set; }
     }
 
+    class floor
+    {
+        public string sceneName { get; set; }
+        public int index { get; set; }
+        public string owner { get; set; }
+        public string guildName { get; set; }
+        public int upPart { get; set; }
+        public int downPart { get; set; }
+        public int leftPart { get; set; }
+        public int rightPart { get; set; }
+        public float posX { get; set; }
+        public float posY { get; set; }
+        public float posZ { get; set; }
+    }
+
+    class objects
+    {
+        public string sceneName { get; set; }
+        public string buildingName { get; set; }
+        public int index { get; set; }
+        public float posX { get; set; }
+        public float posY { get; set; }
+        public float posZ { get; set; }
+    }
+
+
     class dance
     {
         //[PrimaryKey] // important for performance: O(log n) instead of O(n)
@@ -1309,6 +1335,8 @@ public partial class Database : MonoBehaviour
         connection.CreateTable<cultivableField>();
         connection.CreateTable<cuiltivableFieldItem>();
         connection.CreateTable<streetLamps>();
+        connection.CreateTable<floor>();
+        connection.CreateTable<objects>();
         connection.CreateTable<flag>();
         connection.CreateTable<character_belt>();
         connection.CreateTable<breding>();
@@ -5867,6 +5895,95 @@ public partial class Database : MonoBehaviour
 
     #endregion
 
+    #region Floor
+    public void SaveFloor(string scene, List<ModularPiece> modularFloor)
+    {
+        connection.Execute("DELETE FROM floor");
+
+        for (int i = 0; i < modularFloor.Count; i++)
+        {
+            ModularPiece modularPiece = modularFloor[i].GetComponent<ModularPiece>();
+            connection.InsertOrReplace(new floor
+            {
+                sceneName = scene,
+                index = modularPiece.modularIndex,
+                owner = modularPiece.owner,
+                guildName = modularPiece.guild,
+                upPart = modularPiece.upComponent,
+                downPart = modularPiece.downComponent,
+                leftPart = modularPiece.leftComponent,
+                rightPart = modularPiece.rightComponent,
+                posX = modularPiece.transform.position.x,
+                posY = modularPiece.transform.position.y,
+                posZ = modularPiece.transform.position.z
+            });
+        }
+    }
+
+    public void LoadFloor(GameObject prefab, string scene)
+    {
+        foreach (floor row in connection.Query<floor>("SELECT * FROM floor WHERE sceneName=?", scene))
+        {
+            GameObject g = Instantiate(prefab);
+            ModularPiece modularPiece = g.GetComponent<ModularPiece>();
+            g.transform.position = new Vector3(row.posX, row.posY, 0.0f);
+            modularPiece.modularIndex = row.index;
+            modularPiece.owner = row.owner;
+            modularPiece.guild = row.guildName;
+            modularPiece.upPart = row.upPart;
+            modularPiece.downPart = row.downPart;
+            modularPiece.leftPart = row.leftPart;
+            modularPiece.rightPart = row.rightPart;
+
+            buildingManager.AddToList(g);
+
+            NetworkServer.Spawn(g);
+
+        }
+    }
+
+    #endregion
+
+    #region ModularObject
+
+    public void SaveModularObject(string scene, List<ModularObject> modularObjectList)
+    {
+        connection.Execute("DELETE FROM objects");
+
+        for (int i = 0; i < modularObjectList.Count; i++)
+        {
+            ModularObject modularObject = modularObjectList[i].GetComponent<ModularObject>();
+            connection.InsertOrReplace(new objects
+            {
+                sceneName = scene,
+                buildingName = modularObject.scriptableBuilding.name,
+                index = modularObject.oldPositioning,
+                posX = modularObject.transform.position.x,
+                posY = modularObject.transform.position.y,
+                posZ = modularObject.transform.position.z
+            });
+        }
+    }
+
+    public void LoadModularObject( string scene)
+    {
+        foreach (objects row in connection.Query<objects>("SELECT * FROM objects WHERE sceneName=?", scene))
+        {
+            if (ScriptableBuilding.dict.TryGetValue(row.buildingName.GetStableHashCode(), out ScriptableBuilding itemData))
+            {
+
+                GameObject g = Instantiate(itemData.buildingList[row.index].buildingObject);
+                g.transform.position = new Vector3(row.posX, row.posY, 0.0f);
+                buildingManager.AddToList(g);
+
+                NetworkServer.Spawn(g);
+            }
+        }
+    }
+
+    #endregion
+
+
     public void SaveBuilding(string sceneName)
     {
         BuildingManager buildingManager = FindObjectOfType<BuildingManager>();
@@ -5875,24 +5992,26 @@ public partial class Database : MonoBehaviour
         {
             buildingManager.RemoveToList();
             connection.BeginTransaction();
-            SaveBeeKeeper(sceneName, buildingManager.beeKeeper); //**//
-            SaveBuildingCraft(sceneName, buildingManager.buildingCrafts); //**//
-            SaveCampfire(sceneName, buildingManager.campfires); //**//
+            SaveBeeKeeper(sceneName, buildingManager.beeKeeper); 
+            SaveBuildingCraft(sceneName, buildingManager.buildingCrafts); 
+            SaveCampfire(sceneName, buildingManager.campfires);
             SaveDynamite(sceneName, buildingManager.dynamites);
-            SaveGasStation(sceneName, buildingManager.gasStations); //**//
-            SaveWarehouseGroup(sceneName, buildingManager.groupWarehouses); //**//
-            SaveWarehousePersonal(sceneName, buildingManager.personalWarehouses); //**//
+            SaveGasStation(sceneName, buildingManager.gasStations);
+            SaveWarehouseGroup(sceneName, buildingManager.groupWarehouses);
+            SaveWarehousePersonal(sceneName, buildingManager.personalWarehouses);
             SaveMine(sceneName, buildingManager.mines);
             SaveWoodWall(sceneName, buildingManager.woodWalls);
             SaveBarbwire(sceneName, buildingManager.barbWires);
-            SaveTesla(sceneName, buildingManager.teslas); //**//
-            SaveTotem(sceneName, buildingManager.totems); //**//
+            SaveTesla(sceneName, buildingManager.teslas);
+            SaveTotem(sceneName, buildingManager.totems);
             SaveUpgradeRepair(sceneName, buildingManager.upgradeRepair);
             SaveWaterWell(sceneName, buildingManager.waterWells);
             SavePetTrainer(sceneName, buildingManager.petTrainers);
             SaveCultivableField(sceneName, buildingManager.cultivableFields);
             SaveStreetLamps(sceneName, buildingManager.streetLamps);
             SaveFlag(sceneName, buildingManager.flags);
+            SaveFloor(sceneName, buildingManager.modularPieces);
+            SaveModularObject(sceneName, buildingManager.modularObjects);
             connection.Commit();
         }
     }
@@ -5917,6 +6036,8 @@ public partial class Database : MonoBehaviour
         LoadCultivableField(buildingManager.cultivableFieldsObject, sceneName);
         LoadStreetLamps(buildingManager.streetLampsObject, sceneName);
         LoadFlag(buildingManager.flagObject, sceneName);
+        LoadFloor(buildingManager.modularPiece, sceneName);
+        LoadModularObject(sceneName);
 
         buildingManager.isLoaded = true;
     }

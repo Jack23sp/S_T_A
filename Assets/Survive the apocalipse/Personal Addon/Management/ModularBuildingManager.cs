@@ -104,19 +104,7 @@ public class ModularBuildingManager : NetworkBehaviour
         if (ableModificationWallMode)
             FindNearestWall();
 
-        if(player.playerMove.forniture != null)
-        {
-            if(instantiatedUI == null)
-            {
-                instantiatedUI = Instantiate(Player.localPlayer.SearchUiToSpawnInManager(player.playerMove.forniture.GetComponent<Forniture>().scriptableBuilding), GeneralManager.singleton.canvas);
-            }
-        }
-        else
-        {
-            if (instantiatedUI) Destroy(instantiatedUI.gameObject);
-        }
-
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !Utils.IsCursorOverUserInterface())
         {
             Vector3 screenPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D[] hit = Physics2D.RaycastAll(screenPos, Vector2.zero);
@@ -139,10 +127,16 @@ public class ModularBuildingManager : NetworkBehaviour
                     int index = i;
                     if (hit[index].collider.gameObject.layer == LayerMask.NameToLayer("Forniture"))
                     {
+                        player.playerMove.fornitureClient = hit[index].collider.gameObject.GetComponent<ModularObject>();
                         player.CmdSetForniture(hit[index].collider.GetComponent<NetworkIdentity>());
+                        if (instantiatedUI == null)
+                        {
+                            instantiatedUI = Instantiate(Player.localPlayer.SearchUiToSpawnInManager(player.playerMove.forniture.GetComponent<ModularObject>().scriptableBuilding), GeneralManager.singleton.canvas);
+                            return;
+                        }
                     }
                 }
-            }
+            }          
 
             for (int i = 0; i < hit.Length; i++)
             {
@@ -295,26 +289,16 @@ public class ModularBuildingManager : NetworkBehaviour
             int index = i;
             ModularPiece piece = wallOrdered[index].GetComponent<ModularPiece>();
 
-
-            //piece.leftWallPointer.enabled = piece.clientleftComponent == -5;
-            //piece.rightWallPointer.enabled = piece.clientrightComponent == -5;
-            //piece.upWallPointer.enabled = piece.clientupComponent == -5;
-            //piece.downWallPointer.enabled = piece.clientdownComponent == -5;
-
             nearModularPiece = (CheckFloorPresence(piece.leftFloorPointer.transform));
-            //CheckFloorPresenceDebug(piece.leftFloorPointer.transform, piece);
             piece.leftWallPointer.enabled = ((nearModularPiece == null && piece.leftComponent == -5) || (nearModularPiece != null && (nearModularPiece.rightComponent == -5 && piece.leftComponent == -5)));
 
             nearModularPiece = (CheckFloorPresence(piece.rightFloorPointer.transform));
-            //CheckFloorPresenceDebug(piece.rightFloorPointer.transform, piece);
             piece.rightWallPointer.enabled = ((nearModularPiece == null && piece.rightComponent == -5) || (nearModularPiece != null && (nearModularPiece.leftComponent == -5 && piece.rightComponent == -5)));
 
             nearModularPiece = (CheckFloorPresence(piece.upFloorPointer.transform));
-            //CheckFloorPresenceDebug(piece.upFloorPointer.transform, piece);
             piece.upWallPointer.enabled = ((nearModularPiece == null && piece.upComponent == -5) || (nearModularPiece != null && (nearModularPiece.downComponent == -5 && piece.upComponent == -5)));
 
             nearModularPiece = (CheckFloorPresence(piece.downFloorPointer.transform));
-            //CheckFloorPresenceDebug(piece.downFloorPointer.transform, piece);
             piece.downWallPointer.enabled = ((nearModularPiece == null && piece.downComponent == -5) || (nearModularPiece != null && (nearModularPiece.upComponent == -5 && piece.downComponent == -5)));
         }
     }
@@ -340,7 +324,6 @@ public class ModularBuildingManager : NetworkBehaviour
         for(int i = 0; i < floorCollider.Length; i++)
         {
             int index = i;
-            Debug.Log("Modular principal = " + modular.name + "pieceTransform name " + pieceTransform.gameObject.name + " modular near = " + floorCollider[index].gameObject.name);
         }
     }
 

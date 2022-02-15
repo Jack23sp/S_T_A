@@ -50,7 +50,7 @@ MonoBehaviour:
   tradable: 1
   destroyable: 1
   toolTip: 
-  image: {fileID: 21300000, guid: 91bf4c7caece5bc48a47d6c9ab6d188b, type: 3}
+  image: {fileID: -3242143512967202306, guid: 6362992a8b3cc65479033c93a93899cd, type: 3}
   craftMinLevel: 0
   groupWarehouse: 0
   itemToClaim: []
@@ -81,3 +81,9 @@ MonoBehaviour:
   - buildingName: UP
     buildingObject: {fileID: 1529476062757820, guid: 08a90a052a51abb44b688e03c4d9a398,
       type: 3}
+  isBasement: 0
+  isWall: 0
+  isDoor: 0
+  modularAccessory: 0
+  modularForniture: 0
+  necessaryTagObject: 

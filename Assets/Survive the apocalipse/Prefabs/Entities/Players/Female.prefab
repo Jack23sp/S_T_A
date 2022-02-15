@@ -775,6 +775,7 @@ GameObject:
   - component: {fileID: -1658948284500890199}
   - component: {fileID: 3426365113952666381}
   - component: {fileID: 5919658303879274}
+  - component: {fileID: 2263239549454305647}
   m_Layer: 9
   m_Name: Female
   m_TagString: Player
@@ -1381,6 +1382,7 @@ MonoBehaviour:
   playerQuest: {fileID: 1106094989229453196}
   playerDance: {fileID: 3426365113952666381}
   playerInjury: {fileID: 5919658303879274}
+  playerRaycast: {fileID: 2263239549454305647}
   joystick: {fileID: 0}
   useJoystick: 1
 --- !u!114 &114342037026676708
@@ -2735,6 +2737,21 @@ MonoBehaviour:
   player: {fileID: 114732280623991920}
   injured: 0
   prevInjuredState: 0
+--- !u!114 &2263239549454305647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505016760143036}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a97c2cc46bf7fc4cb7b6b99951515de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114732280623991920}
+  hitMain: {x: 0, y: 0, z: 0}
+  distance: 2.5
 --- !u!1 &1568550255999872
 GameObject:
   m_ObjectHideFlags: 0
@@ -4055,12 +4072,12 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 0000000091bf320043ca020ce78fab9581481fccd391862d778f134a
+  m_ApplyToSortingLayers: 81481fccd391862d778f134a43ca020c
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 0
-  m_ShadowIntensity: 0
+  m_ShadowIntensity: 0.618
   m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360

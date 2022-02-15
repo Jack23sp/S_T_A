@@ -125,12 +125,13 @@ public class ModularPiece : NetworkBehaviour
         if (isClient)
         {
             Invoke(nameof(SetColor), 0.2f);
-            ModularBuildingManager.singleton.allModularPiece.Add(this);
         }
         else if(isServer)
         {
 
         }
+
+        ModularBuildingManager.singleton.allModularPiece.Add(this);
         Invoke(nameof(SyncStartValue), 0.7f);
         CheckWall();
     }

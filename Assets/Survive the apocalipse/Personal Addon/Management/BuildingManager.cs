@@ -31,6 +31,7 @@ public class BuildingManager : NetworkBehaviour
     public List<Flag> flags = new List<Flag>();
     public List<Gate> gates = new List<Gate>();
     public List<ModularPiece> modularPieces = new List<ModularPiece>();
+    public List<ModularObject> modularObjects = new List<ModularObject>();
 
 
     public GameObject beeKeeperObject;
@@ -53,7 +54,7 @@ public class BuildingManager : NetworkBehaviour
     public GameObject streetLampsObject;
     public GameObject flagObject;
     public GameObject gateObject;
-    public GameObject modularObject;
+    public GameObject modularPiece;
 
     public float saveInterval = 50.0f;
 
@@ -243,6 +244,13 @@ public class BuildingManager : NetworkBehaviour
                 modularPieces.Add(building.GetComponent<ModularPiece>());
             }
         }
+        if (building.GetComponent<ModularObject>())
+        {
+            if (!modularObjects.Contains(building.GetComponent<ModularObject>()))
+            {
+                modularObjects.Add(building.GetComponent<ModularObject>());
+            }
+        }
     }
 
     public void RemoveFromList(GameObject building)
@@ -403,6 +411,14 @@ public class BuildingManager : NetworkBehaviour
                 modularPieces.Remove(building.GetComponent<ModularPiece>());
             }
         }
+
+        if (building.GetComponent<ModularObject>())
+        {
+            if (modularObjects.Contains(building.GetComponent<ModularObject>()))
+            {
+                modularObjects.Remove(building.GetComponent<ModularObject>());
+            }
+        }
     }
 
 
@@ -451,6 +467,8 @@ public class BuildingManager : NetworkBehaviour
         gates = gates.Where(item => item != null).ToList();
 
         modularPieces = modularPieces.Where(item => item != null).ToList();
+
+        modularObjects = modularObjects.Where(item => item != null).ToList();
 
     }
 }

@@ -106,6 +106,7 @@ MonoBehaviour:
   sprites: []
   distamceToGrab: 0
   requiredSkill: {fileID: 0}
+  isClothes: 1
   requiredAmmo: {fileID: 0}
   shotClip: {fileID: 0}
   reloadClip: {fileID: 0}

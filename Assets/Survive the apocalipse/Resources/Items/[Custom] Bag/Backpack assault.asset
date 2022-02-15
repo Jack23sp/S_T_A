@@ -98,6 +98,7 @@ MonoBehaviour:
   indexPants: -1
   indexShoes: -1
   ignorePants: 0
+  isClothes: 1
   category: Bag
   healthBonus: 10
   manaBonus: 0

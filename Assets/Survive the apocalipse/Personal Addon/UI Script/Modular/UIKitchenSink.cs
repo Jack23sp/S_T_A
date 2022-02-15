@@ -18,7 +18,31 @@ public class UIKitchenSink : MonoBehaviour
 
     public KitchenSink kitchenSink;
 
+    public Button drinkButton;
+    public Button fillButton;
+
+    public bool drink;
+
     private Player player;
+
+    public int aquiferIndex;
+
+    public void Start()
+    {
+        kitchenSink = Player.localPlayer.playerMove.fornitureClient.GetComponent<KitchenSink>();
+
+        float distance = 10000000.0f;
+        for(int i = 0; i < TemperatureManager.singleton.actualAcquifer.Count; i++)
+        {
+            int index = i;
+            float actualDistance = Vector2.Distance(kitchenSink.transform.position, TemperatureManager.singleton.actualAcquifer[index].transform.position);
+            if (actualDistance < distance)
+            {
+                distance = actualDistance;
+                aquiferIndex = index;
+            }
+        }
+    }
 
     void Update()
     {
@@ -30,9 +54,27 @@ public class UIKitchenSink : MonoBehaviour
 
         buttonWater.onClick.SetListener(() =>
         {
-            player.CmdTakeWaterFromFurniture(Convert.ToInt32(waterSlider.value));
+            if (drink)
+            {
+                if(player.playerThirsty.currentThirsty < player.playerThirsty.maxThirsty)
+                    player.CmdDrink(aquiferIndex);
+            }
+            else
+                player.CmdTakeWaterFromFurniture(Convert.ToInt32(waterSlider.value), aquiferIndex);
         });
 
+        drinkButton.onClick.SetListener(() =>
+        {
+            drink = true;
+            selected.enabled = minWater.enabled = maxWater.enabled = false;
+            waterSlider.gameObject.SetActive(false);
+        });
+        fillButton.onClick.SetListener(() =>
+        {
+            drink = false;
+            selected.enabled = minWater.enabled = maxWater.enabled = waterSlider.enabled = true;
+            waterSlider.gameObject.SetActive(true);
+        });
 
         if (!player) player = Player.localPlayer;
         if (!player) return;
@@ -40,30 +82,58 @@ public class UIKitchenSink : MonoBehaviour
         if (player.health == 0)
             closeButton.onClick.Invoke();
 
-        if (!kitchenSink) kitchenSink = player.playerMove.forniture.GetComponent<KitchenSink>();
+        if (!kitchenSink) kitchenSink = player.playerMove.fornitureClient.GetComponent<KitchenSink>();
         if (!kitchenSink) return;
 
         description.text = string.Empty;
 
-        if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+        if (!drink)
         {
-            description.text += "Acqua attuale : " + kitchenSink.currentWater + " / " + kitchenSink.maxWater;
-            description.text += "\nPuoi prendere un massimo di : " + player.GetEmptyWaterBootle();
-            selected.text = "Acqua selezionata : " + Convert.ToInt32(waterSlider.value);
-            minWater.text = "0";
+            if (kitchenSink.maxWater == 0)
+            {
+                if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                {
+                    description.text += "Devi aspettare che piova per ricaricare la falda acquifera";
+                }
+                else
+                {
+                    description.text += "You need to wait until rain to recharge aquifer";
+                }
+            }
+            else
+            {
+                if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                {
+                    description.text += "Acqua presente nella falda acquifera : " + TemperatureManager.singleton.actualAcquifer[aquiferIndex].actualWater + " / " + TemperatureManager.singleton.actualAcquifer[aquiferIndex].maxWater;
+                    description.text += "\nPuoi prendere un massimo di : " + player.GetEmptyWaterBootle();
+                    selected.text = "Acqua selezionata : " + Convert.ToInt32(waterSlider.value);
+                    minWater.text = "0";
+                }
+                else
+                {
+                    description.text += "Actual water presnt in aquifer : " + TemperatureManager.singleton.actualAcquifer[aquiferIndex].actualWater + " / " + TemperatureManager.singleton.actualAcquifer[aquiferIndex].maxWater;
+                    description.text += "\nYou can withdraw a maximum of : " + player.GetEmptyWaterBootle();
+                    selected.text = "Selected water : " + Convert.ToInt32(waterSlider.value);
+                    minWater.text = "0";
+                }
+            }
         }
         else
         {
-            description.text += "Actual water : " + kitchenSink.currentWater + " / " + kitchenSink.maxWater;
-            description.text += "\nYou can withdraw a maximum of : " + player.GetEmptyWaterBootle();
-            selected.text = "Selected water : " + Convert.ToInt32(waterSlider.value);
-            minWater.text = "0";
+            if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+            {
+                description.text += "Acqua presente nella falda acquifera : " + TemperatureManager.singleton.actualAcquifer[aquiferIndex].actualWater + " / " + TemperatureManager.singleton.actualAcquifer[aquiferIndex].maxWater;
+            }
+            else
+            {
+                description.text += "Actual water presnt in aquifer : " + TemperatureManager.singleton.actualAcquifer[aquiferIndex].actualWater + " / " + TemperatureManager.singleton.actualAcquifer[aquiferIndex].maxWater;
+            }
         }
-        maxWater.text = kitchenSink.currentWater + " / " + kitchenSink.maxWater.ToString();
+        maxWater.text = TemperatureManager.singleton.actualAcquifer[aquiferIndex].actualWater + " / " + TemperatureManager.singleton.actualAcquifer[aquiferIndex].maxWater.ToString();
         waterSlider.minValue = 0;
-        waterSlider.maxValue = kitchenSink.maxWater;
+        waterSlider.maxValue = TemperatureManager.singleton.actualAcquifer[aquiferIndex].maxWater;
 
-        buttonWater.interactable = waterSlider.value <= player.GetEmptyWaterBootle() && waterSlider.value <= kitchenSink.currentWater;
+        buttonWater.interactable = waterSlider.value <= player.GetEmptyWaterBootle() && waterSlider.value <= TemperatureManager.singleton.actualAcquifer[aquiferIndex].actualWater;
     }
 
     public float waterPercent()

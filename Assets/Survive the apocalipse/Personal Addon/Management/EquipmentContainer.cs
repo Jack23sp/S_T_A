@@ -59,6 +59,7 @@ public partial class EquipmentItem
     public int indexPants = -1;
     public int indexShoes = -1;
     public bool ignorePants = false;
+
 }
 
 public partial class WeaponItem
@@ -68,6 +69,8 @@ public partial class WeaponItem
 
     [Header("Skill required")]
     public ScriptableSkill requiredSkill;
+
+    public bool isClothes = false;
 }
 
 public partial class AmmoItem
@@ -133,6 +136,8 @@ public partial class ScriptableItem
 
     [Header("Liquid container")]
     public int generalLiquidContainer = 0;
+
+    public bool canUseFurnace = false;
 
 }
 

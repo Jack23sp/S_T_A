@@ -100,6 +100,7 @@ public class SyncDictionaryIntDouble : SyncDictionary<int, double> { }
 [RequireComponent(typeof(PlayerQuest))]
 [RequireComponent(typeof(PlayerDance))]
 [RequireComponent(typeof(PlayerInjury))]
+[RequireComponent(typeof(PlayerRaycast))]
 public partial class Player : Entity
 {
     [Header("Scriptable Player")]
@@ -3674,7 +3675,7 @@ public partial class Player : Entity
     {
         if (ni != null)
         {
-            if(Vector2.Distance(transform.position, ni.transform.position) <= 7.0f)
+            if (Vector2.Distance(transform.position, ni.transform.position) <= 7.0f)
                 playerMove.forniture = ni.GetComponent<Forniture>();
         }
     }
@@ -4157,6 +4158,7 @@ public partial class Player : Entity
     public PlayerQuest playerQuest;
     public PlayerDance playerDance;
     public PlayerInjury playerInjury;
+    public PlayerRaycast playerRaycast;
 
     // joystick
     public Joystick joystick;
@@ -4593,6 +4595,7 @@ public partial class Player : Entity
     [Client]
     void SelectionHandling()
     {
+        if (ModularBuildingManager.singleton.inThisCollider) return;
         // click raycasting if not over a UI element & not pinching on mobile
         // note: this only works if the UI's CanvasGroup blocks Raycasts
         if (Input.GetMouseButtonDown(0) && !Utils.IsCursorOverUserInterface() && Input.touchCount <= 1 && useJoystick == false)
@@ -4610,6 +4613,7 @@ public partial class Player : Entity
 
             // valid target?
             Entity entity = hit.transform != null ? hit.transform.GetComponent<Entity>() : null;
+
             if (entity)
             {
                 // set indicator
@@ -4798,16 +4802,21 @@ public partial class Player : Entity
     [Client]
     public void ButtonSelectionHandling()
     {
-        // clear requested skill in any case because if we clicked
-        // somewhere else then we don't care about it anymore
+        if (ModularBuildingManager.singleton.inThisCollider)
+        {
+            playerMove.SmartTargetingForniture();
+            if (ModularBuildingManager.singleton.instantiatedUI == null)
+            {
+                ModularBuildingManager.singleton.instantiatedUI = Instantiate(Player.localPlayer.SearchUiToSpawnInManager(playerMove.forniture.GetComponent<ModularObject>().scriptableBuilding), GeneralManager.singleton.canvas);
+                return;
+            }
+        }
+
         useSkillWhenCloser = -1;
         Entity entity = null;
         if (target) entity = target;
         else return;
-        //// clicked last target again? and is not self or pet?
-        //if (entity == target && entity != this && entity != activePet)
-        //{
-        // attackable and has skills? => attack
+
         if (CanAttack(entity) && skills.Count > 0)
         {
             if (entity.GetComponent<Building>() && entity.GetComponent<Totem>())
@@ -4819,14 +4828,9 @@ public partial class Player : Entity
             }
             else
             {
-                // then try to use that one
                 TryUseSkill(FindNetworkSkill(((WeaponItem)playerItemEquipment.firstWeapon.item.data).requiredSkill));
-                //Debug.Log("Skill name :" + FindNetworkSkill(((WeaponItem)playerItemEquipment.firstWeapon.item.data).requiredSkill));
-
             }
         }
-        // npc, alive, close enough? => talk
-        // use collider point(s) to also work with big entities
         else if (entity is Npc && entity.health > 0 &&
                  Utils.ClosestDistance(collider, entity.collider) <= interactionRange)
         {
@@ -4841,9 +4845,6 @@ public partial class Player : Entity
             playerBuilding.inventoryIndex = -1;
             Destroy(GeneralManager.singleton.spawnedBuildingObject);
         }
-
-        // monster, dead, has loot, close enough? => loot
-        // use collider point(s) to also work with big entities
         else if (entity is Monster && entity.health == 0 &&
                  Utils.ClosestDistance(collider, entity.collider) <= interactionRange &&
                  ((Monster)entity).HasLoot())
@@ -4856,12 +4857,6 @@ public partial class Player : Entity
         {
             GeneralManager.singleton.uiChestPanel.SetActive(true);
         }
-        // not attackable, lootable, talkable, etc., but it's
-        // still an entity and double clicking it without doing
-        // anything would be strange.
-        // (e.g. if we are in a safe zone and click on a
-        //  monster. it's not attackable, but we should at least
-        //  move there, otherwise double click feels broken)
         else
         {
             if (playerCar._car)
@@ -4875,11 +4870,6 @@ public partial class Player : Entity
                 if (playerCar.car.currentGasoline == 0) return;
             }
         }
-
-        // addon system hooks
-        Utils.InvokeMany(typeof(Player), this, "OnSelect_", entity);
-        // clicked a new target
-        //}
     }
 
 
@@ -5880,6 +5870,23 @@ public partial class Player : Entity
             }
         }
     }
+
+    [Command]
+    public void CmdAddToInventoryFromForniture(string itenName, int amount, string owner, string timeEnd, int finishedIndex)
+    {
+        if (ScriptableItem.dict.TryGetValue(itenName.GetStableHashCode(), out ScriptableItem item))
+        {
+            BuildingModularCrafting modularCrafting = playerMove.forniture.GetComponent<BuildingModularCrafting>();
+            if (modularCrafting.craftItem[finishedIndex].itemName != itenName || modularCrafting.craftItem[finishedIndex].amount != amount || modularCrafting.craftItem[finishedIndex].timeEnd != timeEnd) return;
+            if (DateTime.Parse(modularCrafting.craftItem[finishedIndex].timeEndServer) < System.DateTime.Now)
+            {
+                InventoryAdd(new Item(item), amount);
+                modularCrafting.craftItem.Remove(modularCrafting.craftItem[finishedIndex]);
+            }
+        }
+    }
+
+
     #endregion
 
     #region UpgradeItem
@@ -6369,37 +6376,49 @@ public partial class Player : Entity
     }
 
     [Command]
-    public void CmdTakeWaterFromFurniture(int amountHoney)
+    public void CmdDrink(int aquiferIndex)
     {
-        int totalHoney = amountHoney;
-        int freeInventoryHoney = amountHoney;
-        if (!playerMove.forniture) return;
-        //if (amountHoney > GetEmptyWaterBootle()) return;
-        if (!playerMove.forniture.GetComponent<KitchenSink>()) return;
-        for (int i = 0; i < inventory.Count; i++)
+        if (TemperatureManager.singleton.actualAcquifer[aquiferIndex].actualWater > 10)
         {
-            if (inventory[i].amount > 0)
+            playerThirsty.currentThirsty += 10;
+            if (playerThirsty.currentThirsty > playerThirsty.maxThirsty) playerThirsty.currentThirsty = playerThirsty.maxThirsty;
+            TemperatureManager.singleton.actualAcquifer[aquiferIndex].actualWater -= 10;
+        }
+    }
+
+    [Command]
+    public void CmdTakeWaterFromFurniture(int amountWater, int aquiferIndex)
+    {
+        if (TemperatureManager.singleton.actualAcquifer[aquiferIndex].actualWater >= amountWater)
+        {
+            int freeInventoryHoney = amountWater;
+            if (!playerMove.forniture) return;
+            if (!playerMove.forniture.GetComponent<KitchenSink>()) return;
+            for (int i = 0; i < inventory.Count; i++)
             {
-                if (inventory[i].item.data.generalLiquidContainer > 0)
+                if (inventory[i].amount > 0)
                 {
-                    freeInventoryHoney = inventory[i].item.data.generalLiquidContainer - inventory[i].item.waterContainer;
-                    if (amountHoney <= freeInventoryHoney)
+                    if (inventory[i].item.data.generalLiquidContainer > 0)
                     {
-                        ItemSlot itm = new ItemSlot();
-                        itm = inventory[i];
-                        //playerMove.forniture.GetComponent<KitchenSink>().currentWater -= amountHoney;
-                        itm.item.waterContainer += amountHoney;
-                        inventory[i] = itm;
-                        amountHoney = 0;
-                    }
-                    else
-                    {
-                        ItemSlot itm = new ItemSlot();
-                        itm = inventory[i];
-                        itm.item.waterContainer = itm.item.data.generalLiquidContainer;
-                        inventory[i] = itm;
-                        amountHoney -= freeInventoryHoney;
-                        //playerMove.forniture.GetComponent<KitchenSink>().currentWater -= freeInventoryHoney;
+                        freeInventoryHoney = inventory[i].item.data.generalLiquidContainer - inventory[i].item.waterContainer;
+                        if (amountWater <= freeInventoryHoney)
+                        {
+                            ItemSlot itm = new ItemSlot();
+                            itm = inventory[i];
+                            itm.item.waterContainer += amountWater;
+                            TemperatureManager.singleton.actualAcquifer[aquiferIndex].actualWater -= amountWater;
+                            inventory[i] = itm;
+                            amountWater = 0;
+                        }
+                        else
+                        {
+                            ItemSlot itm = new ItemSlot();
+                            itm = inventory[i];
+                            itm.item.waterContainer = itm.item.data.generalLiquidContainer;
+                            inventory[i] = itm;
+                            TemperatureManager.singleton.actualAcquifer[aquiferIndex].actualWater -= freeInventoryHoney;
+                            amountWater -= freeInventoryHoney;
+                        }
                     }
                 }
             }
@@ -7082,6 +7101,233 @@ public partial class Player : Entity
     }
 
     #endregion
+
+    #region Closet
+    [Command]
+    public void CmdSwitchInventoryCloset(int[] closetInventory, int[] playerInventory)
+    {
+        Closet closet;
+        if (!playerMove.forniture) return;
+        if (playerMove.forniture.GetComponent<Closet>()) closet = playerMove.forniture.GetComponent<Closet>();
+        else return;
+
+        int index = 0;
+        List<int> inventoryL = playerInventory.ToList();
+        List<int> closetL = closetInventory.ToList();
+        List<int> closetSlotFree = new List<int>();
+        List<int> inventorySlotFree = new List<int>();
+
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].amount == 0)
+            {
+                inventorySlotFree.Add(i);
+            }
+        }
+
+        for (int i = 0; i < closet.inventory.Count; i++)
+        {
+            if (closet.inventory[i].amount == 0)
+            {
+                closetSlotFree.Add(i);
+            }
+        }
+
+        if (inventorySlotFree.Count < closetL.Count) return;
+        if (closetSlotFree.Count < inventoryL.Count) return;
+
+        if (inventoryL.Count > 0)
+        {
+            for (int i = 0; i < inventoryL.Count; i++)
+            {
+                index = i;
+                ItemSlot slot = closet.inventory[closetSlotFree[0]];
+                slot = inventory[inventoryL[index]];
+                closet.inventory[closetSlotFree[0]] = slot;
+                inventory[inventoryL[index]] = new ItemSlot();
+                closetSlotFree.RemoveAt(0);
+            }
+        }
+        if (closetL.Count > 0)
+        {
+            for (int i = 0; i < closetL.Count; i++)
+            {
+                index = i;
+                ItemSlot slot = inventory[inventorySlotFree[0]];
+                slot = closet.inventory[closetL[index]];
+                inventory[inventorySlotFree[0]] = slot;
+                closet.inventory[closetL[index]] = new ItemSlot();
+                inventorySlotFree.RemoveAt(0);
+            }
+        }
+    }
+
+    #endregion
+
+    #region Fridge
+    [Command]
+    public void CmdSwitchInventoryFridge(int[] fridgeInventory, int[] playerInventory)
+    {
+        Fridge fridge;
+        if (!playerMove.forniture) return;
+        if (playerMove.forniture.GetComponent<Fridge>()) fridge = playerMove.forniture.GetComponent<Fridge>();
+        else return;
+
+        int index = 0;
+        List<int> inventoryL = playerInventory.ToList();
+        List<int> fridgeL = fridgeInventory.ToList();
+        List<int> fridgeSlotFree = new List<int>();
+        List<int> inventorySlotFree = new List<int>();
+
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].amount == 0)
+            {
+                inventorySlotFree.Add(i);
+            }
+        }
+
+        for (int i = 0; i < fridge.inventory.Count; i++)
+        {
+            if (fridge.inventory[i].amount == 0)
+            {
+                fridgeSlotFree.Add(i);
+            }
+        }
+
+        if (inventorySlotFree.Count < fridgeL.Count) return;
+        if (fridgeSlotFree.Count < inventoryL.Count) return;
+
+        if (inventoryL.Count > 0)
+        {
+            for (int i = 0; i < inventoryL.Count; i++)
+            {
+                index = i;
+                ItemSlot slot = fridge.inventory[fridgeSlotFree[0]];
+                slot = inventory[inventoryL[index]];
+                fridge.inventory[fridgeSlotFree[0]] = slot;
+                inventory[inventoryL[index]] = new ItemSlot();
+                fridgeSlotFree.RemoveAt(0);
+            }
+        }
+        if (fridgeL.Count > 0)
+        {
+            for (int i = 0; i < fridgeL.Count; i++)
+            {
+                index = i;
+                ItemSlot slot = inventory[inventorySlotFree[0]];
+                slot = fridge.inventory[fridgeL[index]];
+                inventory[inventorySlotFree[0]] = slot;
+                fridge.inventory[fridgeL[index]] = new ItemSlot();
+                inventorySlotFree.RemoveAt(0);
+            }
+        }
+    }
+
+    #endregion
+
+    #region Furnace
+
+    [Command]
+    public void CmdInsertWood(int inventoryIndex)
+    {
+        if (playerMove.forniture.GetComponent<Furnace>())
+        {
+            Furnace furnace = playerMove.forniture.GetComponent<Furnace>();
+            ItemSlot inventorySlot = inventory[inventoryIndex];
+
+            if (inventorySlot.item.data.name == "Wood")
+            {
+                int woodIndex = inventorySlot.amount;
+                ItemSlot slot = furnace.furnaceSlot[0];
+                if (slot.amount > 0)
+                {
+                    if (slot.amount < slot.item.maxStack)
+                    {
+                        int remainingToAdd = slot.item.maxStack - slot.amount;
+                        if (inventorySlot.amount >= remainingToAdd)
+                        {
+                            slot.amount = slot.item.data.maxStack;
+                            inventorySlot.amount -= remainingToAdd;
+                        }
+                        else
+                        {
+                            slot.amount += inventorySlot.amount;
+                            inventorySlot.amount = 0;
+                        }
+                    }
+                    furnace.furnaceSlot[0] = slot;
+                    inventory[inventoryIndex] = inventorySlot;
+                }
+                else
+                {
+                    furnace.furnaceSlot[0] = inventory[inventoryIndex];
+                }
+            }
+        }
+    }
+
+    [Command]
+    public void CmdInsertObjectInFurnace(int inventoryIndex)
+    {
+        if (playerMove.forniture.GetComponent<Furnace>())
+        {
+            Furnace furnace = playerMove.forniture.GetComponent<Furnace>();
+            ItemSlot inventorySlot = inventory[inventoryIndex];
+
+            int woodIndex = inventorySlot.amount;
+            for (int i = 1; i < furnace.furnaceSlot.Count; i++)
+            {
+                int index = i;
+                ItemSlot slot = furnace.furnaceSlot[index];
+                if (slot.amount > 0)
+                {
+                    if (inventorySlot.item.data.name == slot.item.data.name)
+                    {
+                        if (woodIndex > 0)
+                        {
+                            if (slot.amount < slot.item.data.maxStack)
+                            {
+                                int remainingToAdd = slot.item.data.maxStack - slot.amount;
+                                if (woodIndex <= remainingToAdd)
+                                {
+                                    slot.amount += woodIndex;
+                                    woodIndex = 0;
+                                    inventorySlot.amount = 0;
+                                }
+                                else
+                                {
+                                    slot.amount += remainingToAdd;
+                                    woodIndex -= remainingToAdd;
+                                    inventorySlot.amount -= remainingToAdd;
+                                }
+                            }
+                            furnace.furnaceSlot[index] = slot;
+                            inventory[inventoryIndex] = inventorySlot;
+                        }
+                    }
+                }
+            }
+            if (woodIndex > 0)
+            {
+                for (int i = 1; i < furnace.furnaceSlot.Count; i++)
+                {
+                    int index = i;
+                    ItemSlot slot = furnace.furnaceSlot[index];
+                    if (slot.amount == 0)
+                    {
+                        slot = inventory[inventoryIndex];
+                        furnace.furnaceSlot[index] = slot;
+                    }
+                }
+            }
+
+        }
+    }
+
+
+    #endregion
+
 
     #region World House
     [Command]

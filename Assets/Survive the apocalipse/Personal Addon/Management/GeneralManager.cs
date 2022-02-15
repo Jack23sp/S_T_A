@@ -448,6 +448,7 @@ public class GeneralManager : MonoBehaviour
     public LayerMask modularObjecObstaclePlacementLayerMask;
 
     public LayerMask searchFornitureLayerMask;
+    public LayerMask modularWallMinePositioning;
 
     public DateTime ChangeServerToClientTime(DateTime time, int seconds = 0)
     {

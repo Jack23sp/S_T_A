@@ -166,15 +166,17 @@ public class TemperatureManager : NetworkBehaviour
     [SyncVar]
     public bool nightMusic;
 
-    // Start is called before the first frame update
+    public List<Aquifer> actualAcquifer = new List<Aquifer>();
+
     void Start()
     {
         if (!singleton) singleton = this;
         if (isServer || isServerOnly)
         {
-            InvokeRepeating("TimeManager", 0.01f, 0.01f);
-            InvokeRepeating("ChangeWeatherConditions", timeBetweenWeatherChange, timeBetweenWeatherChange);
-            InvokeRepeating("ChangeWindConditions", 0.0f, 30.0f);
+            InvokeRepeating(nameof(TimeManager), 0.01f, 0.01f);
+            InvokeRepeating(nameof(ChangeWeatherConditions), timeBetweenWeatherChange, timeBetweenWeatherChange);
+            InvokeRepeating(nameof(ChangeWindConditions), 0.0f, 30.0f);
+            InvokeRepeating(nameof(ChargeAquifer), 0.0f, 30.0f);
             prevRainy = isRainy;
             prevWindy = isWindy;
             prevSunny = isSunny;
@@ -1154,4 +1156,15 @@ public class TemperatureManager : NetworkBehaviour
         }
     }
 
+    public void ChargeAquifer()
+    {
+        if(isRainy)
+        {
+            for(int i = 0; i < actualAcquifer.Count; i++)
+            {
+                actualAcquifer[i].actualWater += 10;
+                if (actualAcquifer[i].actualWater > actualAcquifer[i].maxWater) actualAcquifer[i].actualWater = actualAcquifer[i].maxWater;
+            }
+        }
+    }
 }

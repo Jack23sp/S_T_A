@@ -2745,6 +2745,92 @@ public partial class PlayerBuilding
     }
 
     [Command]
+    public void CmdCraftItemForniture(string buildingItem, int itemIndex, int currencyType, string actualTime)
+    {
+        ScriptableItem building = GeneralManager.singleton.CraftingBuildItem(buildingItem);
+        ItemInBuilding itemInBuilding = GeneralManager.singleton.CraftingInternalBuilding(building, itemIndex);
+        BuildingModularCrafting modulatCrafting = player.playerMove.forniture.GetComponent<BuildingModularCrafting>();
+        List<int> progressItem = new List<int>();
+        List<int> finishedItem = new List<int>();
+        TimeSpan difference;
+
+        //Debug.Log("System date : " + System.DateTime.Now);
+
+        for (int i = 0; i < modulatCrafting.craftItem.Count; i++)
+        {
+            int index = i;
+            if (DateTime.Parse(modulatCrafting.craftItem[index].timeEndServer) < System.DateTime.Now)
+            {
+                progressItem.Add(index);
+            }
+        }
+
+        if (!player.InventoryCanAdd(new Item(itemInBuilding.itemToCraft.item), 1))
+        {
+            return;
+        }
+        for (int i = 0; i < itemInBuilding.craftablengredient.Count; i++)
+        {
+            int index = i;
+            if (player.InventoryCount(new Item(itemInBuilding.craftablengredient[index].item)) < itemInBuilding.craftablengredient[index].amount)
+            {
+                return;
+            }
+        }
+
+        if (currencyType == 0)
+        {
+            if (player.gold >= itemInBuilding.itemToCraft.item.goldPrice)
+            {
+                player.gold -= itemInBuilding.itemToCraft.item.goldPrice;
+                for (int i = 0; i < itemInBuilding.craftablengredient.Count; i++)
+                {
+                    int index = i;
+                    player.InventoryRemove(new Item(itemInBuilding.craftablengredient[index].item), itemInBuilding.craftablengredient[index].amount);
+                }
+            }
+        }
+        if (currencyType == 1)
+        {
+            if (player.coins >= itemInBuilding.itemToCraft.item.coinPrice)
+            {
+                player.coins -= itemInBuilding.itemToCraft.item.coinPrice;
+                for (int i = 0; i < itemInBuilding.craftablengredient.Count; i++)
+                {
+                    int index = i;
+                    player.InventoryRemove(new Item(itemInBuilding.craftablengredient[index].item), itemInBuilding.craftablengredient[index].amount);
+                }
+            }
+        }
+
+        CraftItem crafItem = new CraftItem();
+        crafItem.itemName = itemInBuilding.itemToCraft.item.name;
+        crafItem.amount = itemInBuilding.itemToCraft.amount;
+        crafItem.remainingTime = itemInBuilding.itemToCraft.item.timeToCraft;
+        crafItem.totalTime = itemInBuilding.itemToCraft.item.timeToCraft;
+        crafItem.owner = name;
+        crafItem.guildName = player.guild.name;
+        crafItem.timeBegin = actualTime.ToString();
+        crafItem.timeEnd = DateTime.Parse(actualTime).AddSeconds(itemInBuilding.itemToCraft.item.timeToCraft).ToString();
+        crafItem.timeEndServer = GeneralManager.singleton.ChangeServerToClientTime(DateTime.Parse(System.DateTime.Now.ToString(), GeneralManager.singleton.culture), itemInBuilding.itemToCraft.item.timeToCraft).ToString();
+        player.playerMove.forniture.GetComponent<BuildingModularCrafting>().craftItem.Add(crafItem);
+        player.playerLeaderPoints.craftItemPoint += GeneralManager.singleton.craftItemPoint;
+    }
+
+    [Command]
+    public void CmdRemoveItemFromCrafting(int index , NetworkIdentity identity)
+    {
+        BuildingModularCrafting buildingModularCrafting = identity.gameObject.GetComponent<BuildingModularCrafting>();
+
+        if(buildingModularCrafting)
+        {
+            buildingModularCrafting.craftItem.Remove(buildingModularCrafting.craftItem[index]);
+        }
+    }
+
+
+
+    [Command]
     public void CmdCraftBuildingItem(string craftableBuilding, int currencyType)
     {
         ScriptableItem itemToCraft = null;
@@ -3236,6 +3322,12 @@ public partial class PlayerMove
     public Collider2D[] monsters;
     public List<Entity> monstersSorted;
 
+    public List<ModularObject> sortedForniture = new List<ModularObject>();
+    public Collider2D[] fornitures;
+    public List<ModularObject> fornitureSorted;
+
+    public ModularObject fornitureClient;
+
     public Vector3 positioningVector = new Vector3(7.960999f, -1.264f, 7.457145f);
 
     [SyncVar]
@@ -3610,6 +3702,12 @@ public partial class PlayerMove
     [Server]
     public void SmartTargeting()
     {
+        if(ModularBuildingManager.singleton.inThisCollider)
+        {
+            player.target = null;
+            return;
+        }
+
         monsters = Physics2D.OverlapCircleAll(transform.position, distanceToCheckEntity, GeneralManager.singleton.entityLayerMask);
         monstersSorted = monsters.Select(go => go.GetComponent<Entity>()).Where(m => m != null && m.health >= 0).ToList();
         sorted = monstersSorted.OrderBy(m => Vector2.Distance(transform.position, m.transform.position)).ToList();
@@ -3637,6 +3735,31 @@ public partial class PlayerMove
                     }
 
                     player.SetTarget(sorted[i].netIdentity);
+                    return;
+                }
+            }
+        }
+    }
+
+    [Client]
+    public void SmartTargetingForniture()
+    {
+        if (ModularBuildingManager.singleton.inThisCollider)
+        {
+            fornitures = Physics2D.OverlapCircleAll(transform.position, distanceToCheckEntity, GeneralManager.singleton.modularObjectNeedBaseLayerMask);
+            fornitureSorted = fornitures.Select(go => go.GetComponent<ModularObject>()).ToList();
+            sortedForniture = fornitureSorted.OrderBy(m => Vector2.Distance(transform.position, m.transform.position)).ToList();
+
+            if (sortedForniture.Count > 0)
+            {
+                for (int i = 0; i < sortedForniture.Count; i++)
+                {
+                    int index = i;
+                    if (sortedForniture[index] == null) continue;
+                    if (Vector2.Distance(transform.position, sortedForniture[index].transform.position) > 10) continue;
+
+                    fornitureClient = sortedForniture[index].GetComponent<ModularObject>();
+                    player.CmdSetForniture(sortedForniture[index].identity);
                     return;
                 }
             }
@@ -6333,5 +6456,80 @@ public partial class PlayerInjury : NetworkBehaviour
                 prevInjuredState = injured;
             }
         }
+    }
+}
+
+public partial class PlayerRaycast
+{
+    public Player player;
+
+    public Vector3 hitMain;
+
+    public float distance = 2.5f;
+
+    public void Update()
+    {
+        if (player.agent.velocity != Vector2.zero)
+        {
+            RaycastHit2D[] leftHit = Physics2D.RaycastAll(player.transform.position, Vector2.left, distance);
+            RaycastHit2D[] rightHit = Physics2D.RaycastAll(player.transform.position, Vector2.right, distance);
+            RaycastHit2D[] upHit = Physics2D.RaycastAll(player.transform.position, Vector2.up, distance);
+            RaycastHit2D[] downHit = Physics2D.RaycastAll(player.transform.position, Vector2.down, distance);
+
+            for (int i = 0; i < leftHit.Length; i++)
+            {
+                if (leftHit[i].collider.CompareTag("WallMine"))
+                {
+                    hitMain = leftHit[i].point;
+                    return;
+                }
+            }
+            for (int i = 0; i < rightHit.Length; i++)
+            {
+                if (rightHit[i].collider.CompareTag("WallMine"))
+                {
+                    hitMain = rightHit[i].point;
+                    return;
+                }
+            }
+            for (int i = 0; i < upHit.Length; i++)
+            {
+                if (upHit[i].collider.CompareTag("WallMine"))
+                {
+                    hitMain = upHit[i].point;
+                    return;
+                }
+            }
+            for (int i = 0; i < downHit.Length; i++)
+            {
+                if (downHit[i].collider.CompareTag("WallMine"))
+                {
+                    hitMain = downHit[i].point;
+                    return;
+                }
+            }
+
+            hitMain = Vector3.zero;
+
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Vector3 directionUp = player.transform.TransformDirection(Vector2.up) * distance;
+        Gizmos.DrawRay(player.transform.position, directionUp);
+
+        Gizmos.color = Color.red;
+        Vector3 directionBc = player.transform.TransformDirection(Vector2.down) * distance;
+        Gizmos.DrawRay(player.transform.position, directionBc);
+
+        Gizmos.color = Color.black;
+        Vector3 directionSx = player.transform.TransformDirection(Vector2.left) * distance;
+        Gizmos.DrawRay(player.transform.position, directionSx);
+
+        Gizmos.color = Color.white;
+        Vector3 directionDx = player.transform.TransformDirection(Vector2.right) * distance;
+        Gizmos.DrawRay(player.transform.position, directionDx);
     }
 }
