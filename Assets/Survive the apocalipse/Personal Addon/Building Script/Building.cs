@@ -70,7 +70,7 @@ public class Building : Entity
         }
     }
 
-    protected override void Start()
+    public override void Start()
     {
         buildingObject = this;
         base.Start();
@@ -85,8 +85,8 @@ public class Building : Entity
         }
         if (!mainEntity) mainEntity = GetComponent<Entity>();
 
-        InvokeRepeating(nameof(ManageBuilding), 0.3f, 0.3f);
-        InvokeRepeating(nameof(CheckPlacement), 0.3f, 0.3f);
+        Invoke(nameof(ManageBuilding), 0.3f);
+        Invoke(nameof(CheckPlacement), 0.5f);
         obstacle = building && building.isObstacle;
         if (navMeshObstacle2D && obstacle)
         {
@@ -94,7 +94,7 @@ public class Building : Entity
         }
         if(building.modularAccessory)
         {
-            InvokeRepeating(nameof(AssignObjectToUnderFloor), 0.3f, 0.3f);
+            Invoke(nameof(AssignObjectToUnderFloor), 0.3f);
         }
     }
 
@@ -113,21 +113,7 @@ public class Building : Entity
                 }
             }
         }
-    }
-
-    void Update()
-    {
-        //if (isServer)
-        //{
-        //    if (mainEntity.health == 0)
-        //    {
-        //        Debug.Log("Dentro health == 0 per l'edificio " + name);
-        //        GameObject g = Instantiate(GeneralManager.singleton.smokePrefab, transform.position, Quaternion.identity);
-        //        NetworkServer.Spawn(g);
-        //        BuildingManager.singleton.RemoveFromList(this.gameObject);
-        //        NetworkServer.Destroy(this.gameObject);
-        //    }
-        //}
+        Invoke(nameof(AssignObjectToUnderFloor), 0.3f);
     }
 
     public void CheckPlacement()
@@ -135,16 +121,16 @@ public class Building : Entity
         if(isClient || isServer)
         {
             if (placement) Destroy(placement.gameObject);
-            CancelInvoke(nameof(CheckPlacement));
         }
     }
 
     public void ManageBuilding()
     {
         if (placement && placement.activeInHierarchy)
+        {
             SetColor();
-        else
-            CancelInvoke(nameof(ManageBuilding));
+            Invoke(nameof(ManageBuilding), 0.3f);
+        }
     }
 
     public void DecreaseCountdown()

@@ -71,6 +71,8 @@ public partial class WeaponItem
     public ScriptableSkill requiredSkill;
 
     public bool isClothes = false;
+    public bool canUseWeaponStorage = false;
+    public bool canUsePistolStorage = false;
 }
 
 public partial class AmmoItem
@@ -79,6 +81,8 @@ public partial class AmmoItem
     public bool poisoned;
     public bool armorBreaker;
     public bool fired;
+
+
 }
 
 public partial class FoodItem

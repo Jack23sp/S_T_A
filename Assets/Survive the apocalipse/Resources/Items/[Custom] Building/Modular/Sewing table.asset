@@ -31,7 +31,7 @@ MonoBehaviour:
   goldPrice: 750
   coinPrice: 5
   craftDescription: 
-  timeToCraft: 360
+  timeToCraft: 120
   maxCarItemInventory: 0
   repairTimer: 360
   repairItems: []
@@ -42,8 +42,9 @@ MonoBehaviour:
   goldsToUpgrade: 350
   coinsToUpgrade: 5
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Tavolo da cucito
-  maxStack: 100
+  maxStack: 1
   buyPrice: 10
   sellPrice: 4
   sellable: 1

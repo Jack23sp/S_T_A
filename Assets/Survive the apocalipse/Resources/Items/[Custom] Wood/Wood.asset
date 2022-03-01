@@ -46,6 +46,7 @@ MonoBehaviour:
   goldsToUpgrade: 200
   coinsToUpgrade: 10
   generalLiquidContainer: 0
+  canUseFurnace: 1
   italianName: Legna
   maxStack: 10000
   buyPrice: 2

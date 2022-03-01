@@ -35,7 +35,7 @@ MonoBehaviour:
   maxCarItemInventory: 0
   repairTimer: 300
   repairItems:
-  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+  - items: {fileID: 0}
     amount: 15
   - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
     amount: 10
@@ -43,13 +43,14 @@ MonoBehaviour:
   coinsToRepair: 10
   upgradeTimer: 300
   upgradeItems:
-  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+  - items: {fileID: 0}
     amount: 15
   - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
     amount: 10
   goldsToUpgrade: 1000
   coinsToUpgrade: 10
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Glock
   maxStack: 1
   buyPrice: 10000
@@ -116,6 +117,9 @@ MonoBehaviour:
   sprites: []
   distamceToGrab: 0
   requiredSkill: {fileID: 11400000, guid: d26c8e162813b4ca2ae6bc3e082f4a50, type: 2}
+  isClothes: 0
+  canUseWeaponStorage: 0
+  canUsePistolStorage: 1
   requiredAmmo: {fileID: 0}
   shotClip: {fileID: 8300000, guid: 3f1a3ac1dac05ba46a442273dbfc428c, type: 3}
   reloadClip: {fileID: 8300000, guid: a206797d0fab44f45b1b15598a4ff9a2, type: 3}

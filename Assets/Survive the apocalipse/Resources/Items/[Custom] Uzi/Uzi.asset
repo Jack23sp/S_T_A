@@ -35,7 +35,7 @@ MonoBehaviour:
   maxCarItemInventory: 0
   repairTimer: 180
   repairItems:
-  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+  - items: {fileID: 0}
     amount: 15
   - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
     amount: 10
@@ -43,13 +43,14 @@ MonoBehaviour:
   coinsToRepair: 10
   upgradeTimer: 180
   upgradeItems:
-  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+  - items: {fileID: 0}
     amount: 15
   - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
     amount: 10
   goldsToUpgrade: 500
   coinsToUpgrade: 10
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Uzi
   maxStack: 1
   buyPrice: 5000
@@ -116,6 +117,9 @@ MonoBehaviour:
   sprites: []
   distamceToGrab: 0
   requiredSkill: {fileID: 11400000, guid: 74889b2c6bafa1a468c1ba8c1e5aa577, type: 2}
+  isClothes: 0
+  canUseWeaponStorage: 1
+  canUsePistolStorage: 0
   requiredAmmo: {fileID: 0}
   shotClip: {fileID: 8300000, guid: 5fd227551ee53d14c81c2ca57bbeec3e, type: 3}
   reloadClip: {fileID: 8300000, guid: 62babbcf8fb42ec419bf20c813be6d7d, type: 3}

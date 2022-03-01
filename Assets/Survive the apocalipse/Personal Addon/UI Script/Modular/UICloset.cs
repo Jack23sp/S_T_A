@@ -16,7 +16,7 @@ public class UICloset : MonoBehaviour
     public List<int> selectedInventoryIndex = new List<int>();
     public List<int> selectedClosetIndex = new List<int>();
 
-    public List<int> clothesAmount = new List<int>();
+    //public List<int> clothesAmount = new List<int>();
 
     public Button CloseButton;
     public Button switchButton;
@@ -53,47 +53,40 @@ public class UICloset : MonoBehaviour
         if (!player.playerMove.fornitureClient.GetComponent<Closet>()) return;
         else closet = player.playerMove.fornitureClient.GetComponent<Closet>();
 
-        for(int i = 0; i < player.inventory.Count; i++)
+        UIUtils.BalancePrefabs(objectToSpawn, player.inventory.Count, inventoryContainer);
+        for (int i = 0; i < player.inventory.Count; i++)
         {
-            int index = i;
-            if(player.inventory[index].amount > 0)
-            {
-                if(player.inventory[index].item.data is WeaponItem)
-                {
-                    if(((WeaponItem)player.inventory[index].item.data).isClothes)
-                    {
-                        if(!clothesAmount.Contains(index))
-                            clothesAmount.Add(index);
-                    }
-                }
-            }
-            else
-            {
-                if (clothesAmount.Contains(index))
-                    clothesAmount.Remove(index);
-            }
-        }
-
-
-        UIUtils.BalancePrefabs(objectToSpawn, clothesAmount.Count, inventoryContainer);
-        for (int i = 0; i < clothesAmount.Count; i++)
-        {
-            UIInventorySlot slot = inventoryContainer.GetChild(i).GetComponent<UIInventorySlot>();
             int icopy = i;
-            ItemSlot itemSlot = player.inventory[clothesAmount[icopy]];
+            UIInventorySlot slot = inventoryContainer.GetChild(icopy).GetComponent<UIInventorySlot>();
+            ItemSlot itemSlot = player.inventory[icopy];
             
             if (itemSlot.amount > 0)
             {
-                
+                if (player.inventory[icopy].item.data is WeaponItem)
+                {
+                    if (((WeaponItem)player.inventory[icopy].item.data).isClothes)
+                    {
+                        slot.button.interactable = true;
+                    }
+                    if (!((WeaponItem)player.inventory[icopy].item.data).isClothes)
+                    {
+                        slot.button.interactable = false;
+                    }
+                }
+                else
+                {
+                    slot.button.interactable = false;
+                }
+
                 slot.button.onClick.SetListener(() =>
                 {
-                    if (!selectedInventoryIndex.Contains(clothesAmount[icopy]))
+                    if (!selectedInventoryIndex.Contains(icopy))
                     {
-                        selectedInventoryIndex.Add(clothesAmount[icopy]);
+                        selectedInventoryIndex.Add(icopy);
                     }
                     else
                     {
-                        selectedInventoryIndex.Remove(clothesAmount[icopy]);
+                        selectedInventoryIndex.Remove(icopy);
                     }
 
                 });
@@ -116,10 +109,10 @@ public class UICloset : MonoBehaviour
                 slot.GetComponent<Image>().color = GffItemRarity.singleton.ColorNull;
             }
         }
-        for (int e = 0; e < clothesAmount.Count; e++)
+        for (int e = 0; e < player.inventory.Count; e++)
         {
             int index = e;
-            if (selectedInventoryIndex.Contains(clothesAmount[index])) inventoryContainer.GetChild(index).GetComponent<Outline>().enabled = true;
+            if (selectedInventoryIndex.Contains(index)) inventoryContainer.GetChild(index).GetComponent<Outline>().enabled = true;
             else inventoryContainer.GetChild(index).GetComponent<Outline>().enabled = false;
         }
         for (int e = 0; e < closetContainer.childCount; e++)

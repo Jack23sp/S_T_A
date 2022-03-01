@@ -68,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1783918617
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 188b40dc84436e4468cb9348ccf7ea02, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 205713119020791647}
   - component: {fileID: 4074972740201943555}
-  - component: {fileID: 7815411038273575828}
+  - component: {fileID: 2622466593875184447}
   - component: {fileID: 7854864447168360752}
   - component: {fileID: 8341268083283399894}
   - component: {fileID: 4988423368897892409}
@@ -136,7 +136,7 @@ MonoBehaviour:
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
---- !u!114 &7815411038273575828
+--- !u!114 &2622466593875184447
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8481587374756549699}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9819da1ce9603ad4e94cd566cc85683d, type: 3}
+  m_Script: {fileID: 11500000, guid: eeab31ec18e0c054b960511793b8cf76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
@@ -163,8 +163,8 @@ MonoBehaviour:
   isWallObject: 0
   navMeshObstacle2D: {fileID: 6308118954182763315}
   oldPositioning: 1
-  currentWater: 0
-  maxWater: 100
+  isPremium: 0
+  building: {fileID: 11400000, guid: e06857313a7c49e458f5b6bc9f19f20b, type: 2}
 --- !u!212 &7854864447168360752
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -202,7 +202,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1242795895
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a3af2f37b698df849a2029f180e34ed8, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

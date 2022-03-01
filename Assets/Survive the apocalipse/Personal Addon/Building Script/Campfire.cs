@@ -22,6 +22,10 @@ public class Campfire : NetworkBehaviour
 
     public Entity entity;
 
+    public List<ParticleSystem> fireParticle = new List<ParticleSystem>();
+
+    public SpriteRenderer fireSpriteOrder;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +35,14 @@ public class Campfire : NetworkBehaviour
             InvokeRepeating(nameof(DecreaseWood), GeneralManager.singleton.intervalConsumeWoodCampfire, GeneralManager.singleton.intervalConsumeWoodCampfire);
             campfireDryClothes.gameObject.SetActive(true);
         }
+        if(isClient)
+        {
+            for(int i = 0; i < fireParticle.Count; i++)
+            {
+                int index = i;
+                fireParticle[i].GetComponent<Renderer>().sortingOrder = fireSpriteOrder.sortingOrder;
+            }
+        }
     }
 
     // Update is called once per frame
@@ -39,9 +51,17 @@ public class Campfire : NetworkBehaviour
         if(prevActive != active)
         {
             lightObject.SetActive(active);
+            fireParticle[0].gameObject.SetActive(active);
             entity.animator.SetBool("Active", active);
             prevActive = active;
         }
+        for (int i = 0; i < fireParticle.Count; i++)
+        {
+            int index = i;
+            fireParticle[i].GetComponent<Renderer>().sortingOrder = fireSpriteOrder.sortingOrder;
+        }
+
+
     }
 
 

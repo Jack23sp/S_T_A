@@ -450,6 +450,10 @@ public class GeneralManager : MonoBehaviour
     public LayerMask searchFornitureLayerMask;
     public LayerMask modularWallMinePositioning;
 
+    [Header("Furnace items")]
+    public ScriptableItem sulfur;
+    public ScriptableItem highMetal;
+
     public DateTime ChangeServerToClientTime(DateTime time, int seconds = 0)
     {
         return DateTime.ParseExact(time.ToString(), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);

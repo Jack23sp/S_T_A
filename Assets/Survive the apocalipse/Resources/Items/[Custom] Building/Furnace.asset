@@ -42,6 +42,7 @@ MonoBehaviour:
   goldsToUpgrade: 350
   coinsToUpgrade: 5
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Fornace
   maxStack: 100
   buyPrice: 10
@@ -50,7 +51,7 @@ MonoBehaviour:
   tradable: 1
   destroyable: 1
   toolTip: 
-  image: {fileID: 21300000, guid: 8c02c8965e4bf0049b61f4eff873d42a, type: 3}
+  image: {fileID: 21300000, guid: 28b69aa22c065274db3aad2f1fdc0588, type: 2}
   craftMinLevel: 0
   groupWarehouse: 0
   itemToClaim: []
@@ -81,3 +82,18 @@ MonoBehaviour:
   - buildingName: UP
     buildingObject: {fileID: 1529476062757820, guid: c5388f0cae7618f479791c336676ad56,
       type: 3}
+  - buildingName: UP
+    buildingObject: {fileID: 1529476062757820, guid: c5388f0cae7618f479791c336676ad56,
+      type: 3}
+  - buildingName: UP
+    buildingObject: {fileID: 1529476062757820, guid: c5388f0cae7618f479791c336676ad56,
+      type: 3}
+  - buildingName: UP
+    buildingObject: {fileID: 1529476062757820, guid: c5388f0cae7618f479791c336676ad56,
+      type: 3}
+  isBasement: 0
+  isWall: 0
+  isDoor: 0
+  modularAccessory: 0
+  modularForniture: 0
+  necessaryTagObject: 

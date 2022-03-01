@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System.Linq;
 
 public class ResourceManagerCatcher : MonoBehaviour
 {
@@ -16,13 +17,14 @@ public class ResourceManagerCatcher : MonoBehaviour
     public void Start()
     {
         catchCollider.enabled = true;
-        if (player.isServer)
+        if (player.isClient)
             InvokeRepeating(nameof(CheckNearEntity), 1.0f, 1.0f);
     }
 
     public void CheckNearEntity()
     {
         player.playerMove.nearEntity = Physics2D.OverlapCircleAll(transform.position, 15, nearEntityLayer);
+        player.playerMove.nearEntity = player.playerMove.nearEntity.Where(item => item != null).ToArray();
     }
 
 }

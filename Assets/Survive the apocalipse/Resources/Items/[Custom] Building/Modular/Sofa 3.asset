@@ -42,8 +42,9 @@ MonoBehaviour:
   goldsToUpgrade: 350
   coinsToUpgrade: 5
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Divano
-  maxStack: 100
+  maxStack: 1
   buyPrice: 10
   sellPrice: 4
   sellable: 1
@@ -85,4 +86,5 @@ MonoBehaviour:
   isWall: 0
   isDoor: 0
   modularAccessory: 0
-  necessaryTagObject: []
+  modularForniture: 0
+  necessaryTagObject: 

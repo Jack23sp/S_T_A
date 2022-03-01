@@ -35,7 +35,7 @@ MonoBehaviour:
   maxCarItemInventory: 0
   repairTimer: 300
   repairItems:
-  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+  - items: {fileID: 0}
     amount: 15
   - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
     amount: 10
@@ -43,13 +43,14 @@ MonoBehaviour:
   coinsToRepair: 10
   upgradeTimer: 300
   upgradeItems:
-  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+  - items: {fileID: 0}
     amount: 15
   - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
     amount: 10
   goldsToUpgrade: 1000
   coinsToUpgrade: 10
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Ak-47
   maxStack: 1
   buyPrice: 10000
@@ -60,7 +61,7 @@ MonoBehaviour:
   toolTip: '
 
 '
-  image: {fileID: 21300000, guid: 61a95d99c595b0e4fba1ccc2338b4046, type: 3}
+  image: {fileID: 21300000, guid: 1f672c18f3b49f247af83f1576ea8aaa, type: 3}
   craftMinLevel: 0
   minLevel: 0
   cooldown: 0
@@ -118,6 +119,9 @@ MonoBehaviour:
   sprites: []
   distamceToGrab: 50
   requiredSkill: {fileID: 11400000, guid: 639ba54ea1b974941b6e082abbfb14a8, type: 2}
+  isClothes: 0
+  canUseWeaponStorage: 1
+  canUsePistolStorage: 0
   requiredAmmo: {fileID: 11400000, guid: 38a14a8ab7319b641b54b45eee23a618, type: 2}
   shotClip: {fileID: 8300000, guid: 157a00521a7126944aff89a2b4eb3002, type: 3}
   reloadClip: {fileID: 8300000, guid: 7a770bdb2b170c44690ca526f2791b31, type: 3}

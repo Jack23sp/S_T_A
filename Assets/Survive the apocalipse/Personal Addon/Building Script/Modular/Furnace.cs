@@ -3,29 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class Furnace : ModularObject
+public class Furnace : Building
 {
-    public SyncList<ItemSlot> furnaceSlot = new SyncList<ItemSlot>();
 
     [SyncVar]
     public bool isActive;
 
-    void Start()
+    public override void Start()
     {
+        base.Start();
+        Invoke(nameof(PopulateInventory), 1.0f);
+    }
+
+    public void PopulateInventory()
+    {
+       
         if(isServer)
         {
-            if(furnaceSlot.Count == 0)
+            if(inventory.Count == 0)
             {
                 for(int i = 0; i < 7; i++)
                 {
-                    furnaceSlot.Add(new ItemSlot());
+                    inventory.Add(new ItemSlot());
                 }
             }
         }
     }
 
-    void Update()
-    {
-        
-    }
 }

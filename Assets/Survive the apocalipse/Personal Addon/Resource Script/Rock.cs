@@ -25,7 +25,7 @@ public partial class Rock : Entity
         mana = manaMax;
     }
 
-    protected override void Start()
+    public override void Start()
     {
         base.Start();
         rockObject = this;

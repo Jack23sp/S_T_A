@@ -102,7 +102,7 @@ public partial class Monster : Entity
         Utils.InvokeMany(typeof(Monster), this, "OnStartServer_");
     }
 
-    protected override void Start()
+    public override void Start()
     {
         base.Start();
 

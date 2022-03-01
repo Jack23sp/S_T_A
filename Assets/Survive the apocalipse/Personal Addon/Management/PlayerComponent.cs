@@ -2818,11 +2818,11 @@ public partial class PlayerBuilding
     }
 
     [Command]
-    public void CmdRemoveItemFromCrafting(int index , NetworkIdentity identity)
+    public void CmdRemoveItemFromCrafting(int index, NetworkIdentity identity)
     {
         BuildingModularCrafting buildingModularCrafting = identity.gameObject.GetComponent<BuildingModularCrafting>();
 
-        if(buildingModularCrafting)
+        if (buildingModularCrafting)
         {
             buildingModularCrafting.craftItem.Remove(buildingModularCrafting.craftItem[index]);
         }
@@ -3354,10 +3354,13 @@ public partial class PlayerMove
         {
             InvokeRepeating(nameof(ConsumeMana), 1.0f, 1.0f);
             InvokeRepeating(nameof(ManageMovement), 0.1f, 0.1f);
-            InvokeRepeating(nameof(SmartTargeting), 0.3f, 0.3f);
         }
-        else
+
+        if (player.isClient)
         {
+            if (player.isLocalPlayer)
+                InvokeRepeating(nameof(SmartTargeting), 0.3f, 0.3f);
+
             InvokeRepeating(nameof(MovementController), 0.0f, 0.01f);
         }
     }
@@ -3410,7 +3413,6 @@ public partial class PlayerMove
         serverYAxis = yRotation;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!player) return;
@@ -3699,20 +3701,21 @@ public partial class PlayerMove
         run = false;
     }
 
-    [Server]
+    [Client]
     public void SmartTargeting()
     {
-        if(ModularBuildingManager.singleton.inThisCollider)
+        if (ModularBuildingManager.singleton.inThisCollider)
         {
-            player.target = null;
+            if (player.target != null)
+                player.CmdSetTarget(null);
+
             return;
         }
 
-        monsters = Physics2D.OverlapCircleAll(transform.position, distanceToCheckEntity, GeneralManager.singleton.entityLayerMask);
-        monstersSorted = monsters.Select(go => go.GetComponent<Entity>()).Where(m => m != null && m.health >= 0).ToList();
-        sorted = monstersSorted.OrderBy(m => Vector2.Distance(transform.position, m.transform.position)).ToList();
+        monstersSorted = nearEntity.Select(go => go.GetComponent<Entity>()).Where(m => m != null && m.health >= 0).ToList();
+        sorted = monstersSorted.OrderBy(m => Vector3.Distance(player.transform.position, m.transform.position)).ToList();
 
-        if (lastHit < NetworkTime.time - 3.0f || (lastHitEntity && Vector2.Distance(transform.position, lastHitEntity.transform.position) > 15))
+        if (lastHit < NetworkTime.time - 3.0f || (lastHitEntity && Vector3.Distance(player.transform.position, lastHitEntity.transform.position) > 15))
         {
             lastHit = NetworkTime.time;
             lastHitEntity = null;
@@ -3722,19 +3725,19 @@ public partial class PlayerMove
                 for (int i = 0; i < sorted.Count; i++)
                 {
                     if (sorted[i] == null) continue;
-                    if (Vector2.Distance(transform.position, sorted[i].transform.position) > 15) continue;
+                    if (Vector3.Distance(transform.position, sorted[i].transform.position) > distanceToCheckEntity) continue;
                     if (sorted[i] == player) continue;
                     if (sorted[i] == player.activePet) continue;
 
                     if (sorted[i].GetComponent<Mine>())
                     {
-                        if (!GeneralManager.singleton.CanManageExplosiveBuilding(((Building)sorted[i]), player))
+                        if (!GeneralManager.singleton.CanManageExplosiveBuilding(sorted[i].GetComponent<Building>(), player))
                         {
                             continue;
                         }
                     }
 
-                    player.SetTarget(sorted[i].netIdentity);
+                    player.CmdSetTarget(sorted[i].GetComponent<NetworkIdentity>());
                     return;
                 }
             }
@@ -3766,13 +3769,23 @@ public partial class PlayerMove
         }
     }
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(player.transform.position, 15.0f);
-        Gizmos.color = Color.gray;
-        Gizmos.DrawWireSphere(player.transform.position, 3.0f);
-    }
+    //void OnDrawGizmos()
+    //{
+    //    for (int i = 0; i < sorted.Count; i++)
+    //    {
+    //        int index = i;
+    //        if (index == 0)
+    //        {
+    //            Gizmos.color = Color.red;
+    //            Gizmos.DrawLine(player.transform.position, sorted[index].transform.position);
+    //        }
+    //        else
+    //        {
+    //            Gizmos.color = Color.magenta;
+    //            Gizmos.DrawLine(player.transform.position, sorted[index].transform.position);
+    //        }
+    //    }
+    //}
 
     public void Drink()
     {

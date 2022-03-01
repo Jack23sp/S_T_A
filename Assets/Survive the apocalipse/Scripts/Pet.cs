@@ -126,7 +126,7 @@ public partial class Pet : Summonable
         Utils.InvokeMany(typeof(Pet), this, "OnStartServer_");
     }
 
-    protected override void Start()
+    public override void Start()
     {
         base.Start();
 

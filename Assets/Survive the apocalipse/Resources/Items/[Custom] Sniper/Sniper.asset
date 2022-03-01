@@ -35,7 +35,7 @@ MonoBehaviour:
   maxCarItemInventory: 0
   repairTimer: 180
   repairItems:
-  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+  - items: {fileID: 0}
     amount: 15
   - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
     amount: 10
@@ -43,13 +43,14 @@ MonoBehaviour:
   coinsToRepair: 10
   upgradeTimer: 180
   upgradeItems:
-  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+  - items: {fileID: 0}
     amount: 15
   - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
     amount: 10
   goldsToUpgrade: 5000
   coinsToUpgrade: 10
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Fucile da cecchino
   maxStack: 1
   buyPrice: 10000
@@ -118,6 +119,9 @@ MonoBehaviour:
   sprites: []
   distamceToGrab: 100
   requiredSkill: {fileID: 11400000, guid: 98f53d2a166bed44a9352ae3ca9a2f33, type: 2}
+  isClothes: 0
+  canUseWeaponStorage: 1
+  canUsePistolStorage: 0
   requiredAmmo: {fileID: 11400000, guid: 4085b7780ee9da94f80e3d42ba71585b, type: 2}
   shotClip: {fileID: 8300000, guid: 4151e14dea2b72f46a82b6ae9418ab26, type: 3}
   reloadClip: {fileID: 8300000, guid: cd2605790245f5f489b4de535067c4ed, type: 3}

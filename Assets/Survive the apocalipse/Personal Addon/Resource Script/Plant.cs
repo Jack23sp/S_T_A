@@ -101,7 +101,7 @@ public partial class Plant : Entity
 
     }
 
-    protected override void Start()
+    public override void Start()
     {
         base.Start();
 

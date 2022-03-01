@@ -30,7 +30,8 @@ public enum ModularType
     shower,
     sofa,
     trashCan,
-    tv
+    tv,
+    weaponStorage
 }
 
 public class ModularObject : Forniture

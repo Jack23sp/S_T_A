@@ -776,12 +776,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  onButton: {fileID: 0}
-  content: {fileID: 0}
-  workingContent: {fileID: 0}
-  slotToInstantiate: {fileID: 0}
-  slotToInstantiateInFurnace: {fileID: 0}
+  onButton: {fileID: 8845311189284287055}
+  onButtonText: {fileID: 1951329630681124391}
+  content: {fileID: 3492977785969491647}
+  workingContent: {fileID: 3701204001252493875}
+  slotToInstantiate: {fileID: 192578, guid: fe25bab38867c41dd8562025769a8b9c, type: 3}
+  slotToInstantiateInFurnace: {fileID: 192578, guid: fe25bab38867c41dd8562025769a8b9c,
+    type: 3}
   furnace: {fileID: 0}
+  closeButton: {fileID: 8803976157969529750}
 --- !u!82 &4113483898039760784
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1198,6 +1201,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1800932779, guid: 9b0d3208929b7d843ac8dcb3c5e76aac, type: 3}
       propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1800932781, guid: 9b0d3208929b7d843ac8dcb3c5e76aac, type: 3}
+      propertyPath: m_CellSize.x
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1800932781, guid: 9b0d3208929b7d843ac8dcb3c5e76aac, type: 3}
+      propertyPath: m_CellSize.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1800932781, guid: 9b0d3208929b7d843ac8dcb3c5e76aac, type: 3}
+      propertyPath: m_ConstraintCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1800932781, guid: 9b0d3208929b7d843ac8dcb3c5e76aac, type: 3}
+      propertyPath: m_Padding.m_Left
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 226549593317996839, guid: 9b0d3208929b7d843ac8dcb3c5e76aac,

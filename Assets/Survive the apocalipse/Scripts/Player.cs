@@ -578,7 +578,7 @@ public partial class Player : Entity
         Utils.InvokeMany(typeof(Player), this, "OnStartServer_");
     }
 
-    protected override void Start()
+    public override void Start()
     {
         if (avatarCamera.activeTexture == null)
         {
@@ -3643,6 +3643,10 @@ public partial class Player : Entity
                 target = ni.GetComponent<Entity>();
             }
         }
+        else
+        {
+            target = null;
+        }
     }
 
     public void SetTarget(NetworkIdentity ni)
@@ -5886,6 +5890,83 @@ public partial class Player : Entity
         }
     }
 
+    [Command]
+    public void CmdAddWoodToInventoryFromFurnace()
+    {
+        Furnace furnace = target.GetComponent<Furnace>();
+        if (furnace)
+        {
+            if (InventoryCanAdd(furnace.inventory[0].item, furnace.inventory[0].amount))
+            {
+                InventoryAdd(furnace.inventory[0].item, furnace.inventory[0].amount);
+                furnace.inventory[0] = new ItemSlot();
+            }
+        }
+    }
+
+    [Command]
+    public void CmdAddWToInventoryFromFurnace(int furnaceIndex)
+    {
+        Furnace furnace = target.GetComponent<Furnace>();
+        if (furnace)
+        {
+            if (InventoryCanAdd(furnace.inventory[furnaceIndex].item, furnace.inventory[furnaceIndex].amount))
+            {
+                InventoryAdd(furnace.inventory[furnaceIndex].item, furnace.inventory[furnaceIndex].amount);
+                furnace.inventory[furnaceIndex] = new ItemSlot();
+            }
+        }
+    }
+
+    [Command]
+    public void CmdAddWeaponToWeaponStorage(int inventoryIndex, int type)
+    {
+        WeaponStorage weaponStorage = playerMove.forniture.GetComponent<WeaponStorage>();
+        if (weaponStorage)
+        {
+            if (type == 0)
+            {
+                if(weaponStorage.InventoryCanAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 5,0, true))
+                {
+                    weaponStorage.InventoryAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 5, inventoryIndex, 0, true);
+                    return;
+                }
+            }
+            else if (type == 1)
+            {
+                if (weaponStorage.InventoryCanAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 10, 5,true))
+                {
+                    weaponStorage.InventoryAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 10, inventoryIndex, 5, true);
+                    return;
+                }
+            }
+            else
+            {
+                if (weaponStorage.InventoryCanAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 15, 10,false))
+                {
+                    weaponStorage.InventoryAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 15, inventoryIndex, 10, false);
+                    return;
+                }
+            }
+        }
+    }
+
+    [Command]
+    public void CmdAddToInventoryFromWeaponStorage(int index)
+    {
+        if (playerMove.forniture && playerMove.forniture.GetComponent<WeaponStorage>())
+        {
+            WeaponStorage weaponStorage = playerMove.forniture.GetComponent<WeaponStorage>();
+            if (weaponStorage.weapon.Count >= index)
+            {
+                if (InventoryCanAdd(weaponStorage.weapon[index].item, weaponStorage.weapon[index].amount))
+                {
+                    InventoryAdd(weaponStorage.weapon[index].item, weaponStorage.weapon[index].amount);
+                    weaponStorage.weapon[index] = new ItemSlot();
+                }
+            }
+        }
+    }
 
     #endregion
 
@@ -7231,15 +7312,15 @@ public partial class Player : Entity
     [Command]
     public void CmdInsertWood(int inventoryIndex)
     {
-        if (playerMove.forniture.GetComponent<Furnace>())
+        if (target.GetComponent<Furnace>())
         {
-            Furnace furnace = playerMove.forniture.GetComponent<Furnace>();
+            Furnace furnace = target.GetComponent<Furnace>();
             ItemSlot inventorySlot = inventory[inventoryIndex];
 
             if (inventorySlot.item.data.name == "Wood")
             {
                 int woodIndex = inventorySlot.amount;
-                ItemSlot slot = furnace.furnaceSlot[0];
+                ItemSlot slot = furnace.inventory[0];
                 if (slot.amount > 0)
                 {
                     if (slot.amount < slot.item.maxStack)
@@ -7249,19 +7330,21 @@ public partial class Player : Entity
                         {
                             slot.amount = slot.item.data.maxStack;
                             inventorySlot.amount -= remainingToAdd;
+                            inventory[inventoryIndex] = inventorySlot;
                         }
                         else
                         {
                             slot.amount += inventorySlot.amount;
                             inventorySlot.amount = 0;
+                            inventory[inventoryIndex] = new ItemSlot();
                         }
                     }
-                    furnace.furnaceSlot[0] = slot;
-                    inventory[inventoryIndex] = inventorySlot;
+                    furnace.inventory[0] = slot;
                 }
                 else
                 {
-                    furnace.furnaceSlot[0] = inventory[inventoryIndex];
+                    furnace.inventory[0] = inventory[inventoryIndex];
+                    inventory[inventoryIndex] = new ItemSlot();
                 }
             }
         }
@@ -7270,16 +7353,16 @@ public partial class Player : Entity
     [Command]
     public void CmdInsertObjectInFurnace(int inventoryIndex)
     {
-        if (playerMove.forniture.GetComponent<Furnace>())
+        if (target.GetComponent<Furnace>())
         {
-            Furnace furnace = playerMove.forniture.GetComponent<Furnace>();
+            Furnace furnace = target.GetComponent<Furnace>();
             ItemSlot inventorySlot = inventory[inventoryIndex];
 
             int woodIndex = inventorySlot.amount;
-            for (int i = 1; i < furnace.furnaceSlot.Count; i++)
+            for (int i = 1; i < furnace.inventory.Count; i++)
             {
                 int index = i;
-                ItemSlot slot = furnace.furnaceSlot[index];
+                ItemSlot slot = furnace.inventory[index];
                 if (slot.amount > 0)
                 {
                     if (inventorySlot.item.data.name == slot.item.data.name)
@@ -7302,7 +7385,7 @@ public partial class Player : Entity
                                     inventorySlot.amount -= remainingToAdd;
                                 }
                             }
-                            furnace.furnaceSlot[index] = slot;
+                            furnace.inventory[index] = slot;
                             inventory[inventoryIndex] = inventorySlot;
                         }
                     }
@@ -7310,21 +7393,62 @@ public partial class Player : Entity
             }
             if (woodIndex > 0)
             {
-                for (int i = 1; i < furnace.furnaceSlot.Count; i++)
+                for (int i = 1; i < furnace.inventory.Count; i++)
                 {
                     int index = i;
-                    ItemSlot slot = furnace.furnaceSlot[index];
-                    if (slot.amount == 0)
+                    ItemSlot slot = furnace.inventory[index];
+                    if (slot.amount > 0 && slot.item.data.name == inventorySlot.item.data.name)
                     {
-                        slot = inventory[inventoryIndex];
-                        furnace.furnaceSlot[index] = slot;
+                        if (slot.amount < slot.item.data.maxStack)
+                        {
+                            int remainingToAdd = slot.item.data.maxStack - slot.amount;
+                            if (woodIndex <= remainingToAdd)
+                            {
+                                slot.amount += woodIndex;
+                                woodIndex = 0;
+                                inventorySlot.amount = 0;
+                            }
+                            else
+                            {
+                                slot.amount += remainingToAdd;
+                                woodIndex -= remainingToAdd;
+                                inventorySlot.amount -= remainingToAdd;
+                            }
+                        }
+                        furnace.inventory[index] = slot;
+                        inventory[inventoryIndex] = inventorySlot;
+                    }
+                }
+                for (int i = 1; i < furnace.inventory.Count; i++)
+                {
+                    int index = i;
+                    ItemSlot slot = furnace.inventory[index];
+                    if (woodIndex > 0)
+                    {
+                        if (slot.amount == 0)
+                        {
+                            slot = inventory[inventoryIndex];
+                            furnace.inventory[index] = slot;
+                            inventory[inventoryIndex] = new ItemSlot();
+                            return;
+                        }
                     }
                 }
             }
-
         }
     }
 
+    [Command]
+    public void CmdManageFurnace()
+    {
+        Furnace furnace = target.GetComponent<Furnace>();
+
+        if (furnace)
+        {
+            if (!target.GetComponent<Furnace>().isActive == true && furnace.inventory[0].amount == 0) return;
+            target.GetComponent<Furnace>().isActive = !target.GetComponent<Furnace>().isActive;
+        }
+    }
 
     #endregion
 

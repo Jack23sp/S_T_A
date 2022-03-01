@@ -35,7 +35,7 @@ MonoBehaviour:
   maxCarItemInventory: 0
   repairTimer: 300
   repairItems:
-  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+  - items: {fileID: 0}
     amount: 15
   - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
     amount: 10
@@ -43,13 +43,14 @@ MonoBehaviour:
   coinsToRepair: 10
   upgradeTimer: 300
   upgradeItems:
-  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+  - items: {fileID: 0}
     amount: 15
   - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
     amount: 10
   goldsToUpgrade: 1000
   coinsToUpgrade: 10
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Colt python
   maxStack: 1
   buyPrice: 10000
@@ -116,6 +117,9 @@ MonoBehaviour:
   sprites: []
   distamceToGrab: 0
   requiredSkill: {fileID: 11400000, guid: 08e656ecbb7013c40b90c6acd4207ded, type: 2}
+  isClothes: 0
+  canUseWeaponStorage: 0
+  canUsePistolStorage: 1
   requiredAmmo: {fileID: 0}
   shotClip: {fileID: 8300000, guid: 5261f646cef67a54d8450b0149328267, type: 3}
   reloadClip: {fileID: 8300000, guid: d5fbb336c846f4e49aa68ac955c0b34c, type: 3}

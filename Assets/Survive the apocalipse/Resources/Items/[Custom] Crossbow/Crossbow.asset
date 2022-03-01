@@ -35,7 +35,7 @@ MonoBehaviour:
   maxCarItemInventory: 0
   repairTimer: 300
   repairItems:
-  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+  - items: {fileID: 0}
     amount: 15
   - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
     amount: 10
@@ -43,13 +43,14 @@ MonoBehaviour:
   coinsToRepair: 10
   upgradeTimer: 300
   upgradeItems:
-  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+  - items: {fileID: 0}
     amount: 15
   - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
     amount: 10
   goldsToUpgrade: 1000
   coinsToUpgrade: 10
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Balestra
   maxStack: 1
   buyPrice: 10000
@@ -118,7 +119,11 @@ MonoBehaviour:
   sprites: []
   distamceToGrab: 0
   requiredSkill: {fileID: 11400000, guid: 76ccd295ad31bce4b83272fb9653fe79, type: 2}
+  isClothes: 0
+  canUseWeaponStorage: 1
+  canUsePistolStorage: 0
   requiredAmmo: {fileID: 0}
   shotClip: {fileID: 8300000, guid: a5c0f46650ef0cb43b723172aa1aad50, type: 3}
   reloadClip: {fileID: 0}
   bullettDrops: {fileID: 0}
+  stopMusic: 0

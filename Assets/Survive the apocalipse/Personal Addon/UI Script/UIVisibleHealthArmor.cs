@@ -19,7 +19,6 @@ public class UIVisibleHealthArmor : MonoBehaviour
 
     public Canvas canvas;
 
-    // Start is called before the first frame update
     void Start()
     {
         canvas = GetComponentInParent<Canvas>();
@@ -30,12 +29,11 @@ public class UIVisibleHealthArmor : MonoBehaviour
         healthSlider.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
     void CheckStatUnderPlayer()
     {
         for (int i = 0; i < Player.localPlayer.playerMove.sorted.Count; i++)
         {
-            otherEntity = Player.localPlayer.playerMove.sorted[i];
+            otherEntity = Player.localPlayer.playerMove.sorted[i].GetComponent<Entity>();
                 if (otherEntity is Monster || otherEntity is Rock || otherEntity is Tree)
                 {
                     if (otherEntity.HealthPercent() != prevHealthPerc)

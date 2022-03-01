@@ -35,17 +35,18 @@ MonoBehaviour:
   maxCarItemInventory: 0
   repairTimer: 300
   repairItems:
-  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+  - items: {fileID: 0}
     amount: 5
   goldsToRepair: 1000
   coinsToRepair: 10
   upgradeTimer: 300
   upgradeItems:
-  - items: {fileID: 11400000, guid: f5b0d16d6d7b4614295906a49e3ee8f4, type: 2}
+  - items: {fileID: 0}
     amount: 5
   goldsToUpgrade: 1000
   coinsToUpgrade: 10
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Piede di porco
   maxStack: 1
   buyPrice: 10000
@@ -108,7 +109,11 @@ MonoBehaviour:
   sprites: []
   distamceToGrab: 0
   requiredSkill: {fileID: 11400000, guid: 4f7f036fa5389a342a607a4d90ae4860, type: 2}
+  isClothes: 0
+  canUseWeaponStorage: 1
+  canUsePistolStorage: 0
   requiredAmmo: {fileID: 0}
   shotClip: {fileID: 8300000, guid: 449dc17115dc84b308e34b9f79b27879, type: 3}
   reloadClip: {fileID: 0}
   bullettDrops: {fileID: 0}
+  stopMusic: 0

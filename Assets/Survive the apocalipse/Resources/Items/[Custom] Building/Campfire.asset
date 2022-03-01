@@ -42,6 +42,7 @@ MonoBehaviour:
   goldsToUpgrade: 350
   coinsToUpgrade: 5
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Falo'
   maxStack: 100
   buyPrice: 10
@@ -50,7 +51,7 @@ MonoBehaviour:
   tradable: 1
   destroyable: 1
   toolTip: 
-  image: {fileID: 4666783510494674922, guid: 4239766f7a194d94b9d8fda4ec63bb66, type: 3}
+  image: {fileID: 21300000, guid: 66069b842095bb34fa97c41b9f47084c, type: 3}
   craftMinLevel: 0
   groupWarehouse: 0
   itemToClaim: []
@@ -81,3 +82,9 @@ MonoBehaviour:
   - buildingName: UP
     buildingObject: {fileID: 1529476062757820, guid: ce716550980cbc142b25d0845da358d5,
       type: 3}
+  isBasement: 0
+  isWall: 0
+  isDoor: 0
+  modularAccessory: 0
+  modularForniture: 0
+  necessaryTagObject: 

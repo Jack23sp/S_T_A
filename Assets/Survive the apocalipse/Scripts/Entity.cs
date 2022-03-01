@@ -362,7 +362,7 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
         Utils.InvokeMany(typeof(Entity), this, "OnStartServer_");
     }
 
-    protected virtual void Start()
+    public virtual void Start()
     {
         // health recovery every second
         if (buildingObject)

@@ -55,7 +55,7 @@ public partial class Chest : Entity
         base.OnStartServer();
     }
 
-    protected override void Start()
+    public override void Start()
     {
         base.Start();
 

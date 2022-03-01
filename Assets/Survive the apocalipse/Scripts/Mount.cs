@@ -32,7 +32,7 @@ public partial class Mount : Summonable
         Utils.InvokeMany(typeof(Mount), this, "OnStartServer_");
     }
 
-    protected override void Start()
+    public override void Start()
     {
         base.Start();
 

@@ -8,7 +8,7 @@ public class SnowManager : NetworkBehaviour
 {
     public static SnowManager singleton;
 
-    public float maxSnowLimit = 0;
+    //public float maxSnowLimit = 0;
 
     public TemperatureManager temperatureManager;
 
@@ -58,7 +58,7 @@ public class SnowManager : NetworkBehaviour
 
         if (temperatureManager.isSnowy)
         {
-            if (progress < maxSnowLimit)
+            if (progress < spriteSnowLimit)
             {
                 progress += amountSnowToModify;
             }
@@ -84,7 +84,7 @@ public class SnowManager : NetworkBehaviour
             if (previousSnowAmount != progress)
             {
                 previousSnowAmount = progress;
-                snowMaterial.SetFloat("_Alpha", progress);
+                snowMaterial.SetFloat("_Progress", progress);
             }
         }
         else
