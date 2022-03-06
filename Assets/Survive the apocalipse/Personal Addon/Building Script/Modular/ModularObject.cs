@@ -57,6 +57,7 @@ public class ModularObject : Forniture
 
     public int oldPositioning = 0;
 
+    public int isMemberofIndex = -1;
     public void OnDisable()
     {
         CancelInvoke();
@@ -265,6 +266,17 @@ public class ModularObject : Forniture
                 }
             }
         }
+        else if (isServer)
+        {
+            if(collision.gameObject.GetComponent<ModularPiece>())
+            {
+                isMemberofIndex = collision.gameObject.GetComponent<ModularPiece>().modularIndex;
+            }
+            if(!collision.gameObject.GetComponent<ModularPiece>().insideModularObject.Contains(this))
+            {
+                collision.gameObject.GetComponent<ModularPiece>().insideModularObject.Add(this);
+            }
+        }
     }
 
     public void OnTriggerStay2D(Collider2D collision)
@@ -322,10 +334,8 @@ public class ModularObject : Forniture
                     {
                         if (allColliders.Count == 1)
                         {
-                            Debug.Log("Inside collider : " + GeneralManager.singleton.IsInsideGeneric(allColliders[0], collider));
                             if (GeneralManager.singleton.IsInside(allColliders[0], collider))
                             {
-                                Debug.Log("Can spawn wall object");
                                 canSpawn = true; return;
                             }
                         }

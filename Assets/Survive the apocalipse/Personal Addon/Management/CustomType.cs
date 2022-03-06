@@ -164,15 +164,23 @@ namespace CustomType
         public string timeEnd;
         public string timeEndServer;
         public string operationType;
+        public string typeOfUpgrade;
     }
 
     [Serializable]
     public partial struct UpgradeItem
     {
+        public string name;
+        public int amount;
         public int inventoryIndex;
         public int actualLevel;
         public int maxLevel;
         public string upgradeType;
+        public string timeBegin;
+        public string timeBeginServer;
+        public string timeEnd;
+        public string timeEndServer;
+        public bool able;
     }
 
 

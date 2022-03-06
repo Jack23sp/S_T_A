@@ -38,6 +38,8 @@ public class ModularBuildingManager : NetworkBehaviour
 
     public HashSet<ModularPiece> allModularPiece = new HashSet<ModularPiece>();
 
+    public int insideIndex = -1;
+
     void Start()
     {
         if (!singleton) singleton = this;
@@ -49,6 +51,7 @@ public class ModularBuildingManager : NetworkBehaviour
 
     public void AbleRoof()
     {
+        insideIndex = inThisCollider.GetComponent<ModularPiece>().modularIndex;
         foreach (ModularPiece modularPiece in allModularPiece)
         {
             modularPiece.roof.SetActive(true);
@@ -57,7 +60,6 @@ public class ModularBuildingManager : NetworkBehaviour
 
     public void DisableRoof()
     {
-        int insideIndex = inThisCollider.GetComponent<ModularPiece>().modularIndex;
         foreach (ModularPiece modularPiece in allModularPiece)
         {
             if(modularPiece.modularIndex == insideIndex) modularPiece.roof.SetActive(false);

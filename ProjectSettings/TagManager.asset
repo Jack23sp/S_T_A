@@ -61,6 +61,7 @@ TagManager:
   - FornitureSupport
   - FloorChecker
   - WallMine
+  - Electric box
   layers:
   - Default
   - TransparentFX

@@ -5972,24 +5972,20 @@ public partial class Player : Entity
 
     #region UpgradeItem
     [Command]
-    public void CmdUpgradeItem(UpgradeRepairItem upgradeItem, string accuracy, int currencyType, string dateBegin, string dateEnd)
+    public void CmdUpgradeItem(UpgradeRepairItem upgradeItem, string accuracy, int currencyType, string dateBegin, string dateEnd, int index)
     {
-        if (target && target.GetComponent<BuildingUpgradeRepair>())
+        if (playerMove.forniture && playerMove.forniture.GetComponent<BuildingUpgradeRepair>())
         {
-            BuildingUpgradeRepair buildingUpgradeRepair = target.GetComponent<BuildingUpgradeRepair>();
+            BuildingUpgradeRepair buildingUpgradeRepair = playerMove.forniture.GetComponent<BuildingUpgradeRepair>();
             upgradeItem.timeBegin = DateTime.Parse(dateBegin).ToString();
+            upgradeItem.timeEnd = DateTime.Parse(dateEnd).ToString();
             upgradeItem.timeBeginServer = DateTime.Now.ToString();
+            upgradeItem.itemIndex = index;
+            upgradeItem.typeOfUpgrade = accuracy;
 
-            if (currencyType == 1)
-            {
-                upgradeItem.timeEnd = DateTime.Parse(dateEnd).ToString();
-                upgradeItem.timeEndServer = DateTime.Now.ToString();
-            }
-            else
-            {
-                upgradeItem.timeEnd = DateTime.Parse(dateEnd).ToString();
-                upgradeItem.timeEndServer = DateTime.Now.ToString();
-            }
+            TimeSpan difference = DateTime.Parse(dateEnd) - DateTime.Parse(dateBegin);
+
+            upgradeItem.timeEndServer = DateTime.Now.AddSeconds(difference.TotalSeconds).ToString();
 
             if (ScriptableItem.dict.TryGetValue(inventory[upgradeItem.index].item.name.GetStableHashCode(), out ScriptableItem itemData))
             {
@@ -6018,80 +6014,112 @@ public partial class Player : Entity
                 toRemove.amount--;
                 inventory[upgradeItem.index] = toRemove;
 
-                if (currencyType == 0)
-                {
-                    buildingUpgradeRepair.upgradeItem.Add(upgradeItem);
-                }
-                else
-                {
-                    upgradeItem.remainingTime = Convert.ToInt32(upgradeItem.totalTime / 2);
-                    buildingUpgradeRepair.upgradeItem.Add(upgradeItem);
-                }
+                buildingUpgradeRepair.upgradeItem.Add(upgradeItem);
             }
         }
     }
 
     [Command]
-    public void CmdClaimUpgradeItem(int index, string itenName, int amount, string owner, string timeEnd)
+    public void CmdDeleteUpgradeItem(int index)
     {
-        if (target && target.GetComponent<BuildingUpgradeRepair>())
+        if (playerMove.forniture && playerMove.forniture.GetComponent<BuildingUpgradeRepair>())
         {
-            BuildingUpgradeRepair buildingUpgradeRepair = target.GetComponent<BuildingUpgradeRepair>();
-            if (buildingUpgradeRepair.upgradeItem[index].item.item.name != itenName || buildingUpgradeRepair.upgradeItem[index].item.amount != amount || buildingUpgradeRepair.upgradeItem[index].playerName != owner || buildingUpgradeRepair.upgradeItem[index].timeEnd != timeEnd) return;
+            BuildingUpgradeRepair buildingUpgradeRepair = playerMove.forniture.GetComponent<BuildingUpgradeRepair>();
+            if(InventoryCanAdd(buildingUpgradeRepair.upgradeItem[index].item.item, buildingUpgradeRepair.upgradeItem[index].item.amount))
+            {
+                UpgradeRepairItem upgradeRepairItem = buildingUpgradeRepair.upgradeItem[index];
+                buildingUpgradeRepair.upgradeItem.Remove(buildingUpgradeRepair.upgradeItem[index]);
+                InventoryAdd(upgradeRepairItem.item.item, upgradeRepairItem.item.amount);
+                TargetRefreshItemList();
+            }
+        }
+    }
+
+    [Command]
+    public void CmdDeleteRepairItem(int index)
+    {
+        if (playerMove.forniture && playerMove.forniture.GetComponent<BuildingUpgradeRepair>())
+        {
+            BuildingUpgradeRepair buildingUpgradeRepair = playerMove.forniture.GetComponent<BuildingUpgradeRepair>();
+            if (InventoryCanAdd(buildingUpgradeRepair.repairItem[index].item.item, buildingUpgradeRepair.repairItem[index].item.amount))
+            {
+                UpgradeRepairItem upgradeRepairItem = buildingUpgradeRepair.repairItem[index];
+                buildingUpgradeRepair.repairItem.Remove(buildingUpgradeRepair.repairItem[index]);
+                InventoryAdd(upgradeRepairItem.item.item, upgradeRepairItem.item.amount);
+                TargetRefreshItemList();
+            }
+        }
+    }
+
+    [TargetRpc]
+    public void TargetRefreshItemList()
+    {
+        if(FindObjectOfType<UIUpgradeRepair>())
+            UIUpgradeRepair.singleton.CleanList();
+
+    }
+
+    [Command]
+    public void CmdClaimUpgradeItem(int index, string itenName, int amount, string timeEnd)
+    {
+        if (playerMove.forniture && playerMove.forniture.GetComponent<BuildingUpgradeRepair>())
+        {
+            BuildingUpgradeRepair buildingUpgradeRepair = playerMove.forniture.GetComponent<BuildingUpgradeRepair>();
+            if (buildingUpgradeRepair.upgradeItem[index].item.item.name != itenName || buildingUpgradeRepair.upgradeItem[index].item.amount != amount || buildingUpgradeRepair.upgradeItem[index].timeEnd != timeEnd) return;
 
             ItemSlot slot = buildingUpgradeRepair.upgradeItem[index].item;
 
-            Debug.Log("Type : " + buildingUpgradeRepair.upgradeItem[index].type);
+            //Debug.Log("Type : " + buildingUpgradeRepair.upgradeItem[index].type);
 
-            if (buildingUpgradeRepair.upgradeItem[index].type == "Accuracy" || buildingUpgradeRepair.upgradeItem[index].type == "accuratezza")
+            if (buildingUpgradeRepair.upgradeItem[index].type == "accuracy" || buildingUpgradeRepair.upgradeItem[index].type == "accuratezza")
             {
                 slot.item.accuracyLevel++;
             }
-            if (buildingUpgradeRepair.upgradeItem[index].type == "Evasion" || buildingUpgradeRepair.upgradeItem[index].type == "evasione")
+            if (buildingUpgradeRepair.upgradeItem[index].type == "evasion" || buildingUpgradeRepair.upgradeItem[index].type == "evasione")
             {
                 slot.item.missLevel++;
             }
-            if (buildingUpgradeRepair.upgradeItem[index].type == "Armor" || buildingUpgradeRepair.upgradeItem[index].type == "armatura")
+            if (buildingUpgradeRepair.upgradeItem[index].type == "armor" || buildingUpgradeRepair.upgradeItem[index].type == "armatura")
             {
                 slot.item.armorLevel++;
                 if (slot.item.currentArmor > 0) slot.item.currentArmor += ((EquipmentItem)slot.item.data).armor.bonusPerLevel;
                 if (slot.item.currentArmor > ((EquipmentItem)slot.item.data).armor.Get(slot.item.armorLevel)) slot.item.currentArmor = ((EquipmentItem)slot.item.data).armor.Get(slot.item.armorLevel);
             }
-            if (buildingUpgradeRepair.upgradeItem[index].type == "Munition charge" || buildingUpgradeRepair.upgradeItem[index].type == "carica munizioni")
+            if (buildingUpgradeRepair.upgradeItem[index].type == "munition charge" || buildingUpgradeRepair.upgradeItem[index].type == "carica munizioni")
             {
                 slot.item.chargeLevel++;
             }
-            if (buildingUpgradeRepair.upgradeItem[index].type == "Radio battery" || buildingUpgradeRepair.upgradeItem[index].type == "batteria radio")
+            if (buildingUpgradeRepair.upgradeItem[index].type == "radio battery" || buildingUpgradeRepair.upgradeItem[index].type == "batteria radio")
             {
                 slot.item.batteryLevel++;
                 if (slot.item.radioCurrentBattery > 0) slot.item.radioCurrentBattery += ((RadioItem)slot.item.data).currentBattery.bonusPerLevel;
                 if (slot.item.radioCurrentBattery > ((RadioItem)slot.item.data).currentBattery.Get(slot.item.batteryLevel)) slot.item.radioCurrentBattery = ((RadioItem)slot.item.data).currentBattery.Get(slot.item.batteryLevel);
             }
-            if (buildingUpgradeRepair.upgradeItem[index].type == "Torch battery" || buildingUpgradeRepair.upgradeItem[index].type == "batteria torcia")
+            if (buildingUpgradeRepair.upgradeItem[index].type == "torch battery" || buildingUpgradeRepair.upgradeItem[index].type == "batteria torcia")
             {
                 slot.item.batteryLevel++;
                 if (slot.item.torchCurrentBattery > 0) slot.item.torchCurrentBattery += ((TorchItem)slot.item.data).currentBattery.bonusPerLevel;
                 if (slot.item.torchCurrentBattery > ((TorchItem)slot.item.data).currentBattery.Get(slot.item.batteryLevel)) slot.item.torchCurrentBattery = ((TorchItem)slot.item.data).currentBattery.Get(slot.item.batteryLevel);
             }
-            if (buildingUpgradeRepair.upgradeItem[index].type == "Bag Slot" || buildingUpgradeRepair.upgradeItem[index].type == "slot borsa")
+            if (buildingUpgradeRepair.upgradeItem[index].type == "bag Slot" || buildingUpgradeRepair.upgradeItem[index].type == "slot borsa")
             {
                 slot.item.bagLevel++;
             }
-            if (buildingUpgradeRepair.upgradeItem[index].type == "Bag Protected Slot" || buildingUpgradeRepair.upgradeItem[index].type == "slot protetti borsa")
+            if (buildingUpgradeRepair.upgradeItem[index].type == "bag Protected Slot" || buildingUpgradeRepair.upgradeItem[index].type == "slot protetti borsa")
             {
                 slot.item.bagLevel++;
             }
-            if (buildingUpgradeRepair.upgradeItem[index].type == "Durability" || buildingUpgradeRepair.upgradeItem[index].type == "durabilita'")
+            if (buildingUpgradeRepair.upgradeItem[index].type == "durability" || buildingUpgradeRepair.upgradeItem[index].type == "durabilita'")
             {
                 slot.item.durabilityLevel++;
                 if (slot.item.durability > 0) slot.item.durability += ((EquipmentItem)slot.item.data).maxDurability.bonusPerLevel;
                 if (slot.item.durability > ((EquipmentItem)slot.item.data).maxDurability.Get(slot.item.durabilityLevel)) slot.item.durability = ((EquipmentItem)slot.item.data).maxDurability.Get(slot.item.durabilityLevel);
             }
-            if (buildingUpgradeRepair.upgradeItem[index].type == "Unsanity" || buildingUpgradeRepair.upgradeItem[index].type == "sanita' oggetto")
+            if (buildingUpgradeRepair.upgradeItem[index].type == "unsanity" || buildingUpgradeRepair.upgradeItem[index].type == "sanita' oggetto")
             {
                 slot.item.unsanityLevel++;
             }
-            if (buildingUpgradeRepair.upgradeItem[index].type == "Item Weight" || buildingUpgradeRepair.upgradeItem[index].type == "peso oggetto")
+            if (buildingUpgradeRepair.upgradeItem[index].type == "item weight" || buildingUpgradeRepair.upgradeItem[index].type == "peso oggetto")
             {
                 slot.item.weightLevel++;
             }
@@ -6222,15 +6250,18 @@ public partial class Player : Entity
     [Command]
     public void CmdRepairItem(UpgradeRepairItem upgrade, int currencyType, string dateBegin, string dateEnd)
     {
-        if (target && target.GetComponent<BuildingUpgradeRepair>())
+        if (playerMove.forniture && playerMove.forniture.GetComponent<BuildingUpgradeRepair>())
         {
-            BuildingUpgradeRepair buildingUpgradeRepair = target.GetComponent<BuildingUpgradeRepair>();
+            Debug.Log("inside repair item");
+            BuildingUpgradeRepair buildingUpgradeRepair = playerMove.forniture.GetComponent<BuildingUpgradeRepair>();
             upgrade.timeBegin = DateTime.Parse(dateBegin).ToString();
             upgrade.timeEnd = DateTime.Parse(dateEnd).ToString();
 
             upgrade.timeBeginServer = DateTime.Now.ToString();
-            upgrade.timeEndServer = DateTime.Now.AddSeconds(upgrade.totalTime).ToString();
+            TimeSpan difference = DateTime.Parse(dateEnd) - DateTime.Parse(dateBegin);
 
+            upgrade.timeEndServer = DateTime.Now.AddSeconds(difference.TotalSeconds).ToString();
+            
             if (ScriptableItem.dict.TryGetValue(inventory[upgrade.index].item.name.GetStableHashCode(), out ScriptableItem itemData))
             {
                 foreach (CustomItem custoItem in itemData.repairItems)
@@ -6252,6 +6283,7 @@ public partial class Player : Entity
                     gold -= itemData.goldsToUpgrade;
                 if (currencyType == 1)
                     coins -= itemData.coinsToUpgrade;
+                Debug.Log("Inside item repair : adding item... ");
 
                 Item itm = new Item(itemData);
                 ItemSlot toRemove = inventory[upgrade.index];
@@ -6259,28 +6291,18 @@ public partial class Player : Entity
                 inventory[upgrade.index] = toRemove;
 
                 buildingUpgradeRepair.repairItem.Add(upgrade);
-
-                if (currencyType == 0)
-                {
-                    buildingUpgradeRepair.repairItem.Add(upgrade);
-                }
-                else
-                {
-                    upgrade.remainingTime = Convert.ToInt32(upgrade.totalTime / 2);
-                    buildingUpgradeRepair.repairItem.Add(upgrade);
-                }
-
+                Debug.Log("Repair item count : " + buildingUpgradeRepair.repairItem.Count);
             }
         }
     }
 
     [Command]
-    public void CmdClaimRepairItem(int index, string itenName, int amount, string owner, string timeEnd)
+    public void CmdClaimRepairItem(int index, string itenName, int amount, string timeEnd)
     {
-        if (target && target.GetComponent<BuildingUpgradeRepair>())
+        if (playerMove.forniture && playerMove.forniture.GetComponent<BuildingUpgradeRepair>())
         {
-            BuildingUpgradeRepair buildingUpgradeRepair = target.GetComponent<BuildingUpgradeRepair>();
-            if (buildingUpgradeRepair.repairItem[index].item.item.name != itenName || buildingUpgradeRepair.repairItem[index].item.amount != amount || buildingUpgradeRepair.repairItem[index].playerName != owner || buildingUpgradeRepair.repairItem[index].timeEnd != timeEnd) return;
+            BuildingUpgradeRepair buildingUpgradeRepair = playerMove.forniture.GetComponent<BuildingUpgradeRepair>();
+            if (buildingUpgradeRepair.repairItem[index].item.item.name != itenName || buildingUpgradeRepair.repairItem[index].item.amount != amount || buildingUpgradeRepair.repairItem[index].timeEnd != timeEnd) return;
 
             ItemSlot slot = buildingUpgradeRepair.repairItem[index].item;
             slot.item.durability = buildingUpgradeRepair.repairItem[index].item.item.data.maxDurability.Get(buildingUpgradeRepair.repairItem[index].item.item.durabilityLevel);

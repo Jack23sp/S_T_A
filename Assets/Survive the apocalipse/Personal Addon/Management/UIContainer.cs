@@ -1031,12 +1031,12 @@ public partial class UIBuilding : MonoBehaviour
             if (ModularBuildingManager.singleton.selectedPoint && ModularBuildingManager.singleton.ableModificationWallMode)
             {
                 ModularPiece piece = ModularBuildingManager.singleton.selectedPoint.GetComponentInParent<ModularPiece>();
-                player.playerBuilding.CmdSyncWallDoor(piece.GetComponent<NetworkIdentity>(), piece.clientupComponent, piece.clientdownComponent, piece.clientleftComponent, piece.clientrightComponent, player.playerBuilding.invBelt, player.playerBuilding.inventoryIndex);                
+                player.playerBuilding.CmdSyncWallDoor(piece.GetComponent<NetworkIdentity>(), piece.clientupComponent, piece.clientdownComponent, piece.clientleftComponent, piece.clientrightComponent, player.playerBuilding.invBelt, player.playerBuilding.inventoryIndex);
                 piece.DestroyBuilding();
             }
-            else if(player.playerBuilding.actualBuilding && player.playerBuilding.actualBuilding.GetComponent<ModularObject>())
+            else if (player.playerBuilding.actualBuilding && player.playerBuilding.actualBuilding.GetComponent<ModularObject>())
             {
-                player.playerBuilding.CmdSpawnBasement(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt, player.playerBuilding.actualBuilding.GetComponent<ModularObject>().oldPositioning, ModularBuildingManager.singleton.isInitialBasement, ModularBuildingManager.singleton.selectedPiece == null ? -5 : ModularBuildingManager.singleton.selectedPiece.modularIndex);
+                player.playerBuilding.CmdSpawnBasement(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt, player.playerBuilding.actualBuilding.GetComponent<ModularObject>().oldPositioning, ModularBuildingManager.singleton.isInitialBasement, ModularBuildingManager.singleton.selectedPiece == null ? -5 : ModularBuildingManager.singleton.selectedPiece.modularIndex, !ModularBuildingManager.singleton.ableModificationMode);
                 ModularBuildingManager.singleton.isInitialBasement = true;
             }
             else
@@ -1105,9 +1105,9 @@ public partial class UIBuilding : MonoBehaviour
             Instantiate(GeneralManager.singleton.modularBuildingManager, GeneralManager.singleton.canvas);
         });
 
-        if(ModularBuildingManager.singleton && ModularBuildingManager.singleton.ableModificationWallMode)
+        if (ModularBuildingManager.singleton && ModularBuildingManager.singleton.ableModificationWallMode)
         {
-            if(ModularBuildingManager.singleton.selectedPoint)
+            if (ModularBuildingManager.singleton.selectedPoint)
             {
                 spawn.interactable = true;
             }
@@ -1817,7 +1817,7 @@ public partial class UISpawnpoint
         if (!player) player = Player.localPlayer;
         if (!player) return;
 
-        spawnpointAbility = Convert.ToInt32(GeneralManager.singleton.FindNetworkAbilityLevel(player.playerSpawnpoint.ability.name, player.name)/10);
+        spawnpointAbility = Convert.ToInt32(GeneralManager.singleton.FindNetworkAbilityLevel(player.playerSpawnpoint.ability.name, player.name) / 10);
         possibleSpawnpoint = spawnpointAbility - player.playerSpawnpoint.spawnpoint.Count;
         createSpawnpoint.SetActive(possibleSpawnpoint > 0);
 
@@ -1825,7 +1825,7 @@ public partial class UISpawnpoint
         spawnSomewhere.interactable = player.health <= 0;
         buttonCreateSpawnpoint.interactable = (possibleSpawnpoint > 0);
         createSpawnpoint.gameObject.SetActive(!setSpawnpoint.gameObject.activeSelf && possibleSpawnpoint > 0);
-   
+
         if (prefered)
         {
             preferedSpawnpoint.image.sprite = GeneralManager.singleton.prefered;
@@ -1962,7 +1962,8 @@ public partial class UIChestLoot
             player.target is Chest)
         {
             goldText.text = player.target.gold.ToString();
-            goldButton.onClick.SetListener(() => {
+            goldButton.onClick.SetListener(() =>
+            {
 
                 player.CmdTakeLootGoldFromChest();
             });
@@ -5342,121 +5343,367 @@ public partial class UIUpgradeRepair : MonoBehaviour
     public Transform repairContent;
     public GameObject upgradeslot;
     public Button closeButton;
-    public Button openHistotyButton;
     public GameObject historyPanel;
 
+    public Button changePanel;
+    public GameObject craftPanel;
+
+    public BuildingUpgradeRepair buildingUpgradeRepair;
+
     public List<UpgradeItem> upgradableItems = new List<UpgradeItem>();
-    public List<int> repairItems = new List<int>();
+    public List<UpgradeItem> repairItems = new List<UpgradeItem>();
 
+    public List<UpgradeItem> upgradableItemsBuilding = new List<UpgradeItem>();
+    public List<UpgradeItem> repairItemsBuilding = new List<UpgradeItem>();
 
-    void Update()
+    public List<UpgradeItem> resultUpgrade = new List<UpgradeItem>();
+    public List<UpgradeItem> resultRepair = new List<UpgradeItem>();
+
+    public void Start()
     {
-        closeButton.onClick.SetListener(() =>
-        {
-            Destroy(this.gameObject);
-        });
+        if (!singleton) singleton = this;
 
-        openHistotyButton.onClick.SetListener(() =>
-        {
-            Instantiate(historyPanel, GeneralManager.singleton.canvas);
-        });
-
+        if (Player.localPlayer.playerMove.fornitureClient && Player.localPlayer.playerMove.fornitureClient.GetComponent<BuildingUpgradeRepair>())
+            buildingUpgradeRepair = Player.localPlayer.playerMove.fornitureClient.GetComponent<BuildingUpgradeRepair>();
         if (!player) player = Player.localPlayer;
         if (!player) return;
         else
         {
             RecalculateItem();
+            RecalculateItemBuilding();
             RecalculateItemRepair();
+            RecalculateItemRepairInBuilding();
         }
+        resultUpgrade = upgradableItemsBuilding.ToArray().Concat(upgradableItems).ToList();
+        resultRepair = repairItemsBuilding.ToArray().Concat(repairItems).ToList();
+        //Invoke(nameof(CleanList), 0.1f);
+    }
+
+    public void CleanList()
+    {
+        upgradableItems.Clear();
+        upgradableItemsBuilding.Clear();
+        resultUpgrade.Clear();
+
+        RecalculateItem();
+        RecalculateItemBuilding();
+
+        resultUpgrade = upgradableItemsBuilding.ToArray().Concat(upgradableItems).ToList();
+
+        repairItems.Clear();
+        repairItemsBuilding.Clear();
+        resultRepair.Clear();
+        RecalculateItemRepair();
+        RecalculateItemRepairInBuilding();
+
+        resultRepair = repairItemsBuilding.ToArray().Concat(repairItems).ToList();
+    }
+
+    void Update()
+    {
+        if (!buildingUpgradeRepair) return;
+
+        closeButton.onClick.SetListener(() =>
+        {
+            Destroy(this.gameObject);
+        });
+
+        changePanel.onClick.SetListener(() =>
+        {
+            Instantiate(craftPanel, GeneralManager.singleton.canvas);
+            Destroy(this.gameObject);
+        });
+
+        if (!player) player = Player.localPlayer;
+        if (!player) return;
 
         if (player.health == 0)
             closeButton.onClick.Invoke();
 
-        RecalculateItem();
+        CleanList();
 
-        UIUtils.BalancePrefabs(upgradeslot, upgradableItems.Count, upgradeContent);
-        for (int i = 0; i < upgradableItems.Count; i++)
+        UIUtils.BalancePrefabs(upgradeslot, resultUpgrade.Count, upgradeContent);
+        for (int i = 0; i < resultUpgrade.Count; i++)
         {
             int upgradeItem = i;
-            if (player.inventory[upgradableItems[upgradeItem].inventoryIndex].amount <= 0) continue;
             UIUpgradeSlot slot = upgradeContent.GetChild(upgradeItem).GetComponent<UIUpgradeSlot>();
-            slot.image.sprite = player.inventory[upgradableItems[upgradeItem].inventoryIndex].item.image;
-            slot.itemText.text = player.inventory[upgradableItems[upgradeItem].inventoryIndex].item.name;
-            if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+            if (resultUpgrade[upgradeItem].able == false)
             {
-                slot.itemLevel.text = "Livello " + upgradableItems[upgradeItem].upgradeType + " : " + upgradableItems[upgradeItem].actualLevel + " / " + upgradableItems[upgradeItem].maxLevel;
-                slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Aumenta!";
+                slot.image.sprite = buildingUpgradeRepair.upgradeItem[resultUpgrade[upgradeItem].inventoryIndex].item.item.image;
+                slot.itemText.text = buildingUpgradeRepair.upgradeItem[resultUpgrade[upgradeItem].inventoryIndex].item.item.name;
+
+                if (resultUpgrade[upgradeItem].timeEnd != string.Empty && resultUpgrade[upgradeItem].timeBegin != string.Empty)
+                {
+                    TimeSpan initialDifference = DateTime.Parse(resultUpgrade[upgradeItem].timeEnd) - DateTime.Parse(resultUpgrade[upgradeItem].timeBegin);
+                    TimeSpan difference = DateTime.Parse(resultUpgrade[upgradeItem].timeEnd) - System.DateTime.Now;
+                    slot.progressBar.fillAmount = 1 - (1 - (Convert.ToSingle(difference.TotalSeconds / initialDifference.TotalSeconds)));
+                    slot.itemButton.interactable = true;
+                    if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                    {
+                        if (slot.progressBar.fillAmount > 0)
+                        {
+                            slot.itemLevel.text = "In Upgrade...";
+                            slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Annulla!";
+                        }
+                        else
+                        {
+                            slot.itemLevel.text = " Prendi livello " + resultUpgrade[upgradeItem].upgradeType + " : " + (resultUpgrade[upgradeItem].actualLevel + 1) + " / " + resultUpgrade[upgradeItem].maxLevel;
+                            slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Prendi!";
+                        }
+                    }
+                    else
+                    {
+                        if (slot.progressBar.fillAmount > 0)
+                        {
+                            slot.itemLevel.text = "Upgrading...";
+                            slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Cancel!";
+                        }
+                        else
+                        {
+                            slot.itemLevel.text = "Take " + resultUpgrade[upgradeItem].upgradeType + "actual level : " + (resultUpgrade[upgradeItem].actualLevel + 1) + " / " + resultUpgrade[upgradeItem].maxLevel;
+                            slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Take!";
+                        }
+                    }
+                }
+                else
+                {
+                    slot.itemButton.interactable = false;
+                    slot.progressBar.fillAmount = 0;
+                    if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                    {
+                        slot.itemLevel.text = "Livello " + resultUpgrade[upgradeItem].upgradeType + " : " + resultUpgrade[upgradeItem].actualLevel + " / " + resultUpgrade[upgradeItem].maxLevel;
+                        slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Aumenta!";
+                    }
+                    else
+                    {
+                        slot.itemLevel.text = resultUpgrade[upgradeItem].upgradeType + " level : " + resultUpgrade[upgradeItem].actualLevel + " / " + resultUpgrade[upgradeItem].maxLevel;
+                        slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade!";
+                    }
+                }
             }
             else
             {
-                slot.itemLevel.text = upgradableItems[upgradeItem].upgradeType + " level : " + upgradableItems[upgradeItem].actualLevel + " / " + upgradableItems[upgradeItem].maxLevel;
-                slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade!";
+                if (player.inventory[resultUpgrade[upgradeItem].inventoryIndex].amount <= 0) continue;
+                slot.image.sprite = player.inventory[resultUpgrade[upgradeItem].inventoryIndex].item.image;
+                slot.itemText.text = player.inventory[resultUpgrade[upgradeItem].inventoryIndex].item.name;
+
+                slot.itemButton.interactable = true;
+                slot.progressBar.fillAmount = 0;
+
+                if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                {
+                    slot.itemLevel.text = "Livello " + resultUpgrade[upgradeItem].upgradeType + " : " + resultUpgrade[upgradeItem].actualLevel + " / " + resultUpgrade[upgradeItem].maxLevel;
+                    slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Aumenta!";
+                }
+                else
+                {
+                    slot.itemLevel.text = resultUpgrade[upgradeItem].upgradeType + " level : " + resultUpgrade[upgradeItem].actualLevel + " / " + resultUpgrade[upgradeItem].maxLevel;
+                    slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Upgrade!";
+                }
+
             }
+            if (resultUpgrade[upgradeItem].able == false)
+            {
+                if (resultUpgrade[upgradeItem].timeEnd != string.Empty)
+                {
+                    slot.itemButton.interactable = true;
+                }
+                else
+                {
+                    slot.itemButton.interactable = false;
+                }
+            }
+            else
+            {
+                slot.itemButton.interactable = true;
+            }
+
+
             slot.itemButton.onClick.SetListener(() =>
             {
-                if (Player.localPlayer.target && Player.localPlayer.target.GetComponent<BuildingUpgradeRepair>())
+                if (resultUpgrade[upgradeItem].able == false)
                 {
-                    UpgradeRepairItem upgrade = new UpgradeRepairItem();
-                    upgrade.item = player.inventory[upgradableItems[upgradeItem].inventoryIndex];
-                    upgrade.playerName = Player.localPlayer.name;
-                    upgrade.index = upgradableItems[upgradeItem].inventoryIndex;
-                    upgrade.totalTime = player.inventory[upgradableItems[upgradeItem].inventoryIndex].item.data.upgradeTimer;
-                    upgrade.remainingTime = upgrade.totalTime;
-                    upgrade.type = upgradableItems[upgradeItem].upgradeType;
-                    upgrade.operationType = "U";
+                    float progress = 5.0f;
+                    if (resultUpgrade[upgradeItem].timeEnd != string.Empty && resultUpgrade[upgradeItem].timeBegin != string.Empty)
+                    {
+                        TimeSpan initialDifference = DateTime.Parse(resultUpgrade[upgradeItem].timeEnd) - DateTime.Parse(resultUpgrade[upgradeItem].timeBegin);
+                        TimeSpan difference = DateTime.Parse(resultUpgrade[upgradeItem].timeEnd) - System.DateTime.Now;
+                        progress = 1 - (1 - (Convert.ToSingle(difference.TotalSeconds / initialDifference.TotalSeconds)));
+                    }
 
-                    GameObject g = Instantiate(GeneralManager.singleton.upgradeRepairMaterialPanel, GeneralManager.singleton.canvas);
-                    UIUpgradeRepairMaterial uIUpgradeRepairMaterial = g.GetComponent<UIUpgradeRepairMaterial>();
-                    uIUpgradeRepairMaterial.upgradeItem = upgrade;
-                    uIUpgradeRepairMaterial.operationType = upgrade.type;
-                    uIUpgradeRepairMaterial.upgrade = true;
-                    uIUpgradeRepairMaterial.selectedItem = upgrade.index;
+
+                    if (progress <= 0.0f)
+                    {
+                        // prendi
+                        player.CmdClaimUpgradeItem(resultUpgrade[upgradeItem].inventoryIndex, resultUpgrade[upgradeItem].name, resultUpgrade[upgradeItem].amount, resultUpgrade[upgradeItem].timeEnd);
+                        CleanList();
+                    }
+                    if (progress > 0 && progress <= 1.0f)
+                    {
+                        // cancella
+                        if (player.InventoryCanAdd(buildingUpgradeRepair.upgradeItem[resultUpgrade[upgradeItem].inventoryIndex].item.item, buildingUpgradeRepair.upgradeItem[resultUpgrade[upgradeItem].inventoryIndex].item.amount))
+                        {
+                            UpgradeRepairItem upgradeRepairItem = buildingUpgradeRepair.upgradeItem[resultUpgrade[upgradeItem].inventoryIndex];
+                            player.CmdDeleteUpgradeItem(resultUpgrade[upgradeItem].inventoryIndex);
+                            CleanList();
+                        }
+                    }
+                }
+                else
+                {
+                    if (Player.localPlayer.playerMove.fornitureClient && Player.localPlayer.playerMove.fornitureClient.GetComponent<BuildingUpgradeRepair>())
+                    {
+                        UpgradeRepairItem upgrade = new UpgradeRepairItem();
+                        upgrade.item = player.inventory[resultUpgrade[upgradeItem].inventoryIndex];
+                        upgrade.playerName = Player.localPlayer.name;
+                        upgrade.index = resultUpgrade[upgradeItem].inventoryIndex;
+                        upgrade.totalTime = player.inventory[resultUpgrade[upgradeItem].inventoryIndex].item.data.upgradeTimer;
+                        //upgrade.remainingTime = upgrade.totalTime;
+                        upgrade.type = resultUpgrade[upgradeItem].upgradeType;
+                        upgrade.operationType = "U";
+                        upgrade.typeOfUpgrade = resultUpgrade[upgradeItem].upgradeType;
+
+                        GameObject g = Instantiate(GeneralManager.singleton.upgradeRepairMaterialPanel, GeneralManager.singleton.canvas);
+                        UIUpgradeRepairMaterial uIUpgradeRepairMaterial = g.GetComponent<UIUpgradeRepairMaterial>();
+                        uIUpgradeRepairMaterial.upgradeItem = upgrade;
+                        uIUpgradeRepairMaterial.operationType = upgrade.type;
+                        uIUpgradeRepairMaterial.upgrade = true;
+                        uIUpgradeRepairMaterial.selectedItem = upgrade.index;
+                    }
                 }
             });
         }
 
-        UIUtils.BalancePrefabs(upgradeslot, repairItems.Count, repairContent);
-        for (int i = 0; i < repairItems.Count; i++)
+        UIUtils.BalancePrefabs(upgradeslot, resultRepair.Count, repairContent);
+        for (int i = 0; i < resultRepair.Count; i++)
         {
-            int upgradeItem = i;
-            if (player.inventory[repairItems[upgradeItem]].amount <= 0) continue;
-            UIUpgradeSlot slot = repairContent.GetChild(upgradeItem).GetComponent<UIUpgradeSlot>();
-            slot.image.sprite = player.inventory[repairItems[upgradeItem]].item.image;
-            slot.itemText.text = player.inventory[repairItems[upgradeItem]].item.name;
-            if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+            int repairItem = i;
+            UIUpgradeSlot slot = repairContent.GetChild(repairItem).GetComponent<UIUpgradeSlot>();
+            if (resultRepair[repairItem].able == false)
             {
-                slot.itemLevel.text = "Durabilita' : " + player.inventory[repairItems[upgradeItem]].item.durability + " / " + player.inventory[repairItems[upgradeItem]].item.data.maxDurability.Get(player.inventory[repairItems[upgradeItem]].item.durabilityLevel);
-                slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Ripara!";
+                slot.image.sprite = buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item.image;
+                slot.itemText.text = buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item.name;
+
+                if (resultRepair[repairItem].timeEnd != string.Empty && resultRepair[repairItem].timeBegin != string.Empty)
+                {
+                    TimeSpan initialDifference = DateTime.Parse(resultRepair[repairItem].timeEnd) - DateTime.Parse(resultRepair[repairItem].timeBegin);
+                    TimeSpan difference = DateTime.Parse(resultRepair[repairItem].timeEnd) - System.DateTime.Now;
+                    slot.progressBar.fillAmount = 1 - (1 - (Convert.ToSingle(difference.TotalSeconds / initialDifference.TotalSeconds)));
+                    if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                    {
+                        if (slot.progressBar.fillAmount > 0)
+                        {
+                            slot.itemLevel.text = "In riparazione...";
+                            slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Annulla!";
+                        }
+                        else
+                        {
+                            slot.itemLevel.text = "Durabilita' : " + (buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item.data.maxDurability.Get(buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item.durabilityLevel)).ToString() + " / " + (buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item.data.maxDurability.Get(buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item.durabilityLevel)).ToString();
+                            slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Prendi!";
+                        }
+
+                    }
+                    else
+                    {
+                        if (slot.progressBar.fillAmount > 0)
+                        {
+                            slot.itemLevel.text = "Repairing...";
+                            slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Cancel!";
+                        }
+                        else
+                        {
+                            slot.itemLevel.text = "Durability : " + (buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item.data.maxDurability.Get(buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item.durabilityLevel)).ToString() + " / " + (buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item.data.maxDurability.Get(buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item.durabilityLevel)).ToString();
+                            slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Take it!";
+                        }
+                    }
+                }
+                else
+                {
+                    if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                    {
+                        slot.itemLevel.text = "Durabilita' : " + buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item.durability + " / " + buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item.data.maxDurability.Get(buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item.durabilityLevel);
+                        slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Ripara!";
+                    }
+                    else
+                    {
+                        slot.itemLevel.text = "Durability : " + buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item.durability + " / " + buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item.data.maxDurability.Get(buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item.durabilityLevel);
+                        slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Repair!";
+                    }
+                    slot.progressBar.fillAmount = 0;
+                }
             }
             else
             {
-                slot.itemLevel.text = "Durability : " + player.inventory[repairItems[upgradeItem]].item.durability + " / " + player.inventory[repairItems[upgradeItem]].item.data.maxDurability.Get(player.inventory[repairItems[upgradeItem]].item.durabilityLevel);
-                slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Repair!";
+                if (player.inventory[resultRepair[repairItem].inventoryIndex].amount <= 0) continue;
+                slot.image.sprite = player.inventory[resultRepair[repairItem].inventoryIndex].item.image;
+                slot.itemText.text = player.inventory[resultRepair[repairItem].inventoryIndex].item.name;
+
+                if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                {
+                    slot.itemLevel.text = "Durabilita' : " + player.inventory[resultRepair[repairItem].inventoryIndex].item.durability + " / " + player.inventory[resultRepair[repairItem].inventoryIndex].item.data.maxDurability.Get(player.inventory[resultRepair[repairItem].inventoryIndex].item.durabilityLevel);
+                    slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Ripara!";
+                }
+                else
+                {
+                    slot.itemLevel.text = "Durability : " + player.inventory[resultRepair[repairItem].inventoryIndex].item.durability + " / " + player.inventory[resultRepair[repairItem].inventoryIndex].item.data.maxDurability.Get(player.inventory[resultRepair[repairItem].inventoryIndex].item.durabilityLevel);
+                    slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Repair!";
+                }
+                slot.progressBar.fillAmount = 0;
+
+
+                slot.itemButton.interactable = true;
+                slot.progressBar.fillAmount = 0;
             }
             slot.itemButton.onClick.SetListener(() =>
             {
-                if (Player.localPlayer.target && Player.localPlayer.target.GetComponent<BuildingUpgradeRepair>())
+                if (resultRepair[repairItem].able == false)
                 {
-                    UpgradeRepairItem upgrade = new UpgradeRepairItem();
-                    upgrade.item = player.inventory[repairItems[upgradeItem]];
-                    upgrade.playerName = Player.localPlayer.name;
-                    upgrade.index = repairItems[upgradeItem];
-                    upgrade.totalTime = player.inventory[repairItems[upgradeItem]].item.data.repairTimer;
-                    upgrade.remainingTime = upgrade.totalTime;
-                    upgrade.operationType = "R";
+                    float progress = 5.0f;
+                    if (resultRepair[repairItem].timeEnd != string.Empty && resultRepair[repairItem].timeBegin != string.Empty)
+                    {
+                        TimeSpan initialDifference = DateTime.Parse(resultRepair[repairItem].timeEnd) - DateTime.Parse(resultRepair[repairItem].timeBegin);
+                        TimeSpan difference = DateTime.Parse(resultRepair[repairItem].timeEnd) - System.DateTime.Now;
+                        progress = 1 - (1 - (Convert.ToSingle(difference.TotalSeconds / initialDifference.TotalSeconds)));
+                    }
 
-                    GameObject g = Instantiate(GeneralManager.singleton.upgradeRepairMaterialPanel, GeneralManager.singleton.canvas);
-                    UIUpgradeRepairMaterial uIUpgradeRepairMaterial = g.GetComponent<UIUpgradeRepairMaterial>();
-                    uIUpgradeRepairMaterial.upgradeItem = upgrade;
-                    uIUpgradeRepairMaterial.operationType = upgrade.type;
-                    uIUpgradeRepairMaterial.upgrade = false;
-                    uIUpgradeRepairMaterial.selectedItem = upgrade.index;
 
-                    //upgradableItems.Clear();
-                    //repairItems.Clear();
-                    //RecalculateItem();
-                    //RecalculateItemRepair();
+                    if (progress <= 0.0f)
+                    {
+                        // prendi
+                        player.CmdClaimRepairItem(resultRepair[repairItem].inventoryIndex, resultRepair[repairItem].name, resultRepair[repairItem].amount, resultRepair[repairItem].timeEnd);
+                        CleanList();
+                    }
+                    if (progress > 0 && progress <= 1.0f)
+                    {
+                        // cancella
+                        if (player.InventoryCanAdd(buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.item, buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex].item.amount))
+                        {
+                            UpgradeRepairItem upgradeRepairItem = buildingUpgradeRepair.repairItem[resultRepair[repairItem].inventoryIndex];
+                            player.CmdDeleteRepairItem(resultRepair[repairItem].inventoryIndex);
+                            CleanList();
+                        }
+                    }
+                }
+                else
+                {
+                    if (Player.localPlayer.playerMove.fornitureClient && Player.localPlayer.playerMove.fornitureClient.GetComponent<BuildingUpgradeRepair>())
+                    {
+                        UpgradeRepairItem upgrade = new UpgradeRepairItem();
+                        upgrade.item = player.inventory[resultRepair[repairItem].inventoryIndex];
+                        upgrade.playerName = Player.localPlayer.name;
+                        upgrade.index = resultRepair[repairItem].inventoryIndex;
+                        upgrade.totalTime = player.inventory[resultRepair[repairItem].inventoryIndex].item.data.repairTimer;
+                        upgrade.type = resultRepair[repairItem].upgradeType;
+                        upgrade.operationType = "U";
+                        upgrade.typeOfUpgrade = resultRepair[repairItem].upgradeType;
 
+                        GameObject g = Instantiate(GeneralManager.singleton.upgradeRepairMaterialPanel, GeneralManager.singleton.canvas);
+                        UIUpgradeRepairMaterial uIUpgradeRepairMaterial = g.GetComponent<UIUpgradeRepairMaterial>();
+                        uIUpgradeRepairMaterial.upgradeItem = upgrade;
+                        uIUpgradeRepairMaterial.operationType = upgrade.type;
+                        uIUpgradeRepairMaterial.upgrade = false;
+                        uIUpgradeRepairMaterial.selectedItem = upgrade.index;
+                    }
                 }
             });
         }
@@ -5475,26 +5722,30 @@ public partial class UIUpgradeRepair : MonoBehaviour
             if (player.inventory[index].amount == 0) continue;
             ItemSlot itemSlot = player.inventory[index];
 
-            if ((itemSlot.item.data).maxDurabilityLevel > 0 && itemSlot.item.durability < itemSlot.item.data.maxDurability.Get(itemSlot.item.durabilityLevel))
-            {
-                if (!repairItems.Contains(index))
-                {
-                    repairItems.Add(index);
-                }
-            }
-            if ((itemSlot.item.data).maxDurabilityLevel > 0 && itemSlot.item.durability == itemSlot.item.data.maxDurability.Get(itemSlot.item.durabilityLevel))
-            {
-                if (repairItems.Contains(index))
-                {
-                    repairItems.Remove(index);
-                }
-            }
+            //if ((itemSlot.item.data).maxDurabilityLevel > 0 && itemSlot.item.durability < itemSlot.item.data.maxDurability.Get(itemSlot.item.durabilityLevel))
+            //{
+            //    if (!repairItems.Contains(index))
+            //    {
+            //        repairItems.Add(index);
+            //    }
+            //}
+            //if ((itemSlot.item.data).maxDurabilityLevel > 0 && itemSlot.item.durability == itemSlot.item.data.maxDurability.Get(itemSlot.item.durabilityLevel))
+            //{
+            //    if (repairItems.Contains(index))
+            //    {
+            //        repairItems.Remove(index);
+            //    }
+            //}
 
             if (itemSlot.item.data is EquipmentItem)
             {
                 if (((EquipmentItem)itemSlot.item.data).maxAccuracyLevel > 0 && itemSlot.item.accuracyLevel < ((EquipmentItem)itemSlot.item.data).maxAccuracyLevel)
                 {
                     UpgradeItem item = new UpgradeItem();
+                    item.able = true;
+                    item.name = itemSlot.item.data.name;
+                    item.timeBegin = string.Empty;
+                    item.timeEnd = string.Empty;
                     item.inventoryIndex = index;
                     item.maxLevel = ((EquipmentItem)itemSlot.item.data).maxAccuracyLevel;
                     item.actualLevel = itemSlot.item.accuracyLevel;
@@ -5504,7 +5755,7 @@ public partial class UIUpgradeRepair : MonoBehaviour
                     }
                     else
                     {
-                        item.upgradeType = "Accuracy";
+                        item.upgradeType = "accuracy";
                     }
                     if (!upgradableItems.Contains(item))
                     {
@@ -5514,6 +5765,10 @@ public partial class UIUpgradeRepair : MonoBehaviour
                 if (((EquipmentItem)itemSlot.item.data).maxMissLevel > 0 && itemSlot.item.missLevel < ((EquipmentItem)itemSlot.item.data).maxMissLevel)
                 {
                     UpgradeItem item = new UpgradeItem();
+                    item.able = true;
+                    item.name = itemSlot.item.data.name;
+                    item.timeBegin = string.Empty;
+                    item.timeEnd = string.Empty;
                     item.inventoryIndex = index;
                     item.maxLevel = ((EquipmentItem)itemSlot.item.data).maxMissLevel;
                     item.actualLevel = itemSlot.item.missLevel;
@@ -5523,7 +5778,7 @@ public partial class UIUpgradeRepair : MonoBehaviour
                     }
                     else
                     {
-                        item.upgradeType = "Evasion";
+                        item.upgradeType = "evasion";
                     }
 
                     if (!upgradableItems.Contains(item))
@@ -5534,6 +5789,10 @@ public partial class UIUpgradeRepair : MonoBehaviour
                 if (((EquipmentItem)itemSlot.item.data).maxArmorLevel > 0 && itemSlot.item.armorLevel < ((EquipmentItem)itemSlot.item.data).maxArmorLevel)
                 {
                     UpgradeItem item = new UpgradeItem();
+                    item.able = true;
+                    item.name = itemSlot.item.data.name;
+                    item.timeBegin = string.Empty;
+                    item.timeEnd = string.Empty;
                     item.inventoryIndex = index;
                     item.maxLevel = ((EquipmentItem)itemSlot.item.data).maxArmorLevel;
                     item.actualLevel = itemSlot.item.armorLevel;
@@ -5543,7 +5802,7 @@ public partial class UIUpgradeRepair : MonoBehaviour
                     }
                     else
                     {
-                        item.upgradeType = "Armor";
+                        item.upgradeType = "armor";
                     }
                     if (!upgradableItems.Contains(item))
                     {
@@ -5553,6 +5812,10 @@ public partial class UIUpgradeRepair : MonoBehaviour
                 if (((EquipmentItem)itemSlot.item.data).maxChargeLevel > 0 && itemSlot.item.chargeLevel < ((EquipmentItem)itemSlot.item.data).maxChargeLevel)
                 {
                     UpgradeItem item = new UpgradeItem();
+                    item.able = true;
+                    item.name = itemSlot.item.data.name;
+                    item.timeBegin = string.Empty;
+                    item.timeEnd = string.Empty;
                     item.inventoryIndex = index;
                     item.maxLevel = ((EquipmentItem)itemSlot.item.data).maxChargeLevel;
                     item.actualLevel = itemSlot.item.chargeLevel;
@@ -5562,7 +5825,7 @@ public partial class UIUpgradeRepair : MonoBehaviour
                     }
                     else
                     {
-                        item.upgradeType = "Munition charge";
+                        item.upgradeType = "munition charge";
                     }
                     if (!upgradableItems.Contains(item))
                     {
@@ -5575,6 +5838,10 @@ public partial class UIUpgradeRepair : MonoBehaviour
                 if (((ScriptableRadio)itemSlot.item.data).maxCurrentBattery > 0 && itemSlot.item.radioCurrentBattery < ((ScriptableRadio)itemSlot.item.data).maxCurrentBattery)
                 {
                     UpgradeItem item = new UpgradeItem();
+                    item.able = true;
+                    item.name = itemSlot.item.data.name;
+                    item.timeBegin = string.Empty;
+                    item.timeEnd = string.Empty;
                     item.inventoryIndex = index;
                     item.maxLevel = ((ScriptableRadio)itemSlot.item.data).maxCurrentBattery;
                     item.actualLevel = itemSlot.item.radioCurrentBattery;
@@ -5584,11 +5851,7 @@ public partial class UIUpgradeRepair : MonoBehaviour
                     }
                     else
                     {
-                        item.upgradeType = "Radio battery";
-                    }
-                    if (!upgradableItems.Contains(item))
-                    {
-                        upgradableItems.Add(item);
+                        item.upgradeType = "radio battery";
                     }
                     if (!upgradableItems.Contains(item))
                     {
@@ -5601,6 +5864,10 @@ public partial class UIUpgradeRepair : MonoBehaviour
                 if (((ScriptableTorch)itemSlot.item.data).maxCurrentBattery > 0 && itemSlot.item.torchCurrentBattery < ((ScriptableTorch)itemSlot.item.data).maxCurrentBattery)
                 {
                     UpgradeItem item = new UpgradeItem();
+                    item.able = true;
+                    item.name = itemSlot.item.data.name;
+                    item.timeBegin = string.Empty;
+                    item.timeEnd = string.Empty;
                     item.inventoryIndex = index;
                     item.maxLevel = ((ScriptableTorch)itemSlot.item.data).maxCurrentBattery;
                     item.actualLevel = itemSlot.item.torchCurrentBattery;
@@ -5610,7 +5877,7 @@ public partial class UIUpgradeRepair : MonoBehaviour
                     }
                     else
                     {
-                        item.upgradeType = "Torch battery";
+                        item.upgradeType = "torch battery";
                     }
                     if (!upgradableItems.Contains(item))
                     {
@@ -5623,6 +5890,10 @@ public partial class UIUpgradeRepair : MonoBehaviour
                 if (((EquipmentItem)itemSlot.item.data).additionalSlot.baseValue > 0 && itemSlot.item.bagLevel < ((EquipmentItem)itemSlot.item.data).maxBagLevel)
                 {
                     UpgradeItem item = new UpgradeItem();
+                    item.able = true;
+                    item.name = itemSlot.item.data.name;
+                    item.timeBegin = string.Empty;
+                    item.timeEnd = string.Empty;
                     item.inventoryIndex = index;
                     item.maxLevel = ((EquipmentItem)itemSlot.item.data).maxBagLevel;
                     item.actualLevel = itemSlot.item.bagLevel;
@@ -5632,7 +5903,7 @@ public partial class UIUpgradeRepair : MonoBehaviour
                     }
                     else
                     {
-                        item.upgradeType = "Bag Slot";
+                        item.upgradeType = "bag Slot";
                     }
                     if (!upgradableItems.Contains(item))
                     {
@@ -5645,6 +5916,10 @@ public partial class UIUpgradeRepair : MonoBehaviour
                 if (((EquipmentItem)itemSlot.item.data).protectedSlot.baseValue > 0 && itemSlot.item.bagLevel < ((EquipmentItem)itemSlot.item.data).maxBagLevel)
                 {
                     UpgradeItem item = new UpgradeItem();
+                    item.able = true;
+                    item.name = itemSlot.item.data.name;
+                    item.timeBegin = string.Empty;
+                    item.timeEnd = string.Empty;
                     item.inventoryIndex = index;
                     item.maxLevel = ((EquipmentItem)itemSlot.item.data).maxBagLevel;
                     item.actualLevel = itemSlot.item.bagLevel;
@@ -5654,7 +5929,7 @@ public partial class UIUpgradeRepair : MonoBehaviour
                     }
                     else
                     {
-                        item.upgradeType = "Bag Protected Slot";
+                        item.upgradeType = "bag Protected Slot";
                     }
                     if (!upgradableItems.Contains(item))
                     {
@@ -5667,6 +5942,10 @@ public partial class UIUpgradeRepair : MonoBehaviour
                 if (((ScriptableItem)itemSlot.item.data).maxDurabilityLevel > 0 && itemSlot.item.durabilityLevel < ((ScriptableItem)itemSlot.item.data).maxDurabilityLevel)
                 {
                     UpgradeItem item = new UpgradeItem();
+                    item.able = true;
+                    item.name = itemSlot.item.data.name;
+                    item.timeBegin = string.Empty;
+                    item.timeEnd = string.Empty;
                     item.inventoryIndex = index;
                     item.maxLevel = ((ScriptableItem)itemSlot.item.data).maxDurabilityLevel;
                     item.actualLevel = itemSlot.item.durabilityLevel;
@@ -5676,7 +5955,7 @@ public partial class UIUpgradeRepair : MonoBehaviour
                     }
                     else
                     {
-                        item.upgradeType = "Durability";
+                        item.upgradeType = "durability";
                     }
                     if (!upgradableItems.Contains(item))
                     {
@@ -5689,6 +5968,10 @@ public partial class UIUpgradeRepair : MonoBehaviour
                 if (((FoodItem)itemSlot.item.data).maxUnsanityLevel > 0 && itemSlot.item.unsanityLevel < ((FoodItem)itemSlot.item.data).maxUnsanityLevel)
                 {
                     UpgradeItem item = new UpgradeItem();
+                    item.able = true;
+                    item.name = itemSlot.item.data.name;
+                    item.timeBegin = string.Empty;
+                    item.timeEnd = string.Empty;
                     item.inventoryIndex = index;
                     item.maxLevel = ((FoodItem)itemSlot.item.data).maxUnsanityLevel;
                     item.actualLevel = itemSlot.item.unsanityLevel;
@@ -5698,7 +5981,7 @@ public partial class UIUpgradeRepair : MonoBehaviour
                     }
                     else
                     {
-                        item.upgradeType = "Unsanity";
+                        item.upgradeType = "unsanity";
                     }
 
                     if (!upgradableItems.Contains(item))
@@ -5712,6 +5995,10 @@ public partial class UIUpgradeRepair : MonoBehaviour
                 if (((ScriptableItem)itemSlot.item.data).maxWeightLevel > 0 && itemSlot.item.weightLevel < ((ScriptableItem)itemSlot.item.data).maxWeightLevel)
                 {
                     UpgradeItem item = new UpgradeItem();
+                    item.able = true;
+                    item.name = itemSlot.item.data.name;
+                    item.timeBegin = string.Empty;
+                    item.timeEnd = string.Empty;
                     item.inventoryIndex = index;
                     item.maxLevel = ((ScriptableItem)itemSlot.item.data).maxWeightLevel;
                     item.actualLevel = itemSlot.item.weightLevel;
@@ -5721,7 +6008,7 @@ public partial class UIUpgradeRepair : MonoBehaviour
                     }
                     else
                     {
-                        item.upgradeType = "Item Weight";
+                        item.upgradeType = "item weight";
                     }
                     if (!upgradableItems.Contains(item))
                     {
@@ -5737,14 +6024,533 @@ public partial class UIUpgradeRepair : MonoBehaviour
                 upgradableItems.Remove(upgradableItems[i]);
             }
         }
-        for (int i = 0; i < repairItems.Count; i++)
+        //for (int i = 0; i < repairItems.Count; i++)
+        //{
+        //    if (player.inventory[repairItems[i]].amount == 0)
+        //    {
+        //        repairItems.Remove(repairItems[i]);
+        //    }
+        //}
+    }
+
+    public void RecalculateItemBuilding()
+    {
+        for (int i = 0; i < buildingUpgradeRepair.upgradeItem.Count; i++)
         {
-            if (player.inventory[repairItems[i]].amount == 0)
+            int index = i;
+            ItemSlot itemSlot = buildingUpgradeRepair.upgradeItem[index].item;
+            UpgradeRepairItem upgradeItems = buildingUpgradeRepair.upgradeItem[index];
+
+            if (itemSlot.item.data is EquipmentItem)
             {
-                repairItems.Remove(repairItems[i]);
+                if (((EquipmentItem)itemSlot.item.data).maxAccuracyLevel > 0 && itemSlot.item.accuracyLevel < ((EquipmentItem)itemSlot.item.data).maxAccuracyLevel)
+                {
+                    UpgradeItem item = new UpgradeItem();
+                    item.name = itemSlot.item.data.name;
+                    item.amount = itemSlot.amount;
+                    if (upgradeItems.timeEnd != string.Empty && upgradeItems.timeBegin != string.Empty)
+                        item.able = false;
+                    else
+                        item.able = true;
+                    item.inventoryIndex = index;
+                    item.maxLevel = ((EquipmentItem)itemSlot.item.data).maxAccuracyLevel;
+                    item.actualLevel = itemSlot.item.accuracyLevel;
+                    if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                    {
+                        item.upgradeType = "accuratezza";
+                    }
+                    else
+                    {
+                        item.upgradeType = "accuracy";
+                    }
+                    if (buildingUpgradeRepair.upgradeItem[index].typeOfUpgrade == item.upgradeType)
+                    {
+                        item.timeBegin = upgradeItems.timeBegin;
+                        item.timeBeginServer = upgradeItems.timeBeginServer;
+                        item.timeEnd = upgradeItems.timeEnd;
+                        item.timeEndServer = upgradeItems.timeEndServer;
+                    }
+                    else
+                    {
+                        item.timeBegin = string.Empty;
+                        item.timeBeginServer = string.Empty;
+                        item.timeEnd = string.Empty;
+                        item.timeEndServer = string.Empty;
+                    }
+                    if (!upgradableItemsBuilding.Contains(item))
+                    {
+                        upgradableItemsBuilding.Add(item);
+                    }
+                }
+                if (((EquipmentItem)itemSlot.item.data).maxMissLevel > 0 && itemSlot.item.missLevel < ((EquipmentItem)itemSlot.item.data).maxMissLevel)
+                {
+                    UpgradeItem item = new UpgradeItem();
+                    item.name = itemSlot.item.data.name;
+                    item.amount = itemSlot.amount;
+                    if (upgradeItems.timeEnd != string.Empty && upgradeItems.timeBegin != string.Empty)
+                        item.able = false;
+                    else
+                        item.able = true;
+                    item.inventoryIndex = index;
+                    item.maxLevel = ((EquipmentItem)itemSlot.item.data).maxMissLevel;
+                    item.actualLevel = itemSlot.item.missLevel;
+                    item.timeBegin = upgradeItems.timeBegin;
+                    item.timeBeginServer = upgradeItems.timeBeginServer;
+                    item.timeEnd = upgradeItems.timeEnd;
+                    item.timeEndServer = upgradeItems.timeEndServer;
+                    if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                    {
+                        item.upgradeType = "evasione";
+                    }
+                    else
+                    {
+                        item.upgradeType = "evasion";
+                    }
+                    if (buildingUpgradeRepair.upgradeItem[index].typeOfUpgrade == item.upgradeType)
+                    {
+                        item.timeBegin = upgradeItems.timeBegin;
+                        item.timeBeginServer = upgradeItems.timeBeginServer;
+                        item.timeEnd = upgradeItems.timeEnd;
+                        item.timeEndServer = upgradeItems.timeEndServer;
+                    }
+                    else
+                    {
+                        item.timeBegin = string.Empty;
+                        item.timeBeginServer = string.Empty;
+                        item.timeEnd = string.Empty;
+                        item.timeEndServer = string.Empty;
+                    }
+                    if (!upgradableItemsBuilding.Contains(item))
+                    {
+                        upgradableItemsBuilding.Add(item);
+                    }
+                }
+                if (((EquipmentItem)itemSlot.item.data).maxArmorLevel > 0 && itemSlot.item.armorLevel < ((EquipmentItem)itemSlot.item.data).maxArmorLevel)
+                {
+                    UpgradeItem item = new UpgradeItem();
+                    item.name = itemSlot.item.data.name;
+                    item.amount = itemSlot.amount;
+                    if (upgradeItems.timeEnd != string.Empty && upgradeItems.timeBegin != string.Empty)
+                        item.able = false;
+                    else
+                        item.able = true;
+                    item.inventoryIndex = index;
+                    item.maxLevel = ((EquipmentItem)itemSlot.item.data).maxArmorLevel;
+                    item.actualLevel = itemSlot.item.armorLevel;
+                    item.timeBegin = upgradeItems.timeBegin;
+                    item.timeBeginServer = upgradeItems.timeBeginServer;
+                    item.timeEnd = upgradeItems.timeEnd;
+                    item.timeEndServer = upgradeItems.timeEndServer;
+                    if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                    {
+                        item.upgradeType = "armatura";
+                    }
+                    else
+                    {
+                        item.upgradeType = "armor";
+                    }
+                    if (buildingUpgradeRepair.upgradeItem[index].typeOfUpgrade == item.upgradeType)
+                    {
+                        item.timeBegin = upgradeItems.timeBegin;
+                        item.timeBeginServer = upgradeItems.timeBeginServer;
+                        item.timeEnd = upgradeItems.timeEnd;
+                        item.timeEndServer = upgradeItems.timeEndServer;
+                    }
+                    else
+                    {
+                        item.timeBegin = string.Empty;
+                        item.timeBeginServer = string.Empty;
+                        item.timeEnd = string.Empty;
+                        item.timeEndServer = string.Empty;
+                    }
+                    if (!upgradableItemsBuilding.Contains(item))
+                    {
+                        upgradableItemsBuilding.Add(item);
+                    }
+                }
+                if (((EquipmentItem)itemSlot.item.data).maxChargeLevel > 0 && itemSlot.item.chargeLevel < ((EquipmentItem)itemSlot.item.data).maxChargeLevel)
+                {
+                    UpgradeItem item = new UpgradeItem();
+                    item.name = itemSlot.item.data.name;
+                    item.amount = itemSlot.amount;
+                    if (upgradeItems.timeEnd != string.Empty && upgradeItems.timeBegin != string.Empty)
+                        item.able = false;
+                    else
+                        item.able = true;
+                    item.inventoryIndex = index;
+                    item.maxLevel = ((EquipmentItem)itemSlot.item.data).maxChargeLevel;
+                    item.actualLevel = itemSlot.item.chargeLevel;
+                    item.timeBegin = upgradeItems.timeBegin;
+                    item.timeBeginServer = upgradeItems.timeBeginServer;
+                    item.timeEnd = upgradeItems.timeEnd;
+                    item.timeEndServer = upgradeItems.timeEndServer;
+                    if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                    {
+                        item.upgradeType = "carica munizioni";
+                    }
+                    else
+                    {
+                        item.upgradeType = "munition charge";
+                    }
+                    if (buildingUpgradeRepair.upgradeItem[index].typeOfUpgrade == item.upgradeType)
+                    {
+                        item.timeBegin = upgradeItems.timeBegin;
+                        item.timeBeginServer = upgradeItems.timeBeginServer;
+                        item.timeEnd = upgradeItems.timeEnd;
+                        item.timeEndServer = upgradeItems.timeEndServer;
+                    }
+                    else
+                    {
+                        item.timeBegin = string.Empty;
+                        item.timeBeginServer = string.Empty;
+                        item.timeEnd = string.Empty;
+                        item.timeEndServer = string.Empty;
+                    }
+                    if (!upgradableItemsBuilding.Contains(item))
+                    {
+                        upgradableItemsBuilding.Add(item);
+                    }
+                }
+            }
+            if (itemSlot.item.data is ScriptableRadio)
+            {
+                if (((ScriptableRadio)itemSlot.item.data).maxCurrentBattery > 0 && itemSlot.item.radioCurrentBattery < ((ScriptableRadio)itemSlot.item.data).maxCurrentBattery)
+                {
+                    UpgradeItem item = new UpgradeItem();
+                    item.name = itemSlot.item.data.name;
+                    item.amount = itemSlot.amount;
+                    if (upgradeItems.timeEnd != string.Empty && upgradeItems.timeBegin != string.Empty)
+                        item.able = false;
+                    else
+                        item.able = true;
+                    item.inventoryIndex = index;
+                    item.maxLevel = ((ScriptableRadio)itemSlot.item.data).maxCurrentBattery;
+                    item.actualLevel = itemSlot.item.radioCurrentBattery;
+                    item.timeBegin = upgradeItems.timeBegin;
+                    item.timeBeginServer = upgradeItems.timeBeginServer;
+                    item.timeEnd = upgradeItems.timeEnd;
+                    item.timeEndServer = upgradeItems.timeEndServer;
+                    if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                    {
+                        item.upgradeType = "batteria radio";
+                    }
+                    else
+                    {
+                        item.upgradeType = "radio battery";
+                    }
+                    if (buildingUpgradeRepair.upgradeItem[index].typeOfUpgrade == item.upgradeType)
+                    {
+                        item.timeBegin = upgradeItems.timeBegin;
+                        item.timeBeginServer = upgradeItems.timeBeginServer;
+                        item.timeEnd = upgradeItems.timeEnd;
+                        item.timeEndServer = upgradeItems.timeEndServer;
+                    }
+                    else
+                    {
+                        item.timeBegin = string.Empty;
+                        item.timeBeginServer = string.Empty;
+                        item.timeEnd = string.Empty;
+                        item.timeEndServer = string.Empty;
+                    }
+                    if (!upgradableItemsBuilding.Contains(item))
+                    {
+                        upgradableItemsBuilding.Add(item);
+                    }
+                }
+            }
+            if (itemSlot.item.data is ScriptableTorch)
+            {
+                if (((ScriptableTorch)itemSlot.item.data).maxCurrentBattery > 0 && itemSlot.item.torchCurrentBattery < ((ScriptableTorch)itemSlot.item.data).maxCurrentBattery)
+                {
+                    UpgradeItem item = new UpgradeItem();
+                    item.name = itemSlot.item.data.name;
+                    item.amount = itemSlot.amount;
+                    if (upgradeItems.timeEnd != string.Empty && upgradeItems.timeBegin != string.Empty)
+                        item.able = false;
+                    else
+                        item.able = true;
+                    item.inventoryIndex = index;
+                    item.maxLevel = ((ScriptableTorch)itemSlot.item.data).maxCurrentBattery;
+                    item.actualLevel = itemSlot.item.torchCurrentBattery;
+                    item.timeBegin = upgradeItems.timeBegin;
+                    item.timeBeginServer = upgradeItems.timeBeginServer;
+                    item.timeEnd = upgradeItems.timeEnd;
+                    item.timeEndServer = upgradeItems.timeEndServer;
+                    if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                    {
+                        item.upgradeType = "batteria torcia";
+                    }
+                    else
+                    {
+                        item.upgradeType = "torch battery";
+                    }
+                    if (buildingUpgradeRepair.upgradeItem[index].typeOfUpgrade == item.upgradeType)
+                    {
+                        item.timeBegin = upgradeItems.timeBegin;
+                        item.timeBeginServer = upgradeItems.timeBeginServer;
+                        item.timeEnd = upgradeItems.timeEnd;
+                        item.timeEndServer = upgradeItems.timeEndServer;
+                    }
+                    else
+                    {
+                        item.timeBegin = string.Empty;
+                        item.timeBeginServer = string.Empty;
+                        item.timeEnd = string.Empty;
+                        item.timeEndServer = string.Empty;
+                    }
+                    if (!upgradableItemsBuilding.Contains(item))
+                    {
+                        upgradableItemsBuilding.Add(item);
+                    }
+                }
+            }
+            if (itemSlot.item.data is EquipmentItem)
+            {
+                if (((EquipmentItem)itemSlot.item.data).additionalSlot.baseValue > 0 && itemSlot.item.bagLevel < ((EquipmentItem)itemSlot.item.data).maxBagLevel)
+                {
+                    UpgradeItem item = new UpgradeItem();
+                    item.name = itemSlot.item.data.name;
+                    item.amount = itemSlot.amount;
+                    if (upgradeItems.timeEnd != string.Empty && upgradeItems.timeBegin != string.Empty)
+                        item.able = false;
+                    else
+                        item.able = true;
+                    item.inventoryIndex = index;
+                    item.maxLevel = ((EquipmentItem)itemSlot.item.data).maxBagLevel;
+                    item.actualLevel = itemSlot.item.bagLevel;
+                    item.timeBegin = upgradeItems.timeBegin;
+                    item.timeBeginServer = upgradeItems.timeBeginServer;
+                    item.timeEnd = upgradeItems.timeEnd;
+                    item.timeEndServer = upgradeItems.timeEndServer;
+                    if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                    {
+                        item.upgradeType = "slot borsa";
+                    }
+                    else
+                    {
+                        item.upgradeType = "bag slot";
+                    }
+                    if (buildingUpgradeRepair.upgradeItem[index].typeOfUpgrade == item.upgradeType)
+                    {
+                        item.timeBegin = upgradeItems.timeBegin;
+                        item.timeBeginServer = upgradeItems.timeBeginServer;
+                        item.timeEnd = upgradeItems.timeEnd;
+                        item.timeEndServer = upgradeItems.timeEndServer;
+                    }
+                    else
+                    {
+                        item.timeBegin = string.Empty;
+                        item.timeBeginServer = string.Empty;
+                        item.timeEnd = string.Empty;
+                        item.timeEndServer = string.Empty;
+                    }
+                    if (!upgradableItemsBuilding.Contains(item))
+                    {
+                        upgradableItemsBuilding.Add(item);
+                    }
+                }
+            }
+            if (itemSlot.item.data is EquipmentItem)
+            {
+                if (((EquipmentItem)itemSlot.item.data).protectedSlot.baseValue > 0 && itemSlot.item.bagLevel < ((EquipmentItem)itemSlot.item.data).maxBagLevel)
+                {
+                    UpgradeItem item = new UpgradeItem();
+                    item.name = itemSlot.item.data.name;
+                    item.amount = itemSlot.amount;
+                    if (upgradeItems.timeEnd != string.Empty && upgradeItems.timeBegin != string.Empty)
+                        item.able = false;
+                    else
+                        item.able = true;
+                    item.inventoryIndex = index;
+                    item.maxLevel = ((EquipmentItem)itemSlot.item.data).maxBagLevel;
+                    item.actualLevel = itemSlot.item.bagLevel;
+                    item.timeBegin = upgradeItems.timeBegin;
+                    item.timeBeginServer = upgradeItems.timeBeginServer;
+                    item.timeEnd = upgradeItems.timeEnd;
+                    item.timeEndServer = upgradeItems.timeEndServer;
+                    if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                    {
+                        item.upgradeType = "slot protetti borsa";
+                    }
+                    else
+                    {
+                        item.upgradeType = "bag protected slot";
+                    }
+                    if (buildingUpgradeRepair.upgradeItem[index].typeOfUpgrade == item.upgradeType)
+                    {
+                        item.timeBegin = upgradeItems.timeBegin;
+                        item.timeBeginServer = upgradeItems.timeBeginServer;
+                        item.timeEnd = upgradeItems.timeEnd;
+                        item.timeEndServer = upgradeItems.timeEndServer;
+                    }
+                    else
+                    {
+                        item.timeBegin = string.Empty;
+                        item.timeBeginServer = string.Empty;
+                        item.timeEnd = string.Empty;
+                        item.timeEndServer = string.Empty;
+                    }
+                    if (!upgradableItemsBuilding.Contains(item))
+                    {
+                        upgradableItemsBuilding.Add(item);
+                    }
+                }
+            }
+            if (itemSlot.item.data is ScriptableItem)
+            {
+                if (((ScriptableItem)itemSlot.item.data).maxDurabilityLevel > 0 && itemSlot.item.durabilityLevel < ((ScriptableItem)itemSlot.item.data).maxDurabilityLevel)
+                {
+                    UpgradeItem item = new UpgradeItem();
+                    item.name = itemSlot.item.data.name;
+                    item.amount = itemSlot.amount;
+                    if (upgradeItems.timeEnd != string.Empty && upgradeItems.timeBegin != string.Empty)
+                        item.able = false;
+                    else
+                        item.able = true;
+                    item.inventoryIndex = index;
+                    item.maxLevel = ((ScriptableItem)itemSlot.item.data).maxDurabilityLevel;
+                    item.actualLevel = itemSlot.item.durabilityLevel;
+                    item.timeBegin = upgradeItems.timeBegin;
+                    item.timeBeginServer = upgradeItems.timeBeginServer;
+                    item.timeEnd = upgradeItems.timeEnd;
+                    item.timeEndServer = upgradeItems.timeEndServer;
+                    if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                    {
+                        item.upgradeType = "durabilita'";
+                    }
+                    else
+                    {
+                        item.upgradeType = "durability";
+                    }
+                    if (buildingUpgradeRepair.upgradeItem[index].typeOfUpgrade == item.upgradeType)
+                    {
+                        item.timeBegin = upgradeItems.timeBegin;
+                        item.timeBeginServer = upgradeItems.timeBeginServer;
+                        item.timeEnd = upgradeItems.timeEnd;
+                        item.timeEndServer = upgradeItems.timeEndServer;
+                    }
+                    else
+                    {
+                        item.timeBegin = string.Empty;
+                        item.timeBeginServer = string.Empty;
+                        item.timeEnd = string.Empty;
+                        item.timeEndServer = string.Empty;
+                    }
+                    if (!upgradableItemsBuilding.Contains(item))
+                    {
+                        upgradableItemsBuilding.Add(item);
+                    }
+                }
+            }
+            if (itemSlot.item.data is FoodItem)
+            {
+                if (((FoodItem)itemSlot.item.data).maxUnsanityLevel > 0 && itemSlot.item.unsanityLevel < ((FoodItem)itemSlot.item.data).maxUnsanityLevel)
+                {
+                    UpgradeItem item = new UpgradeItem();
+                    item.name = itemSlot.item.data.name;
+                    item.amount = itemSlot.amount;
+                    if (upgradeItems.timeEnd != string.Empty && upgradeItems.timeBegin != string.Empty)
+                        item.able = false;
+                    else
+                        item.able = true;
+                    item.inventoryIndex = index;
+                    item.maxLevel = ((FoodItem)itemSlot.item.data).maxUnsanityLevel;
+                    item.actualLevel = itemSlot.item.unsanityLevel;
+                    item.timeBegin = upgradeItems.timeBegin;
+                    item.timeBeginServer = upgradeItems.timeBeginServer;
+                    item.timeEnd = upgradeItems.timeEnd;
+                    item.timeEndServer = upgradeItems.timeEndServer;
+                    if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                    {
+                        item.upgradeType = "sanita' oggetto";
+                    }
+                    else
+                    {
+                        item.upgradeType = "unsanity";
+                    }
+                    if (buildingUpgradeRepair.upgradeItem[index].typeOfUpgrade == item.upgradeType)
+                    {
+                        item.timeBegin = upgradeItems.timeBegin;
+                        item.timeBeginServer = upgradeItems.timeBeginServer;
+                        item.timeEnd = upgradeItems.timeEnd;
+                        item.timeEndServer = upgradeItems.timeEndServer;
+                    }
+                    else
+                    {
+                        item.timeBegin = string.Empty;
+                        item.timeBeginServer = string.Empty;
+                        item.timeEnd = string.Empty;
+                        item.timeEndServer = string.Empty;
+                    }
+                    if (!upgradableItemsBuilding.Contains(item))
+                    {
+                        upgradableItemsBuilding.Add(item);
+                    }
+                }
+            }
+            if (itemSlot.item.data is ScriptableItem)
+            {
+                if (((ScriptableItem)itemSlot.item.data).maxWeightLevel > 0 && itemSlot.item.weightLevel < ((ScriptableItem)itemSlot.item.data).maxWeightLevel)
+                {
+                    UpgradeItem item = new UpgradeItem();
+                    item.name = itemSlot.item.data.name;
+                    item.amount = itemSlot.amount;
+                    if (upgradeItems.timeEnd != string.Empty && upgradeItems.timeBegin != string.Empty)
+                        item.able = false;
+                    else
+                        item.able = true;
+                    item.inventoryIndex = index;
+                    item.maxLevel = ((ScriptableItem)itemSlot.item.data).maxWeightLevel;
+                    item.actualLevel = itemSlot.item.weightLevel;
+                    item.timeBegin = upgradeItems.timeBegin;
+                    item.timeBeginServer = upgradeItems.timeBeginServer;
+                    item.timeEnd = upgradeItems.timeEnd;
+                    item.timeEndServer = upgradeItems.timeEndServer;
+                    if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                    {
+                        item.upgradeType = "peso oggetto";
+                    }
+                    else
+                    {
+                        item.upgradeType = "item weight";
+                    }
+                    if (buildingUpgradeRepair.upgradeItem[index].typeOfUpgrade == item.upgradeType)
+                    {
+                        item.timeBegin = upgradeItems.timeBegin;
+                        item.timeBeginServer = upgradeItems.timeBeginServer;
+                        item.timeEnd = upgradeItems.timeEnd;
+                        item.timeEndServer = upgradeItems.timeEndServer;
+                    }
+                    else
+                    {
+                        item.timeBegin = string.Empty;
+                        item.timeBeginServer = string.Empty;
+                        item.timeEnd = string.Empty;
+                        item.timeEndServer = string.Empty;
+                    }
+                    if (!upgradableItemsBuilding.Contains(item))
+                    {
+                        upgradableItemsBuilding.Add(item);
+                    }
+                }
             }
         }
+        //for (int i = 0; i < upgradableItemsBuilding.Count; i++)
+        //{
+        //    if (upgradableItemsBuilding[i].amount == 0)
+        //    {
+        //        upgradableItemsBuilding.Remove(upgradableItemsBuilding[i]);
+        //    }
+        //}
+        //for (int i = 0; i < repairItems.Count; i++)
+        //{
+        //    if (player.inventory[repairItems[i]].amount == 0)
+        //    {
+        //        repairItems.Remove(repairItems[i]);
+        //    }
+        //}
     }
+
 
     public void RecalculateItemRepair()
     {
@@ -5756,9 +6562,62 @@ public partial class UIUpgradeRepair : MonoBehaviour
 
             if ((itemSlot.item.data).maxDurability.baseValue > 0 && itemSlot.item.durability < itemSlot.item.data.maxDurability.Get(itemSlot.item.durabilityLevel))
             {
-                if (!repairItems.Contains(index))
+                UpgradeItem item = new UpgradeItem();
+                item.name = itemSlot.item.data.name;
+                item.amount = itemSlot.amount;
+                item.able = true;
+
+                item.inventoryIndex = index;
+                item.timeBegin = string.Empty;
+                item.timeBeginServer = string.Empty;
+                item.timeEnd = string.Empty;
+                item.timeEndServer = string.Empty;
+
+                if (!repairItems.Contains(item))
                 {
-                    repairItems.Add(index);
+                    repairItems.Add(item);
+                }
+
+            }
+        }
+
+        for (int i = 0; i < repairItems.Count; i++)
+        {
+            if (player.inventory[repairItems[i].inventoryIndex].amount == 0)
+            {
+                repairItems.Remove(repairItems[i]);
+            }
+        }
+
+    }
+
+    public void RecalculateItemRepairInBuilding()
+    {
+        for (int i = 0; i < buildingUpgradeRepair.repairItem.Count; i++)
+        {
+            int index = i;
+            ItemSlot itemSlot = buildingUpgradeRepair.repairItem[index].item;
+            UpgradeRepairItem repairItem = buildingUpgradeRepair.repairItem[index];
+
+            if ((itemSlot.item.data).maxDurability.baseValue > 0 && itemSlot.item.durability < itemSlot.item.data.maxDurability.Get(itemSlot.item.durabilityLevel))
+            {
+                UpgradeItem item = new UpgradeItem();
+                item.name = itemSlot.item.data.name;
+                item.amount = itemSlot.amount;
+                if (repairItem.timeEnd != string.Empty && repairItem.timeBegin != string.Empty)
+                    item.able = false;
+                else
+                    item.able = true;
+
+                item.inventoryIndex = index;
+                item.timeBegin = repairItem.timeBegin;
+                item.timeBeginServer = repairItem.timeBeginServer;
+                item.timeEnd = repairItem.timeEnd;
+                item.timeEndServer = repairItem.timeEndServer;
+
+                if (!repairItemsBuilding.Contains(item))
+                {
+                    repairItemsBuilding.Add(item);
                 }
             }
         }
@@ -5936,7 +6795,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     }
                 }
 
-                if (upgradeItem[index].type == "Accuracy")
+                if (upgradeItem[index].type == "accuracy")
                 {
                     slot.itemLevel.text = upgradeItem[index].type + " level : " + (upgradeItem[index].item.item.accuracyLevel + 1) + " / " + ((EquipmentItem)upgradeItem[index].item.item.data).maxAccuracyLevel;
                 }
@@ -5945,7 +6804,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + upgradeItem[index].type + " : " + (upgradeItem[index].item.item.accuracyLevel + 1) + " / " + ((EquipmentItem)upgradeItem[index].item.item.data).maxAccuracyLevel;
                 }
 
-                if (upgradeItem[index].type == "Evasion")
+                if (upgradeItem[index].type == "evasion")
                 {
                     slot.itemLevel.text = upgradeItem[index].type + " level : " + (upgradeItem[index].item.item.missLevel + 1) + " / " + ((EquipmentItem)upgradeItem[index].item.item.data).maxMissLevel;
                 }
@@ -5954,7 +6813,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + upgradeItem[index].type + " : " + (upgradeItem[index].item.item.missLevel + 1) + " / " + ((EquipmentItem)upgradeItem[index].item.item.data).maxMissLevel;
                 }
 
-                if (upgradeItem[index].type == "Armor")
+                if (upgradeItem[index].type == "armor")
                 {
                     slot.itemLevel.text = upgradeItem[index].type + " level : " + (upgradeItem[index].item.item.armorLevel + 1) + " / " + ((EquipmentItem)upgradeItem[index].item.item.data).maxArmorLevel;
                 }
@@ -5963,7 +6822,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + upgradeItem[index].type + " : " + (upgradeItem[index].item.item.armorLevel + 1) + " / " + ((EquipmentItem)upgradeItem[index].item.item.data).maxArmorLevel;
                 }
 
-                if (upgradeItem[index].type == "Munition charge")
+                if (upgradeItem[index].type == "munition charge")
                 {
                     slot.itemLevel.text = upgradeItem[index].type + " level : " + (upgradeItem[index].item.item.chargeLevel + 1) + " / " + ((EquipmentItem)upgradeItem[index].item.item.data).maxChargeLevel;
                 }
@@ -5972,7 +6831,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + upgradeItem[index].type + " : " + (upgradeItem[index].item.item.chargeLevel + 1) + " / " + ((EquipmentItem)upgradeItem[index].item.item.data).maxChargeLevel;
                 }
 
-                if (upgradeItem[index].type == "Radio Battery")
+                if (upgradeItem[index].type == "radio Battery")
                 {
                     slot.itemLevel.text = upgradeItem[index].type + " level : " + (upgradeItem[index].item.item.radioCurrentBattery + 1) + " / " + ((ScriptableRadio)upgradeItem[index].item.item.data).maxCurrentBattery;
                 }
@@ -5981,7 +6840,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + upgradeItem[index].type + " : " + (upgradeItem[index].item.item.radioCurrentBattery + 1) + " / " + ((ScriptableRadio)upgradeItem[index].item.item.data).maxCurrentBattery;
                 }
 
-                if (upgradeItem[index].type == "Torch Battery")
+                if (upgradeItem[index].type == "torch Battery")
                 {
                     slot.itemLevel.text = upgradeItem[index].type + " level : " + (upgradeItem[index].item.item.torchCurrentBattery + 1) + " / " + ((ScriptableTorch)upgradeItem[index].item.item.data).maxCurrentBattery;
                 }
@@ -5990,7 +6849,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + upgradeItem[index].type + " : " + (upgradeItem[index].item.item.torchCurrentBattery + 1) + " / " + ((ScriptableTorch)upgradeItem[index].item.item.data).maxCurrentBattery;
                 }
 
-                if (upgradeItem[index].type == "Bag Slot")
+                if (upgradeItem[index].type == "bag slot")
                 {
                     slot.itemLevel.text = upgradeItem[index].type + " level : " + (upgradeItem[index].item.item.bagLevel + 1) + " / " + ((EquipmentItem)upgradeItem[index].item.item.data).maxBagLevel;
                 }
@@ -5999,7 +6858,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + upgradeItem[index].type + " : " + (upgradeItem[index].item.item.bagLevel + 1) + " / " + ((EquipmentItem)upgradeItem[index].item.item.data).maxBagLevel;
                 }
 
-                if (upgradeItem[index].type == "Bag Protected Slot")
+                if (upgradeItem[index].type == "bag protected slot")
                 {
                     slot.itemLevel.text = upgradeItem[index].type + " level : " + (upgradeItem[index].item.item.bagLevel + 1) + " / " + ((EquipmentItem)upgradeItem[index].item.item.data).maxBagLevel;
                 }
@@ -6008,7 +6867,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + upgradeItem[index].type + " : " + (upgradeItem[index].item.item.bagLevel + 1) + " / " + ((EquipmentItem)upgradeItem[index].item.item.data).maxBagLevel;
                 }
 
-                if (upgradeItem[index].type == "Durability")
+                if (upgradeItem[index].type == "durability")
                 {
                     slot.itemLevel.text = upgradeItem[index].type + " level : " + (upgradeItem[index].item.item.durabilityLevel + 1) + " / " + ((ScriptableItem)upgradeItem[index].item.item.data).maxDurabilityLevel;
                 }
@@ -6017,7 +6876,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + upgradeItem[index].type + " : " + (upgradeItem[index].item.item.durabilityLevel + 1) + " / " + ((ScriptableItem)upgradeItem[index].item.item.data).maxDurabilityLevel;
                 }
 
-                if (upgradeItem[index].type == "Unsanity")
+                if (upgradeItem[index].type == "unsanity")
                 {
                     slot.itemLevel.text = upgradeItem[index].type + " level : " + (upgradeItem[index].item.item.unsanityLevel + 1) + " / " + ((FoodItem)upgradeItem[index].item.item.data).maxUnsanityLevel;
                 }
@@ -6026,7 +6885,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + upgradeItem[index].type + " : " + (upgradeItem[index].item.item.unsanityLevel + 1) + " / " + ((FoodItem)upgradeItem[index].item.item.data).maxUnsanityLevel;
                 }
 
-                if (upgradeItem[index].type == "Item Weight")
+                if (upgradeItem[index].type == "item weight")
                 {
                     slot.itemLevel.text = upgradeItem[index].type + " level : " + (upgradeItem[index].item.item.weightLevel + 1) + " / " + ((ScriptableItem)upgradeItem[index].item.item.data).maxWeightLevel;
                 }
@@ -6260,7 +7119,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     }
                 }
 
-                if (finishUpgradeItem[upgradeItem].type == "Accuracy")
+                if (finishUpgradeItem[upgradeItem].type == "accuracy")
                 {
                     slot.itemLevel.text = finishUpgradeItem[upgradeItem].type + " level : " + (finishUpgradeItem[upgradeItem].item.item.accuracyLevel + 1) + " / " + ((EquipmentItem)finishUpgradeItem[upgradeItem].item.item.data).maxAccuracyLevel;
                 }
@@ -6269,7 +7128,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + finishUpgradeItem[upgradeItem].type + " : " + (finishUpgradeItem[upgradeItem].item.item.accuracyLevel + 1) + " / " + ((EquipmentItem)finishUpgradeItem[upgradeItem].item.item.data).maxAccuracyLevel;
                 }
 
-                if (finishUpgradeItem[upgradeItem].type == "Evasion")
+                if (finishUpgradeItem[upgradeItem].type == "evasion")
                 {
                     slot.itemLevel.text = finishUpgradeItem[upgradeItem].type + " level : " + (finishUpgradeItem[upgradeItem].item.item.missLevel + 1) + " / " + ((EquipmentItem)finishUpgradeItem[upgradeItem].item.item.data).maxMissLevel;
                 }
@@ -6278,7 +7137,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + finishUpgradeItem[upgradeItem].type + " : " + (finishUpgradeItem[upgradeItem].item.item.missLevel + 1) + " / " + ((EquipmentItem)finishUpgradeItem[upgradeItem].item.item.data).maxMissLevel;
                 }
 
-                if (finishUpgradeItem[upgradeItem].type == "Armor")
+                if (finishUpgradeItem[upgradeItem].type == "armor")
                 {
                     slot.itemLevel.text = finishUpgradeItem[upgradeItem].type + " level : " + (finishUpgradeItem[upgradeItem].item.item.armorLevel + 1) + " / " + ((EquipmentItem)finishUpgradeItem[upgradeItem].item.item.data).maxArmorLevel;
                 }
@@ -6287,7 +7146,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + finishUpgradeItem[upgradeItem].type + " : " + (finishUpgradeItem[upgradeItem].item.item.armorLevel + 1) + " / " + ((EquipmentItem)finishUpgradeItem[upgradeItem].item.item.data).maxArmorLevel;
                 }
 
-                if (finishUpgradeItem[upgradeItem].type == "Munition charge")
+                if (finishUpgradeItem[upgradeItem].type == "munition charge")
                 {
                     slot.itemLevel.text = finishUpgradeItem[upgradeItem].type + " level : " + (finishUpgradeItem[upgradeItem].item.item.chargeLevel + 1) + " / " + ((EquipmentItem)finishUpgradeItem[upgradeItem].item.item.data).maxChargeLevel;
                 }
@@ -6296,7 +7155,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + finishUpgradeItem[upgradeItem].type + " : " + (finishUpgradeItem[upgradeItem].item.item.chargeLevel + 1) + " / " + ((EquipmentItem)finishUpgradeItem[upgradeItem].item.item.data).maxChargeLevel;
                 }
 
-                if (finishUpgradeItem[upgradeItem].type == "Radio Battery")
+                if (finishUpgradeItem[upgradeItem].type == "radio Battery")
                 {
                     slot.itemLevel.text = finishUpgradeItem[upgradeItem].type + " level : " + (finishUpgradeItem[upgradeItem].item.item.radioCurrentBattery + 1) + " / " + ((ScriptableRadio)finishUpgradeItem[upgradeItem].item.item.data).maxCurrentBattery;
                 }
@@ -6305,7 +7164,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + finishUpgradeItem[upgradeItem].type + " : " + (finishUpgradeItem[upgradeItem].item.item.radioCurrentBattery + 1) + " / " + ((ScriptableRadio)finishUpgradeItem[upgradeItem].item.item.data).maxCurrentBattery;
                 }
 
-                if (finishUpgradeItem[upgradeItem].type == "Torch Battery")
+                if (finishUpgradeItem[upgradeItem].type == "torch Battery")
                 {
                     slot.itemLevel.text = finishUpgradeItem[upgradeItem].type + " level : " + (finishUpgradeItem[upgradeItem].item.item.radioCurrentBattery + 1) + " / " + ((ScriptableTorch)finishUpgradeItem[upgradeItem].item.item.data).maxCurrentBattery;
                 }
@@ -6314,7 +7173,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + finishUpgradeItem[upgradeItem].type + " : " + (finishUpgradeItem[upgradeItem].item.item.radioCurrentBattery + 1) + " / " + ((ScriptableTorch)finishUpgradeItem[upgradeItem].item.item.data).maxCurrentBattery;
                 }
 
-                if (finishUpgradeItem[upgradeItem].type == "Bag Slot")
+                if (finishUpgradeItem[upgradeItem].type == "bag slot")
                 {
                     slot.itemLevel.text = finishUpgradeItem[upgradeItem].type + " level : " + (finishUpgradeItem[upgradeItem].item.item.bagLevel + 1) + " / " + ((EquipmentItem)finishUpgradeItem[upgradeItem].item.item.data).maxBagLevel;
                 }
@@ -6323,7 +7182,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + finishUpgradeItem[upgradeItem].type + " : " + (finishUpgradeItem[upgradeItem].item.item.bagLevel + 1) + " / " + ((EquipmentItem)finishUpgradeItem[upgradeItem].item.item.data).maxBagLevel;
                 }
 
-                if (finishUpgradeItem[upgradeItem].type == "Bag Protected Slot")
+                if (finishUpgradeItem[upgradeItem].type == "bag protected slot")
                 {
                     slot.itemLevel.text = finishUpgradeItem[upgradeItem].type + " level : " + (finishUpgradeItem[upgradeItem].item.item.bagLevel + 1) + " / " + ((EquipmentItem)finishUpgradeItem[upgradeItem].item.item.data).maxBagLevel;
                 }
@@ -6332,7 +7191,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + finishUpgradeItem[upgradeItem].type + " : " + (finishUpgradeItem[upgradeItem].item.item.bagLevel + 1) + " / " + ((EquipmentItem)finishUpgradeItem[upgradeItem].item.item.data).maxBagLevel;
                 }
 
-                if (finishUpgradeItem[upgradeItem].type == "Durability")
+                if (finishUpgradeItem[upgradeItem].type == "durability")
                 {
                     slot.itemLevel.text = finishUpgradeItem[upgradeItem].type + " level : " + (finishUpgradeItem[upgradeItem].item.item.durabilityLevel + 1) + " / " + ((ScriptableItem)finishUpgradeItem[upgradeItem].item.item.data).maxDurabilityLevel;
                 }
@@ -6341,7 +7200,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + finishUpgradeItem[upgradeItem].type + " : " + (finishUpgradeItem[upgradeItem].item.item.durabilityLevel + 1) + " / " + ((ScriptableItem)finishUpgradeItem[upgradeItem].item.item.data).maxDurabilityLevel;
                 }
 
-                if (finishUpgradeItem[upgradeItem].type == "Unsanity")
+                if (finishUpgradeItem[upgradeItem].type == "unsanity")
                 {
                     slot.itemLevel.text = finishUpgradeItem[upgradeItem].type + " level : " + (finishUpgradeItem[upgradeItem].item.item.unsanityLevel + 1) + " / " + ((FoodItem)finishUpgradeItem[upgradeItem].item.item.data).maxUnsanityLevel;
                 }
@@ -6350,7 +7209,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                     slot.itemLevel.text = "Livello " + finishUpgradeItem[upgradeItem].type + " : " + (finishUpgradeItem[upgradeItem].item.item.unsanityLevel + 1) + " / " + ((FoodItem)finishUpgradeItem[upgradeItem].item.item.data).maxUnsanityLevel;
                 }
 
-                if (finishUpgradeItem[upgradeItem].type == "Item Weight")
+                if (finishUpgradeItem[upgradeItem].type == "item weight")
                 {
                     slot.itemLevel.text = finishUpgradeItem[upgradeItem].type + " level : " + (finishUpgradeItem[upgradeItem].item.item.weightLevel + 1) + " / " + ((ScriptableItem)finishUpgradeItem[upgradeItem].item.item.data).maxWeightLevel;
                 }
@@ -6363,7 +7222,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                 {
                     if (Player.localPlayer.target && Player.localPlayer.target.GetComponent<BuildingUpgradeRepair>())
                     {
-                        Player.localPlayer.CmdClaimUpgradeItem(finishUpgradeItem[upgradeItem].index, finishUpgradeItem[upgradeItem].item.item.name, finishUpgradeItem[upgradeItem].item.amount, finishUpgradeItem[upgradeItem].playerName, finishUpgradeItem[upgradeItem].timeEnd);
+                        Player.localPlayer.CmdClaimUpgradeItem(finishUpgradeItem[upgradeItem].index, finishUpgradeItem[upgradeItem].item.item.name, finishUpgradeItem[upgradeItem].item.amount, finishUpgradeItem[upgradeItem].timeEnd);
                     }
                 });
 
@@ -6490,7 +7349,7 @@ public partial class UIUpgradeRepairChild : MonoBehaviour
                 {
                     if (Player.localPlayer.target && Player.localPlayer.target.GetComponent<BuildingUpgradeRepair>())
                     {
-                        Player.localPlayer.CmdClaimRepairItem(finishRepairItem[upgradeItem].index, finishRepairItem[upgradeItem].item.item.name, finishRepairItem[upgradeItem].item.amount, finishRepairItem[upgradeItem].playerName, finishRepairItem[upgradeItem].timeEnd);
+                        Player.localPlayer.CmdClaimRepairItem(finishRepairItem[upgradeItem].index, finishRepairItem[upgradeItem].item.item.name, finishRepairItem[upgradeItem].item.amount, finishRepairItem[upgradeItem].timeEnd);
                     }
                 });
 

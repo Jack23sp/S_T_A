@@ -43,11 +43,9 @@ MonoBehaviour:
   coinsToRepair: 10
   upgradeTimer: 180
   upgradeItems:
-  - items: {fileID: 0}
-    amount: 15
-  - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
+  - items: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
     amount: 10
-  goldsToUpgrade: 5000
+  goldsToUpgrade: 1000
   coinsToUpgrade: 10
   generalLiquidContainer: 0
   canUseFurnace: 0

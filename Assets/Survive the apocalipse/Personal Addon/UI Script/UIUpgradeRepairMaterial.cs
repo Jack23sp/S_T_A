@@ -49,8 +49,7 @@ public class UIUpgradeRepairMaterial : MonoBehaviour
         if (player.health == 0)
             closeButton.onClick.Invoke();
 
-        if (!player.target) return;
-        if (!buildingUpgradeRepair) buildingUpgradeRepair = player.target.GetComponent<BuildingUpgradeRepair>();
+        if (!buildingUpgradeRepair) buildingUpgradeRepair = player.playerMove.fornitureClient.GetComponent<BuildingUpgradeRepair>();
         if (!buildingUpgradeRepair) return;
 
         if (selectedItem != -1)
@@ -70,17 +69,16 @@ public class UIUpgradeRepairMaterial : MonoBehaviour
                 slot.image.sprite = selectedItemOfInventory.item.data.upgradeItems[index].items.image;
                 slot.itemText.text = selectedItemOfInventory.item.data.upgradeItems[index].items.name;
                 slot.itemLevel.text = player.InventoryCount(new Item(selectedItemOfInventory.item.data.upgradeItems[index].items)) + " / " + selectedItemOfInventory.item.data.upgradeItems[index].amount;
-                //if (player.InventoryCount(new Item(selectedItemOfInventory.item.data.upgradeItems[index].items)) < selectedItemOfInventory.item.data.upgradeItems[index].amount)
                 if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
                 {
                     slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Compra!";
+                    slot.itemText.text = selectedItemOfInventory.item.data.upgradeItems[index].items.italianName;
                 }
                 else
                 {
                     slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Buy!";
+                    slot.itemText.text = selectedItemOfInventory.item.data.upgradeItems[index].items.name;
                 }
-                //else
-                //    slot.itemButton.gameObject.SetActive(false);
                 if (slot.itemButton.gameObject.activeInHierarchy)
                 {
 
@@ -110,9 +108,10 @@ public class UIUpgradeRepairMaterial : MonoBehaviour
             goldButton.GetComponentInChildren<TextMeshProUGUI>().text = selectedItemOfInventory.item.data.goldsToUpgrade.ToString();
             goldButton.onClick.SetListener(() =>
             {
-                if (Player.localPlayer.target && Player.localPlayer.target.GetComponent<BuildingUpgradeRepair>())
+                if (Player.localPlayer.playerMove.forniture && Player.localPlayer.playerMove.forniture.GetComponent<BuildingUpgradeRepair>())
                 {
-                    Player.localPlayer.CmdUpgradeItem(upgradeItem, operationType, 0, System.DateTime.Now.ToString(), System.DateTime.Now.AddSeconds(upgradeItem.totalTime).ToString());
+                    Player.localPlayer.CmdUpgradeItem(upgradeItem, upgradeItem.typeOfUpgrade, 0, System.DateTime.Now.ToString(), System.DateTime.Now.AddSeconds(upgradeItem.totalTime).ToString(), selectedItem);
+                    UIUpgradeRepair.singleton.CleanList();
                     closeButton.onClick.Invoke();
 
                 }
@@ -128,9 +127,10 @@ public class UIUpgradeRepairMaterial : MonoBehaviour
             coinButton.GetComponentInChildren<TextMeshProUGUI>().text = selectedItemOfInventory.item.data.coinsToUpgrade.ToString();
             coinButton.onClick.SetListener(() =>
             {
-                if (Player.localPlayer.target && Player.localPlayer.target.GetComponent<BuildingUpgradeRepair>())
+                if (Player.localPlayer.playerMove.forniture && Player.localPlayer.playerMove.forniture.GetComponent<BuildingUpgradeRepair>())
                 {
-                    Player.localPlayer.CmdUpgradeItem(upgradeItem, operationType, 1, System.DateTime.Now.ToString(), System.DateTime.Now.AddSeconds(Convert.ToInt32(upgradeItem.totalTime /2)).ToString());
+                    Player.localPlayer.CmdUpgradeItem(upgradeItem, operationType, 1, System.DateTime.Now.ToString(), System.DateTime.Now.AddSeconds(Convert.ToInt32(upgradeItem.totalTime /2)).ToString(), selectedItem);
+                    UIUpgradeRepair.singleton.CleanList();
                     closeButton.onClick.Invoke();
                 }
             });
@@ -145,11 +145,16 @@ public class UIUpgradeRepairMaterial : MonoBehaviour
                 slot.image.sprite = selectedItemOfInventory.item.data.repairItems[index].items.image;
                 slot.itemText.text = selectedItemOfInventory.item.data.repairItems[index].items.name;
                 slot.itemLevel.text = player.InventoryCount(new Item(selectedItemOfInventory.item.data.repairItems[index].items)) + " / " + selectedItemOfInventory.item.data.repairItems[index].amount;
-                slot.itemButton.interactable = player.InventoryCount(new Item(selectedItemOfInventory.item.data.repairItems[index].items)) < selectedItemOfInventory.item.data.repairItems[index].amount;
-                //if (player.InventoryCount(new Item(selectedItemOfInventory.item.data.repairItems[index].items)) < selectedItemOfInventory.item.data.repairItems[index].amount)
-                slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Buy!";
-                //else
-                //    slot.itemButton.gameObject.SetActive(false);
+                if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                {
+                    slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Compra!";
+                    slot.itemText.text = selectedItemOfInventory.item.data.repairItems[index].items.italianName;
+                }
+                else
+                {
+                    slot.itemButton.GetComponentInChildren<TextMeshProUGUI>().text = "Buy!";
+                    slot.itemText.text = selectedItemOfInventory.item.data.repairItems[index].items.name;
+                }
                 if (slot.itemButton.gameObject.activeInHierarchy)
                 {
                     slot.itemButton.onClick.SetListener(() =>
@@ -177,9 +182,10 @@ public class UIUpgradeRepairMaterial : MonoBehaviour
             goldButton.GetComponentInChildren<TextMeshProUGUI>().text = selectedItemOfInventory.item.data.goldsToRepair.ToString();
             goldButton.onClick.SetListener(() =>
             {
-                if (Player.localPlayer.target && Player.localPlayer.target.GetComponent<BuildingUpgradeRepair>())
+                if (Player.localPlayer.playerMove.forniture && Player.localPlayer.playerMove.forniture.GetComponent<BuildingUpgradeRepair>())
                 {
                     Player.localPlayer.CmdRepairItem(upgradeItem, 0, System.DateTime.Now.ToString(), System.DateTime.Now.AddSeconds(Convert.ToInt32(upgradeItem.totalTime)).ToString());
+                    UIUpgradeRepair.singleton.CleanList();
                     closeButton.onClick.Invoke();
 
                 }
@@ -195,9 +201,10 @@ public class UIUpgradeRepairMaterial : MonoBehaviour
             coinButton.GetComponentInChildren<TextMeshProUGUI>().text = selectedItemOfInventory.item.data.coinsToRepair.ToString();
             coinButton.onClick.SetListener(() =>
             {
-                if (Player.localPlayer.target && Player.localPlayer.target.GetComponent<BuildingUpgradeRepair>())
+                if (Player.localPlayer.playerMove.forniture && Player.localPlayer.playerMove.forniture.GetComponent<BuildingUpgradeRepair>())
                 {
                     Player.localPlayer.CmdRepairItem(upgradeItem, 1, System.DateTime.Now.ToString(), System.DateTime.Now.AddSeconds(Convert.ToInt32(upgradeItem.totalTime / 2)).ToString());
+                    UIUpgradeRepair.singleton.CleanList();
                     closeButton.onClick.Invoke();
 
                 }

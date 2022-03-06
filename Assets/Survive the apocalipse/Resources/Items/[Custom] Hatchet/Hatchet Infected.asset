@@ -43,7 +43,7 @@ MonoBehaviour:
   coinsToRepair: 10
   upgradeTimer: 180
   upgradeItems:
-  - items: {fileID: 0}
+  - items: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
     amount: 15
   - items: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
     amount: 10

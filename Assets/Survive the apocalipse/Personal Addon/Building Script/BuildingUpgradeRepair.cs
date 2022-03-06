@@ -8,16 +8,16 @@ public class BuildingUpgradeRepair : NetworkBehaviour
 {
     public SyncListUpgradeRepair upgradeItem = new SyncListUpgradeRepair();
     public SyncListUpgradeRepair repairItem = new SyncListUpgradeRepair();
-    public SyncListUpgradeRepair finishUpgradeItem = new SyncListUpgradeRepair();
-    public SyncListUpgradeRepair finishRepairItem = new SyncListUpgradeRepair();
+    //public SyncListUpgradeRepair finishUpgradeItem = new SyncListUpgradeRepair();
+    //public SyncListUpgradeRepair finishRepairItem = new SyncListUpgradeRepair();
 
-    int buildinglevel = 0;
-    public Entity building;
+    //int buildinglevel = 0;
+    //public Entity building;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (!building) building = GetComponent<Entity>();
+        //if (!building) building = GetComponent<Entity>();
         //if (isServer && !building.GetComponent<Building>().isPremiumZone)
         //{
         //    InvokeRepeating("ManageItem", 1.0f, 1.0f);

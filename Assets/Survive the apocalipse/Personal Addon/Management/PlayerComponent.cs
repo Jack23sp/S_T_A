@@ -2447,7 +2447,7 @@ public partial class PlayerBuilding
     }
 
     [Command]
-    public void CmdSpawnBasement(int inventoryIndex, string itemName, Vector2 buildingTransform, bool inventory, int buildingType, bool isInitialBasement, int modularIndex)
+    public void CmdSpawnBasement(int inventoryIndex, string itemName, Vector2 buildingTransform, bool inventory, int buildingType, bool isInitialBasement, int modularIndex, bool isMain)
     {
         if (buildingType < 0) buildingType = 0;
 
@@ -2468,6 +2468,7 @@ public partial class PlayerBuilding
                         BuildingManager.singleton.AddToList(g);
                         ModularPiece buildingObject = modularPiece;
                         buildingObject.owner = name;
+                        buildingObject.isMain = isMain;
                         buildingObject.guild = player.InGuild() ? player.guild.name : string.Empty;
                         buildingObject.modularIndex = isInitialBasement ? ModularBuildingManager.singleton.GetNewIndex() : modularIndex == -5 ? ModularBuildingManager.singleton.GetNewIndex() : modularIndex;
                         NetworkServer.Spawn(g);
@@ -2523,6 +2524,7 @@ public partial class PlayerBuilding
                         BuildingManager.singleton.AddToList(g);
                         ModularPiece buildingObject = modularPiece;
                         buildingObject.owner = name;
+                        buildingObject.isMain = isMain;
                         buildingObject.guild = player.InGuild() ? player.guild.name : string.Empty;
                         buildingObject.modularIndex = isInitialBasement ? ModularBuildingManager.singleton.GetNewIndex() : modularIndex;
                         NetworkServer.Spawn(g);
@@ -2754,8 +2756,6 @@ public partial class PlayerBuilding
         List<int> finishedItem = new List<int>();
         TimeSpan difference;
 
-        //Debug.Log("System date : " + System.DateTime.Now);
-
         for (int i = 0; i < modulatCrafting.craftItem.Count; i++)
         {
             int index = i;
@@ -2765,7 +2765,7 @@ public partial class PlayerBuilding
             }
         }
 
-        if (!player.InventoryCanAdd(new Item(itemInBuilding.itemToCraft.item), 1))
+        if (!player.InventoryCanAdd(new Item(itemInBuilding.itemToCraft.item), itemInBuilding.itemToCraft.amount))
         {
             return;
         }
@@ -2789,6 +2789,10 @@ public partial class PlayerBuilding
                     player.InventoryRemove(new Item(itemInBuilding.craftablengredient[index].item), itemInBuilding.craftablengredient[index].amount);
                 }
             }
+            else
+            {
+                return;
+            }
         }
         if (currencyType == 1)
         {
@@ -2800,6 +2804,10 @@ public partial class PlayerBuilding
                     int index = i;
                     player.InventoryRemove(new Item(itemInBuilding.craftablengredient[index].item), itemInBuilding.craftablengredient[index].amount);
                 }
+            }
+            else
+            {
+                return;
             }
         }
 

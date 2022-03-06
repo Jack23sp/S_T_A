@@ -16,6 +16,7 @@ public class UIModularBuildingCraft : MonoBehaviour
     public Transform ingredientContent;
 
     public Button closeButton;
+    public Button changePanel;
 
     public Button goldButton;
     public TextMeshProUGUI goldText;
@@ -44,6 +45,9 @@ public class UIModularBuildingCraft : MonoBehaviour
     public Transform finishedItemContent;
 
     private ItemInBuilding selectedBuilding;
+    private ItemInBuilding mainItem;
+
+    public GameObject upgradePanel;
 
     public void Start()
     {
@@ -64,18 +68,30 @@ public class UIModularBuildingCraft : MonoBehaviour
             Destroy(this.gameObject);
         });
 
+        changePanel.onClick.SetListener(() =>
+        {
+            Instantiate(upgradePanel, GeneralManager.singleton.canvas);
+            Destroy(this.gameObject);
+        });
+
         goldButton.onClick.SetListener(() =>
         {
-            DateTime time = DateTime.Now;
-            player.playerBuilding.CmdCraftItemForniture(buildingTarget.building.name, selectedIndex, 0, time.ToString());
-            itemToCraftContent.GetChild(selectedIndex).GetComponent<Button>().onClick.Invoke();
+            if (player.gold >= selectedBuilding.itemToCraft.item.goldPrice)
+            {
+                DateTime time = DateTime.Now;
+                player.playerBuilding.CmdCraftItemForniture(buildingTarget.building.name, selectedIndex, 0, time.ToString());
+                itemToCraftContent.GetChild(selectedIndex).GetComponent<Button>().onClick.Invoke();
+            }
         });
 
         gemsButton.onClick.SetListener(() =>
         {
-            DateTime time = DateTime.Now;
-            player.playerBuilding.CmdCraftItemForniture(buildingTarget.building.name, selectedIndex, 1, time.ToString());
-            itemToCraftContent.GetChild(selectedIndex).GetComponent<Button>().onClick.Invoke();
+            if (player.coins >= selectedBuilding.itemToCraft.item.coinPrice)
+            {
+                DateTime time = DateTime.Now;
+                player.playerBuilding.CmdCraftItemForniture(buildingTarget.building.name, selectedIndex, 1, time.ToString());
+                itemToCraftContent.GetChild(selectedIndex).GetComponent<Button>().onClick.Invoke();
+            }
         });
 
         UIUtils.BalancePrefabs(itemToCraft, GeneralManager.singleton.FindItemToCraft(buildingTarget.building), itemToCraftContent);
@@ -83,48 +99,40 @@ public class UIModularBuildingCraft : MonoBehaviour
         {
             int index = i;
             SlotIngredient slot = itemToCraftContent.GetChild(index).GetComponent<SlotIngredient>();
-            selectedBuilding = GeneralManager.singleton.buildingItems[GeneralManager.singleton.ListOfBuildingItem(buildingTarget.building)].buildingItem[index];
-            if (selectedBuilding.itemToCraft.item.image)
+            mainItem = GeneralManager.singleton.buildingItems[GeneralManager.singleton.ListOfBuildingItem(buildingTarget.building)].buildingItem[index];
+            if (mainItem.itemToCraft.item.image)
             {
-                slot.image.sprite = selectedBuilding.itemToCraft.item.image;
+                slot.image.sprite = mainItem.itemToCraft.item.image;
             }
             if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
             {
-                slot.ingredientName.text = selectedBuilding.itemToCraft.item.italianName;
-                slot.ingredientAmount.text = " x " + selectedBuilding.itemToCraft.amount;
+                slot.ingredientName.text = mainItem.itemToCraft.item.italianName;
+                slot.ingredientAmount.text = " x " + mainItem.itemToCraft.amount;
             }
             else
             {
-                slot.ingredientName.text = selectedBuilding.itemToCraft.item.name;
-                slot.ingredientAmount.text = " x " + selectedBuilding.itemToCraft.amount;
+                slot.ingredientName.text = mainItem.itemToCraft.item.name;
+                slot.ingredientAmount.text = " x " + mainItem.itemToCraft.amount;
 
             }
             slot.slotButton.onClick.SetListener(() =>
             {
+                selectedBuilding = GeneralManager.singleton.buildingItems[GeneralManager.singleton.ListOfBuildingItem(buildingTarget.building)].buildingItem[index];
+
                 selectedIndex = index;
-                description.text = string.Empty;
-                if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
-                {
-                    description.text += selectedBuilding.itemToCraft.item.italianName + "\n";
-                    description.text += "Quantita' : " + selectedBuilding.itemToCraft.amount + "\n";
-                }
-                else
-                {
-                    description.text += selectedBuilding.itemToCraft.item.name + "\n";
-                    description.text += "Amount : " + selectedBuilding.itemToCraft.amount + "\n";
-                }
+                description.text = new Item(selectedBuilding.itemToCraft.item).ToolTip().Replace("{AMOUNT}","");
 
                 UIUtils.BalancePrefabs(itemIngredient, selectedBuilding.craftablengredient.Count, ingredientContent);
                 {
                     canCraft = true;
-                    for (int e = 0; e < ingredientContent.childCount; e++)
+                    for (int e = 0; e < selectedBuilding.craftablengredient.Count; e++)
                     {
                         int secondindex = e;
                         ModularCraftingSlot ingredientSlot = ingredientContent.GetChild(secondindex).GetComponent<ModularCraftingSlot>();
                         ingredientSlot.image.sprite = selectedBuilding.craftablengredient[secondindex].item.image;
                         int invCount = player.InventoryCount(new Item(selectedBuilding.craftablengredient[secondindex].item));
                         ingredientSlot.xButton.gameObject.SetActive(false);
-                        ingredientSlot.amountContainer.SetActive(buildingTarget.craftItem[progressItem[index]].amount > 0);
+                        ingredientSlot.amountContainer.SetActive(selectedBuilding.craftablengredient[secondindex].amount > 0);
                         ingredientSlot.progressBar.fillAmount = 0;
 
                         ingredientSlot.amountText.text = selectedBuilding.craftablengredient[secondindex].amount.ToString();

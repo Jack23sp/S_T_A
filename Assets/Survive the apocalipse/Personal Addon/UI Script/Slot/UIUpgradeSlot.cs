@@ -10,4 +10,5 @@ public class UIUpgradeSlot : MonoBehaviour
     public TextMeshProUGUI itemText;
     public TextMeshProUGUI itemLevel;
     public Button itemButton;
+    public Image progressBar;
 }

@@ -31,6 +31,11 @@ public class ModularPiece : NetworkBehaviour
     [SyncVar]
     public int downPart;
 
+    [SyncVar]
+    public bool isMain;
+
+    public GameObject electricBox;
+
     public int clientLeftPart = -5;
     public int clientRightPart = -5;
     public int clientUpPart = -5;
@@ -106,6 +111,8 @@ public class ModularPiece : NetworkBehaviour
     public List<SortByDepth> sortPlus = new List<SortByDepth>();
     public List<SortByDepth> sortMinus = new List<SortByDepth>();
 
+    public List<ModularObject> insideModularObject = new List<ModularObject>();
+
     public void OnDestroy()
     {
         ModularBuildingManager.singleton.allModularPiece.Remove(this);
@@ -125,6 +132,7 @@ public class ModularPiece : NetworkBehaviour
         if (isClient)
         {
             Invoke(nameof(SetColor), 0.2f);
+            electricBox.SetActive(isMain);
         }
         else if(isServer)
         {
@@ -470,7 +478,7 @@ public class ModularPiece : NetworkBehaviour
                 {
                     if (modularPiece.CanSpawn())
                     {
-                        player.playerBuilding.CmdSpawnBasement(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt, 0, ModularBuildingManager.singleton.isInitialBasement, ModularBuildingManager.singleton.selectedPiece == null ? -5 :ModularBuildingManager.singleton.selectedPiece.modularIndex);
+                        player.playerBuilding.CmdSpawnBasement(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt, 0, ModularBuildingManager.singleton.isInitialBasement, ModularBuildingManager.singleton.selectedPiece == null ? -5 :ModularBuildingManager.singleton.selectedPiece.modularIndex, !ModularBuildingManager.singleton.ableModificationMode);
                         DestroyBuilding();
                     }
                 }

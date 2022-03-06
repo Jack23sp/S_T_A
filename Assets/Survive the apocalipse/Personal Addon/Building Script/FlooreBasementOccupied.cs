@@ -13,27 +13,36 @@ public class FlooreBasementOccupied : MonoBehaviour
         if (collision.CompareTag("FloorBasement"))
         {
             ModularPiece piece = collision.GetComponentInParent<ModularPiece>();
+            ModularPiece modularPiece = GetComponentInParent<ModularPiece>();
             if (piece.isServer && piece.GetComponent<NetworkIdentity>().netId != 0)
             {
                 if (up)
                 {
-                    piece.occupiedUP = true;
-                    piece.upPart = GetComponentInParent<ModularPiece>().modularIndex;
+                    piece.occupiedDOWN = true;
+                    modularPiece.occupiedUP = true;
+                    modularPiece.upPart = collision.GetComponentInParent<ModularPiece>().modularIndex;
+                    piece.downPart = GetComponentInParent<ModularPiece>().modularIndex;
                 }
                 else if (down)
                 {
-                    piece.occupiedDOWN = true;
-                    piece.downPart = GetComponentInParent<ModularPiece>().modularIndex;
+                    piece.occupiedUP = true;
+                    modularPiece.occupiedDOWN = true;
+                    modularPiece.downPart = collision.GetComponentInParent<ModularPiece>().modularIndex;
+                    piece.upPart = GetComponentInParent<ModularPiece>().modularIndex;
                 }
                 else if (left)
                 {
-                    piece.occupiedLEFT = true;
-                    piece.leftPart = GetComponentInParent<ModularPiece>().modularIndex;
+                    piece.occupiedRIGHT = true;
+                    modularPiece.occupiedLEFT = true;
+                    modularPiece.leftPart = collision.GetComponentInParent<ModularPiece>().modularIndex;
+                    piece.rightPart = GetComponentInParent<ModularPiece>().modularIndex;
                 }
                 else
                 {
-                    piece.occupiedRIGHT = true;
-                    piece.rightPart = GetComponentInParent<ModularPiece>().modularIndex;
+                    piece.occupiedLEFT = true;
+                    modularPiece.occupiedRIGHT = true;
+                    modularPiece.rightPart = collision.GetComponentInParent<ModularPiece>().modularIndex;
+                    piece.leftPart = GetComponentInParent<ModularPiece>().modularIndex;
                 }
             }
         }
