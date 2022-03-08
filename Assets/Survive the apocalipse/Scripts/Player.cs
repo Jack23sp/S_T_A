@@ -3341,6 +3341,8 @@ public partial class Player : Entity
         if (InGuild())
             //IsGuildManagerNear())
             GuildSystem.TerminateGuild(guild.name, name);
+
+        BuildingManager.singleton.ChangeBuildingToNewPlayerOwner(name);
     }
 
     [Command]
@@ -3367,6 +3369,8 @@ public partial class Player : Entity
             }
             else
                 chat.TargetMsgInfo("Guild name invalid!");
+
+            BuildingManager.singleton.ChangeBuildingToNewPlayerOwner(name);
         }
     }
 
@@ -6101,11 +6105,11 @@ public partial class Player : Entity
                 if (slot.item.torchCurrentBattery > 0) slot.item.torchCurrentBattery += ((TorchItem)slot.item.data).currentBattery.bonusPerLevel;
                 if (slot.item.torchCurrentBattery > ((TorchItem)slot.item.data).currentBattery.Get(slot.item.batteryLevel)) slot.item.torchCurrentBattery = ((TorchItem)slot.item.data).currentBattery.Get(slot.item.batteryLevel);
             }
-            if (buildingUpgradeRepair.upgradeItem[index].type == "bag Slot" || buildingUpgradeRepair.upgradeItem[index].type == "slot borsa")
+            if (buildingUpgradeRepair.upgradeItem[index].type == "bag slot" || buildingUpgradeRepair.upgradeItem[index].type == "slot borsa")
             {
                 slot.item.bagLevel++;
             }
-            if (buildingUpgradeRepair.upgradeItem[index].type == "bag Protected Slot" || buildingUpgradeRepair.upgradeItem[index].type == "slot protetti borsa")
+            if (buildingUpgradeRepair.upgradeItem[index].type == "bag protected slot" || buildingUpgradeRepair.upgradeItem[index].type == "slot protetti borsa")
             {
                 slot.item.bagLevel++;
             }
@@ -6134,6 +6138,31 @@ public partial class Player : Entity
                 }
             }
         }
+    }
+
+    [Command]
+    public void CmdRefreshPlayerBuildingOwner(string playerName)
+    {
+        BuildingManager.singleton.ChangeBuildingToNewPlayerOwner(playerName);
+    }
+
+    [Command]
+    public void CmdClaimPlayerBuildingOwner(string playerName, NetworkIdentity identity)
+    {
+        BuildingManager.singleton.ClaimBuildingToNewPlayerOwner(playerName, identity);
+    }
+
+    [Command]
+    public void CmdRaiseBuildingLevel(string playerName)
+    {
+        BuildingManager.singleton.RaiseBuildingLevel(playerName);
+    }
+
+    [Command]
+    public void CmdDeleteObject(NetworkIdentity identity)
+    {
+        BuildingManager.singleton.RemoveFromList(identity.gameObject);
+        NetworkServer.Destroy(identity.gameObject);
     }
 
     [Command]

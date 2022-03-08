@@ -454,6 +454,12 @@ public class GeneralManager : MonoBehaviour
     public ScriptableItem sulfur;
     public ScriptableItem highMetal;
 
+    [Header("Electic box")]
+    public GameObject electricBoxObject;
+    public GameObject instantiatedElecteicBox;
+    public GameObject deleteObject;
+    public GameObject instantiatedDeleteObject;
+
     public DateTime ChangeServerToClientTime(DateTime time, int seconds = 0)
     {
         return DateTime.ParseExact(time.ToString(), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
@@ -1872,6 +1878,49 @@ public class GeneralManager : MonoBehaviour
     }
 
     public bool CanDoOtherActionFloor(ModularPiece building, Player player)
+    {
+        if (!player) return false;
+
+        //Premium
+        if (building.guild == string.Empty && building.owner == string.Empty)
+        {
+            return false;
+        }
+
+        // building with guild
+        if (building.guild != string.Empty)
+        {
+
+            // if un guild check
+            if (player.InGuild())
+            {
+                // if building of my guild
+                if (building.guild == player.guild.name)
+                {
+                    return true;
+                }
+                else
+                {
+                    // if building of my ally guild
+                    if (player.playerAlliance.guildAlly.Contains(building.guild))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (building.owner == player.name)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool CanDoOtherActionModularObject(ModularObject building, Player player)
     {
         if (!player) return false;
 

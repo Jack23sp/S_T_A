@@ -5722,21 +5722,6 @@ public partial class UIUpgradeRepair : MonoBehaviour
             if (player.inventory[index].amount == 0) continue;
             ItemSlot itemSlot = player.inventory[index];
 
-            //if ((itemSlot.item.data).maxDurabilityLevel > 0 && itemSlot.item.durability < itemSlot.item.data.maxDurability.Get(itemSlot.item.durabilityLevel))
-            //{
-            //    if (!repairItems.Contains(index))
-            //    {
-            //        repairItems.Add(index);
-            //    }
-            //}
-            //if ((itemSlot.item.data).maxDurabilityLevel > 0 && itemSlot.item.durability == itemSlot.item.data.maxDurability.Get(itemSlot.item.durabilityLevel))
-            //{
-            //    if (repairItems.Contains(index))
-            //    {
-            //        repairItems.Remove(index);
-            //    }
-            //}
-
             if (itemSlot.item.data is EquipmentItem)
             {
                 if (((EquipmentItem)itemSlot.item.data).maxAccuracyLevel > 0 && itemSlot.item.accuracyLevel < ((EquipmentItem)itemSlot.item.data).maxAccuracyLevel)
@@ -5903,7 +5888,7 @@ public partial class UIUpgradeRepair : MonoBehaviour
                     }
                     else
                     {
-                        item.upgradeType = "bag Slot";
+                        item.upgradeType = "bag slot";
                     }
                     if (!upgradableItems.Contains(item))
                     {
@@ -5929,7 +5914,7 @@ public partial class UIUpgradeRepair : MonoBehaviour
                     }
                     else
                     {
-                        item.upgradeType = "bag Protected Slot";
+                        item.upgradeType = "bag protected slot";
                     }
                     if (!upgradableItems.Contains(item))
                     {

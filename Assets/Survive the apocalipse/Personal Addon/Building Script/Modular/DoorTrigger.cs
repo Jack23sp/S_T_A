@@ -46,7 +46,7 @@ public class DoorTrigger : MonoBehaviour
     {
         if (modularPiece.isServer)
         {
-            if (collision.CompareTag("Player") && GeneralManager.singleton.CanEnterHome(modularPiece, collision.GetComponent<Player>()))
+            if ((collision.CompareTag("Player") && GeneralManager.singleton.CanEnterHome(modularPiece, collision.GetComponent<Player>())) || (collision.CompareTag("Player") && modularPiece.level < GeneralManager.singleton.FindNetworkAbilityLevel("Burglar", collision.GetComponent<Player>().name)))
             {
                 if (!playerInside.Contains(collision))
                 {
@@ -76,7 +76,7 @@ public class DoorTrigger : MonoBehaviour
     {
         if (modularPiece.isServer)
         {
-            if (collision.CompareTag("Player"))
+            if ((collision.CompareTag("Player") && GeneralManager.singleton.CanEnterHome(modularPiece, collision.GetComponent<Player>())) || (collision.CompareTag("Player") && modularPiece.level < GeneralManager.singleton.FindNetworkAbilityLevel("Burglar", collision.GetComponent<Player>().name)))
             {
                 if (playerInside.Contains(collision))
                 {

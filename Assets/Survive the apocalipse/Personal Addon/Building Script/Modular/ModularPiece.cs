@@ -60,6 +60,8 @@ public class ModularPiece : NetworkBehaviour
     public string owner;
     [SyncVar]
     public string guild;
+    [SyncVar]
+    public int level;
 
     public List<FlooreBasementOccupied> modularFloorPoint = new List<FlooreBasementOccupied>();
 

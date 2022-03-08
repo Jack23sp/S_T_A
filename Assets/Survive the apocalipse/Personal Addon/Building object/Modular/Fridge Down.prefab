@@ -157,13 +157,15 @@ MonoBehaviour:
   allColliders: []
   wallColliders: []
   obstacleColliders: []
+  owner: 
+  guild: 
   identity: {fileID: 4074972740201943555}
   canSpawn: 0
   needALayerUnder: 0
   isWallObject: 0
   navMeshObstacle2D: {fileID: 6308118954182763315}
   oldPositioning: 3
-  maxSlotAmount: 30
+  maxSlotAmount: 50
 --- !u!212 &7854864447168360752
 SpriteRenderer:
   m_ObjectHideFlags: 0

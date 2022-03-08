@@ -68,11 +68,14 @@ public class UIModularBuildingCraft : MonoBehaviour
             Destroy(this.gameObject);
         });
 
-        changePanel.onClick.SetListener(() =>
+        if (changePanel)
         {
-            Instantiate(upgradePanel, GeneralManager.singleton.canvas);
-            Destroy(this.gameObject);
-        });
+            changePanel.onClick.SetListener(() =>
+            {
+                Instantiate(upgradePanel, GeneralManager.singleton.canvas);
+                Destroy(this.gameObject);
+            });
+        }
 
         goldButton.onClick.SetListener(() =>
         {

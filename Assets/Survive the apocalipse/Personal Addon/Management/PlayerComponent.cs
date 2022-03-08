@@ -2227,6 +2227,8 @@ public partial class PlayerBuilding
     public GameObject selectedGameObject;
     public int selectedInventoryIndex;
     public string selectedNation;
+    public string selectedName;
+    public string selectedGroup;
 
     public GameObject g;
     public ModularObject ModularObject;
@@ -2383,6 +2385,8 @@ public partial class PlayerBuilding
     {
         if (ModularObject.canSpawn)
         {
+            ModularObject.owner = selectedName;
+            ModularObject.guild = selectedGroup;
             BuildingManager.singleton.AddToList(g);
             Destroy(ModularObject.placement.gameObject);
             NetworkServer.Spawn(g);
@@ -2401,6 +2405,8 @@ public partial class PlayerBuilding
     {
         if (ModularObject.canSpawn)
         {
+            ModularObject.owner = selectedName;
+            ModularObject.guild = selectedGroup;
             BuildingManager.singleton.AddToList(g);
             Destroy(ModularObject.placement.gameObject);
             NetworkServer.Spawn(g);
@@ -2497,6 +2503,8 @@ public partial class PlayerBuilding
                     selectedGameObject = g;
                     selectedInventoryIndex = inventoryIndex;
                     ModularObject = modularObject;
+                    selectedName = player.name;
+                    selectedGroup = player.guild.name;
 
                     Invoke(nameof(CheckSpawnFornitureObjectInventory), 1.0f);
 
@@ -2551,6 +2559,8 @@ public partial class PlayerBuilding
                     selectedGameObject = g;
                     selectedInventoryIndex = inventoryIndex;
                     ModularObject = modularObject;
+                    selectedName = player.name;
+                    selectedGroup = player.guild.name;
 
                     Invoke(nameof(CheckSpawnFornitureObjectBelt), 1.0f);
 

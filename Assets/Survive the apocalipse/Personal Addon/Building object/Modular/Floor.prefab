@@ -3156,6 +3156,7 @@ MonoBehaviour:
   clientdownComponent: -5
   owner: 
   guild: 
+  level: 0
   modularFloorPoint:
   - {fileID: 4225295634024892376}
   - {fileID: 7456723490959839107}

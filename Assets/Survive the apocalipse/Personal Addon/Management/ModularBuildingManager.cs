@@ -111,14 +111,32 @@ public class ModularBuildingManager : NetworkBehaviour
             Vector3 screenPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D[] hit = Physics2D.RaycastAll(screenPos, Vector2.zero);
 
-            bool roofClosed = false;
+            bool roofClosed = false;        
 
             for (int i = 0; i < hit.Length; i++)
             {
                 int index = i;
+
                 if (hit[index].collider.CompareTag("Roof"))
                 {
                     roofClosed = true;
+                }
+
+                if (hit[index].collider.CompareTag("Electric box"))
+                {
+                    selectedPiece = hit[index].collider.transform.GetComponentInParent<ModularPiece>();
+                    if (!GeneralManager.singleton.instantiatedElecteicBox) GeneralManager.singleton.instantiatedElecteicBox = Instantiate(GeneralManager.singleton.electricBoxObject, GeneralManager.singleton.canvas);
+                    GeneralManager.singleton.instantiatedElecteicBox.GetComponent<UIElectricBox>().modularPiece = selectedPiece;
+                }
+                if (hit[index].collider.gameObject.layer == LayerMask.NameToLayer("Forniture") || hit[index].collider.gameObject.layer == LayerMask.NameToLayer("WallForniture"))
+                {
+                    selectedPiece = hit[index].collider.transform.GetComponentInParent<ModularPiece>();
+                    if (!GeneralManager.singleton.instantiatedDeleteObject) GeneralManager.singleton.instantiatedDeleteObject = Instantiate(GeneralManager.singleton.deleteObject, GeneralManager.singleton.canvas);
+                    GeneralManager.singleton.instantiatedDeleteObject.GetComponent<UIDeleteObject>().Assign(hit[index].collider.transform.GetComponentInParent<Forniture>().scriptableBuilding, hit[index].collider.transform.GetComponentInParent<ModularObject>().identity);
+                }
+                if (hit[index].collider.CompareTag("FloorBasement"))
+                {
+                    selectedPiece = hit[index].collider.transform.GetComponentInParent<ModularPiece>();
                 }
             }
 
@@ -131,21 +149,12 @@ public class ModularBuildingManager : NetworkBehaviour
                     {
                         player.playerMove.fornitureClient = hit[index].collider.gameObject.GetComponent<ModularObject>();
                         player.CmdSetForniture(hit[index].collider.GetComponent<NetworkIdentity>());
-                        if (instantiatedUI == null)
-                        {
-                            instantiatedUI = Instantiate(Player.localPlayer.SearchUiToSpawnInManager(player.playerMove.forniture.GetComponent<ModularObject>().scriptableBuilding), GeneralManager.singleton.canvas);
-                            return;
-                        }
+                        //if (instantiatedUI == null)
+                        //{
+                        //    instantiatedUI = Instantiate(Player.localPlayer.SearchUiToSpawnInManager(player.playerMove.forniture.GetComponent<ModularObject>().scriptableBuilding), GeneralManager.singleton.canvas);
+                        //    return;
+                        //}
                     }
-                }
-            }          
-
-            for (int i = 0; i < hit.Length; i++)
-            {
-                int index = i;
-                if (hit[index].collider.CompareTag("FloorBasement"))
-                {
-                    selectedPiece = hit[index].collider.transform.GetComponentInParent<ModularPiece>();
                 }
             }
 

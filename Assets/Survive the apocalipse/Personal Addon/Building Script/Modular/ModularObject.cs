@@ -45,6 +45,8 @@ public class ModularObject : Forniture
     public List<BoxCollider2D> wallColliders;
     public List<BoxCollider2D> obstacleColliders;
 
+    public string owner;
+    public string guild;
 
     public NetworkIdentity identity;
 
@@ -57,7 +59,6 @@ public class ModularObject : Forniture
 
     public int oldPositioning = 0;
 
-    public int isMemberofIndex = -1;
     public void OnDisable()
     {
         CancelInvoke();
@@ -145,7 +146,7 @@ public class ModularObject : Forniture
     public void chengePerspective()
     {
         oldPositioning++;
-        if (oldPositioning > (Player.localPlayer.playerBuilding.building.buildingList.Count -1) ) oldPositioning = 0;
+        if (oldPositioning > (Player.localPlayer.playerBuilding.building.buildingList.Count - 1)) oldPositioning = 0;
 
         Vector3 pos = Player.localPlayer.playerBuilding.actualBuilding.transform.position;
         Destroy(Player.localPlayer.playerBuilding.actualBuilding);
@@ -264,17 +265,6 @@ public class ModularObject : Forniture
                         canSpawn = false; return;
                     }
                 }
-            }
-        }
-        else if (isServer)
-        {
-            if(collision.gameObject.GetComponent<ModularPiece>())
-            {
-                isMemberofIndex = collision.gameObject.GetComponent<ModularPiece>().modularIndex;
-            }
-            if(!collision.gameObject.GetComponent<ModularPiece>().insideModularObject.Contains(this))
-            {
-                collision.gameObject.GetComponent<ModularPiece>().insideModularObject.Add(this);
             }
         }
     }

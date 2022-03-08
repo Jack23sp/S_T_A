@@ -87,6 +87,86 @@ public class BuildingManager : NetworkBehaviour
         Database.singleton.SaveBuilding(SceneManager.GetActiveScene().name);
     }
 
+    public void ChangeBuildingToNewPlayerOwner(string playerName)
+    {
+        Player player = Player.onlinePlayers[playerName];
+
+        for (int i = 0; i < buildings.Count; i++)
+        {
+            int index = i;
+            if (buildings[index].owner == player.name)
+            {
+                buildings[index].owner = player.name;
+                buildings[index].guild = player.guild.name;
+            }
+        }
+        for (int i = 0; i < modularPieces.Count; i++)
+        {
+            int index = i;
+            if (modularPieces[index].owner == player.name)
+            {
+                modularPieces[index].owner = player.name;
+                modularPieces[index].guild = player.guild.name;
+            }
+        }
+        for (int i = 0; i < modularObjects.Count; i++)
+        {
+            int index = i;
+            if (modularObjects[index].owner == player.name)
+            {
+                modularObjects[index].owner = player.name;
+                modularObjects[index].guild = player.guild.name;
+            }
+        }
+    }
+
+    public void ClaimBuildingToNewPlayerOwner(string playerName, NetworkIdentity identity)
+    {
+        Player player = Player.onlinePlayers[playerName];
+        ModularPiece modularPiece = identity.GetComponent<ModularPiece>();
+
+        if (modularPiece.level < GeneralManager.singleton.FindNetworkAbilityLevel("Burglar", player.name))
+        {
+            for (int i = 0; i < modularPieces.Count; i++)
+            {
+                int index = i;
+                if (modularPieces[index].modularIndex == modularPiece.modularIndex)
+                {
+                    for(int e = 0; e < modularPieces[index].insideModularObject.Count; e++)
+                    {
+                        int indexe = e;
+                        modularPieces[index].insideModularObject[indexe].owner = player.name;
+                        modularPieces[index].insideModularObject[indexe].guild = player.guild.name;
+                    }
+                    modularPieces[index].owner = player.name;
+                    modularPieces[index].guild = player.guild.name;
+                }
+            }
+        }
+    }
+
+    public void RaiseBuildingLevel(string playerName)
+    {
+        Player player = Player.onlinePlayers[playerName];
+
+        for (int i = 0; i < modularPieces.Count; i++)
+        {
+            int index = i;
+            if (GeneralManager.singleton.CanDoOtherActionFloor(modularPieces[i], player))
+            {
+                //for (int e = 0; e < modularPieces[index].insideModularObject.Count; e++)
+                //{
+                //    int indexe = e;
+                //    modularPieces[index].insideModularObject[indexe].owner = player.name;
+                //    modularPieces[index].insideModularObject[indexe].guild = player.guild.name;
+                //}
+                modularPieces[index].owner = player.name;
+                modularPieces[index].guild = player.guild.name;
+                modularPieces[index].level++;
+            }
+        }
+    }
+
     public void AddToList(GameObject building)
     {
         if (building.GetComponent<Building>())
