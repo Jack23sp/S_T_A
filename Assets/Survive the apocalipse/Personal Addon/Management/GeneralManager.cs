@@ -453,6 +453,7 @@ public class GeneralManager : MonoBehaviour
     [Header("Furnace items")]
     public ScriptableItem sulfur;
     public ScriptableItem highMetal;
+    public ScriptableItem coal;
 
     [Header("Electic box")]
     public GameObject electricBoxObject;

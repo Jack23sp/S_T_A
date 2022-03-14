@@ -2462,7 +2462,7 @@ public partial class PlayerBuilding
             if (player.playerPremiumZoneManager.inPremiumZone) return;
             if (player.inventory[inventoryIndex].amount > 0 && player.inventory[inventoryIndex].item.name == itemName && player.inventory[inventoryIndex].item.data is ScriptableBuilding)
             {
-                g = Instantiate(((ScriptableBuilding)player.inventory[inventoryIndex].item.data).buildingList[buildingType].buildingObject, buildingTransform, Quaternion.identity);
+                g = Instantiate(((ScriptableBuilding)player.inventory[inventoryIndex].item.data).buildingList[buildingType].buildingObject, buildingTransform, ((ScriptableBuilding)player.inventory[inventoryIndex].item.data).buildingList[buildingType].buildingObject.transform.rotation);
 
                 ModularPiece modularPiece = g.GetComponent<ModularPiece>();
                 ModularObject modularObject = g.GetComponent<ModularObject>();

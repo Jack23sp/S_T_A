@@ -402,7 +402,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -870365055
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: 6c81fd94bf1841f44b67a958a6e30c44, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -430,6 +430,8 @@ MonoBehaviour:
   renderer: {fileID: 212573911520600438}
   precision: 100
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!114 &114412593739552202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,6 +630,7 @@ MonoBehaviour:
   mainEntity: {fileID: 0}
   isPremiumZone: 0
   placement: {fileID: 0}
+  floorIndex: 0
 --- !u!61 &7211924680770364527
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -674,6 +677,7 @@ MonoBehaviour:
   identity: {fileID: 0}
   setted: 0
   isPermanentObject: 1
+  parent: {fileID: 0}
 --- !u!50 &6251529680979376529
 Rigidbody2D:
   serializedVersion: 4
@@ -966,7 +970,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 763793875
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 32766
   m_Sprite: {fileID: 21300000, guid: d2e80aefa38d63144a439e9b97c591f3, type: 3}
   m_Color: {r: 0.9716981, g: 0, b: 0, a: 1}
@@ -994,6 +998,8 @@ MonoBehaviour:
   renderer: {fileID: 4701712926915796450}
   precision: 100
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &5906658850036441869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,7 +1068,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1783918617
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -32766
   m_Sprite: {fileID: 21300000, guid: 5db1e15adbfac774da7de3710361ccfd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1155,7 +1161,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c244228ba0b95af47a71be6a51f726bf, type: 2}
+  - {fileID: 2100000, guid: 1685d996673db354781f5e0e73db32a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1174,7 +1180,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 763793875
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: d2e80aefa38d63144a439e9b97c591f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

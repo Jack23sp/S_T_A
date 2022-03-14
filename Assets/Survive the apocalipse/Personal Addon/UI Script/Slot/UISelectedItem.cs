@@ -417,7 +417,7 @@ public class UISelectedItem : MonoBehaviour
                     }
                     else
                     {
-                        GameObject g = Instantiate(((ScriptableBuilding)UIInventory.singleton.player.inventory[Player.localPlayer.playerBuilding.inventoryIndex].item.data).buildingList[0].buildingObject, new Vector3(Player.localPlayer.transform.position.x, Player.localPlayer.transform.position.y, 0.0f), Quaternion.identity);
+                        GameObject g = Instantiate(((ScriptableBuilding)UIInventory.singleton.player.inventory[Player.localPlayer.playerBuilding.inventoryIndex].item.data).buildingList[0].buildingObject, new Vector3(Player.localPlayer.transform.position.x, Player.localPlayer.transform.position.y, 0.0f), ((ScriptableBuilding)UIInventory.singleton.player.inventory[Player.localPlayer.playerBuilding.inventoryIndex].item.data).buildingList[0].buildingObject.transform.rotation);
                         Player.localPlayer.playerBuilding.actualBuilding = g;
                         if (GeneralManager.singleton.spawnedAttackObject)
                         {

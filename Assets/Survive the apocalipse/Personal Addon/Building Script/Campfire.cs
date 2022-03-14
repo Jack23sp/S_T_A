@@ -22,11 +22,8 @@ public class Campfire : NetworkBehaviour
 
     public Entity entity;
 
-    public List<ParticleSystem> fireParticle = new List<ParticleSystem>();
+    public SpriteRenderer fireObject;
 
-    public SpriteRenderer fireSpriteOrder;
-
-    // Start is called before the first frame update
     void Start()
     {
         if(isServer)
@@ -37,31 +34,19 @@ public class Campfire : NetworkBehaviour
         }
         if(isClient)
         {
-            for(int i = 0; i < fireParticle.Count; i++)
-            {
-                int index = i;
-                fireParticle[i].GetComponent<Renderer>().sortingOrder = fireSpriteOrder.sortingOrder;
-            }
+            lightObject.SetActive(false);
+            fireObject.gameObject.SetActive(false);
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(prevActive != active)
-        {
+        {            
             lightObject.SetActive(active);
-            fireParticle[0].gameObject.SetActive(active);
-            entity.animator.SetBool("Active", active);
+            fireObject.gameObject.SetActive(active);
             prevActive = active;
         }
-        for (int i = 0; i < fireParticle.Count; i++)
-        {
-            int index = i;
-            fireParticle[i].GetComponent<Renderer>().sortingOrder = fireSpriteOrder.sortingOrder;
-        }
-
-
     }
 
 

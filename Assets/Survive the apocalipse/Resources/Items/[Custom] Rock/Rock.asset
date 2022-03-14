@@ -44,7 +44,7 @@ MonoBehaviour:
   generalLiquidContainer: 0
   canUseFurnace: 1
   italianName: Roccia
-  maxStack: 10000
+  maxStack: 300
   buyPrice: 5
   sellPrice: 2
   sellable: 1

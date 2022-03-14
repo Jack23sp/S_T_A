@@ -10,6 +10,7 @@ public struct CustomSpawnObject
     public Vector3 position;
     public Entity entity;
     public int resourceType;
+    public GameObject plantObject;
 }
 
 public class SpawnManager : NetworkBehaviour
@@ -18,6 +19,7 @@ public class SpawnManager : NetworkBehaviour
     public List<GameObject> Rocks = new List<GameObject>();
     public List<GameObject> Monster = new List<GameObject>();
     public List<GameObject> Bosses = new List<GameObject>();
+    public List<GameObject> Plants = new List<GameObject>();
 
 
     [Header("Total")]
@@ -25,12 +27,14 @@ public class SpawnManager : NetworkBehaviour
     public int rockCount;
     public int monsterCount;
     public int bossCount;
+    public int plantCount;
 
     [Header("Actual")]
     public List<CustomSpawnObject> actualTrees = new List<CustomSpawnObject>();
     public List<CustomSpawnObject> actualRock = new List<CustomSpawnObject>();
     public List<CustomSpawnObject> actualMonster = new List<CustomSpawnObject>();
     public List<CustomSpawnObject> actualBoss = new List<CustomSpawnObject>();
+    public List<CustomSpawnObject> actualPlant = new List<CustomSpawnObject>();
 
 
     public float x = 1.7f;
@@ -256,6 +260,54 @@ public class SpawnManager : NetworkBehaviour
                 Destroy(instantiatedObject);
             }
         }
+        else if (type == 3)
+        {
+            if (addToCustomSpawnObject == -1)
+            {
+                float randomPosX = Random.Range(fatherTransform.position.x - fatherTransform.localScale.x / x, fatherTransform.position.x + fatherTransform.localScale.x / x);
+                float randomPosY = Random.Range(fatherTransform.position.y - fatherTransform.localScale.y / y, fatherTransform.position.y + fatherTransform.localScale.y / y);
+                instantiatedObject = Instantiate(SpawnItem, new Vector3(randomPosX, randomPosY), Quaternion.identity);
+            }
+            else
+            {
+                float randomPosX = actualMonster[addToCustomSpawnObject].position.x;
+                float randomPosY = actualMonster[addToCustomSpawnObject].position.y;
+                instantiatedObject = Instantiate(SpawnItem, new Vector3(randomPosX, randomPosY), Quaternion.identity);
+                //instantiatedObject.GetComponent<Monster>()._health = actualMonster[addToCustomSpawnObject].health;
+            }
+            LayerColliderManager layerColliderManager = instantiatedObject.GetComponent<LayerColliderManager>();
+            MedicalPlant entity = instantiatedObject.GetComponent<MedicalPlant>();
+            if (entity) entity.spawnManagerIndex = spawnManagerIndex;
+
+            instantiatedObject.gameObject.layer = 10;
+
+            if (layerColliderManager)
+            {
+                layerColliderManager.CheckObstacle();
+            }
+
+            if (layerColliderManager.colliders.Length == 0)
+            {
+                if (addToCustomSpawnObject == -1)
+                {
+                    CustomSpawnObject spawnObject = new CustomSpawnObject();
+                    spawnObject.position = entity.transform.position;
+                    spawnObject.resourceType = resourceType;
+                    if (!actualPlant.Contains(spawnObject)) actualPlant.Add(spawnObject);
+                    NetworkServer.Spawn(instantiatedObject);
+                }
+                else
+                {
+                    CustomSpawnObject spawnObject = new CustomSpawnObject();
+                    spawnObject = actualMonster[addToCustomSpawnObject];
+                    spawnObject.plantObject = entity.gameObject;
+                    spawnObject.position = actualPlant[addToCustomSpawnObject].position;
+                    actualPlant[addToCustomSpawnObject] = spawnObject;
+
+                    NetworkServer.Spawn(instantiatedObject);
+                }
+            }
+        }
     }
 
     public void CheckAndSpawnObject()
@@ -286,6 +338,14 @@ public class SpawnManager : NetworkBehaviour
                     InstantiateResourceObjectOnEnter(Trees[index], transform, 0, index, -1);
                 }
             }
+            if (actualPlant.Count > 0 && actualPlant.Count < plantCount)
+            {
+                for (int i = actualPlant.Count; i < plantCount; i++)
+                {
+                    int index = Random.Range(0, Plants.Count);
+                    InstantiateResourceObjectOnEnter(Plants[index], transform, 3, index, -1);
+                }
+            }
         }
     }
 
@@ -307,6 +367,11 @@ public class SpawnManager : NetworkBehaviour
             {
                 int index = Random.Range(0, Trees.Count);
                 InstantiateResourceObjectOnEnter(Trees[index], transform, 0, index, -1);
+            }
+            for (int i = actualPlant.Count; i < plantCount; i++)
+            {
+                int index = Random.Range(0, Plants.Count);
+                InstantiateResourceObjectOnEnter(Plants[index], transform, 3, index, -1);
             }
         }
     }
@@ -392,6 +457,25 @@ public class SpawnManager : NetworkBehaviour
                     NetworkServer.Destroy(actualMonster[index].entity.gameObject);
                 }
             }
+            for (int i = 0; i < actualPlant.Count; i++)
+            {
+                index = i;
+                CustomSpawnObject customSpawnObject = new CustomSpawnObject();
+                GameObject obj = new GameObject();
+                obj.AddComponent<MedicalPlant>();
+                obj.GetComponent<MedicalPlant>().reward = actualPlant[index].plantObject.GetComponent<MedicalPlant>().reward;
+                obj.GetComponent<MedicalPlant>().spawnManagerIndex = actualPlant[index].plantObject.GetComponent<MedicalPlant>().spawnManagerIndex;
+                obj.GetComponent<MedicalPlant>().transform.position = actualPlant[index].plantObject.GetComponent<MedicalPlant>().transform.position;
+
+                if (obj)
+                {
+                    customSpawnObject.position = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
+                    customSpawnObject.plantObject = obj;
+                    actualPlant[index] = customSpawnObject;
+                    NetworkServer.Destroy(actualPlant[index].entity.gameObject);
+                }
+            }
+
         }
     }
 
@@ -462,6 +546,23 @@ public class SpawnManager : NetworkBehaviour
                 {
                     int index = i;
                     InstantiateResourceObjectOnEnter(Monster[actualMonster[index].resourceType], transform, 2, i, i);
+                }
+            }
+
+            if (actualPlant.Count == 0)
+            {
+                for (int i = 0; i < plantCount; i++)
+                {
+                    int index = Random.Range(0, Plants.Count);
+                    InstantiateResourceObjectOnEnter(Plants[index], transform, 3, index, -1);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < actualPlant.Count; i++)
+                {
+                    int index = i;
+                    InstantiateResourceObjectOnEnter(Plants[actualPlant[index].resourceType], transform, 3, i, i);
                 }
             }
         }

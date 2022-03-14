@@ -53,6 +53,7 @@ public class ModularObject : Forniture
     public bool canSpawn;
 
     public bool needALayerUnder;
+    public LayerMask layerObjectUnder;
     public bool isWallObject;
 
     public NavMeshObstacle2D navMeshObstacle2D;
@@ -150,7 +151,7 @@ public class ModularObject : Forniture
 
         Vector3 pos = Player.localPlayer.playerBuilding.actualBuilding.transform.position;
         Destroy(Player.localPlayer.playerBuilding.actualBuilding);
-        GameObject g = Instantiate(Player.localPlayer.playerBuilding.building.buildingList[oldPositioning].buildingObject, pos, Quaternion.identity);
+        GameObject g = Instantiate(Player.localPlayer.playerBuilding.building.buildingList[oldPositioning].buildingObject, pos, Player.localPlayer.playerBuilding.building.buildingList[oldPositioning].buildingObject.transform.rotation);
         Player.localPlayer.playerBuilding.actualBuilding = g;
     }
 
@@ -275,7 +276,7 @@ public class ModularObject : Forniture
         {
             if (needALayerUnder)
             {
-                if ((GeneralManager.singleton.modularObjectNeedBaseLayerMask.value & (1 << collision.gameObject.layer)) > 0)
+                if ((layerObjectUnder.value & (1 << collision.gameObject.layer)) > 0)
                 {
                     if (!allColliders.Contains(((BoxCollider2D)collision)))
                     {

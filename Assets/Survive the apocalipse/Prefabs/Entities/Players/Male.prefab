@@ -890,7 +890,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -870365055
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c63a5295d6e0f4746bff303d9a60c913, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
@@ -918,6 +918,8 @@ MonoBehaviour:
   renderer: {fileID: 212293974572567764}
   precision: 102
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!50 &50382803059724738
 Rigidbody2D:
   serializedVersion: 4
@@ -1325,6 +1327,7 @@ MonoBehaviour:
   prevAnimator: {fileID: 0}
   mazzleFlashSpawner: {fileID: 0}
   UIVisibleHealthArmor: {fileID: 1496220194365185428}
+  enemyDetector: {fileID: 0}
   lastDirection: {x: 0, y: 0, z: 0}
   horizontal: 0
   vertical: 0
@@ -1373,6 +1376,8 @@ MonoBehaviour:
   playerCreation: {fileID: -947911685063235967}
   playerQuest: {fileID: 7567491817285214507}
   playerDance: {fileID: 4172649297743808757}
+  playerInjury: {fileID: 0}
+  playerRaycast: {fileID: 0}
   joystick: {fileID: 0}
   useJoystick: 1
 --- !u!114 &114342037026676708
@@ -1664,6 +1669,14 @@ MonoBehaviour:
   actualBuilding: {fileID: 0}
   invBelt: 1
   flagSelectedNation: 
+  selectedGameObject: {fileID: 0}
+  selectedInventoryIndex: 0
+  selectedNation: 
+  selectedName: 
+  selectedGroup: 
+  g: {fileID: 0}
+  ModularObject: {fileID: 0}
+  nearForniture: {fileID: 0}
 --- !u!114 &5084283181373623402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2023,7 +2036,16 @@ MonoBehaviour:
   sorted: []
   monsters: []
   monstersSorted: []
+  sortedForniture: []
+  fornitures: []
+  fornitureSorted: []
+  fornitureClient: {fileID: 0}
   positioningVector: {x: 7.960999, y: -1.264, z: 7.457145}
+  drink: 0
+  eat: 0
+  _forniture: {fileID: 0}
+  distanceToCheckForniture: 3
+  distanceToCheckEntity: 15
 --- !u!114 &3522398725796050547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3329,7 +3351,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3486,7 +3507,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3674,7 +3694,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3909,7 +3928,6 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: bc3b9dc63660c8f42a8a07dee508ad54, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4029,7 +4047,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4175,7 +4192,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 0000000091bf320043ca020ce78fab9581481fccd391862d778f134a
+  m_ApplyToSortingLayers: 0000000091bf320043ca020ce78fab9581481fccd391862d778f134aeda80a6a
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -4432,7 +4449,7 @@ MeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 763793875
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
 --- !u!33 &554298811377651829
 MeshFilter:
@@ -4465,7 +4482,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4622,7 +4638,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

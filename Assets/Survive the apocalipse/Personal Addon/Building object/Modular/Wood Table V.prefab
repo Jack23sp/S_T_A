@@ -162,6 +162,9 @@ MonoBehaviour:
   identity: {fileID: 4074972740201943555}
   canSpawn: 0
   needALayerUnder: 0
+  layerObjectUnder:
+    serializedVersion: 2
+    m_Bits: 0
   isWallObject: 0
   navMeshObstacle2D: {fileID: 6308118954182763315}
   oldPositioning: 1

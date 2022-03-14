@@ -5930,7 +5930,7 @@ public partial class Player : Entity
         {
             if (type == 0)
             {
-                if(weaponStorage.InventoryCanAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 5,0, true))
+                if (weaponStorage.InventoryCanAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 5, 0, true))
                 {
                     weaponStorage.InventoryAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 5, inventoryIndex, 0, true);
                     return;
@@ -5938,7 +5938,7 @@ public partial class Player : Entity
             }
             else if (type == 1)
             {
-                if (weaponStorage.InventoryCanAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 10, 5,true))
+                if (weaponStorage.InventoryCanAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 10, 5, true))
                 {
                     weaponStorage.InventoryAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 10, inventoryIndex, 5, true);
                     return;
@@ -5946,7 +5946,7 @@ public partial class Player : Entity
             }
             else
             {
-                if (weaponStorage.InventoryCanAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 15, 10,false))
+                if (weaponStorage.InventoryCanAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 15, 10, false))
                 {
                     weaponStorage.InventoryAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 15, inventoryIndex, 10, false);
                     return;
@@ -6029,7 +6029,7 @@ public partial class Player : Entity
         if (playerMove.forniture && playerMove.forniture.GetComponent<BuildingUpgradeRepair>())
         {
             BuildingUpgradeRepair buildingUpgradeRepair = playerMove.forniture.GetComponent<BuildingUpgradeRepair>();
-            if(InventoryCanAdd(buildingUpgradeRepair.upgradeItem[index].item.item, buildingUpgradeRepair.upgradeItem[index].item.amount))
+            if (InventoryCanAdd(buildingUpgradeRepair.upgradeItem[index].item.item, buildingUpgradeRepair.upgradeItem[index].item.amount))
             {
                 UpgradeRepairItem upgradeRepairItem = buildingUpgradeRepair.upgradeItem[index];
                 buildingUpgradeRepair.upgradeItem.Remove(buildingUpgradeRepair.upgradeItem[index]);
@@ -6058,7 +6058,7 @@ public partial class Player : Entity
     [TargetRpc]
     public void TargetRefreshItemList()
     {
-        if(FindObjectOfType<UIUpgradeRepair>())
+        if (FindObjectOfType<UIUpgradeRepair>())
             UIUpgradeRepair.singleton.CleanList();
 
     }
@@ -6290,7 +6290,7 @@ public partial class Player : Entity
             TimeSpan difference = DateTime.Parse(dateEnd) - DateTime.Parse(dateBegin);
 
             upgrade.timeEndServer = DateTime.Now.AddSeconds(difference.TotalSeconds).ToString();
-            
+
             if (ScriptableItem.dict.TryGetValue(inventory[upgrade.index].item.name.GetStableHashCode(), out ScriptableItem itemData))
             {
                 foreach (CustomItem custoItem in itemData.repairItems)
@@ -7230,6 +7230,68 @@ public partial class Player : Entity
                 }
             }
         }
+    }
+
+    [Command]
+    public void CmdSwapInventoryModularWarehouse(int[] warehouseInventory, int[] playerInventory)
+    {
+        ModularPersonalWareHouse warehouse;
+        if (!playerMove.forniture) return;
+        if (!playerMove.forniture.GetComponent<ModularPersonalWareHouse>()) return;
+        else warehouse = playerMove.forniture.GetComponent<ModularPersonalWareHouse>();
+
+        int index = 0;
+        List<int> inventoryL = playerInventory.ToList();
+        List<int> warehouseL = warehouseInventory.ToList();
+        List<int> warehouseSlotFree = new List<int>();
+        List<int> inventorySlotFree = new List<int>();
+
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].amount == 0)
+            {
+                inventorySlotFree.Add(i);
+            }
+        }
+
+        for (int i = 0; i < warehouse.inventory.Count; i++)
+        {
+            if (warehouse.inventory[i].amount == 0)
+            {
+                warehouseSlotFree.Add(i);
+            }
+        }
+
+        if (InventorySlotsFree() < warehouseL.Count) return;
+        if (warehouseSlotFree.Count < inventoryL.Count) return;
+
+        if (inventoryL.Count > 0)
+        {
+            for (int i = 0; i < inventoryL.Count; i++)
+            {
+                index = i;
+                ItemSlot slot = warehouse.inventory[warehouseSlotFree[0]];
+                slot = inventory[inventoryL[i]];
+                warehouse.inventory[warehouseSlotFree[0]] = slot;
+                slot = new ItemSlot();
+                inventory[inventoryL[i]] = slot;
+                warehouseSlotFree.RemoveAt(0);
+            }
+        }
+        if (warehouseL.Count > 0)
+        {
+            for (int i = 0; i < warehouseL.Count; i++)
+            {
+                index = i;
+                ItemSlot slot = inventory[inventorySlotFree[0]];
+                slot = warehouse.inventory[warehouseL[i]];
+                inventory[inventorySlotFree[0]] = slot;
+                slot = new ItemSlot();
+                warehouse.inventory[warehouseL[i]] = slot;
+                inventorySlotFree.RemoveAt(0);
+            }
+        }
+
     }
 
     #endregion

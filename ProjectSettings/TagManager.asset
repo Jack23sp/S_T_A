@@ -62,6 +62,7 @@ TagManager:
   - FloorChecker
   - WallMine
   - Electric box
+  - MedicalPlant
   layers:
   - Default
   - TransparentFX
@@ -75,7 +76,7 @@ TagManager:
   - Player
   - Monster
   - IgnorePlayer
-  - AmbientObstacle
+  - FornitureSupport
   - Resource Manager
   - Resource Manager Catcher
   - WoodWallHorizontalPlacement
