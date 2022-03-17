@@ -9,8 +9,6 @@ public class BasementFloorDetector : MonoBehaviour
 
     public Collider2D[] floorColliders;
 
-    public Collider2D[] oldColliders;
-
     public void Awake()
     {
         floorColliderDetector = GetComponent<Collider2D>();
@@ -28,21 +26,13 @@ public class BasementFloorDetector : MonoBehaviour
 
                     if (floorColliders.Length > 0)
                     {
-                        if (oldColliders != floorColliders)
-                        {
-                            ModularBuildingManager.singleton.allColliders = floorColliders;
                             ModularBuildingManager.singleton.DisableRoof();
-                            oldColliders = floorColliders;
-                        }
-                        else
-                        {
-                            oldColliders = new Collider2D[0];
-                        }
                     }
                     else
                     {
-                        ModularBuildingManager.singleton.allColliders = oldColliders;
-                        ModularBuildingManager.singleton.AbleRoof();
+                        if(ModularBuildingManager.singleton.inThisCollider)
+                            ModularBuildingManager.singleton.AbleRoof();
+                        ModularBuildingManager.singleton.inThisCollider = null;
                     }
                 }
                 else

@@ -428,6 +428,8 @@ MonoBehaviour:
   renderer: {fileID: 212573911520600438}
   precision: 100
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!114 &114412593739552202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,6 +628,7 @@ MonoBehaviour:
   mainEntity: {fileID: 0}
   isPremiumZone: 0
   placement: {fileID: 0}
+  floorIndex: 0
 --- !u!61 &7211924680770364527
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -672,6 +675,7 @@ MonoBehaviour:
   identity: {fileID: 0}
   setted: 0
   isPermanentObject: 0
+  parent: {fileID: 0}
 --- !u!50 &6251529680979376529
 Rigidbody2D:
   serializedVersion: 4
@@ -742,7 +746,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layermask:
     serializedVersion: 2
-    m_Bits: 14336
+    m_Bits: 1107304704
   colliders: []
   canSpawn: 0
   entity: {fileID: 2023497517667855718}

@@ -103,6 +103,9 @@ TagManager:
   - name: Background
     uniqueID: 3325841
     locked: 0
+  - name: Decoration
+    uniqueID: 1285411893
+    locked: 0
   - name: Foreground
     uniqueID: 201509443
     locked: 0

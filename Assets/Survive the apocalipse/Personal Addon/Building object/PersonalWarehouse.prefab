@@ -309,7 +309,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -870365055
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: b5dd30abcb6739642bb61568c4105da5, type: 3}
   m_Color: {r: 0.8962264, g: 0.53913957, b: 0.48616055, a: 1}
@@ -337,6 +337,8 @@ MonoBehaviour:
   renderer: {fileID: 212573911520600438}
   precision: 100
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!114 &114412593739552202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,6 +537,7 @@ MonoBehaviour:
   mainEntity: {fileID: 0}
   isPremiumZone: 0
   placement: {fileID: 0}
+  floorIndex: 0
 --- !u!61 &7211924680770364527
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -631,7 +634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layermask:
     serializedVersion: 2
-    m_Bits: 1792
+    m_Bits: 1107304704
   colliders: []
   canSpawn: 0
   entity: {fileID: 2023497517667855718}
@@ -699,6 +702,7 @@ MonoBehaviour:
   identity: {fileID: 114270635967185746}
   setted: 0
   isPermanentObject: 1
+  parent: {fileID: 0}
 --- !u!1 &1782932107138108
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,7 +864,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 763793875
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: 7a8d8ef377641da4b953b9a9f1ce7fe9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -941,7 +945,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 763793875
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 32766
   m_Sprite: {fileID: 21300000, guid: f6e09cc50236f674e9ca68a4f4c6636a, type: 3}
   m_Color: {r: 0.8980392, g: 0.5372549, b: 0.4862745, a: 1}

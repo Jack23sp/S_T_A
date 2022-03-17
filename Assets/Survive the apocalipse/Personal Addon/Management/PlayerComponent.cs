@@ -2638,6 +2638,8 @@ public partial class PlayerBuilding
     public void CmdDestroyBasement(NetworkIdentity identity)
     {
         ModularPiece modular = identity.GetComponent<ModularPiece>();
+        Collider2D[] floorColliders;
+        Collider2D[] wallColliders = new Collider2D[0];
         if (modular)
         {
 
@@ -2645,8 +2647,32 @@ public partial class PlayerBuilding
             modular.downComponent = -5;
             modular.leftComponent = -5;
             modular.rightComponent = -5;
+            floorColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(((BoxCollider2D)modular.modularCollider).size.x, ((BoxCollider2D)modular.modularCollider).size.y), 0, GeneralManager.singleton.modularObjectToDelete);
+
+            for(int i = 0; i < floorColliders.Length; i++)
+            {
+                int index = i;
+                BuildingManager.singleton.RemoveFromList(floorColliders[index].gameObject);
+                NetworkServer.Destroy(floorColliders[index].gameObject);
+            }
+
+            if (modular.upComponent == 0)
+            {
+                wallColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(((BoxCollider2D)modular.upWall.GetComponent<Collider2D>()).size.x, ((BoxCollider2D)modular.upWall.GetComponent<Collider2D>()).size.y), 0, GeneralManager.singleton.modularObjectToDelete);
+            }
+            else if(modular.upComponent == 1)
+            {
+                wallColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(((BoxCollider2D)modular.upDoor.GetComponent<Collider2D>()).size.x, ((BoxCollider2D)modular.upDoor.GetComponent<Collider2D>()).size.y), 0, GeneralManager.singleton.modularObjectToDelete);
+            }
+
+            for (int i = 0; i < wallColliders.Length; i++)
+            {
+                int index = i;
+                BuildingManager.singleton.RemoveFromList(wallColliders[index].gameObject);
+                NetworkServer.Destroy(wallColliders[index].gameObject);
+            }
         }
-        TargetSyncClientModular(identity);
+        //TargetSyncClientModular(identity);
 
         for (int i = 0; i < modular.buildingColliders.Count; i++)
         {

@@ -160,7 +160,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 763793875
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: 2852315cf143bdb44b26d30152046dad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: -2777645162992438797}
   - component: {fileID: 919786571898033261}
   - component: {fileID: 6532091962714400725}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Tree 3
   m_TagString: Tree
   m_Icon: {fileID: 0}
@@ -313,7 +313,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -870365055
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 32766
   m_Sprite: {fileID: 21300000, guid: 2852315cf143bdb44b26d30152046dad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
@@ -353,7 +353,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.023474686, y: -0.64680624}
@@ -603,7 +603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layermask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1107304704
   colliders: []
   canSpawn: 0
   entity: {fileID: 0}
@@ -903,7 +903,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 763793875
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: e71cfb4eaed2cdf47999c49dd15624b5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1015,7 +1015,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -870365055
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: -32767
   m_Sprite: {fileID: 21300000, guid: 57ae84ef060109d4c8858518b071d859, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

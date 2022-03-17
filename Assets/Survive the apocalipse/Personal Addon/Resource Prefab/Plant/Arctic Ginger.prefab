@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 145993210419908121}
   - component: {fileID: 5686329497323055774}
   - component: {fileID: -2127610100505559871}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Arctic Ginger
   m_TagString: MedicalPlant
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layermask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1107304704
   colliders: []
   canSpawn: 0
   entity: {fileID: 0}

@@ -450,6 +450,8 @@ public class GeneralManager : MonoBehaviour
     public LayerMask searchFornitureLayerMask;
     public LayerMask modularWallMinePositioning;
 
+    public LayerMask modularObjectToDelete;
+
     [Header("Furnace items")]
     public ScriptableItem sulfur;
     public ScriptableItem highMetal;

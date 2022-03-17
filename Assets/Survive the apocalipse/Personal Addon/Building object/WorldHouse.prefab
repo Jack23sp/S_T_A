@@ -725,7 +725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layermask:
     serializedVersion: 2
-    m_Bits: 1792
+    m_Bits: 1107304704
   colliders: []
   canSpawn: 0
   entity: {fileID: 2023497517667855718}

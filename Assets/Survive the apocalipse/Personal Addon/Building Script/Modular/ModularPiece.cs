@@ -135,31 +135,70 @@ public class ModularPiece : NetworkBehaviour
         {
             Invoke(nameof(SetColor), 0.2f);
             electricBox.SetActive(isMain);
+            if((leftComponent != -5 && rightComponent != -5 && upComponent != -5 && downComponent != -5) || 
+                (leftComponent != -5 && rightComponent != -5) || (upComponent != -5 && downComponent != -5) ||
+                (leftPart != -5 && rightPart != -5) || (upPart != -5 && downPart != -5))
+            {
+                roof.SetActive(true);
+            }
         }
-        else if(isServer)
+        else if (isServer)
         {
-
+            Invoke(nameof(SyncStartValue), 0.7f);
         }
 
         ModularBuildingManager.singleton.allModularPiece.Add(this);
-        Invoke(nameof(SyncStartValue), 0.7f);
-        CheckWall();
+        Invoke(nameof(CallCheckWall), 0.5f);
+    }
+
+    public void CallCheckWall()
+    {
+        if (netIdentity.netId == 0)
+        {
+            Invoke(nameof(CallCheckWall), 0.5f);
+
+        }
+        else
+        {
+            CheckWall();
+            if(ModularBuildingManager.singleton.inThisCollider)
+                ModularBuildingManager.singleton.DisableRoof();
+            else
+            {
+                Invoke(nameof(CheckRoofAtStart), 0.5f);
+            }
+        }
+    }
+
+    public void CheckRoofAtStart()
+    {
+        if(ModularBuildingManager.singleton.inThisCollider)
+            ModularBuildingManager.singleton.DisableRoof();
+        else
+            Invoke(nameof(CheckRoofAtStart), 0.5f);
     }
 
     public void SyncStartValue()
     {
-        if (isServer)
+        if (netIdentity.netId != 0)
         {
-            clientdownComponent = downComponent;
-            clientupComponent = upComponent;
-            clientleftComponent = leftComponent;
-            clientrightComponent = rightComponent;
+            if (isServer)
+            {
+                clientdownComponent = downComponent;
+                clientupComponent = upComponent;
+                clientleftComponent = leftComponent;
+                clientrightComponent = rightComponent;
+            }
+        }
+        else
+        {
+            Invoke(nameof(SyncStartValue), 0.7f);
         }
     }
 
     public void CheckWall()
     {
-        if(leftComponent != -5)
+        if (leftComponent != -5)
         {
             if (leftComponent == 0)
             {
@@ -182,8 +221,24 @@ public class ModularPiece : NetworkBehaviour
         }
         else
         {
-            leftWall.SetActive(false);
-            leftDoor.SetActive(false);
+            if (clientleftComponent != -5)
+            {
+                if (clientleftComponent == 0)
+                {
+                    leftWall.SetActive(true);
+                }
+                else if (clientleftComponent == 1)
+                {
+                    leftDoor.SetActive(true);
+                }
+            }
+            else
+            {
+                leftWall.SetActive(false);
+                leftDoor.SetActive(false);
+            }
+            //leftWall.SetActive(false);
+            //leftDoor.SetActive(false);
             navMeshObstacle2Ds = leftWall.GetComponents<NavMeshObstacle2D>();
             foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
             {
@@ -198,22 +253,7 @@ public class ModularPiece : NetworkBehaviour
             }
         }
 
-        if (clientleftComponent != -5)
-        {
-            if (clientleftComponent == 0)
-            {
-                leftWall.SetActive(true);
-            }
-            else if (clientleftComponent == 1)
-            {
-                leftDoor.SetActive(true);
-            }
-        }
-        else
-        {
-            leftWall.SetActive(false);
-            leftDoor.SetActive(false);
-        }
+
 
         if (rightComponent != -5)
         {
@@ -238,14 +278,31 @@ public class ModularPiece : NetworkBehaviour
         }
         else
         {
-            rightWall.SetActive(false);
+            if (clientrightComponent != -5)
+            {
+                if (clientrightComponent == 0)
+                {
+                    rightWall.SetActive(true);
+                }
+                else if (clientrightComponent == 1)
+                {
+                    rightDoor.SetActive(true);
+                }
+            }
+            else
+            {
+                rightWall.SetActive(false);
+                rightDoor.SetActive(false);
+            }
+
+            //rightWall.SetActive(false);
             navMeshObstacle2Ds = rightWall.GetComponents<NavMeshObstacle2D>();
             foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
             {
                 Destroy(obstacle2D.go);
                 obstacle2D.go = null;
             }
-            rightDoor.SetActive(false);
+            //rightDoor.SetActive(false);
             navMeshObstacle2Ds = rightDoor.GetComponents<NavMeshObstacle2D>();
             foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
             {
@@ -254,22 +311,6 @@ public class ModularPiece : NetworkBehaviour
             }
         }
 
-        if (clientrightComponent != -5)
-        {
-            if (clientrightComponent == 0)
-            {
-                rightWall.SetActive(true);
-            }
-            else if (clientrightComponent == 1)
-            {
-                rightDoor.SetActive(true);
-            }
-        }
-        else
-        {
-            rightWall.SetActive(false);
-            rightDoor.SetActive(false);
-        }
 
         if (upComponent != -5)
         {
@@ -294,14 +335,31 @@ public class ModularPiece : NetworkBehaviour
         }
         else
         {
-            upWall.SetActive(false);
+            if (clientupComponent != -5)
+            {
+                if (clientupComponent == 0)
+                {
+                    upWall.SetActive(true);
+                }
+                else if (clientupComponent == 1)
+                {
+                    upDoor.SetActive(true);
+                }
+            }
+            else
+            {
+                upWall.SetActive(false);
+                upDoor.SetActive(false);
+            }
+
+            //upWall.SetActive(false);
             navMeshObstacle2Ds = upWall.GetComponents<NavMeshObstacle2D>();
             foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
             {
                 Destroy(obstacle2D.go);
                 obstacle2D.go = null;
             }
-            upDoor.SetActive(false);
+            //upDoor.SetActive(false);
             navMeshObstacle2Ds = upDoor.GetComponents<NavMeshObstacle2D>();
             foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
             {
@@ -310,22 +368,6 @@ public class ModularPiece : NetworkBehaviour
             }
         }
 
-        if (clientupComponent != -5)
-        {
-            if (clientupComponent == 0)
-            {
-                upWall.SetActive(true);
-            }
-            else if (clientupComponent == 1)
-            {
-                upDoor.SetActive(true);
-            }
-        }
-        else
-        {
-            upWall.SetActive(false);
-            upDoor.SetActive(false);
-        }
 
         if (downComponent != -5)
         {
@@ -350,14 +392,31 @@ public class ModularPiece : NetworkBehaviour
         }
         else
         {
-            downWall.SetActive(false);
+            if (clientdownComponent != -5)
+            {
+                if (clientdownComponent == 0)
+                {
+                    downWall.SetActive(true);
+                }
+                else if (clientdownComponent == 1)
+                {
+                    downDoor.SetActive(true);
+                }
+            }
+            else
+            {
+                downWall.SetActive(false);
+                downDoor.SetActive(false);
+            }
+
+            //downWall.SetActive(false);
             navMeshObstacle2Ds = downWall.GetComponents<NavMeshObstacle2D>();
             foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
             {
                 Destroy(obstacle2D.go);
                 obstacle2D.go = null;
             }
-            downDoor.SetActive(false);
+            //downDoor.SetActive(false);
             navMeshObstacle2Ds = downDoor.GetComponents<NavMeshObstacle2D>();
             foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
             {
@@ -366,22 +425,6 @@ public class ModularPiece : NetworkBehaviour
             }
         }
 
-        if (clientdownComponent != -5)
-        {
-            if (clientdownComponent == 0)
-            {
-                downWall.SetActive(true);
-            }
-            else if (clientdownComponent == 1)
-            {
-                downDoor.SetActive(true);
-            }
-        }
-        else
-        {
-            downWall.SetActive(false);
-            downDoor.SetActive(false);
-        }
     }
 
     public bool CanSpawn()
@@ -454,7 +497,7 @@ public class ModularPiece : NetworkBehaviour
     {
         Player player = Player.localPlayer;
 
-        if(player.playerBuilding.actualBuilding) Destroy(player.playerBuilding.actualBuilding);
+        if (player.playerBuilding.actualBuilding) Destroy(player.playerBuilding.actualBuilding);
         player.playerBuilding.actualBuilding = null;
         player.playerBuilding.building = null;
         player.playerBuilding.inventoryIndex = -1;
@@ -480,7 +523,7 @@ public class ModularPiece : NetworkBehaviour
                 {
                     if (modularPiece.CanSpawn())
                     {
-                        player.playerBuilding.CmdSpawnBasement(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt, 0, ModularBuildingManager.singleton.isInitialBasement, ModularBuildingManager.singleton.selectedPiece == null ? -5 :ModularBuildingManager.singleton.selectedPiece.modularIndex, !ModularBuildingManager.singleton.ableModificationMode);
+                        player.playerBuilding.CmdSpawnBasement(player.playerBuilding.inventoryIndex, player.playerBuilding.building.name, new Vector2(player.playerBuilding.actualBuilding.transform.position.x, player.playerBuilding.actualBuilding.transform.position.y), player.playerBuilding.invBelt, 0, ModularBuildingManager.singleton.isInitialBasement, ModularBuildingManager.singleton.selectedPiece == null ? -5 : ModularBuildingManager.singleton.selectedPiece.modularIndex, !ModularBuildingManager.singleton.ableModificationMode);
                         DestroyBuilding();
                     }
                 }
@@ -489,6 +532,18 @@ public class ModularPiece : NetworkBehaviour
                     player.playerBuilding.CmdSyncWallDoor(player.playerBuilding.actualBuilding.GetComponent<NetworkIdentity>(), modularPiece.clientupComponent, modularPiece.clientdownComponent, modularPiece.clientleftComponent, modularPiece.clientrightComponent, player.playerBuilding.invBelt, player.playerBuilding.inventoryIndex);
                     DestroyBuilding();
                 }
+            }
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.CompareTag("FloorChecker"))
+        {
+            if (!playerInside.Contains(collider))
+            {
+                playerInside.Add(collider);
+                ModularBuildingManager.singleton.inThisCollider = modularCollider;
             }
         }
     }
@@ -502,7 +557,7 @@ public class ModularPiece : NetworkBehaviour
                 buildingColliders.Add(collider);
             }
         }
-        else if(collider.CompareTag("Forniture"))
+        else if (collider.CompareTag("Forniture"))
         {
             if (!fornitureColliders.Contains(collider))
             {
@@ -549,10 +604,7 @@ public class ModularPiece : NetworkBehaviour
 
     public void CheckPlayerInside()
     {
-        if (ModularBuildingManager.singleton.inThisCollider == null)
-        {
-            ModularBuildingManager.singleton.DisableRoof();
-        }
+        ModularBuildingManager.singleton.DisableRoof();
     }
 
 

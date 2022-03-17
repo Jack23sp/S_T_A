@@ -107,8 +107,6 @@ public class SpawnManager : NetworkBehaviour
             Entity entity = instantiatedObject.GetComponent<Entity>();
             if (entity) entity.spawnManager = spawnManagerIndex;
 
-            instantiatedObject.gameObject.layer = 13;
-
             if (layerColliderManager)
             {
                 layerColliderManager.CheckObstacle();
@@ -116,6 +114,7 @@ public class SpawnManager : NetworkBehaviour
 
             if (layerColliderManager.colliders.Length == 0)
             {
+                instantiatedObject.gameObject.layer = 13;
                 if (addToCustomSpawnObject == -1)
                 {
                     CustomSpawnObject spawnObject = new CustomSpawnObject();
@@ -164,8 +163,6 @@ public class SpawnManager : NetworkBehaviour
             Entity entity = instantiatedObject.GetComponent<Entity>();
             if (entity) entity.spawnManager = spawnManagerIndex;
 
-            instantiatedObject.gameObject.layer = 13;
-
             if (layerColliderManager)
             {
                 layerColliderManager.CheckObstacle();
@@ -173,6 +170,7 @@ public class SpawnManager : NetworkBehaviour
 
             if (layerColliderManager.colliders.Length == 0)
             {
+                instantiatedObject.gameObject.layer = 13;
                 if (addToCustomSpawnObject == -1)
                 {
                     CustomSpawnObject spawnObject = new CustomSpawnObject();
@@ -270,8 +268,8 @@ public class SpawnManager : NetworkBehaviour
             }
             else
             {
-                float randomPosX = actualMonster[addToCustomSpawnObject].position.x;
-                float randomPosY = actualMonster[addToCustomSpawnObject].position.y;
+                float randomPosX = actualPlant[addToCustomSpawnObject].position.x;
+                float randomPosY = actualPlant[addToCustomSpawnObject].position.y;
                 instantiatedObject = Instantiate(SpawnItem, new Vector3(randomPosX, randomPosY), Quaternion.identity);
                 //instantiatedObject.GetComponent<Monster>()._health = actualMonster[addToCustomSpawnObject].health;
             }
@@ -293,19 +291,24 @@ public class SpawnManager : NetworkBehaviour
                     CustomSpawnObject spawnObject = new CustomSpawnObject();
                     spawnObject.position = entity.transform.position;
                     spawnObject.resourceType = resourceType;
+                    spawnObject.plantObject = entity.gameObject;
                     if (!actualPlant.Contains(spawnObject)) actualPlant.Add(spawnObject);
                     NetworkServer.Spawn(instantiatedObject);
                 }
                 else
                 {
                     CustomSpawnObject spawnObject = new CustomSpawnObject();
-                    spawnObject = actualMonster[addToCustomSpawnObject];
+                    spawnObject = actualPlant[addToCustomSpawnObject];
                     spawnObject.plantObject = entity.gameObject;
                     spawnObject.position = actualPlant[addToCustomSpawnObject].position;
                     actualPlant[addToCustomSpawnObject] = spawnObject;
 
                     NetworkServer.Spawn(instantiatedObject);
                 }
+            }
+            else
+            {
+                Destroy(instantiatedObject);
             }
         }
     }
@@ -462,17 +465,17 @@ public class SpawnManager : NetworkBehaviour
                 index = i;
                 CustomSpawnObject customSpawnObject = new CustomSpawnObject();
                 GameObject obj = new GameObject();
-                obj.AddComponent<MedicalPlant>();
-                obj.GetComponent<MedicalPlant>().reward = actualPlant[index].plantObject.GetComponent<MedicalPlant>().reward;
-                obj.GetComponent<MedicalPlant>().spawnManagerIndex = actualPlant[index].plantObject.GetComponent<MedicalPlant>().spawnManagerIndex;
-                obj.GetComponent<MedicalPlant>().transform.position = actualPlant[index].plantObject.GetComponent<MedicalPlant>().transform.position;
+                MedicalPlant sc = obj.AddComponent(typeof(MedicalPlant)) as MedicalPlant;
+                sc.reward = actualPlant[index].plantObject.GetComponent<MedicalPlant>().reward;
+                sc.spawnManagerIndex = actualPlant[index].plantObject.GetComponent<MedicalPlant>().spawnManagerIndex;
+                sc.transform.position = actualPlant[index].plantObject.GetComponent<MedicalPlant>().transform.position;
 
                 if (obj)
                 {
                     customSpawnObject.position = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
                     customSpawnObject.plantObject = obj;
                     actualPlant[index] = customSpawnObject;
-                    NetworkServer.Destroy(actualPlant[index].entity.gameObject);
+                    NetworkServer.Destroy(actualPlant[index].plantObject);
                 }
             }
 

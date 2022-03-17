@@ -60,6 +60,8 @@ public class BuildingManager : NetworkBehaviour
 
     public bool isLoaded;
 
+    public GameObject spawnManagerList;
+
 
     void Start()
     {
@@ -80,6 +82,11 @@ public class BuildingManager : NetworkBehaviour
 
     void Update()
     {
+        if(isLoaded)
+        {
+            spawnManagerList.SetActive(true);
+            isLoaded = false;
+        }
     }
 
     public void SaveBuilding()

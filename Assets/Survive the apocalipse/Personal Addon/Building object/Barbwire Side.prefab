@@ -345,7 +345,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -870365055
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 32767
   m_Sprite: {fileID: -1218844832463651114, guid: 6c390ac57deb06b418753f699894e498,
     type: 3}
@@ -374,6 +374,8 @@ MonoBehaviour:
   renderer: {fileID: 712099774}
   precision: 100
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!114 &712099769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,6 +574,7 @@ MonoBehaviour:
   mainEntity: {fileID: 0}
   isPremiumZone: 0
   placement: {fileID: 0}
+  floorIndex: 0
 --- !u!61 &712099764
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -652,7 +655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layermask:
     serializedVersion: 2
-    m_Bits: 1792
+    m_Bits: 1107304704
   colliders: []
   canSpawn: 0
   entity: {fileID: 712099765}
@@ -720,6 +723,7 @@ MonoBehaviour:
   identity: {fileID: 0}
   setted: 0
   isPermanentObject: 1
+  parent: {fileID: 0}
 --- !u!114 &3024539393700159952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -894,7 +898,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1783918617
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -32766
   m_Sprite: {fileID: 21300000, guid: f4049eae150d1dc49b0dcfd573ef1e41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1068,7 +1072,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 763793875
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: 8c2daaece7766a946bbbc487e7fcd2b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

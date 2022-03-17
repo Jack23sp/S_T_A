@@ -1812,7 +1812,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1783918617
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -32766
   m_Sprite: {fileID: 21300000, guid: f4049eae150d1dc49b0dcfd573ef1e41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2865,7 +2865,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 763793875
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: e65c3540a3339f84085238d79851ed34, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3378,7 +3378,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -870365055
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: -32768
   m_Sprite: {fileID: 21300000, guid: 47d82d850a97ba64bbe9b0cec03b41e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3589,6 +3589,7 @@ MonoBehaviour:
   mainEntity: {fileID: 0}
   isPremiumZone: 0
   placement: {fileID: 0}
+  floorIndex: 0
 --- !u!61 &363153777959675708
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3684,7 +3685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layermask:
     serializedVersion: 2
-    m_Bits: 1792
+    m_Bits: 1107304704
   colliders: []
   canSpawn: 0
   entity: {fileID: 9010332192033353269}
@@ -3752,6 +3753,7 @@ MonoBehaviour:
   identity: {fileID: 0}
   setted: 0
   isPermanentObject: 1
+  parent: {fileID: 0}
 --- !u!1 &6997180504080688637
 GameObject:
   m_ObjectHideFlags: 0

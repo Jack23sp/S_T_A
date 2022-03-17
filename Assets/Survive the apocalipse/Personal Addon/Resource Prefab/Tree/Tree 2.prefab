@@ -68,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 763793875
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 32766
   m_Sprite: {fileID: 21300000, guid: 8609bc560deabcd49997009bd5879ecf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -241,7 +241,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 763793875
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 32766
   m_Sprite: {fileID: 21300000, guid: 35560e8a397dff546adf8d92f9cb02f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 1031741192175085098}
   - component: {fileID: 6459594703778425598}
   - component: {fileID: 948196086571551984}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Tree 2
   m_TagString: Tree
   m_Icon: {fileID: 0}
@@ -394,7 +394,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -870365055
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: 8609bc560deabcd49997009bd5879ecf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -434,7 +434,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.02401787, y: -0.6439878}
@@ -649,7 +649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layermask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1107304704
   colliders: []
   canSpawn: 0
   entity: {fileID: 8008277588344355937}
@@ -984,7 +984,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -870365055
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: -32767
   m_Sprite: {fileID: 21300000, guid: 8ebdce21ace65e44282620ef2c36459b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 145993210419908121}
   - component: {fileID: 607456571937743249}
   - component: {fileID: 1355884262040087943}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Eshuric
   m_TagString: MedicalPlant
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layermask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1107304704
   colliders: []
   canSpawn: 0
   entity: {fileID: 0}

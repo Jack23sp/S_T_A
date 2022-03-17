@@ -5930,10 +5930,10 @@ public partial class Database : MonoBehaviour
             modularPiece.modularIndex = row.index;
             modularPiece.owner = row.owner;
             modularPiece.guild = row.guildName;
-            modularPiece.upPart = row.upPart;
-            modularPiece.downPart = row.downPart;
-            modularPiece.leftPart = row.leftPart;
-            modularPiece.rightPart = row.rightPart;
+            modularPiece.upComponent = row.upPart;
+            modularPiece.downComponent = row.downPart;
+            modularPiece.leftComponent = row.leftPart;
+            modularPiece.rightComponent = row.rightPart;
 
             buildingManager.AddToList(g);
 

@@ -763,7 +763,6 @@ public class UISelectedItem : MonoBehaviour
                             if (FindNearestFloor())
                             {
                                 GameObject g = Instantiate(((ScriptableBuilding)Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data).buildingList[0].buildingObject, new Vector3(Player.localPlayer.transform.position.x, Player.localPlayer.transform.position.y, 0.0f), Quaternion.identity);
-                                Debug.Log("Instantiate object : " + g);
                                 Player.localPlayer.playerBuilding.actualBuilding = g;
                                 if (GeneralManager.singleton.spawnedAttackObject)
                                 {
@@ -925,18 +924,15 @@ public class UISelectedItem : MonoBehaviour
         {
             if (Vector2.Distance(Player.localPlayer.transform.position, wallOrdered[0].transform.position) > 10)
             {
-                Debug.Log("Not find object by distance");
                 return false;
             }
             else
             {
-                Debug.Log("Find  Object");
                 return true;
             }
         }
         else
         {
-            Debug.Log("Not find  Object");
             return false;
         }
     }

@@ -28,8 +28,6 @@ public class ModularBuildingManager : NetworkBehaviour
 
     public Collider2D[] allColliders;
 
-    public List<ModularPiece> allRoof = new List<ModularPiece>();
-
     public GameObject instantiatedUI;
 
     public BoxCollider2D inThisCollider;
@@ -45,38 +43,41 @@ public class ModularBuildingManager : NetworkBehaviour
         if (!singleton) singleton = this;
     }
 
-    public void ActiveRoof()
-    {
-    }
-
     public void AbleRoof()
     {
         insideIndex = inThisCollider.GetComponent<ModularPiece>().modularIndex;
         foreach (ModularPiece modularPiece in allModularPiece)
         {
-            modularPiece.roof.SetActive(true);
+            if(modularPiece.modularIndex == insideIndex)
+                modularPiece.roof.SetActive(true);
         }
+        insideIndex = -1;
     }
 
     public void DisableRoof()
     {
-        foreach (ModularPiece modularPiece in allModularPiece)
+        if (inThisCollider)
         {
-            if(modularPiece.modularIndex == insideIndex) modularPiece.roof.SetActive(false);
-
-            foreach (SortByDepth sortByDepth in modularPiece.sortPlus)
+            insideIndex = inThisCollider.GetComponent<ModularPiece>().modularIndex;
+            foreach (ModularPiece modularPiece in allModularPiece)
             {
-                sortByDepth.relatedToPlayer = true;
-                sortByDepth.amountRelatedToPlayer = 1;
-                sortByDepth.SetOrder();
-            }
+                if (modularPiece.modularIndex == insideIndex) modularPiece.roof.SetActive(false);
 
-            foreach (SortByDepth sortByDepth in modularPiece.sortMinus)
-            {
-                sortByDepth.relatedToPlayer = true;
-                sortByDepth.amountRelatedToPlayer = -1;
-                sortByDepth.SetOrder();
+                foreach (SortByDepth sortByDepth in modularPiece.sortPlus)
+                {
+                    sortByDepth.relatedToPlayer = true;
+                    sortByDepth.amountRelatedToPlayer = 1;
+                    sortByDepth.SetOrder();
+                }
+
+                foreach (SortByDepth sortByDepth in modularPiece.sortMinus)
+                {
+                    sortByDepth.relatedToPlayer = true;
+                    sortByDepth.amountRelatedToPlayer = -1;
+                    sortByDepth.SetOrder();
+                }
             }
+            insideIndex = -1;
         }
     }
 

@@ -114,7 +114,8 @@ GameObject:
   - component: {fileID: -8682657653117863470}
   - component: {fileID: 6709993170637310520}
   - component: {fileID: 7314594853503688876}
-  m_Layer: 8
+  - component: {fileID: -8248189072003861056}
+  m_Layer: 0
   m_Name: Rock 1
   m_TagString: Rock
   m_Icon: {fileID: 0}
@@ -269,7 +270,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.05618286, y: -0.014253616}
@@ -498,10 +499,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layermask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1107304704
   colliders: []
   canSpawn: 0
-  entity: {fileID: 0}
+  entity: {fileID: 6640196939969759800}
 --- !u!114 &6709993170637310520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,6 +544,27 @@ MonoBehaviour:
   snowShaderVisualizer: {fileID: 223160048120564808}
   entity: {fileID: 6640196939969759800}
   isServer: 0
+--- !u!50 &-8248189072003861056
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2401820270191158568}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3249650930937381227
 GameObject:
   m_ObjectHideFlags: 0

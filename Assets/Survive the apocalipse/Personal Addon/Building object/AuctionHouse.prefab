@@ -428,6 +428,8 @@ MonoBehaviour:
   renderer: {fileID: 212573911520600438}
   precision: 100
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!114 &114412593739552202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,7 +554,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  durabilityItem: 
   agent: {fileID: 0}
   proxchecker: {fileID: 5558434166551204799}
   animator: {fileID: 95502630140008620}
@@ -601,6 +602,7 @@ MonoBehaviour:
   stunnedOverlay: {fileID: 0}
   inSafeZone: 0
   lookDirection: {x: 0, y: -1}
+  spriteRenderer: {fileID: 0}
   isServerObject: 0
   isClientObject: 0
   isServerOnlyObject: 0
@@ -611,7 +613,6 @@ MonoBehaviour:
   rockObject: {fileID: 0}
   plantObject: {fileID: 0}
   monsterObject: {fileID: 0}
-  usingNavmesh: 0
   spawnManager: 0
   building: {fileID: 11400000, guid: 623eadad7ba53b040949f78a71f14d3c, type: 2}
   buildingName: 
@@ -624,12 +625,10 @@ MonoBehaviour:
   colliders: []
   textMesh: {fileID: 102264759413312934}
   isHide: 0
-  objectToManage: []
   mainEntity: {fileID: 0}
   isPremiumZone: 0
-  prevRename: 
-  prevCountdown: -1
   placement: {fileID: 0}
+  floorIndex: 0
 --- !u!61 &7211924680770364527
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -724,7 +723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layermask:
     serializedVersion: 2
-    m_Bits: 14336
+    m_Bits: 1107304704
   colliders: []
   canSpawn: 0
   entity: {fileID: 2023497517667855718}
@@ -767,6 +766,7 @@ MonoBehaviour:
   entity: {fileID: 0}
   teslaDamageObject: {fileID: 0}
   tesla: {fileID: 0}
+  flag: {fileID: 0}
   navMeshObstacle2D: {fileID: 0}
   snowShaderVisualizer: {fileID: 0}
   hasAnimator: 0
@@ -790,6 +790,8 @@ MonoBehaviour:
   go: {fileID: 0}
   identity: {fileID: 0}
   setted: 0
+  isPermanentObject: 0
+  parent: {fileID: 0}
 --- !u!1 &1782932107138108
 GameObject:
   m_ObjectHideFlags: 0
