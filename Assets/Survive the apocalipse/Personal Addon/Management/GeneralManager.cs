@@ -463,6 +463,11 @@ public class GeneralManager : MonoBehaviour
     public GameObject deleteObject;
     public GameObject instantiatedDeleteObject;
 
+    [Header("Plant UI")]
+    public GameObject plantUIObject;
+    public GameObject spawnedPlantUIObject;
+
+
     public DateTime ChangeServerToClientTime(DateTime time, int seconds = 0)
     {
         return DateTime.ParseExact(time.ToString(), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture);

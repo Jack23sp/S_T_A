@@ -4167,6 +4167,7 @@ public partial class Player : Entity
     public PlayerDance playerDance;
     public PlayerInjury playerInjury;
     public PlayerRaycast playerRaycast;
+    public PlayerPlant playerPlant;
 
     // joystick
     public Joystick joystick;

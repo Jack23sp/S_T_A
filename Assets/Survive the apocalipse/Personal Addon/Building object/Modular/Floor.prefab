@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 6459912377840944600}
-  precision: 102.3
+  precision: 102.64
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: 1
@@ -695,6 +695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06963c913dbd173429fc68c7db425633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCollider: {fileID: 2233743246782775841}
   colliders: []
 --- !u!50 &4386112016445197105
 Rigidbody2D:
@@ -1805,7 +1806,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2233743245303105427}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -8.159424, z: 0}
+  m_LocalPosition: {x: 0, y: -8.24, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 2233743246782775854}
@@ -1953,7 +1954,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2233743245513655942}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.15, z: 0}
+  m_LocalPosition: {x: 0, y: 8.24, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 2233743246782775854}
@@ -2248,7 +2249,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2233743245879417310}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.158112, y: 0, z: 0}
+  m_LocalPosition: {x: 8.21, y: 0, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 2233743246782775854}
@@ -2475,8 +2476,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2233743246108896665}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.012, y: 3.9744, z: 0}
-  m_LocalScale: {x: 1.022728, y: 1.0408726, z: 1}
+  m_LocalPosition: {x: -0.01, y: 3.9744, z: 0}
+  m_LocalScale: {x: 1.0432756, y: 1.0408726, z: 1}
   m_Children: []
   m_Father: {fileID: 2233743246782775854}
   m_RootOrder: 9
@@ -3429,7 +3430,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2233743247159163630}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.160889, y: 0, z: 0}
+  m_LocalPosition: {x: -8.21, y: 0, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 2233743246782775854}
@@ -3667,7 +3668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 3686957655493485647}
-  precision: 102.3
+  precision: 102.64
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: 1

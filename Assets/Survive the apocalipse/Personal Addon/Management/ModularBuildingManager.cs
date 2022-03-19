@@ -137,6 +137,7 @@ public class ModularBuildingManager : NetworkBehaviour
                 }
                 if (hit[index].collider.CompareTag("FloorBasement"))
                 {
+                    if(GeneralManager.singleton.CanDoOtherActionFloor(hit[index].collider.transform.GetComponentInParent<ModularPiece>(), Player.localPlayer))
                     selectedPiece = hit[index].collider.transform.GetComponentInParent<ModularPiece>();
                 }
             }

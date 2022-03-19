@@ -151,6 +151,12 @@ public class ModularPiece : NetworkBehaviour
         Invoke(nameof(CallCheckWall), 0.5f);
     }
 
+    [ClientRpc]
+    public void RpcRebuildMain(NetworkIdentity id, bool condition)
+    {
+        id.GetComponent<ModularPiece>().electricBox.SetActive(condition);
+    }
+
     public void CallCheckWall()
     {
         if (netIdentity.netId == 0)

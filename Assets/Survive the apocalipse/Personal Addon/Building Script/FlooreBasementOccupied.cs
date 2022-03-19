@@ -58,22 +58,22 @@ public class FlooreBasementOccupied : MonoBehaviour
                 if (up)
                 {
                     piece.occupiedUP = false;
-                    piece.upPart = -1;
+                    piece.upPart = -5;
                 }
                 else if (down)
                 {
                     piece.occupiedDOWN = false;
-                    piece.downPart = -1;
+                    piece.downPart = -5;
                 }
                 else if (left)
                 {
                     piece.occupiedLEFT = false;
-                    piece.leftPart = -1;
+                    piece.leftPart = -5;
                 }
                 else
                 {
                     piece.occupiedRIGHT = false;
-                    piece.rightPart = -1;
+                    piece.rightPart = -5;
                 }
             }
         }

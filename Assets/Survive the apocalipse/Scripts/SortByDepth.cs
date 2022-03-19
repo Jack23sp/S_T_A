@@ -27,7 +27,8 @@ public class SortByDepth : MonoBehaviour
     {
         if (relatedToPlayer)
         {
-            renderer.sortingOrder = Player.localPlayer.spriteRenderer.sortingOrder - amountRelatedToPlayer;
+            if(Player.localPlayer)
+                renderer.sortingOrder = Player.localPlayer.spriteRenderer.sortingOrder - amountRelatedToPlayer;
         }
         else
         {
@@ -40,7 +41,8 @@ public class SortByDepth : MonoBehaviour
     {
         if (relatedToPlayer)
         {
-            renderer.sortingOrder = Player.localPlayer.spriteRenderer.sortingOrder - amountRelatedToPlayer;
+            if (Player.localPlayer)
+                renderer.sortingOrder = Player.localPlayer.spriteRenderer.sortingOrder - amountRelatedToPlayer;
         }
         else
         {

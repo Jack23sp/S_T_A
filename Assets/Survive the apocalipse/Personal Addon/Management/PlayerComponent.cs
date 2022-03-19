@@ -2624,8 +2624,26 @@ public partial class PlayerBuilding
     public void CmdClearWallDoor(NetworkIdentity identity, int up, int down, int left, int right)
     {
         ModularPiece modular = identity.GetComponent<ModularPiece>();
+        Collider2D[] wallColliders = new Collider2D[0];
         if (modular)
         {
+            if(up == -5)
+            {
+                if (modular.upComponent == 0)
+                {
+                    wallColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(((BoxCollider2D)modular.upWall.GetComponent<Collider2D>()).size.x, ((BoxCollider2D)modular.upWall.GetComponent<Collider2D>()).size.y), 0, GeneralManager.singleton.modularObjectToDelete);
+                }
+                else if (modular.upComponent == 1)
+                {
+                    wallColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(((BoxCollider2D)modular.upDoor.GetComponent<Collider2D>()).size.x, ((BoxCollider2D)modular.upDoor.GetComponent<Collider2D>()).size.y), 0, GeneralManager.singleton.modularObjectToDelete);
+                }
+                for (int i = 0; i < wallColliders.Length; i++)
+                {
+                    int index = i;
+                    BuildingManager.singleton.RemoveFromList(wallColliders[index].gameObject);
+                    NetworkServer.Destroy(wallColliders[index].gameObject);
+                }
+            }
             if (modular.upComponent != -5) modular.upComponent = up;
             if (modular.downComponent != -5) modular.downComponent = down;
             if (modular.leftComponent != -5) modular.leftComponent = left;
@@ -2639,17 +2657,56 @@ public partial class PlayerBuilding
     {
         ModularPiece modular = identity.GetComponent<ModularPiece>();
         Collider2D[] floorColliders;
+        Collider2D[] nextColliders;
         Collider2D[] wallColliders = new Collider2D[0];
         if (modular)
         {
-
+            if (modular.isMain)
+            {
+                if (modular.occupiedLEFT)
+                {
+                    nextColliders = Physics2D.OverlapBoxAll(modular.leftFloorPointer.transform.position, new Vector2(((BoxCollider2D)modular.leftFloorPointer.GetComponent<BoxCollider2D>()).size.x, ((BoxCollider2D)modular.leftFloorPointer.GetComponent<BoxCollider2D>()).size.x), 0, GeneralManager.singleton.modularObjectLayerMask);
+                    ModularPiece next = nextColliders[0].GetComponent<ModularPiece>();
+                    next.isMain = true;
+                    next.guild = modular.guild;
+                    next.owner = modular.owner;
+                    next.RpcRebuildMain(next.GetComponent<NetworkIdentity>(), true);
+                }
+                else if (modular.occupiedRIGHT)
+                {
+                    nextColliders = Physics2D.OverlapBoxAll(modular.rightFloorPointer.transform.position, new Vector2(((BoxCollider2D)modular.rightFloorPointer.GetComponent<BoxCollider2D>()).size.x, ((BoxCollider2D)modular.rightFloorPointer.GetComponent<BoxCollider2D>()).size.x), 0, GeneralManager.singleton.modularObjectLayerMask);
+                    ModularPiece next = nextColliders[0].GetComponent<ModularPiece>();
+                    next.isMain = true;
+                    next.guild = modular.guild;
+                    next.owner = modular.owner;
+                    next.RpcRebuildMain(next.GetComponent<NetworkIdentity>(), true);
+                }
+                else if (modular.occupiedUP)
+                {
+                    nextColliders = Physics2D.OverlapBoxAll(modular.upFloorPointer.transform.position, new Vector2(((BoxCollider2D)modular.upFloorPointer.GetComponent<BoxCollider2D>()).size.x, ((BoxCollider2D)modular.upFloorPointer.GetComponent<BoxCollider2D>()).size.x), 0, GeneralManager.singleton.modularObjectLayerMask);
+                    ModularPiece next = nextColliders[0].GetComponent<ModularPiece>();
+                    next.isMain = true;
+                    next.guild = modular.guild;
+                    next.owner = modular.owner;
+                    next.RpcRebuildMain(next.GetComponent<NetworkIdentity>(), true);
+                }
+                else if (modular.occupiedDOWN)
+                {
+                    nextColliders = Physics2D.OverlapBoxAll(modular.downFloorPointer.transform.position, new Vector2(((BoxCollider2D)modular.downFloorPointer.GetComponent<BoxCollider2D>()).size.x, ((BoxCollider2D)modular.downFloorPointer.GetComponent<BoxCollider2D>()).size.x), 0, GeneralManager.singleton.modularObjectLayerMask);
+                    ModularPiece next = nextColliders[0].GetComponent<ModularPiece>();
+                    next.isMain = true;
+                    next.guild = modular.guild;
+                    next.owner = modular.owner;
+                    next.RpcRebuildMain(next.GetComponent<NetworkIdentity>(), true);
+                }
+            }
             modular.upComponent = -5;
             modular.downComponent = -5;
             modular.leftComponent = -5;
             modular.rightComponent = -5;
             floorColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(((BoxCollider2D)modular.modularCollider).size.x, ((BoxCollider2D)modular.modularCollider).size.y), 0, GeneralManager.singleton.modularObjectToDelete);
 
-            for(int i = 0; i < floorColliders.Length; i++)
+            for (int i = 0; i < floorColliders.Length; i++)
             {
                 int index = i;
                 BuildingManager.singleton.RemoveFromList(floorColliders[index].gameObject);
@@ -2660,7 +2717,7 @@ public partial class PlayerBuilding
             {
                 wallColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(((BoxCollider2D)modular.upWall.GetComponent<Collider2D>()).size.x, ((BoxCollider2D)modular.upWall.GetComponent<Collider2D>()).size.y), 0, GeneralManager.singleton.modularObjectToDelete);
             }
-            else if(modular.upComponent == 1)
+            else if (modular.upComponent == 1)
             {
                 wallColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(((BoxCollider2D)modular.upDoor.GetComponent<Collider2D>()).size.x, ((BoxCollider2D)modular.upDoor.GetComponent<Collider2D>()).size.y), 0, GeneralManager.singleton.modularObjectToDelete);
             }
@@ -2671,21 +2728,19 @@ public partial class PlayerBuilding
                 BuildingManager.singleton.RemoveFromList(wallColliders[index].gameObject);
                 NetworkServer.Destroy(wallColliders[index].gameObject);
             }
+            for (int i = 0; i < modular.buildingColliders.Count; i++)
+            {
+                int index = i;
+                BuildingManager.singleton.RemoveFromList(modular.buildingColliders[index].gameObject);
+                NetworkServer.Destroy(modular.buildingColliders[index].gameObject);
+            }
+            for (int i = 0; i < modular.fornitureColliders.Count; i++)
+            {
+                int index = i;
+                NetworkServer.Destroy(modular.fornitureColliders[index].gameObject);
+            }
+            NetworkServer.Destroy(modular.gameObject);
         }
-        //TargetSyncClientModular(identity);
-
-        for (int i = 0; i < modular.buildingColliders.Count; i++)
-        {
-            int index = i;
-            BuildingManager.singleton.RemoveFromList(modular.buildingColliders[index].gameObject);
-            NetworkServer.Destroy(modular.buildingColliders[index].gameObject);
-        }
-        for (int i = 0; i < modular.fornitureColliders.Count; i++)
-        {
-            int index = i;
-            NetworkServer.Destroy(modular.fornitureColliders[index].gameObject);
-        }
-        NetworkServer.Destroy(modular.gameObject);
     }
 
     [TargetRpc]
@@ -4697,7 +4752,68 @@ public partial class PlayerTree
 
 public partial class PlayerPlant
 {
+    public Player player;
+    public GameObject damageObject;
+    public List<MedicalPlant> plantObject;
+    public MedicalPlant selectedMedicalPlant;
 
+    public void Update()
+    {
+        if (player.isClient)
+        {
+            plantObject = plantObject.Where(item => item != null).ToList();
+
+            if (plantObject.Count > 0)
+            {
+                if (plantObject != null)
+                {
+                    selectedMedicalPlant = plantObject[0];
+                    if (!GeneralManager.singleton.spawnedPlantUIObject)
+                    {
+                        GeneralManager.singleton.spawnedPlantUIObject = Instantiate(GeneralManager.singleton.plantUIObject, GeneralManager.singleton.canvas);
+                    }
+                }
+            }
+            else
+            {
+                if (GeneralManager.singleton.spawnedPlantUIObject)
+                {
+                    Destroy(GeneralManager.singleton.spawnedPlantUIObject);
+                }
+            }
+        }
+    }
+
+    [Command]
+    public void CmdAddPlant(string itemName, GameObject obj)
+    {
+        ScriptableItem item = obj.GetComponent<MedicalPlant>().reward;
+        if (player.InventoryCanAdd(new Item(item), 1))
+        {
+            player.InventoryAdd(new Item(item), 1);
+            TargetDamage(itemName, obj);
+        }
+    }
+
+    [TargetRpc]
+    public void TargetDamage(string itemName, GameObject obj)
+    {
+        GameObject g = Instantiate(damageObject);
+        g.transform.position = selectedMedicalPlant.transform.position;
+        ResourceScript resourceScript = g.GetComponent<ResourceScript>();
+        resourceScript.textMesh.text = " + 1 " + itemName;
+        resourceScript.spriteRenderer.gameObject.SetActive(false);
+        resourceScript.plantSpriteRenderer.gameObject.SetActive(true);
+
+        resourceScript.plantSpriteRenderer.sprite = selectedMedicalPlant.reward.image;
+        CmdDestroyPlant(obj.gameObject);
+    }
+
+    [Command]
+    public void CmdDestroyPlant(GameObject obj)
+    {
+        NetworkServer.Destroy(obj);
+    }
 }
 
 public partial class EntityObstacleCheck

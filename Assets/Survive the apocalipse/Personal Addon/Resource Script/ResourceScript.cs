@@ -8,6 +8,7 @@ public class ResourceScript : MonoBehaviour
 {
     public TextMeshPro textMesh;
     public SpriteRenderer spriteRenderer;
+    public SpriteRenderer plantSpriteRenderer;
     public Player player;
 
     public void AssignAndDecrease( string PrefabText , Sprite Sprite)

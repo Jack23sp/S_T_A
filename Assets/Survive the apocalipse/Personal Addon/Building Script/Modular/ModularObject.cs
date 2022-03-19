@@ -68,7 +68,8 @@ public class ModularObject : Forniture
     public void Start()
     {
         Invoke(nameof(ManagePlacement), 0.5f);
-        BuildingManager.singleton.AddToList(this.gameObject);
+        if(isServer)
+            BuildingManager.singleton.AddToList(this.gameObject);
     }
 
     public void ManagePlacement()
