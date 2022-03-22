@@ -84,7 +84,5 @@ public class UIStats : MonoBehaviour
     public void OpenItemMall()
     {
         itemMallObject = Instantiate(generalManager.itemMallPanel, generalManager.canvas);
-        itemMallObject.GetComponentInChildren<UIItemMall>().premium = true;
-
     }
 }

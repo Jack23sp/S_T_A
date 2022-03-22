@@ -12,37 +12,23 @@ public partial class UIItemMall : MonoBehaviour
 
     public KeyCode hotKey = KeyCode.X;
     public GameObject panel;
-    public Button categorySlotPrefab;
-    public Transform categoryContent;
-    public Transform upperPremiumContent;
-    public GameObject upperPremiumContentParent;
-    public Transform lowerPremiumContent;
-    public GameObject lowerPremiumContentParent;
-    public UIItemMallSlot itemSlotPrefab;
-    public GameObject itemSlotPrefabPremium;
-    public Transform itemContent;
-    public GameObject itemContentParent;
-    public string buyUrl = "http://unity3d.com/";
-    int currentCategory = 0;
-    public Text nameText;
-    public Text levelText;
-    public Text currencyAmountText;
-    public Button buyButton;
-    public InputField couponInput;
-    public Button couponButton;
-    public GameObject inventoryPanel;
-    public Button normalButton;
-    public Button premiumButton;
-    public GameObject categoriesText;
-    public bool premium;
-
-    public bool settedUpperItem;
-
+    public Transform contentCategory;
+    public UICategorySlot categorySlot;
+    public UIItemMallSlot itemMallSlot;
     public Item item;
+
+    public Button items;
+    public Button bundle;
+    public Button coins;
+
+    public bool itemsCat;
+    public bool bundleCat;
+    public bool coinsCat;
 
     public IAPManager IAPManager;
 
     public GameObject multipleBuyItemPanel;
+    public UISelectedItemMultiple multipleItem;
 
     public Button closeButton;
 
@@ -52,79 +38,45 @@ public partial class UIItemMall : MonoBehaviour
 
     private bool combined = false;
 
-    public void Start()
+    void ScrollToBeginning()
+    {
+        Canvas.ForceUpdateCanvases();
+    }
+
+    void Start()
     {
         if (!singleton) singleton = this;
 
         IAPManager = FindObjectOfType<IAPManager>();
 
-        itemContent.gameObject.SetActive(true);
-        upperPremiumContent.gameObject.SetActive(false);
-        lowerPremiumContent.gameObject.SetActive(false);
-
-        itemSlotPrefabPremium.SetActive(true);
-        upperPremiumContentParent.SetActive(false);
-        lowerPremiumContentParent.SetActive(false);
-    }
-
-    void ScrollToBeginning()
-    {
-        // update first so we don't ignore recently added messages, then scroll
-        Canvas.ForceUpdateCanvases();
-        //scrollRect.verticalNormalizedPosition = 1;
-    }
-
-    void Update()
-    {
         closeButton.onClick.SetListener(() =>
         {
             Destroy(closeButton.gameObject);
         });
 
-        normalButton.onClick.SetListener(() =>
-        {
-            premium = false;
-
-            itemContent.gameObject.SetActive(true);
-            upperPremiumContent.gameObject.SetActive(false);
-            lowerPremiumContent.gameObject.SetActive(false);
-
-            itemSlotPrefabPremium.SetActive(true);
-            upperPremiumContentParent.SetActive(false);
-            lowerPremiumContentParent.SetActive(false);
-
-        });
-        premiumButton.onClick.SetListener(() =>
-        {
-            premium = true;
-
-            itemContent.gameObject.SetActive(false);
-            upperPremiumContent.gameObject.SetActive(true);
-            lowerPremiumContent.gameObject.SetActive(true);
-
-            itemSlotPrefabPremium.SetActive(false);
-            upperPremiumContentParent.SetActive(true);
-            lowerPremiumContentParent.SetActive(true);
-
-            if (!settedUpperItem)
-            {
-                for (int i = 0; i < IAPManager.singleton.goldProducts.Count; ++i)
-                {
-                    Instantiate(itemSlotPrefabPremium, upperPremiumContent);
-                }
-                for (int i = 0; i < IAPManager.singleton.gemsProducts.Count; ++i)
-                {
-                    Instantiate(itemSlotPrefabPremium, lowerPremiumContent);
-                }
-
-                settedUpperItem = true;
-            }
-        });
         Player player = Player.localPlayer;
         if (player != null)
         {
-            categoriesText.SetActive(!premium);
-            if (!premium)
+            items.onClick.SetListener(() =>
+            {
+                itemsCat = true;
+                bundleCat = false;
+                coinsCat = false;
+            });
+            bundle.onClick.SetListener(() =>
+            {
+                itemsCat = false;
+                bundleCat = true;
+                coinsCat = false;
+            });
+            coins.onClick.SetListener(() =>
+            {
+                itemsCat = false;
+                bundleCat = false;
+                coinsCat = true;
+            });
+
+            if (itemsCat)
             {
                 if (!combined)
                 {
@@ -138,133 +90,56 @@ public partial class UIItemMall : MonoBehaviour
                     }
                     combined = true;
                 }
-                // instantiate/destroy enough category slots
-                UIUtils.BalancePrefabs(categorySlotPrefab.gameObject, totalCategory.Count, categoryContent);
+                UIUtils.BalancePrefabs(categorySlot.gameObject, totalCategory.Count, contentCategory);
 
-                // refresh all category buttons
                 for (int i = 0; i < totalCategory.Count; i++)
                 {
-                    Button button = categoryContent.GetChild(i).GetComponent<Button>();
-                    button.interactable = i != currentCategory;
+                    int currentCategory = i;
+                    UICategorySlot category = contentCategory.GetChild(i).GetComponent<UICategorySlot>();
                     if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
                     {
-                        button.GetComponentInChildren<TextMeshProUGUI>().text = totalCategory[i].categoryIta;
+                        category.categoryName.text = totalCategory[i].categoryIta;
                     }
                     else
                     {
-                        button.GetComponentInChildren<TextMeshProUGUI>().text = totalCategory[i].category;
+                        category.categoryName.text = totalCategory[i].category;
                     }
-                    int icopy = i; // needed for lambdas, otherwise i is Count
-                    button.onClick.SetListener(() =>
-                    {
-                        itemContent.GetComponent<RectTransform>().anchoredPosition = new Vector2(GetComponent<RectTransform>().anchoredPosition.x, 0.0f);
-                            // set new category and then scroll to the top again
-                            currentCategory = icopy;
-                            //ScrollToBeginning();
-                        });
-                }
 
-                if (player.itemMallCategories.Length > 0)
-                {
-                    // instantiate/destroy enough item slots for that category
-                    ScriptableItem[] items = totalCategory[currentCategory].items;
-                    UIUtils.BalancePrefabs(itemSlotPrefab.gameObject, items.Length, itemContent);
-
-                    // refresh all items in that category
-                    for (int i = 0; i < items.Length; i++)
+                    UIUtils.BalancePrefabs(itemMallSlot.gameObject, totalCategory[currentCategory].items.Length, category.content);
+                    for (int e = 0; e < totalCategory[currentCategory].items.Length; e++)
                     {
-                        int index = i;
                         if (player.playerBoost.networkBoost.Count > 0 && !string.IsNullOrEmpty(player.playerBoost.networkBoost[0].hiddenIslandTimer))
                             difference = DateTime.Parse(player.playerBoost.networkBoost[0].hiddenIslandTimer.ToString()) - System.DateTime.Now;
-
-                        UIItemMallSlot slot = itemContent.GetChild(index).GetComponent<UIItemMallSlot>();
-                        ScriptableItem itemData = items[index];
-
-                        slot.image.color = Color.white;
-                        slot.image.sprite = itemData.image;
+                        int category_e = e;
+                        UIItemMallSlot mallSlot = category.content.GetChild(category_e).GetComponent<UIItemMallSlot>();
+                        ScriptableItem item = totalCategory[currentCategory].items[category_e];
+                        mallSlot.coinText.text = item.coinPrice.ToString();
+                        mallSlot.image.sprite = item.image;
+                        mallSlot.goldText.text = player.playerBoost.networkBoost.Count > 0 && !string.IsNullOrEmpty(player.playerBoost.networkBoost[0].hiddenIslandTimer) && Convert.ToInt32(difference.TotalSeconds) > 0 ? (Convert.ToInt32(item.goldPrice / 2)).ToString() : item.goldPrice.ToString();
                         if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
                         {
-                            slot.nameText.text = itemData.italianName;
+                            mallSlot.nameText.text = item.italianName;
                         }
                         else
                         {
-                            slot.nameText.text = itemData.name;
+                            mallSlot.nameText.text = item.name;
                         }
-                        slot.goldText.text = player.playerBoost.networkBoost.Count > 0 && !string.IsNullOrEmpty(player.playerBoost.networkBoost[0].hiddenIslandTimer) && Convert.ToInt32(difference.TotalSeconds) > 0 ? (Convert.ToInt32(itemData.goldPrice / 2)).ToString() : itemData.goldPrice.ToString();
-                        slot.coinText.text = itemData.coinPrice.ToString();
-                        int icopy = index; // needed for lambdas, otherwise i is Count
-
-                        slot.unlockButton.onClick.SetListener(() =>
+                        mallSlot.unlockButton.onClick.SetListener(() =>
                         {
-                            GameObject g = Instantiate(GeneralManager.singleton.selectedItemMallMultiple, GeneralManager.singleton.canvas);
-                            item = new Item(itemData);
-                            slot.tooltip.text = item.ToolTip();
-                            g.GetComponent<UISelectedItemMultiple>().item = new Item(totalCategory[currentCategory].items[icopy]);
+                            multipleBuyItemPanel.SetActive(true);
+                            multipleItem.item = new Item(item);
                         });
                     }
                 }
             }
-            else
+            if(bundleCat)
             {
-                UIUtils.BalancePrefabs(categorySlotPrefab.gameObject, 0, categoryContent);
 
-                for (int i = 0; i < upperPremiumContent.childCount; i++)
-                {
-                    int index = i;
-                    UIItemMallSlotPremium slot = upperPremiumContent.GetChild(index).GetComponent<UIItemMallSlotPremium>();
-                    slot.gameObject.SetActive(true);
-                    slot.nameText.text = IAPManager.singleton.goldProducts[index].Name;
-                    if (IAPManager.singleton.goldProducts[index].Price.Contains("."))
-                    {
-                        slot.priceText.text = "€ " + IAPManager.singleton.goldProducts[index].Price;
-
-                    }
-                    else
-                    {
-                        slot.priceText.text = "€ " + IAPManager.singleton.goldProducts[index].Price + ".00";
-                    }
-
-                    slot.image.sprite = IAPManager.singleton.GetPremiumItemImage(slot.nameText.text);
-                    slot.unlockButton.onClick.SetListener(() =>
-                    {
-                        IAPManager.singleton.Purchase(IAPManager.singleton.goldProducts[index].Id);
-                    });
-                }
-                for (int i = 0; i < lowerPremiumContent.childCount; ++i)
-                {
-                    int index = i;
-                    UIItemMallSlotPremium slot = lowerPremiumContent.GetChild(index).GetComponent<UIItemMallSlotPremium>();
-                    slot.gameObject.SetActive(true);
-                    slot.nameText.text = IAPManager.singleton.gemsProducts[index].Name;
-                    if (IAPManager.singleton.goldProducts[index].Price.Contains("."))
-                    {
-                        slot.priceText.text = "€ " + IAPManager.singleton.gemsProducts[index].Price;
-                    }
-                    else
-                    {
-                        slot.priceText.text = "€ " + IAPManager.singleton.gemsProducts[index].Price + ".00";
-                    }
-                    slot.image.sprite = IAPManager.singleton.GetPremiumItemImage(slot.nameText.text);
-                    slot.unlockButton.onClick.SetListener(() =>
-                    {
-                        IAPManager.singleton.Purchase(IAPManager.singleton.gemsProducts[index].Id);
-                    });
-                }
             }
-
-            // overview
-            nameText.text = player.name;
-            levelText.text = "Lv. " + player.level;
-            currencyAmountText.text = player.coins.ToString();
-            buyButton.onClick.SetListener(() => { Application.OpenURL(buyUrl); });
-            couponInput.interactable = NetworkTime.time >= player.nextRiskyActionTime;
-            couponButton.interactable = NetworkTime.time >= player.nextRiskyActionTime;
-            couponButton.onClick.SetListener(() =>
+            if(coinsCat)
             {
-                if (!string.IsNullOrWhiteSpace(couponInput.text))
-                    player.CmdEnterCoupon(couponInput.text);
-                couponInput.text = "";
-            });
+
+            }
         }
     }
 }

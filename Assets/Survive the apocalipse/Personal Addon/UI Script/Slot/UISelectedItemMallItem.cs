@@ -71,7 +71,6 @@ public class UISelectedItemMallItem : MonoBehaviour
                     if (!GeneralManager.singleton.uiItemMallPanel)
                     {
                         GeneralManager.singleton.uiItemMallPanel = Instantiate(GeneralManager.singleton.itemMallPanel, GeneralManager.singleton.canvas);
-                        GeneralManager.singleton.uiItemMallPanel.GetComponentInChildren<UIItemMall>().premium = true;
                         Destroy(this.gameObject);
                     }
                 }
@@ -88,7 +87,6 @@ public class UISelectedItemMallItem : MonoBehaviour
                     if (!GeneralManager.singleton.uiItemMallPanel)
                     {
                         GeneralManager.singleton.uiItemMallPanel = Instantiate(GeneralManager.singleton.itemMallPanel, GeneralManager.singleton.canvas);
-                        GeneralManager.singleton.uiItemMallPanel.GetComponentInChildren<UIItemMall>().premium = true;
                         Destroy(this.gameObject);
                     }
                 }

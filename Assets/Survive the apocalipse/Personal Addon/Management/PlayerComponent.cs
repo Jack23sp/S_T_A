@@ -2700,10 +2700,28 @@ public partial class PlayerBuilding
                     next.RpcRebuildMain(next.GetComponent<NetworkIdentity>(), true);
                 }
             }
-            modular.upComponent = -5;
-            modular.downComponent = -5;
-            modular.leftComponent = -5;
-            modular.rightComponent = -5;
+
+            nextColliders = Physics2D.OverlapBoxAll(modular.leftFloorPointer.transform.position, new Vector2(((BoxCollider2D)modular.leftFloorPointer.GetComponent<BoxCollider2D>()).size.x, ((BoxCollider2D)modular.leftFloorPointer.GetComponent<BoxCollider2D>()).size.x), 0, GeneralManager.singleton.modularObjectLayerMask);
+            if(nextColliders.Length > 0)
+            {
+                nextColliders[0].GetComponent<ModularPiece>().occupiedRIGHT = false;
+            }
+            nextColliders = Physics2D.OverlapBoxAll(modular.rightFloorPointer.transform.position, new Vector2(((BoxCollider2D)modular.rightFloorPointer.GetComponent<BoxCollider2D>()).size.x, ((BoxCollider2D)modular.rightFloorPointer.GetComponent<BoxCollider2D>()).size.x), 0, GeneralManager.singleton.modularObjectLayerMask);
+            if (nextColliders.Length > 0)
+            {
+                nextColliders[0].GetComponent<ModularPiece>().occupiedLEFT = false;
+            }
+            nextColliders = Physics2D.OverlapBoxAll(modular.upFloorPointer.transform.position, new Vector2(((BoxCollider2D)modular.upFloorPointer.GetComponent<BoxCollider2D>()).size.x, ((BoxCollider2D)modular.upFloorPointer.GetComponent<BoxCollider2D>()).size.x), 0, GeneralManager.singleton.modularObjectLayerMask);
+            if (nextColliders.Length > 0)
+            {
+                nextColliders[0].GetComponent<ModularPiece>().occupiedDOWN = false;
+            }
+            nextColliders = Physics2D.OverlapBoxAll(modular.downFloorPointer.transform.position, new Vector2(((BoxCollider2D)modular.downFloorPointer.GetComponent<BoxCollider2D>()).size.x, ((BoxCollider2D)modular.downFloorPointer.GetComponent<BoxCollider2D>()).size.x), 0, GeneralManager.singleton.modularObjectLayerMask);
+            if (nextColliders.Length > 0)
+            {
+                nextColliders[0].GetComponent<ModularPiece>().occupiedUP = false;
+            }
+
             floorColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(((BoxCollider2D)modular.modularCollider).size.x, ((BoxCollider2D)modular.modularCollider).size.y), 0, GeneralManager.singleton.modularObjectToDelete);
 
             for (int i = 0; i < floorColliders.Length; i++)
@@ -2739,6 +2757,11 @@ public partial class PlayerBuilding
                 int index = i;
                 NetworkServer.Destroy(modular.fornitureColliders[index].gameObject);
             }
+
+            //verify occupied part and reset
+            //......
+
+
             NetworkServer.Destroy(modular.gameObject);
         }
     }
@@ -4788,20 +4811,26 @@ public partial class PlayerPlant
     public void CmdAddPlant(string itemName, GameObject obj)
     {
         ScriptableItem item = obj.GetComponent<MedicalPlant>().reward;
-        if (player.InventoryCanAdd(new Item(item), 1))
+        int abilityLevel = GeneralManager.singleton.FindNetworkAbilityLevel("Farmer", player.name);
+        if (abilityLevel <= 10) abilityLevel = 1;
+        else
         {
-            player.InventoryAdd(new Item(item), 1);
-            TargetDamage(itemName, obj);
+            abilityLevel = Convert.ToInt32(abilityLevel / 10);
+        }
+        if (player.InventoryCanAdd(new Item(item), abilityLevel))
+        {
+            player.InventoryAdd(new Item(item), abilityLevel);
+            TargetDamage(itemName, obj,abilityLevel);
         }
     }
 
     [TargetRpc]
-    public void TargetDamage(string itemName, GameObject obj)
+    public void TargetDamage(string itemName, GameObject obj, int amount)
     {
         GameObject g = Instantiate(damageObject);
         g.transform.position = selectedMedicalPlant.transform.position;
         ResourceScript resourceScript = g.GetComponent<ResourceScript>();
-        resourceScript.textMesh.text = " + 1 " + itemName;
+        resourceScript.textMesh.text = " + " + amount + itemName;
         resourceScript.spriteRenderer.gameObject.SetActive(false);
         resourceScript.plantSpriteRenderer.gameObject.SetActive(true);
 

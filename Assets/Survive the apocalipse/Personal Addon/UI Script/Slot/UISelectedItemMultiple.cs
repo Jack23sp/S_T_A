@@ -51,10 +51,8 @@ public class UISelectedItemMultiple : MonoBehaviour
 
         if (inputFieldAmount.text != string.Empty) amount = Convert.ToInt32(inputFieldAmount.text);
         else amount = 0;
-        if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
-            description.text = item.ToolTip().Replace("{AMOUNT}", "Quantita' : 1");
-        else
-            description.text = item.ToolTip().Replace("{AMOUNT}", "Quantity : 1");
+
+        description.text = item.ToolTip().Replace("{AMOUNT}", "");
 
         itemImage.sprite = item.image;
 

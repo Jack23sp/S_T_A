@@ -46,7 +46,6 @@ public class UISelectedBoost : MonoBehaviour
                     if (!GeneralManager.singleton.uiItemMallPanel)
                     {
                         GeneralManager.singleton.uiItemMallPanel = Instantiate(GeneralManager.singleton.itemMallPanel, GeneralManager.singleton.canvas);
-                        GeneralManager.singleton.uiItemMallPanel.GetComponentInChildren<UIItemMall>().premium = true;
                     }
                 }
                 else
@@ -65,7 +64,6 @@ public class UISelectedBoost : MonoBehaviour
                     if (!GeneralManager.singleton.uiItemMallPanel)
                     {
                         GeneralManager.singleton.uiItemMallPanel = Instantiate(GeneralManager.singleton.itemMallPanel, GeneralManager.singleton.canvas);
-                        GeneralManager.singleton.uiItemMallPanel.GetComponentInChildren<UIItemMall>().premium = true;
                     }
                 }
                 else

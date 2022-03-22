@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee736e14635a49a4583548539f8853ae, type: 3}
+  m_Name: Material pack
+  m_EditorClassIdentifier: 
+  bundleitems:
+  - item: {fileID: 11400000, guid: a3e0623b17ee3ee459bd6d89c7bb0cc0, type: 2}
+    quantity: 40
+  - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+    quantity: 40
+  - item: {fileID: 11400000, guid: 2498001e2ebef4347893407b138512f9, type: 2}
+    quantity: 40
+  - item: {fileID: 11400000, guid: 4bf904a75ee42474e8278d92dfbcc773, type: 2}
+    quantity: 40
+  coins: 100

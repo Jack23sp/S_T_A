@@ -20,17 +20,6 @@ public class ModularPiece : NetworkBehaviour
     [SyncVar]
     public bool occupiedDOWN;
 
-
-    // index of the nearest part
-    [SyncVar]
-    public int leftPart;
-    [SyncVar]
-    public int rightPart;
-    [SyncVar]
-    public int upPart;
-    [SyncVar]
-    public int downPart;
-
     [SyncVar]
     public bool isMain;
 
@@ -136,8 +125,7 @@ public class ModularPiece : NetworkBehaviour
             Invoke(nameof(SetColor), 0.2f);
             electricBox.SetActive(isMain);
             if((leftComponent != -5 && rightComponent != -5 && upComponent != -5 && downComponent != -5) || 
-                (leftComponent != -5 && rightComponent != -5) || (upComponent != -5 && downComponent != -5) ||
-                (leftPart != -5 && rightPart != -5) || (upPart != -5 && downPart != -5))
+                (leftComponent != -5 && rightComponent != -5) || (upComponent != -5 && downComponent != -5) )
             {
                 roof.SetActive(true);
             }

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee736e14635a49a4583548539f8853ae, type: 3}
+  m_Name: Health pack
+  m_EditorClassIdentifier: 
+  bundleitems:
+  - item: {fileID: 11400000, guid: 7608632c8863e8e40bc4d5696a4a7545, type: 2}
+    quantity: 3
+  - item: {fileID: 11400000, guid: 5433d872d28560a488f1f5e92e84a974, type: 2}
+    quantity: 2
+  - item: {fileID: 11400000, guid: 704b1dc34f9397849a5019545968b3ee, type: 2}
+    quantity: 1
+  coins: 40

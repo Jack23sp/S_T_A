@@ -467,6 +467,11 @@ public class GeneralManager : MonoBehaviour
     public GameObject plantUIObject;
     public GameObject spawnedPlantUIObject;
 
+    [Header("Bundle")]
+    public BundleItem manVerticalItem;
+    public BundleItem womanVerticalItem;
+    public List<BundleItem> allItems;
+
 
     public DateTime ChangeServerToClientTime(DateTime time, int seconds = 0)
     {
