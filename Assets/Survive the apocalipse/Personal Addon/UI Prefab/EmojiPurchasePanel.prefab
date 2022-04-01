@@ -64,11 +64,10 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 43d850e9432604fbe9fc16c8c0fa806a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 80d6947b4bec65342b1985726dba2a6c, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -186,7 +185,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -432,7 +430,6 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -488,6 +485,18 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 2390390851208651610, guid: 46c46aa2751fa5443a8a06e6104c52c7,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a41d9f7907638a446819230973e8f4e6,
+        type: 2}
+    - target: {fileID: 2390390851208651610, guid: 46c46aa2751fa5443a8a06e6104c52c7,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 3173096818652343020, guid: a41d9f7907638a446819230973e8f4e6,
+        type: 2}
     - target: {fileID: 2888098924120558613, guid: 46c46aa2751fa5443a8a06e6104c52c7,
         type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
@@ -683,6 +692,18 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 462119746283854975, guid: 8162effbaedb12945bd6f5852a46b9da,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: a41d9f7907638a446819230973e8f4e6,
+        type: 2}
+    - target: {fileID: 462119746283854975, guid: 8162effbaedb12945bd6f5852a46b9da,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 3173096818652343020, guid: a41d9f7907638a446819230973e8f4e6,
+        type: 2}
     - target: {fileID: 960059434140333958, guid: 8162effbaedb12945bd6f5852a46b9da,
         type: 3}
       propertyPath: m_AnchoredPosition.x

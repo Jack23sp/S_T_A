@@ -21,9 +21,9 @@ public partial class UIItemMall : MonoBehaviour
     public Button bundle;
     public Button coins;
 
-    public bool itemsCat;
-    public bool bundleCat;
-    public bool coinsCat;
+    public GameObject itemsScroll;
+    public GameObject bundleScroll;
+    public GameObject coinScroll;
 
     public IAPManager IAPManager;
 
@@ -59,86 +59,75 @@ public partial class UIItemMall : MonoBehaviour
         {
             items.onClick.SetListener(() =>
             {
-                itemsCat = true;
-                bundleCat = false;
-                coinsCat = false;
+                itemsScroll.gameObject.SetActive(true);
+                bundleScroll.gameObject.SetActive(false);
+                coinScroll.gameObject.SetActive(false);
             });
             bundle.onClick.SetListener(() =>
             {
-                itemsCat = false;
-                bundleCat = true;
-                coinsCat = false;
+                itemsScroll.gameObject.SetActive(false);
+                bundleScroll.gameObject.SetActive(true);
+                coinScroll.gameObject.SetActive(false);
             });
             coins.onClick.SetListener(() =>
             {
-                itemsCat = false;
-                bundleCat = false;
-                coinsCat = true;
+                itemsScroll.gameObject.SetActive(false);
+                bundleScroll.gameObject.SetActive(false);
+                coinScroll.gameObject.SetActive(true);
             });
 
-            if (itemsCat)
+            if (!combined)
             {
-                if (!combined)
+                if (player.playerCreation.sex == 0)
                 {
-                    if (player.playerCreation.sex == 0)
-                    {
-                        totalCategory = GeneralManager.singleton.itemMallCategories.ToList().Union(GeneralManager.singleton.manClothes.ToList()).ToList();
-                    }
-                    else
-                    {
-                        totalCategory = GeneralManager.singleton.itemMallCategories.ToList().Union(GeneralManager.singleton.womanClothes.ToList()).ToList();
-                    }
-                    combined = true;
+                    totalCategory = GeneralManager.singleton.itemMallCategories.ToList().Union(GeneralManager.singleton.manClothes.ToList()).ToList();
                 }
-                UIUtils.BalancePrefabs(categorySlot.gameObject, totalCategory.Count, contentCategory);
-
-                for (int i = 0; i < totalCategory.Count; i++)
+                else
                 {
-                    int currentCategory = i;
-                    UICategorySlot category = contentCategory.GetChild(i).GetComponent<UICategorySlot>();
+                    totalCategory = GeneralManager.singleton.itemMallCategories.ToList().Union(GeneralManager.singleton.womanClothes.ToList()).ToList();
+                }
+                combined = true;
+            }
+            UIUtils.BalancePrefabs(categorySlot.gameObject, totalCategory.Count, contentCategory);
+
+            for (int i = 0; i < totalCategory.Count; i++)
+            {
+                int currentCategory = i;
+                UICategorySlot category = contentCategory.GetChild(i).GetComponent<UICategorySlot>();
+                if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+                {
+                    category.categoryName.text = totalCategory[i].categoryIta;
+                }
+                else
+                {
+                    category.categoryName.text = totalCategory[i].category;
+                }
+
+                UIUtils.BalancePrefabs(itemMallSlot.gameObject, totalCategory[currentCategory].items.Length, category.content);
+                for (int e = 0; e < totalCategory[currentCategory].items.Length; e++)
+                {
+                    if (player.playerBoost.networkBoost.Count > 0 && !string.IsNullOrEmpty(player.playerBoost.networkBoost[0].hiddenIslandTimer))
+                        difference = DateTime.Parse(player.playerBoost.networkBoost[0].hiddenIslandTimer.ToString()) - System.DateTime.Now;
+                    int category_e = e;
+                    UIItemMallSlot mallSlot = category.content.GetChild(category_e).GetComponent<UIItemMallSlot>();
+                    ScriptableItem item = totalCategory[currentCategory].items[category_e];
+                    mallSlot.coinText.text = item.coinPrice.ToString();
+                    mallSlot.image.sprite = item.image;
+                    mallSlot.goldText.text = player.playerBoost.networkBoost.Count > 0 && !string.IsNullOrEmpty(player.playerBoost.networkBoost[0].hiddenIslandTimer) && Convert.ToInt32(difference.TotalSeconds) > 0 ? (Convert.ToInt32(item.goldPrice / 2)).ToString() : item.goldPrice.ToString();
                     if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
                     {
-                        category.categoryName.text = totalCategory[i].categoryIta;
+                        mallSlot.nameText.text = item.italianName;
                     }
                     else
                     {
-                        category.categoryName.text = totalCategory[i].category;
+                        mallSlot.nameText.text = item.name;
                     }
-
-                    UIUtils.BalancePrefabs(itemMallSlot.gameObject, totalCategory[currentCategory].items.Length, category.content);
-                    for (int e = 0; e < totalCategory[currentCategory].items.Length; e++)
+                    mallSlot.unlockButton.onClick.SetListener(() =>
                     {
-                        if (player.playerBoost.networkBoost.Count > 0 && !string.IsNullOrEmpty(player.playerBoost.networkBoost[0].hiddenIslandTimer))
-                            difference = DateTime.Parse(player.playerBoost.networkBoost[0].hiddenIslandTimer.ToString()) - System.DateTime.Now;
-                        int category_e = e;
-                        UIItemMallSlot mallSlot = category.content.GetChild(category_e).GetComponent<UIItemMallSlot>();
-                        ScriptableItem item = totalCategory[currentCategory].items[category_e];
-                        mallSlot.coinText.text = item.coinPrice.ToString();
-                        mallSlot.image.sprite = item.image;
-                        mallSlot.goldText.text = player.playerBoost.networkBoost.Count > 0 && !string.IsNullOrEmpty(player.playerBoost.networkBoost[0].hiddenIslandTimer) && Convert.ToInt32(difference.TotalSeconds) > 0 ? (Convert.ToInt32(item.goldPrice / 2)).ToString() : item.goldPrice.ToString();
-                        if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
-                        {
-                            mallSlot.nameText.text = item.italianName;
-                        }
-                        else
-                        {
-                            mallSlot.nameText.text = item.name;
-                        }
-                        mallSlot.unlockButton.onClick.SetListener(() =>
-                        {
-                            multipleBuyItemPanel.SetActive(true);
-                            multipleItem.item = new Item(item);
-                        });
-                    }
+                        multipleBuyItemPanel.SetActive(true);
+                        multipleItem.item = new Item(item);
+                    });
                 }
-            }
-            if(bundleCat)
-            {
-
-            }
-            if(coinsCat)
-            {
-
             }
         }
     }

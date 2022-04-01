@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace InteractiveWind2D
+namespace SpriteShadersUltimate
 {
     public class WindParallax : MonoBehaviour
     {

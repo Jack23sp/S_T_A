@@ -89,7 +89,7 @@ public class UIKitchenSink : MonoBehaviour
 
         if (!drink)
         {
-            if (kitchenSink.maxWater == 0)
+            if (TemperatureManager.singleton.actualAcquifer[aquiferIndex].maxWater == 0)
             {
                 if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
                 {
@@ -134,10 +134,5 @@ public class UIKitchenSink : MonoBehaviour
         waterSlider.maxValue = TemperatureManager.singleton.actualAcquifer[aquiferIndex].maxWater;
 
         buttonWater.interactable = waterSlider.value <= player.GetEmptyWaterBootle() && waterSlider.value <= TemperatureManager.singleton.actualAcquifer[aquiferIndex].actualWater;
-    }
-
-    public float waterPercent()
-    {
-        return (kitchenSink.currentWater != 0 && kitchenSink.maxWater != 0) ? (float)kitchenSink.currentWater / (float)kitchenSink.maxWater : 0;
     }
 }

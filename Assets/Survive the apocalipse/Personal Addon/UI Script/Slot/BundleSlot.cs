@@ -7,6 +7,7 @@ using TMPro;
 public class BundleSlot : MonoBehaviour
 {
     public Button buyButton;
+    public TextMeshProUGUI buyButtonText;
     public Button confirmButton;
     public TextMeshProUGUI bundleName;
     public Transform content;

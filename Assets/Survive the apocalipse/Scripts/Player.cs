@@ -8027,5 +8027,34 @@ public partial class Player : Entity
         UINotificationManager.singleton.SpawnFriendObject(message);
     }
 
+    [Command]
+    public void CmdBuyBundle(string bundleName)
+    {
+        if (coins >= GeneralManager.singleton.FindBundleItems(bundleName).coins)
+        {
+            BundleItem bundleItem = GeneralManager.singleton.FindBundleItems(bundleName);
+            if (bundleItem != null)
+            {
+                for (int i = 0; i < bundleItem.bundleitems.Count; i++)
+                {
+                    int index = i;
+                    if (!InventoryCanAdd(new Item(bundleItem.bundleitems[index].item), bundleItem.bundleitems[index].quantity))
+                    {
+                        return;
+                    }
+                }
+                for (int i = 0; i < bundleItem.bundleitems.Count; i++)
+                {
+                    int index = i;
+                    if (InventoryCanAdd(new Item(bundleItem.bundleitems[index].item), bundleItem.bundleitems[index].quantity))
+                    {
+                        InventoryAdd(new Item(bundleItem.bundleitems[index].item), bundleItem.bundleitems[index].quantity);
+                    }
+                }
+                coins -= bundleItem.coins;
+            }
+        }
+    }
+
     #endregion
 }

@@ -36,6 +36,9 @@ public enum ModularType
 
 public class ModularObject : Forniture
 {
+    [SyncVar]
+    public bool isPremium;
+
     public ModularType fornitureType;
 
     public SpriteRenderer placement;

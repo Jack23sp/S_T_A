@@ -1,0 +1,463 @@
+fileFormatVersion: 2
+guid: a979b8fab8a8a1b48b12579a73723ed6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1480291516350708812
+    second: 0deg
+  - first:
+      213: 7114535235718178654
+    second: 30deg
+  - first:
+      213: -5048063038266490990
+    second: 60deg
+  - first:
+      213: -1218844832463651114
+    second: 90deg
+  - first:
+      213: -1588230216335661072
+    second: 120deg
+  - first:
+      213: -8008190554364036190
+    second: 150deg
+  - first:
+      213: -4916952005769091322
+    second: 180deg
+  - first:
+      213: 6314412520876877831
+    second: 210deg
+  - first:
+      213: -4278938335183157198
+    second: 240deg
+  - first:
+      213: 6799256274158981590
+    second: 270deg
+  - first:
+      213: -4964336200664390997
+    second: 300deg
+  - first:
+      213: -6580014094483266971
+    second: 330deg
+  - first:
+      213: -5842983915100625406
+    second: DBK_BrickShort_Building_0
+  - first:
+      213: -1436423986630219720
+    second: DBK_BrickShort_Building_1
+  - first:
+      213: 7770953173927108369
+    second: DBK_BrickShort_Building_2
+  - first:
+      213: 2776090875170130969
+    second: DBK_BrickShort_Building_3
+  - first:
+      213: -5201948017959210302
+    second: DBK_BrickShort_Building_4
+  - first:
+      213: -8603274239720606519
+    second: DBK_BrickShort_Building_5
+  - first:
+      213: 2087477822563326258
+    second: DBK_BrickShort_Building_6
+  - first:
+      213: 7002951495514589675
+    second: DBK_BrickShort_Building_7
+  - first:
+      213: -1512658195352168541
+    second: DBK_BrickShort_Building_8
+  - first:
+      213: -2244613131253497930
+    second: DBK_BrickShort_Building_9
+  - first:
+      213: -2259658623185248169
+    second: DBK_BrickShort_Building_10
+  - first:
+      213: 4048117539929578662
+    second: DBK_BrickShort_Building_11
+  - first:
+      213: -3482307180510118503
+    second: DBK_BrickShort_Building_12
+  - first:
+      213: -99497622661241676
+    second: DBK_BrickShort_Building_13
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DBK_BrickShort_Building_0
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 3264
+        width: 296
+        height: 203
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2062b10361d89eea0800000000000000
+      internalID: -5842983915100625406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickShort_Building_1
+      rect:
+        serializedVersion: 2
+        x: 1273
+        y: 3335
+        width: 278
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8382e02aefbc01ce0800000000000000
+      internalID: -1436423986630219720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickShort_Building_2
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 2319
+        width: 278
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11f9e1a4db8f7db60800000000000000
+      internalID: 7770953173927108369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickShort_Building_3
+      rect:
+        serializedVersion: 2
+        x: 1264
+        y: 2300
+        width: 260
+        height: 237
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91c08be41f7a68620800000000000000
+      internalID: 2776090875170130969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickShort_Building_4
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 1358
+        width: 260
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c27e79b6d7fec7b0800000000000000
+      internalID: -5201948017959210302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickShort_Building_5
+      rect:
+        serializedVersion: 2
+        x: 1341
+        y: 1289
+        width: 268
+        height: 245
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c43f2c39a70b9880800000000000000
+      internalID: -8603274239720606519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickShort_Building_6
+      rect:
+        serializedVersion: 2
+        x: 2299
+        y: 1298
+        width: 208
+        height: 248
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 239946a050638fc10800000000000000
+      internalID: 2087477822563326258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickShort_Building_7
+      rect:
+        serializedVersion: 2
+        x: 3244
+        y: 1293
+        width: 180
+        height: 259
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be9007d284b7f2160800000000000000
+      internalID: 7002951495514589675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickShort_Building_8
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 454
+        width: 296
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a7537fb265f10be0800000000000000
+      internalID: -1512658195352168541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickShort_Building_9
+      rect:
+        serializedVersion: 2
+        x: 562
+        y: 470
+        width: 10
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bf3575ef3889d0e0800000000000000
+      internalID: -2244613131253497930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickShort_Building_10
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 469
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7502563547414a0e0800000000000000
+      internalID: -2259658623185248169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickShort_Building_11
+      rect:
+        serializedVersion: 2
+        x: 1307
+        y: 430
+        width: 268
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6acd788647dcd2830800000000000000
+      internalID: 4048117539929578662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickShort_Building_12
+      rect:
+        serializedVersion: 2
+        x: 2353
+        y: 407
+        width: 208
+        height: 253
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99df6e2c11c5cafc0800000000000000
+      internalID: -3482307180510118503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickShort_Building_13
+      rect:
+        serializedVersion: 2
+        x: 3380
+        y: 395
+        width: 180
+        height: 260
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b4e74970738e9ef0800000000000000
+      internalID: -99497622661241676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: c175058d09fa5b8418d0b6232a1818bf
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,487 @@
+fileFormatVersion: 2
+guid: 8923fcf9da3b9e54e989a9ffd22b703c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1480291516350708812
+    second: 0deg
+  - first:
+      213: 7114535235718178654
+    second: 30deg
+  - first:
+      213: -5048063038266490990
+    second: 60deg
+  - first:
+      213: -1218844832463651114
+    second: 90deg
+  - first:
+      213: -1588230216335661072
+    second: 120deg
+  - first:
+      213: -8008190554364036190
+    second: 150deg
+  - first:
+      213: -4916952005769091322
+    second: 180deg
+  - first:
+      213: 6314412520876877831
+    second: 210deg
+  - first:
+      213: -4278938335183157198
+    second: 240deg
+  - first:
+      213: 6799256274158981590
+    second: 270deg
+  - first:
+      213: -4964336200664390997
+    second: 300deg
+  - first:
+      213: -6580014094483266971
+    second: 330deg
+  - first:
+      213: 8798105699701013727
+    second: DBK_ConcreteDamageSmall_Building_0
+  - first:
+      213: 8596071477834198792
+    second: DBK_ConcreteDamageSmall_Building_1
+  - first:
+      213: -66687379791272039
+    second: DBK_ConcreteDamageSmall_Building_2
+  - first:
+      213: 3518470919610376626
+    second: DBK_ConcreteDamageSmall_Building_3
+  - first:
+      213: -643592066053353331
+    second: DBK_ConcreteDamageSmall_Building_4
+  - first:
+      213: 123515388722036656
+    second: DBK_ConcreteDamageSmall_Building_5
+  - first:
+      213: 1403846985936075522
+    second: DBK_ConcreteDamageSmall_Building_6
+  - first:
+      213: -6701743734818593631
+    second: DBK_ConcreteDamageSmall_Building_7
+  - first:
+      213: -5875604297118253292
+    second: DBK_ConcreteDamageSmall_Building_8
+  - first:
+      213: -8818666543561105164
+    second: DBK_ConcreteDamageSmall_Building_9
+  - first:
+      213: 7211025755402194164
+    second: DBK_ConcreteDamageSmall_Building_10
+  - first:
+      213: 6026365737143616312
+    second: DBK_ConcreteDamageSmall_Building_11
+  - first:
+      213: -2951812882313398
+    second: DBK_ConcreteDamageSmall_Building_12
+  - first:
+      213: -6786107256801785379
+    second: DBK_ConcreteDamageSmall_Building_13
+  - first:
+      213: 2018241594487405056
+    second: DBK_ConcreteDamageSmall_Building_14
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageSmall_Building_0
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 3348
+        width: 32
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdcb40ff486291a70800000000000000
+      internalID: 8798105699701013727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageSmall_Building_1
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 3300
+        width: 243
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80fac2417716b4770800000000000000
+      internalID: 8596071477834198792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageSmall_Building_2
+      rect:
+        serializedVersion: 2
+        x: 1365
+        y: 3370
+        width: 258
+        height: 249
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9972a807e24131ff0800000000000000
+      internalID: -66687379791272039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageSmall_Building_3
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 2264
+        width: 255
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b12be3e8ae14d030800000000000000
+      internalID: 3518470919610376626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageSmall_Building_4
+      rect:
+        serializedVersion: 2
+        x: 1338
+        y: 2398
+        width: 214
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8051a20d608117f0800000000000000
+      internalID: -643592066053353331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageSmall_Building_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 2288
+        width: 28
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bf32157790d6b100800000000000000
+      internalID: 123515388722036656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageSmall_Building_6
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 1264
+        width: 214
+        height: 281
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20bf8b355677b7310800000000000000
+      internalID: 1403846985936075522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageSmall_Building_7
+      rect:
+        serializedVersion: 2
+        x: 1236
+        y: 1355
+        width: 257
+        height: 229
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a4207e949f9ef2a0800000000000000
+      internalID: -6701743734818593631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageSmall_Building_8
+      rect:
+        serializedVersion: 2
+        x: 2237
+        y: 1379
+        width: 214
+        height: 263
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41ff185a509a57ea0800000000000000
+      internalID: -5875604297118253292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageSmall_Building_9
+      rect:
+        serializedVersion: 2
+        x: 3283
+        y: 1422
+        width: 122
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f02b6e708dcd9580800000000000000
+      internalID: -8818666543561105164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageSmall_Building_10
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 454
+        width: 264
+        height: 193
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fcc0f808b5b21460800000000000000
+      internalID: 7211025755402194164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageSmall_Building_11
+      rect:
+        serializedVersion: 2
+        x: 1423
+        y: 406
+        width: 254
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 833c70975b3f1a350800000000000000
+      internalID: 6026365737143616312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageSmall_Building_12
+      rect:
+        serializedVersion: 2
+        x: 1644
+        y: 428
+        width: 35
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4fc4b1875385fff0800000000000000
+      internalID: -2951812882313398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageSmall_Building_13
+      rect:
+        serializedVersion: 2
+        x: 2409
+        y: 341
+        width: 214
+        height: 282
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd901ae7767e2d1a0800000000000000
+      internalID: -6786107256801785379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageSmall_Building_14
+      rect:
+        serializedVersion: 2
+        x: 3399
+        y: 291
+        width: 120
+        height: 290
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00af65e790c320c10800000000000000
+      internalID: 2018241594487405056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: b2e41e22d391e1e4784c364149ab7b86
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

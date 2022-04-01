@@ -501,7 +501,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_textAlignment: 513
+  m_textAlignment: 514
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -988,6 +988,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buyButton: {fileID: 5220567590553861792}
+  buyButtonText: {fileID: 3165468147940196695}
   confirmButton: {fileID: 370573363885338748}
   bundleName: {fileID: 8052909587654255232}
   content: {fileID: 6636025369795153691}

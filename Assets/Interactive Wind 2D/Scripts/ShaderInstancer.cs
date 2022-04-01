@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace InteractiveWind2D
+namespace SpriteShadersUltimate
 {
     public class ShaderInstancer : MonoBehaviour
     {

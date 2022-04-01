@@ -2387,6 +2387,7 @@ public partial class PlayerBuilding
         {
             ModularObject.owner = selectedName;
             ModularObject.guild = selectedGroup;
+            ModularObject.objectIndex = ModularBuildingManager.singleton.GetNewIndexForniture();
             BuildingManager.singleton.AddToList(g);
             Destroy(ModularObject.placement.gameObject);
             NetworkServer.Spawn(g);
@@ -3465,7 +3466,7 @@ public partial class PlayerMove
     }
 
     public float distanceToCheckForniture = 3.0f;
-    public float distanceToCheckEntity = 15.0f;
+    public float distanceToCheckEntity = 3.0f;
 
 
     void Start()

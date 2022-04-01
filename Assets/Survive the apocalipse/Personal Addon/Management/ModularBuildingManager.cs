@@ -12,6 +12,9 @@ public class ModularBuildingManager : NetworkBehaviour
 
     [SyncVar]
     public int lastModularPieceIndexSpawn;
+    
+    [SyncVar]
+    public int lastModularObjectIndexSpawn;
 
     public bool ableModificationMode;
     public bool ableModificationWallMode;
@@ -267,6 +270,12 @@ public class ModularBuildingManager : NetworkBehaviour
     {
         lastModularPieceIndexSpawn++;
         return lastModularPieceIndexSpawn;
+    }
+    
+    public int GetNewIndexForniture()
+    {
+        lastModularObjectIndexSpawn++;
+        return lastModularObjectIndexSpawn;
     }
 
 

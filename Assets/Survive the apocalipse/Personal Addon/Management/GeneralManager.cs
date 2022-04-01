@@ -472,6 +472,16 @@ public class GeneralManager : MonoBehaviour
     public BundleItem womanVerticalItem;
     public List<BundleItem> allItems;
 
+    public BundleItem FindBundleItems(string bundleName)
+    {
+        for(int i = 0; i < allItems.Count; i++)
+        {
+            int index = i;
+            if(allItems[index].name == bundleName)
+                return allItems[index];
+        }
+        return null;
+    }
 
     public DateTime ChangeServerToClientTime(DateTime time, int seconds = 0)
     {

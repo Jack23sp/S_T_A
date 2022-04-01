@@ -164,12 +164,12 @@ public partial class UIChatManager : MonoBehaviour
     public Text groupChatText;
     public Text allianceChatText;
 
-    public Text infoBubbleText;
-    public Text localBubbleText;
-    public Text whisperBubbleText;
-    public Text partyBubbleText;
-    public Text groupBubbleText;
-    public Text allianceBubbleText;
+    public TextMeshProUGUI infoBubbleText;
+    public TextMeshProUGUI localBubbleText;
+    public TextMeshProUGUI whisperBubbleText;
+    public TextMeshProUGUI partyBubbleText;
+    public TextMeshProUGUI groupBubbleText;
+    public TextMeshProUGUI allianceBubbleText;
 
     void Start()
     {

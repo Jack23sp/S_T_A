@@ -1202,6 +1202,7 @@ public partial class Database : MonoBehaviour
     {
         public string sceneName { get; set; }
         public int index { get; set; }
+        public int isMain { get; set; }
         public string owner { get; set; }
         public string guildName { get; set; }
         public int upPart { get; set; }
@@ -1218,11 +1219,50 @@ public partial class Database : MonoBehaviour
         public string sceneName { get; set; }
         public string buildingName { get; set; }
         public int index { get; set; }
+        public int objectIndex { get; set; }
         public float posX { get; set; }
         public float posY { get; set; }
         public float posZ { get; set; }
     }
 
+    class modularInventory
+    {
+            public int myIndex { get; set; }
+            public string character { get; set; }
+            public int slot { get; set; }
+            public string name { get; set; }
+            public int amount { get; set; }
+            public int summonedHealth { get; set; }
+            public int summonedLevel { get; set; }
+            public long summonedExperience { get; set; } // TODO does long work?
+            public int currentArmor { get; set; }
+            public int currentUnsanity { get; set; }
+            public int alreadyShooted { get; set; }
+            public int totalAlreadyShooted { get; set; }
+            public int radioCurrentBattery { get; set; }
+            public int torchCurrentBattery { get; set; }
+            public int durability { get; set; }
+            public int weight { get; set; }
+            public int accuracyLevel { get; set; }
+            public int missLevel { get; set; }
+            public int armorLevel { get; set; }
+            public int chargeLevel { get; set; }
+            public int batteryLevel { get; set; }
+            public int weightLevel { get; set; }
+            public int durabilityLevel { get; set; }
+            public int unsanityLevel { get; set; }
+            public int bagLevel { get; set; }
+            public int gasolineContainer { get; set; }
+            public int honeyContainer { get; set; }
+            public int waterContainer { get; set; }
+            public int cookCountdown { get; set; }
+            public float wet { get; set; }
+            public string playerName { get; set; }
+            public string type { get; set; }
+            public int remainingTime { get; set; }
+            public int totalTime { get; set; }
+            // PRIMARY KEY (character, slot) is created manually.
+    }
 
     class dance
     {
@@ -1337,6 +1377,7 @@ public partial class Database : MonoBehaviour
         connection.CreateTable<streetLamps>();
         connection.CreateTable<floor>();
         connection.CreateTable<objects>();
+        connection.CreateTable<modularInventory>();
         connection.CreateTable<flag>();
         connection.CreateTable<character_belt>();
         connection.CreateTable<breding>();
@@ -5907,6 +5948,7 @@ public partial class Database : MonoBehaviour
             {
                 sceneName = scene,
                 index = modularPiece.modularIndex,
+                isMain = Convert.ToInt32(modularPiece.isMain),
                 owner = modularPiece.owner,
                 guildName = modularPiece.guild,
                 upPart = modularPiece.upComponent,
@@ -5928,6 +5970,7 @@ public partial class Database : MonoBehaviour
             ModularPiece modularPiece = g.GetComponent<ModularPiece>();
             g.transform.position = new Vector3(row.posX, row.posY, 0.0f);
             modularPiece.modularIndex = row.index;
+            modularPiece.isMain = Convert.ToBoolean(row.isMain);
             modularPiece.owner = row.owner;
             modularPiece.guild = row.guildName;
             modularPiece.upComponent = row.upPart;
@@ -5949,6 +5992,10 @@ public partial class Database : MonoBehaviour
     public void SaveModularObject(string scene, List<ModularObject> modularObjectList)
     {
         connection.Execute("DELETE FROM objects");
+        connection.Execute("DELETE FROM buildingCraftItem");
+        connection.Execute("DELETE FROM upgradeItems");
+        connection.Execute("DELETE FROM repairItems");
+        connection.Execute("DELETE FROM modularInventory");
 
         for (int i = 0; i < modularObjectList.Count; i++)
         {
@@ -5958,10 +6005,350 @@ public partial class Database : MonoBehaviour
                 sceneName = scene,
                 buildingName = modularObject.scriptableBuilding.name,
                 index = modularObject.oldPositioning,
+                objectIndex = modularObject.objectIndex,
                 posX = modularObject.transform.position.x,
                 posY = modularObject.transform.position.y,
                 posZ = modularObject.transform.position.z
             });
+
+            if (modularObjectList[i].GetComponent<BuildingModularCrafting>())
+            {
+                BuildingModularCrafting buildingModularCrafting = modularObjectList[i].GetComponent<BuildingModularCrafting>();
+                for (int e = 0; e < buildingModularCrafting.craftItem.Count; e++)
+                {
+                    int index_e = e;
+                    CraftItem slot = buildingModularCrafting.craftItem[index_e];
+                    if (slot.amount > 0) // only relevant items to save queries/storage/time
+                    {
+                        // note: .Insert causes a 'Constraint' exception. use Replace.
+                        connection.InsertOrReplace(new buildingCraftItem
+                        {
+                            myIndex = modularObject.objectIndex,
+                            itemName = slot.itemName,
+                            amount = slot.amount,
+                            remainingTime = slot.remainingTime,
+                            totalTime = slot.totalTime,
+                            timeBegin = slot.timeBegin.ToString(),
+                            timeEnd = slot.timeEnd.ToString(),
+                            timeEndServer = slot.timeEnd.ToString(),
+                            owner = slot.owner,
+                            guildName = slot.guildName
+                        });
+                    }
+                }
+            }
+            else if (modularObjectList[i].GetComponent<Fridge>())
+            {
+                Fridge fridge = modularObjectList[i].GetComponent<Fridge>();
+                for (int a = 0; a < fridge.inventory.Count; a++)
+                {
+                    int index_a = a;
+                    ItemSlot slot = fridge.inventory[index_a];
+                    if (slot.amount > 0) // only relevant items to save queries/storage/time
+                    {
+                        // note: .Insert causes a 'Constraint' exception. use Replace.
+                        if (slot.amount > 0) // only relevant items to save queries/storage/time
+                        {
+                            // note: .Insert causes a 'Constraint' exception. use Replace.
+                            connection.InsertOrReplace(new modularInventory
+                            {
+                                myIndex = modularObject.objectIndex,
+                                character = "",
+                                slot = index_a,
+                                name = slot.item.name,
+                                amount = slot.amount,
+                                summonedHealth = slot.item.summonedHealth,
+                                summonedLevel = slot.item.summonedLevel,
+                                summonedExperience = slot.item.summonedExperience,
+                                currentArmor = slot.item.currentArmor,
+                                currentUnsanity = slot.item.currentUnsanity,
+                                alreadyShooted = slot.item.alreadyShooted,
+                                totalAlreadyShooted = slot.item.totalAlreadyShooted,
+                                radioCurrentBattery = slot.item.radioCurrentBattery,
+                                torchCurrentBattery = slot.item.torchCurrentBattery,
+                                durability = slot.item.durability,
+                                weight = slot.item.weight,
+                                accuracyLevel = slot.item.accuracyLevel,
+                                missLevel = slot.item.missLevel,
+                                armorLevel = slot.item.armorLevel,
+                                chargeLevel = slot.item.chargeLevel,
+                                batteryLevel = slot.item.batteryLevel,
+                                weightLevel = slot.item.weightLevel,
+                                durabilityLevel = slot.item.durabilityLevel,
+                                unsanityLevel = slot.item.unsanityLevel,
+                                bagLevel = slot.item.bagLevel,
+                                gasolineContainer = slot.item.gasolineContainer,
+                                honeyContainer = slot.item.honeyContainer,
+                                waterContainer = slot.item.waterContainer,
+                                cookCountdown = slot.item.cookCountdown,
+                                wet = slot.item.wet,
+                                playerName = "",
+                                type = string.Empty,
+                                remainingTime = 0,
+                                totalTime = 0
+
+                            }); ;
+                        }
+                    }
+                }
+            }
+            else if (modularObjectList[i].GetComponent<Closet>())
+            {
+                Closet closet = modularObjectList[i].GetComponent<Closet>();
+                for (int a = 0; a < closet.inventory.Count; a++)
+                {
+                    int index_a = a;
+                    ItemSlot slot = closet.inventory[index_a];
+                    if (slot.amount > 0) // only relevant items to save queries/storage/time
+                    {
+                        // note: .Insert causes a 'Constraint' exception. use Replace.
+                        if (slot.amount > 0) // only relevant items to save queries/storage/time
+                        {
+                            // note: .Insert causes a 'Constraint' exception. use Replace.
+                            connection.InsertOrReplace(new modularInventory
+                            {
+                                myIndex = modularObject.objectIndex,
+                                character = "",
+                                slot = index_a,
+                                name = slot.item.name,
+                                amount = slot.amount,
+                                summonedHealth = slot.item.summonedHealth,
+                                summonedLevel = slot.item.summonedLevel,
+                                summonedExperience = slot.item.summonedExperience,
+                                currentArmor = slot.item.currentArmor,
+                                currentUnsanity = slot.item.currentUnsanity,
+                                alreadyShooted = slot.item.alreadyShooted,
+                                totalAlreadyShooted = slot.item.totalAlreadyShooted,
+                                radioCurrentBattery = slot.item.radioCurrentBattery,
+                                torchCurrentBattery = slot.item.torchCurrentBattery,
+                                durability = slot.item.durability,
+                                weight = slot.item.weight,
+                                accuracyLevel = slot.item.accuracyLevel,
+                                missLevel = slot.item.missLevel,
+                                armorLevel = slot.item.armorLevel,
+                                chargeLevel = slot.item.chargeLevel,
+                                batteryLevel = slot.item.batteryLevel,
+                                weightLevel = slot.item.weightLevel,
+                                durabilityLevel = slot.item.durabilityLevel,
+                                unsanityLevel = slot.item.unsanityLevel,
+                                bagLevel = slot.item.bagLevel,
+                                gasolineContainer = slot.item.gasolineContainer,
+                                honeyContainer = slot.item.honeyContainer,
+                                waterContainer = slot.item.waterContainer,
+                                cookCountdown = slot.item.cookCountdown,
+                                wet = slot.item.wet,
+                                playerName = "",
+                                type = string.Empty,
+                                remainingTime = 0,
+                                totalTime = 0
+
+                            }); ;
+                        }
+                    }
+                }
+            }
+            else if (modularObjectList[i].GetComponent<WeaponStorage>())
+            {
+                WeaponStorage weaponStorage = modularObjectList[i].GetComponent<WeaponStorage>();
+                for (int a = 0; a < weaponStorage.weapon.Count; a++)
+                {
+                    int index_a = a;
+                    ItemSlot slot = weaponStorage.weapon[index_a];
+                    if (slot.amount > 0) // only relevant items to save queries/storage/time
+                    {
+                        // note: .Insert causes a 'Constraint' exception. use Replace.
+                        if (slot.amount > 0) // only relevant items to save queries/storage/time
+                        {
+                            // note: .Insert causes a 'Constraint' exception. use Replace.
+                            connection.InsertOrReplace(new modularInventory
+                            {
+                                myIndex = modularObject.objectIndex,
+                                character = "",
+                                slot = index_a,
+                                name = slot.item.name,
+                                amount = slot.amount,
+                                summonedHealth = slot.item.summonedHealth,
+                                summonedLevel = slot.item.summonedLevel,
+                                summonedExperience = slot.item.summonedExperience,
+                                currentArmor = slot.item.currentArmor,
+                                currentUnsanity = slot.item.currentUnsanity,
+                                alreadyShooted = slot.item.alreadyShooted,
+                                totalAlreadyShooted = slot.item.totalAlreadyShooted,
+                                radioCurrentBattery = slot.item.radioCurrentBattery,
+                                torchCurrentBattery = slot.item.torchCurrentBattery,
+                                durability = slot.item.durability,
+                                weight = slot.item.weight,
+                                accuracyLevel = slot.item.accuracyLevel,
+                                missLevel = slot.item.missLevel,
+                                armorLevel = slot.item.armorLevel,
+                                chargeLevel = slot.item.chargeLevel,
+                                batteryLevel = slot.item.batteryLevel,
+                                weightLevel = slot.item.weightLevel,
+                                durabilityLevel = slot.item.durabilityLevel,
+                                unsanityLevel = slot.item.unsanityLevel,
+                                bagLevel = slot.item.bagLevel,
+                                gasolineContainer = slot.item.gasolineContainer,
+                                honeyContainer = slot.item.honeyContainer,
+                                waterContainer = slot.item.waterContainer,
+                                cookCountdown = slot.item.cookCountdown,
+                                wet = slot.item.wet,
+                                playerName = "",
+                                type = string.Empty,
+                                remainingTime = 0,
+                                totalTime = 0
+
+                            }); ;
+                        }
+                    }
+                }
+            }
+
+            if (modularObjectList[i].GetComponent<ModularPersonalWareHouse>())
+            {
+                ModularPersonalWareHouse warehouse = modularObjectList[i].GetComponent<ModularPersonalWareHouse>();
+                for (int a = 0; a < warehouse.inventory.Count; a++)
+                {
+                    int index_a = a;
+                    ItemSlot slot = warehouse.inventory[index_a];
+                    if (slot.amount > 0) // only relevant items to save queries/storage/time
+                    {
+                        // note: .Insert causes a 'Constraint' exception. use Replace.
+                        if (slot.amount > 0) // only relevant items to save queries/storage/time
+                        {
+                            // note: .Insert causes a 'Constraint' exception. use Replace.
+                            connection.InsertOrReplace(new modularInventory
+                            {
+                                myIndex = modularObject.objectIndex,
+                                character = "",
+                                slot = index_a,
+                                name = slot.item.name,
+                                amount = slot.amount,
+                                summonedHealth = slot.item.summonedHealth,
+                                summonedLevel = slot.item.summonedLevel,
+                                summonedExperience = slot.item.summonedExperience,
+                                currentArmor = slot.item.currentArmor,
+                                currentUnsanity = slot.item.currentUnsanity,
+                                alreadyShooted = slot.item.alreadyShooted,
+                                totalAlreadyShooted = slot.item.totalAlreadyShooted,
+                                radioCurrentBattery = slot.item.radioCurrentBattery,
+                                torchCurrentBattery = slot.item.torchCurrentBattery,
+                                durability = slot.item.durability,
+                                weight = slot.item.weight,
+                                accuracyLevel = slot.item.accuracyLevel,
+                                missLevel = slot.item.missLevel,
+                                armorLevel = slot.item.armorLevel,
+                                chargeLevel = slot.item.chargeLevel,
+                                batteryLevel = slot.item.batteryLevel,
+                                weightLevel = slot.item.weightLevel,
+                                durabilityLevel = slot.item.durabilityLevel,
+                                unsanityLevel = slot.item.unsanityLevel,
+                                bagLevel = slot.item.bagLevel,
+                                gasolineContainer = slot.item.gasolineContainer,
+                                honeyContainer = slot.item.honeyContainer,
+                                waterContainer = slot.item.waterContainer,
+                                cookCountdown = slot.item.cookCountdown,
+                                wet = slot.item.wet,
+                                playerName = "",
+                                type = string.Empty,
+                                remainingTime = 0,
+                                totalTime = 0
+
+                            }); ;
+                        }
+                    }
+                }
+            }
+
+            if (modularObjectList[i].GetComponent<BuildingUpgradeRepair>())
+            {
+                BuildingUpgradeRepair buildingUpgradeRepair = modularObjectList[i].GetComponent<BuildingUpgradeRepair>();
+                for (int y = 0; y < buildingUpgradeRepair.upgradeItem.Count; y++)
+                {
+                    int index_y = y;
+                    // note: .Insert causes a 'Constraint' exception. use Replace.
+                    connection.InsertOrReplace(new upgradeItems
+                    {
+                        myIndex = modularObject.objectIndex,
+                        amount = buildingUpgradeRepair.upgradeItem[index_y].item.amount,
+                        slot = index_y,
+                        name = buildingUpgradeRepair.upgradeItem[index_y].item.item.name,
+                        summonHealth = buildingUpgradeRepair.upgradeItem[index_y].item.item.summonedHealth,
+                        summonedLevel = buildingUpgradeRepair.upgradeItem[index_y].item.item.summonedLevel,
+                        summonedExperience = buildingUpgradeRepair.upgradeItem[index_y].item.item.summonedExperience,
+                        currentArmor = buildingUpgradeRepair.upgradeItem[index_y].item.item.currentArmor,
+                        currentUnsanity = buildingUpgradeRepair.upgradeItem[index_y].item.item.currentUnsanity,
+                        alreadyShooted = buildingUpgradeRepair.upgradeItem[index_y].item.item.alreadyShooted,
+                        totalAlreadyShooted = buildingUpgradeRepair.upgradeItem[index_y].item.item.totalAlreadyShooted,
+                        radioCurrentBattery = buildingUpgradeRepair.upgradeItem[index_y].item.item.radioCurrentBattery,
+                        torchCurrentBattery = buildingUpgradeRepair.upgradeItem[index_y].item.item.torchCurrentBattery,
+                        durability = buildingUpgradeRepair.upgradeItem[index_y].item.item.durability,
+                        weight = buildingUpgradeRepair.upgradeItem[index_y].item.item.weight,
+                        accuracyLevel = buildingUpgradeRepair.upgradeItem[index_y].item.item.accuracyLevel,
+                        missLevel = buildingUpgradeRepair.upgradeItem[index_y].item.item.missLevel,
+                        armorLevel = buildingUpgradeRepair.upgradeItem[index_y].item.item.armorLevel,
+                        chargeLevel = buildingUpgradeRepair.upgradeItem[index_y].item.item.chargeLevel,
+                        batteryLevel = buildingUpgradeRepair.upgradeItem[index_y].item.item.batteryLevel,
+                        weightLevel = buildingUpgradeRepair.upgradeItem[index_y].item.item.weightLevel,
+                        durabilityLevel = buildingUpgradeRepair.upgradeItem[index_y].item.item.durabilityLevel,
+                        unsanityLevel = buildingUpgradeRepair.upgradeItem[index_y].item.item.unsanityLevel,
+                        bagLevel = buildingUpgradeRepair.upgradeItem[index_y].item.item.bagLevel,
+                        gasolineContainer = buildingUpgradeRepair.upgradeItem[index_y].item.item.gasolineContainer,
+                        honeyContainer = buildingUpgradeRepair.upgradeItem[index_y].item.item.honeyContainer,
+                        waterContainer = buildingUpgradeRepair.upgradeItem[index_y].item.item.waterContainer,
+                        cookCountdown = buildingUpgradeRepair.upgradeItem[index_y].item.item.cookCountdown,
+                        wet = buildingUpgradeRepair.upgradeItem[index_y].item.item.wet,
+                        playerName = buildingUpgradeRepair.upgradeItem[index_y].playerName,
+                        remainingTime = buildingUpgradeRepair.upgradeItem[index_y].remainingTime,
+                        totalTime = buildingUpgradeRepair.upgradeItem[index_y].totalTime,
+                        timeBegin = buildingUpgradeRepair.upgradeItem[index_y].timeBegin,
+                        timeEnd = buildingUpgradeRepair.upgradeItem[index_y].timeEnd,
+                        type = buildingUpgradeRepair.upgradeItem[index_y].type
+                    });
+                }
+                for (int x = 0; x < buildingUpgradeRepair.repairItem.Count; x++)
+                {
+                    int index_x = x;
+                    // note: .Insert causes a 'Constraint' exception. use Replace.
+                    connection.InsertOrReplace(new repairItems
+                    {
+                        myIndex = modularObject.objectIndex,
+                        amount = buildingUpgradeRepair.repairItem[index_x].item.amount,
+                        slot = index_x,
+                        name = buildingUpgradeRepair.repairItem[index_x].item.item.name,
+                        summonHealth = buildingUpgradeRepair.repairItem[index_x].item.item.summonedHealth,
+                        summonedLevel = buildingUpgradeRepair.repairItem[index_x].item.item.summonedLevel,
+                        summonedExperience = buildingUpgradeRepair.repairItem[index_x].item.item.summonedExperience,
+                        currentArmor = buildingUpgradeRepair.repairItem[index_x].item.item.currentArmor,
+                        currentUnsanity = buildingUpgradeRepair.repairItem[index_x].item.item.currentUnsanity,
+                        alreadyShooted = buildingUpgradeRepair.repairItem[index_x].item.item.alreadyShooted,
+                        totalAlreadyShooted = buildingUpgradeRepair.repairItem[index_x].item.item.totalAlreadyShooted,
+                        radioCurrentBattery = buildingUpgradeRepair.repairItem[index_x].item.item.radioCurrentBattery,
+                        torchCurrentBattery = buildingUpgradeRepair.repairItem[index_x].item.item.torchCurrentBattery,
+                        durability = buildingUpgradeRepair.repairItem[index_x].item.item.durability,
+                        weight = buildingUpgradeRepair.repairItem[index_x].item.item.weight,
+                        accuracyLevel = buildingUpgradeRepair.repairItem[index_x].item.item.accuracyLevel,
+                        missLevel = buildingUpgradeRepair.repairItem[index_x].item.item.missLevel,
+                        armorLevel = buildingUpgradeRepair.repairItem[index_x].item.item.armorLevel,
+                        chargeLevel = buildingUpgradeRepair.repairItem[index_x].item.item.chargeLevel,
+                        batteryLevel = buildingUpgradeRepair.repairItem[index_x].item.item.batteryLevel,
+                        weightLevel = buildingUpgradeRepair.repairItem[index_x].item.item.weightLevel,
+                        durabilityLevel = buildingUpgradeRepair.repairItem[index_x].item.item.durabilityLevel,
+                        unsanityLevel = buildingUpgradeRepair.repairItem[index_x].item.item.unsanityLevel,
+                        bagLevel = buildingUpgradeRepair.repairItem[index_x].item.item.bagLevel,
+                        gasolineContainer = buildingUpgradeRepair.repairItem[index_x].item.item.gasolineContainer,
+                        honeyContainer = buildingUpgradeRepair.repairItem[index_x].item.item.honeyContainer,
+                        waterContainer = buildingUpgradeRepair.repairItem[index_x].item.item.waterContainer,
+                        cookCountdown = buildingUpgradeRepair.repairItem[index_x].item.item.cookCountdown,
+                        wet = buildingUpgradeRepair.repairItem[index_x].item.item.wet,
+                        playerName = buildingUpgradeRepair.repairItem[index_x].playerName,
+                        remainingTime = buildingUpgradeRepair.repairItem[index_x].remainingTime,
+                        totalTime = buildingUpgradeRepair.repairItem[index_x].totalTime,
+                        timeBegin = buildingUpgradeRepair.repairItem[index_x].timeBegin,
+                        timeEnd = buildingUpgradeRepair.repairItem[index_x].timeEnd,
+                        type = buildingUpgradeRepair.repairItem[index_x].type
+                    });
+                }
+            }
         }
     }
 
@@ -5971,14 +6358,331 @@ public partial class Database : MonoBehaviour
         {
             if (ScriptableBuilding.dict.TryGetValue(row.buildingName.GetStableHashCode(), out ScriptableBuilding itemData))
             {
-
                 GameObject g = Instantiate(itemData.buildingList[row.index].buildingObject);
                 g.transform.position = new Vector3(row.posX, row.posY, 0.0f);
-                buildingManager.AddToList(g);
 
+                BuildingModularCrafting modularCrafting = g.GetComponent<BuildingModularCrafting>();
+                Fridge fridge = g.GetComponent<Fridge>();
+                Closet closet = g.GetComponent<Closet>();
+                WeaponStorage weaponStorage = g.GetComponent<WeaponStorage>();
+                ModularPersonalWareHouse warehouse = g.GetComponent<ModularPersonalWareHouse>();
+                BuildingUpgradeRepair upgradeRepair = g.GetComponent<BuildingUpgradeRepair>();
+
+                g.GetComponent<Forniture>().objectIndex = row.objectIndex;
+
+                if(modularCrafting)
+                {
+                    g = LoadCrafting(row.objectIndex, modularCrafting);
+                }
+                if(fridge)
+                {
+                    g = LoadFridge(row.objectIndex, fridge);
+                }
+                if(closet)
+                {
+                    g = LoadCloset(row.objectIndex, closet);
+                }
+                if(weaponStorage)
+                {
+                    g = LoadWeaponStorage(row.objectIndex, weaponStorage);
+                }
+                if(warehouse)
+                {
+                    g = LoadWarehouse(row.objectIndex, warehouse);
+                }
+                if(upgradeRepair)
+                {
+                    g = LoadUpgradeReapir(row.objectIndex, upgradeRepair);
+                }
+
+                buildingManager.AddToList(g);
                 NetworkServer.Spawn(g);
             }
         }
+    }
+
+    public GameObject LoadCrafting(int index, BuildingModularCrafting modularObject)
+    {
+        foreach (buildingCraftItem row2 in connection.Query<buildingCraftItem>("SELECT * FROM buildingCraftItem WHERE myIndex=?", index))
+        {
+            if (ScriptableItem.dict.TryGetValue(row2.itemName.GetStableHashCode(), out ScriptableItem itemData))
+            {
+                CustomType.CraftItem item = new CustomType.CraftItem();
+
+                item.itemName = row2.itemName;
+                item.amount = row2.amount;
+                item.totalTime = row2.totalTime;
+                item.owner = row2.owner;
+                item.guildName = row2.guildName;
+                item.remainingTime = row2.remainingTime;
+                item.timeBegin = row2.timeBegin.ToString();
+                item.timeEnd = row2.timeEnd.ToString();
+                item.timeEndServer = row2.timeEndServer.ToString();
+
+                modularObject.craftItem.Add(item);
+            }
+        }
+        return modularObject.gameObject;
+    }
+
+    public GameObject LoadFridge(int index, Fridge modularObject)
+    {
+        foreach (modularInventory row2 in connection.Query<modularInventory>("SELECT * FROM modularInventory WHERE myIndex=?", index))
+        {
+            if (ScriptableItem.dict.TryGetValue(row2.name.GetStableHashCode(), out ScriptableItem itemData))
+            {
+                Item item = new Item(itemData);
+
+                item.summonedHealth = row2.summonedHealth;
+                item.summonedLevel = row2.summonedLevel;
+                item.summonedExperience = row2.summonedExperience;
+                item.accuracyLevel = row2.accuracyLevel;
+                item.missLevel = row2.missLevel;
+                item.armorLevel = row2.armorLevel;
+                item.chargeLevel = row2.chargeLevel;
+                item.batteryLevel = row2.batteryLevel;
+                item.weightLevel = row2.weightLevel;
+                item.durabilityLevel = row2.durabilityLevel;
+                item.unsanityLevel = row2.unsanityLevel;
+                item.bagLevel = row2.bagLevel;
+                item.currentArmor = row2.currentArmor;
+                item.alreadyShooted = row2.alreadyShooted;
+                item.totalAlreadyShooted = row2.totalAlreadyShooted;
+                item.durability = row2.durability;
+                item.currentUnsanity = row2.currentUnsanity;
+                item.radioCurrentBattery = row2.radioCurrentBattery;
+                item.torchCurrentBattery = row2.torchCurrentBattery;
+                item.weight = row2.weight;
+                item.gasolineContainer = row2.gasolineContainer;
+                item.honeyContainer = row2.honeyContainer;
+                item.waterContainer = row2.waterContainer;
+                item.cookCountdown = row2.cookCountdown;
+                item.wet = row2.wet;
+
+                modularObject.inventory[row2.slot] = new ItemSlot(item, row2.amount);
+
+            }
+        }
+        return modularObject.gameObject;
+    }
+
+    public GameObject LoadCloset(int index, Closet modularObject)
+    {
+        foreach (modularInventory row2 in connection.Query<modularInventory>("SELECT * FROM modularInventory WHERE myIndex=?", index))
+        {
+            if (ScriptableItem.dict.TryGetValue(row2.name.GetStableHashCode(), out ScriptableItem itemData))
+            {
+                Item item = new Item(itemData);
+
+                item.summonedHealth = row2.summonedHealth;
+                item.summonedLevel = row2.summonedLevel;
+                item.summonedExperience = row2.summonedExperience;
+                item.accuracyLevel = row2.accuracyLevel;
+                item.missLevel = row2.missLevel;
+                item.armorLevel = row2.armorLevel;
+                item.chargeLevel = row2.chargeLevel;
+                item.batteryLevel = row2.batteryLevel;
+                item.weightLevel = row2.weightLevel;
+                item.durabilityLevel = row2.durabilityLevel;
+                item.unsanityLevel = row2.unsanityLevel;
+                item.bagLevel = row2.bagLevel;
+                item.currentArmor = row2.currentArmor;
+                item.alreadyShooted = row2.alreadyShooted;
+                item.totalAlreadyShooted = row2.totalAlreadyShooted;
+                item.durability = row2.durability;
+                item.currentUnsanity = row2.currentUnsanity;
+                item.radioCurrentBattery = row2.radioCurrentBattery;
+                item.torchCurrentBattery = row2.torchCurrentBattery;
+                item.weight = row2.weight;
+                item.gasolineContainer = row2.gasolineContainer;
+                item.honeyContainer = row2.honeyContainer;
+                item.waterContainer = row2.waterContainer;
+                item.cookCountdown = row2.cookCountdown;
+                item.wet = row2.wet;
+
+                modularObject.inventory[row2.slot] = new ItemSlot(item, row2.amount);
+
+
+            }
+        }
+        return modularObject.gameObject;
+    }
+
+    public GameObject LoadWeaponStorage(int index, WeaponStorage modularObject)
+    {
+        foreach (modularInventory row2 in connection.Query<modularInventory>("SELECT * FROM modularInventory WHERE myIndex=?", index))
+        {
+            if (ScriptableItem.dict.TryGetValue(row2.name.GetStableHashCode(), out ScriptableItem itemData))
+            {
+                Item item = new Item(itemData);
+
+                item.summonedHealth = row2.summonedHealth;
+                item.summonedLevel = row2.summonedLevel;
+                item.summonedExperience = row2.summonedExperience;
+                item.accuracyLevel = row2.accuracyLevel;
+                item.missLevel = row2.missLevel;
+                item.armorLevel = row2.armorLevel;
+                item.chargeLevel = row2.chargeLevel;
+                item.batteryLevel = row2.batteryLevel;
+                item.weightLevel = row2.weightLevel;
+                item.durabilityLevel = row2.durabilityLevel;
+                item.unsanityLevel = row2.unsanityLevel;
+                item.bagLevel = row2.bagLevel;
+                item.currentArmor = row2.currentArmor;
+                item.alreadyShooted = row2.alreadyShooted;
+                item.totalAlreadyShooted = row2.totalAlreadyShooted;
+                item.durability = row2.durability;
+                item.currentUnsanity = row2.currentUnsanity;
+                item.radioCurrentBattery = row2.radioCurrentBattery;
+                item.torchCurrentBattery = row2.torchCurrentBattery;
+                item.weight = row2.weight;
+                item.gasolineContainer = row2.gasolineContainer;
+                item.honeyContainer = row2.honeyContainer;
+                item.waterContainer = row2.waterContainer;
+                item.cookCountdown = row2.cookCountdown;
+                item.wet = row2.wet;
+
+                modularObject.weapon[row2.slot] = new ItemSlot(item, row2.amount);
+
+
+            }
+        }
+        return modularObject.gameObject;
+    }
+
+    public GameObject LoadWarehouse(int index, ModularPersonalWareHouse modularObject)
+    {
+        foreach (modularInventory row2 in connection.Query<modularInventory>("SELECT * FROM modularInventory WHERE myIndex=?", index))
+        {
+            if (ScriptableItem.dict.TryGetValue(row2.name.GetStableHashCode(), out ScriptableItem itemData))
+            {
+                Item item = new Item(itemData);
+
+                item.summonedHealth = row2.summonedHealth;
+                item.summonedLevel = row2.summonedLevel;
+                item.summonedExperience = row2.summonedExperience;
+                item.accuracyLevel = row2.accuracyLevel;
+                item.missLevel = row2.missLevel;
+                item.armorLevel = row2.armorLevel;
+                item.chargeLevel = row2.chargeLevel;
+                item.batteryLevel = row2.batteryLevel;
+                item.weightLevel = row2.weightLevel;
+                item.durabilityLevel = row2.durabilityLevel;
+                item.unsanityLevel = row2.unsanityLevel;
+                item.bagLevel = row2.bagLevel;
+                item.currentArmor = row2.currentArmor;
+                item.alreadyShooted = row2.alreadyShooted;
+                item.totalAlreadyShooted = row2.totalAlreadyShooted;
+                item.durability = row2.durability;
+                item.currentUnsanity = row2.currentUnsanity;
+                item.radioCurrentBattery = row2.radioCurrentBattery;
+                item.torchCurrentBattery = row2.torchCurrentBattery;
+                item.weight = row2.weight;
+                item.gasolineContainer = row2.gasolineContainer;
+                item.honeyContainer = row2.honeyContainer;
+                item.waterContainer = row2.waterContainer;
+                item.cookCountdown = row2.cookCountdown;
+                item.wet = row2.wet;
+
+                modularObject.inventory[row2.slot] = new ItemSlot(item, row2.amount);
+
+
+            }
+        }
+        return modularObject.gameObject;
+    }
+
+    public GameObject LoadUpgradeReapir(int index, BuildingUpgradeRepair modularObject)
+    {
+        foreach (upgradeItems row2 in connection.Query<upgradeItems>("SELECT * FROM upgradeItems WHERE myIndex=?", index))
+        {
+            if (ScriptableItem.dict.TryGetValue(row2.name.GetStableHashCode(), out ScriptableItem itemData))
+            {
+                CustomType.UpgradeRepairItem upgradeItem = new CustomType.UpgradeRepairItem();
+                upgradeItem.item = new ItemSlot();
+                upgradeItem.item.item = new Item(itemData);
+
+                upgradeItem.item.item.summonedHealth = row2.summonHealth;
+                upgradeItem.item.item.summonedLevel = row2.summonedLevel;
+                upgradeItem.item.item.summonedExperience = row2.summonedExperience;
+                upgradeItem.item.item.accuracyLevel = row2.accuracyLevel;
+                upgradeItem.item.item.missLevel = row2.missLevel;
+                upgradeItem.item.item.armorLevel = row2.armorLevel;
+                upgradeItem.item.item.chargeLevel = row2.chargeLevel;
+                upgradeItem.item.item.batteryLevel = row2.batteryLevel;
+                upgradeItem.item.item.weightLevel = row2.weightLevel;
+                upgradeItem.item.item.durabilityLevel = row2.durabilityLevel;
+                upgradeItem.item.item.unsanityLevel = row2.unsanityLevel;
+                upgradeItem.item.item.bagLevel = row2.bagLevel;
+                upgradeItem.item.item.currentArmor = row2.currentArmor;
+                upgradeItem.item.item.alreadyShooted = row2.alreadyShooted;
+                upgradeItem.item.item.totalAlreadyShooted = row2.totalAlreadyShooted;
+                upgradeItem.item.item.durability = row2.durability;
+                upgradeItem.item.item.currentUnsanity = row2.currentUnsanity;
+                upgradeItem.item.item.radioCurrentBattery = row2.radioCurrentBattery;
+                upgradeItem.item.item.torchCurrentBattery = row2.torchCurrentBattery;
+                upgradeItem.item.item.weight = row2.weight;
+                upgradeItem.item.item.gasolineContainer = row2.gasolineContainer;
+                upgradeItem.item.item.honeyContainer = row2.honeyContainer;
+                upgradeItem.item.item.waterContainer = row2.waterContainer;
+                upgradeItem.item.item.cookCountdown = row2.cookCountdown;
+                upgradeItem.item.item.wet = row2.wet;
+                upgradeItem.playerName = row2.playerName;
+                upgradeItem.remainingTime = row2.remainingTime;
+                upgradeItem.totalTime = row2.totalTime;
+                upgradeItem.type = row2.type;
+                upgradeItem.timeBegin = row2.timeBegin;
+                upgradeItem.timeEnd = row2.timeEnd;
+
+                modularObject.upgradeItem.Add(upgradeItem);
+
+            }
+        }
+        foreach (repairItems row2 in connection.Query<repairItems>("SELECT * FROM repairItems WHERE myIndex=?", index))
+        {
+            if (ScriptableItem.dict.TryGetValue(row2.name.GetStableHashCode(), out ScriptableItem itemData))
+            {
+                CustomType.UpgradeRepairItem upgradeItem = new CustomType.UpgradeRepairItem();
+                upgradeItem.item = new ItemSlot();
+                upgradeItem.item.item = new Item(itemData);
+
+                upgradeItem.item.item.summonedHealth = row2.summonHealth;
+                upgradeItem.item.item.summonedLevel = row2.summonedLevel;
+                upgradeItem.item.item.summonedExperience = row2.summonedExperience;
+                upgradeItem.item.item.accuracyLevel = row2.accuracyLevel;
+                upgradeItem.item.item.missLevel = row2.missLevel;
+                upgradeItem.item.item.armorLevel = row2.armorLevel;
+                upgradeItem.item.item.chargeLevel = row2.chargeLevel;
+                upgradeItem.item.item.batteryLevel = row2.batteryLevel;
+                upgradeItem.item.item.weightLevel = row2.weightLevel;
+                upgradeItem.item.item.durabilityLevel = row2.durabilityLevel;
+                upgradeItem.item.item.unsanityLevel = row2.unsanityLevel;
+                upgradeItem.item.item.bagLevel = row2.bagLevel;
+                upgradeItem.item.item.currentArmor = row2.currentArmor;
+                upgradeItem.item.item.alreadyShooted = row2.alreadyShooted;
+                upgradeItem.item.item.totalAlreadyShooted = row2.totalAlreadyShooted;
+                upgradeItem.item.item.durability = row2.durability;
+                upgradeItem.item.item.currentUnsanity = row2.currentUnsanity;
+                upgradeItem.item.item.radioCurrentBattery = row2.radioCurrentBattery;
+                upgradeItem.item.item.torchCurrentBattery = row2.torchCurrentBattery;
+                upgradeItem.item.item.weight = row2.weight;
+                upgradeItem.item.item.gasolineContainer = row2.gasolineContainer;
+                upgradeItem.item.item.honeyContainer = row2.honeyContainer;
+                upgradeItem.item.item.waterContainer = row2.waterContainer;
+                upgradeItem.item.item.cookCountdown = row2.cookCountdown;
+                upgradeItem.item.item.wet = row2.wet;
+                upgradeItem.playerName = row2.playerName;
+                upgradeItem.remainingTime = row2.remainingTime;
+                upgradeItem.totalTime = row2.totalTime;
+                upgradeItem.type = row2.type;
+                upgradeItem.timeBegin = row2.timeBegin;
+                upgradeItem.timeEnd = row2.timeEnd;
+
+                modularObject.repairItem.Add(upgradeItem);
+
+            }
+        }
+        return modularObject.gameObject;
     }
 
     #endregion
@@ -5993,19 +6697,19 @@ public partial class Database : MonoBehaviour
             buildingManager.RemoveToList();
             connection.BeginTransaction();
             SaveBeeKeeper(sceneName, buildingManager.beeKeeper); 
-            SaveBuildingCraft(sceneName, buildingManager.buildingCrafts); 
+            //SaveBuildingCraft(sceneName, buildingManager.buildingCrafts); 
             SaveCampfire(sceneName, buildingManager.campfires);
             SaveDynamite(sceneName, buildingManager.dynamites);
             SaveGasStation(sceneName, buildingManager.gasStations);
-            SaveWarehouseGroup(sceneName, buildingManager.groupWarehouses);
-            SaveWarehousePersonal(sceneName, buildingManager.personalWarehouses);
+            //SaveWarehouseGroup(sceneName, buildingManager.groupWarehouses);
+            //SaveWarehousePersonal(sceneName, buildingManager.personalWarehouses);
             SaveMine(sceneName, buildingManager.mines);
             SaveWoodWall(sceneName, buildingManager.woodWalls);
             SaveBarbwire(sceneName, buildingManager.barbWires);
             SaveTesla(sceneName, buildingManager.teslas);
             SaveTotem(sceneName, buildingManager.totems);
-            SaveUpgradeRepair(sceneName, buildingManager.upgradeRepair);
-            SaveWaterWell(sceneName, buildingManager.waterWells);
+            //SaveUpgradeRepair(sceneName, buildingManager.upgradeRepair);
+            //SaveWaterWell(sceneName, buildingManager.waterWells);
             SavePetTrainer(sceneName, buildingManager.petTrainers);
             SaveCultivableField(sceneName, buildingManager.cultivableFields);
             SaveStreetLamps(sceneName, buildingManager.streetLamps);
@@ -6019,19 +6723,19 @@ public partial class Database : MonoBehaviour
     public void LoadBuilding(string sceneName)
     {
         LoadBeeKeeper(buildingManager.beeKeeperObject, sceneName);
-        LoadBuildingCraft(buildingManager.buildingCraftsObject, sceneName);
+        //LoadBuildingCraft(buildingManager.buildingCraftsObject, sceneName);
         LoadCampfire(buildingManager.campfiresObject, sceneName);
         LoadDynamite(buildingManager.dynamitesObject, sceneName);
         LoadGasStation(buildingManager.gasStationsObject, sceneName);
-        LoadWarehouse(buildingManager.personalWarehousesObject, sceneName);
-        LoadWarehouse(buildingManager.groupWarehousesObject, sceneName);
+        //LoadWarehouse(buildingManager.personalWarehousesObject, sceneName);
+        //LoadWarehouse(buildingManager.groupWarehousesObject, sceneName);
         LoadMine(buildingManager.minesObject, sceneName);
         LoadWoodWall(buildingManager.woodWallsObject[0], sceneName);
         LoadBarbwire(buildingManager.barbwiresObject[0], sceneName);
         LoadTesla(buildingManager.teslasObject, sceneName);
         LoadTotem(buildingManager.totemsObject, sceneName);
-        LoadUpgradeRepair(buildingManager.upgradeRepairObject, sceneName);
-        LoadWaterWell(buildingManager.waterWellsObject, sceneName);
+        //LoadUpgradeRepair(buildingManager.upgradeRepairObject, sceneName);
+        //LoadWaterWell(buildingManager.waterWellsObject, sceneName);
         LoadPetTrainer(buildingManager.petTrainersObject, sceneName);
         LoadCultivableField(buildingManager.cultivableFieldsObject, sceneName);
         LoadStreetLamps(buildingManager.streetLampsObject, sceneName);

@@ -14,8 +14,8 @@ public class TorchRadioManager : MonoBehaviour
     public Image torchImage;
     public Image radioImage;
 
-    public Text torchText;
-    public Text radioText;
+    public TextMeshProUGUI torchText;
+    public TextMeshProUGUI radioText;
 
     public Button torchButton;
     public Button radioButton;

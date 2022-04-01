@@ -1,0 +1,943 @@
+fileFormatVersion: 2
+guid: 07ef6bc6fdbf58140a2dfcffc524ce27
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1480291516350708812
+    second: 0deg
+  - first:
+      213: 7114535235718178654
+    second: 30deg
+  - first:
+      213: -5048063038266490990
+    second: 60deg
+  - first:
+      213: -1218844832463651114
+    second: 90deg
+  - first:
+      213: -1588230216335661072
+    second: 120deg
+  - first:
+      213: -8008190554364036190
+    second: 150deg
+  - first:
+      213: -4916952005769091322
+    second: 180deg
+  - first:
+      213: 6314412520876877831
+    second: 210deg
+  - first:
+      213: -4278938335183157198
+    second: 240deg
+  - first:
+      213: 6799256274158981590
+    second: 270deg
+  - first:
+      213: -4964336200664390997
+    second: 300deg
+  - first:
+      213: -6580014094483266971
+    second: 330deg
+  - first:
+      213: 3295470912116621258
+    second: DBK_ConcreteDestroyed_Building (1)_0
+  - first:
+      213: 5985690395014902161
+    second: DBK_ConcreteDestroyed_Building (1)_1
+  - first:
+      213: 5213325573983483367
+    second: DBK_ConcreteDestroyed_Building (1)_2
+  - first:
+      213: -4571644583632273338
+    second: DBK_ConcreteDestroyed_Building (1)_3
+  - first:
+      213: -996058412020419477
+    second: DBK_ConcreteDestroyed_Building (1)_4
+  - first:
+      213: -5879988322837260722
+    second: DBK_ConcreteDestroyed_Building (1)_5
+  - first:
+      213: -2922855612386794494
+    second: DBK_ConcreteDestroyed_Building (1)_6
+  - first:
+      213: 8734507562114981396
+    second: DBK_ConcreteDestroyed_Building (1)_7
+  - first:
+      213: -3529991108142637250
+    second: DBK_ConcreteDestroyed_Building (1)_8
+  - first:
+      213: -6747079958175547729
+    second: DBK_ConcreteDestroyed_Building (1)_9
+  - first:
+      213: 5042866134979384870
+    second: DBK_ConcreteDestroyed_Building (1)_10
+  - first:
+      213: 327903510488756650
+    second: DBK_ConcreteDestroyed_Building (1)_11
+  - first:
+      213: -395811921321345657
+    second: DBK_ConcreteDestroyed_Building (1)_12
+  - first:
+      213: -5533977075095068028
+    second: DBK_ConcreteDestroyed_Building (1)_13
+  - first:
+      213: 3224662408499079213
+    second: DBK_ConcreteDestroyed_Building (1)_14
+  - first:
+      213: -8594897406857301840
+    second: DBK_ConcreteDestroyed_Building (1)_15
+  - first:
+      213: -8483289625088192222
+    second: DBK_ConcreteDestroyed_Building (1)_16
+  - first:
+      213: -1289215547421116938
+    second: DBK_ConcreteDestroyed_Building (1)_17
+  - first:
+      213: -8459922094132157917
+    second: DBK_ConcreteDestroyed_Building (1)_18
+  - first:
+      213: 8985357651096001784
+    second: DBK_ConcreteDestroyed_Building (1)_19
+  - first:
+      213: -4456815969897818555
+    second: DBK_ConcreteDestroyed_Building (1)_20
+  - first:
+      213: -2192879767893846663
+    second: DBK_ConcreteDestroyed_Building (1)_21
+  - first:
+      213: -779493860482330185
+    second: DBK_ConcreteDestroyed_Building (1)_22
+  - first:
+      213: -9116281146687275257
+    second: DBK_ConcreteDestroyed_Building (1)_23
+  - first:
+      213: -3280922140986034938
+    second: DBK_ConcreteDestroyed_Building (1)_24
+  - first:
+      213: 5506538918607025578
+    second: DBK_ConcreteDestroyed_Building (1)_25
+  - first:
+      213: 8219228668919490411
+    second: DBK_ConcreteDestroyed_Building (1)_26
+  - first:
+      213: 2598710564343060025
+    second: DBK_ConcreteDestroyed_Building (1)_27
+  - first:
+      213: -2681914567302819080
+    second: DBK_ConcreteDestroyed_Building (1)_28
+  - first:
+      213: 5404405734826226438
+    second: DBK_ConcreteDestroyed_Building (1)_29
+  - first:
+      213: -1241353220391443368
+    second: DBK_ConcreteDestroyed_Building (1)_30
+  - first:
+      213: 5789489397141849866
+    second: DBK_ConcreteDestroyed_Building (1)_31
+  - first:
+      213: 2594194674186982322
+    second: DBK_ConcreteDestroyed_Building (1)_32
+  - first:
+      213: -8468625987093675812
+    second: DBK_ConcreteDestroyed_Building (1)_33
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_0
+      rect:
+        serializedVersion: 2
+        x: 1443
+        y: 3548
+        width: 31
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acff75c955ddbbd20800000000000000
+      internalID: 3295470912116621258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_1
+      rect:
+        serializedVersion: 2
+        x: 1475
+        y: 3534
+        width: 28
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 191b45263b1711350800000000000000
+      internalID: 5985690395014902161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_2
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 3286
+        width: 225
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e5beb7fcf3795840800000000000000
+      internalID: 5213325573983483367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_3
+      rect:
+        serializedVersion: 2
+        x: 1387
+        y: 3360
+        width: 214
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 640824909714e80c0800000000000000
+      internalID: -4571644583632273338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_4
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 3262
+        width: 33
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b64bbffc62a4d22f0800000000000000
+      internalID: -996058412020419477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_5
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 2516
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4617dd16c5166ea0800000000000000
+      internalID: -5879988322837260722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_6
+      rect:
+        serializedVersion: 2
+        x: 1357
+        y: 2388
+        width: 183
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 204ade57e4eef67d0800000000000000
+      internalID: -2922855612386794494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_7
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 2267
+        width: 214
+        height: 249
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41e93dfa954373970800000000000000
+      internalID: 8734507562114981396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_8
+      rect:
+        serializedVersion: 2
+        x: 3266
+        y: 1410
+        width: 146
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3fded23ac3f20fc0800000000000000
+      internalID: -3529991108142637250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_9
+      rect:
+        serializedVersion: 2
+        x: 3394
+        y: 1605
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faef9cd868e8d52a0800000000000000
+      internalID: -6747079958175547729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_10
+      rect:
+        serializedVersion: 2
+        x: 3400
+        y: 1610
+        width: 5
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6261b41180cdbf540800000000000000
+      internalID: 5042866134979384870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_11
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 1328
+        width: 183
+        height: 218
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa139476182fc8400800000000000000
+      internalID: 327903510488756650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_12
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 1542
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78db6c7972bc18af0800000000000000
+      internalID: -395811921321345657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_13
+      rect:
+        serializedVersion: 2
+        x: 1309
+        y: 1372
+        width: 198
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 482adc3ab2d5333b0800000000000000
+      internalID: -5533977075095068028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_14
+      rect:
+        serializedVersion: 2
+        x: 2271
+        y: 1398
+        width: 187
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d28a423206d40cc20800000000000000
+      internalID: 3224662408499079213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_15
+      rect:
+        serializedVersion: 2
+        x: 3243
+        y: 1521
+        width: 25
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b0385f985ac8b880800000000000000
+      internalID: -8594897406857301840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_16
+      rect:
+        serializedVersion: 2
+        x: 2244
+        y: 1449
+        width: 29
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2219cd9480d454a80800000000000000
+      internalID: -8483289625088192222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_17
+      rect:
+        serializedVersion: 2
+        x: 2258
+        y: 1476
+        width: 31
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f5bd094a49cb1ee0800000000000000
+      internalID: -1289215547421116938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_18
+      rect:
+        serializedVersion: 2
+        x: 1293
+        y: 1404
+        width: 24
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32226cf8da1589a80800000000000000
+      internalID: -8459922094132157917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_19
+      rect:
+        serializedVersion: 2
+        x: 1289
+        y: 1375
+        width: 31
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fc5a6d5d2762bc70800000000000000
+      internalID: 8985357651096001784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_20
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 1315
+        width: 37
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 546d3f41d753622c0800000000000000
+      internalID: -4456815969897818555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_21
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 1311
+        width: 24
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 975db8f28735191e0800000000000000
+      internalID: -2192879767893846663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_22
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 616
+        width: 24
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b15a5db67eae25f0800000000000000
+      internalID: -779493860482330185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_23
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 619
+        width: 12
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70f3d13e8967c7180800000000000000
+      internalID: -9116281146687275257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_24
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 444
+        width: 224
+        height: 175
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60530d222b2d772d0800000000000000
+      internalID: -3280922140986034938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_25
+      rect:
+        serializedVersion: 2
+        x: 1408
+        y: 415
+        width: 202
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa57f69b8f72b6c40800000000000000
+      internalID: 5506538918607025578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_26
+      rect:
+        serializedVersion: 2
+        x: 1595
+        y: 554
+        width: 32
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6727a25de0901270800000000000000
+      internalID: 8219228668919490411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_27
+      rect:
+        serializedVersion: 2
+        x: 2402
+        y: 363
+        width: 193
+        height: 209
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93619bd5d79701420800000000000000
+      internalID: 2598710564343060025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_28
+      rect:
+        serializedVersion: 2
+        x: 3389
+        y: 344
+        width: 162
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f258f119ece7cad0800000000000000
+      internalID: -2681914567302819080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_29
+      rect:
+        serializedVersion: 2
+        x: 1599
+        y: 524
+        width: 24
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 603b66ec16e400b40800000000000000
+      internalID: 5404405734826226438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_30
+      rect:
+        serializedVersion: 2
+        x: 1611
+        y: 522
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 854e7c1b2d3d5cee0800000000000000
+      internalID: -1241353220391443368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_31
+      rect:
+        serializedVersion: 2
+        x: 2573
+        y: 452
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a07c783cee5685050800000000000000
+      internalID: 5789489397141849866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_32
+      rect:
+        serializedVersion: 2
+        x: 2590
+        y: 472
+        width: 26
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b31021cf4e600420800000000000000
+      internalID: 2594194674186982322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDestroyed_Building (1)_33
+      rect:
+        serializedVersion: 2
+        x: 3540
+        y: 394
+        width: 21
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd0c3af8885697a80800000000000000
+      internalID: -8468625987093675812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 0d4c615fb72478443932331a6c7566ce
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

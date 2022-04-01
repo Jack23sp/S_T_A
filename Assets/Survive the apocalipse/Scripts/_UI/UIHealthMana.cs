@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public partial class UIHealthMana : MonoBehaviour
 {
@@ -7,15 +8,15 @@ public partial class UIHealthMana : MonoBehaviour
 
     public GameObject panel;
     public Slider healthSlider;
-    public Text healthStatus;
+    public TextMeshProUGUI healthStatus;
     public Slider manaSlider;
-    public Text manaStatus;
+    public TextMeshProUGUI manaStatus;
     public Slider undergroundHealth;
     public Slider undergroundArmor;
     public Slider undergroundMana;
 
     public Slider armorSlider;
-    public Text armorStatus;
+    public TextMeshProUGUI armorStatus;
 
     public Button wetImage;
 

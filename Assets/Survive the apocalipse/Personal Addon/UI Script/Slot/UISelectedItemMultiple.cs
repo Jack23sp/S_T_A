@@ -30,10 +30,10 @@ public class UISelectedItemMultiple : MonoBehaviour
     {
         if (!singleton) singleton = this;
 
-        closeItemButton.onClick.SetListener(() =>
-        {
-            Destroy(this.gameObject);
-        });
+        //closeItemButton.onClick.SetListener(() =>
+        //{
+        //    Destroy(this.gameObject);
+        //});
 
     }
 
@@ -89,7 +89,7 @@ public class UISelectedItemMultiple : MonoBehaviour
 
                 }
             }
-            closeItemButton.onClick.Invoke();
+            this.gameObject.SetActive(false);
         });
 
         coinButton.interactable = item.name != null && amount > 0 && (Player.localPlayer.coins >= (item.data.coinPrice * amount));
@@ -111,7 +111,7 @@ public class UISelectedItemMultiple : MonoBehaviour
                     ScreenNotificationManager.singleton.SpawnNotification("Seems you can't buy this item, check your inventary", "Item");
 
             }
-            closeItemButton.onClick.Invoke();
+            this.gameObject.SetActive(false);
         });
     }
 }

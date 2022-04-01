@@ -1,0 +1,535 @@
+fileFormatVersion: 2
+guid: 7ae63279c55bcf644a5281a3ec650a56
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1480291516350708812
+    second: 0deg
+  - first:
+      213: 7114535235718178654
+    second: 30deg
+  - first:
+      213: -5048063038266490990
+    second: 60deg
+  - first:
+      213: -1218844832463651114
+    second: 90deg
+  - first:
+      213: -1588230216335661072
+    second: 120deg
+  - first:
+      213: -8008190554364036190
+    second: 150deg
+  - first:
+      213: -4916952005769091322
+    second: 180deg
+  - first:
+      213: 6314412520876877831
+    second: 210deg
+  - first:
+      213: -4278938335183157198
+    second: 240deg
+  - first:
+      213: 6799256274158981590
+    second: 270deg
+  - first:
+      213: -4964336200664390997
+    second: 300deg
+  - first:
+      213: -6580014094483266971
+    second: 330deg
+  - first:
+      213: -2845458975253814346
+    second: DBK_ConcreteDamageMax_Building (1)_0
+  - first:
+      213: 550916895870976818
+    second: DBK_ConcreteDamageMax_Building (1)_1
+  - first:
+      213: -3248127095533881676
+    second: DBK_ConcreteDamageMax_Building (1)_2
+  - first:
+      213: -3616339087954710699
+    second: DBK_ConcreteDamageMax_Building (1)_3
+  - first:
+      213: 5473829915611353949
+    second: DBK_ConcreteDamageMax_Building (1)_4
+  - first:
+      213: 2939153272832712192
+    second: DBK_ConcreteDamageMax_Building (1)_5
+  - first:
+      213: 331654839171072845
+    second: DBK_ConcreteDamageMax_Building (1)_6
+  - first:
+      213: 4641945198945640053
+    second: DBK_ConcreteDamageMax_Building (1)_7
+  - first:
+      213: 8060516583788250404
+    second: DBK_ConcreteDamageMax_Building (1)_8
+  - first:
+      213: -3126985040888922235
+    second: DBK_ConcreteDamageMax_Building (1)_9
+  - first:
+      213: 2227697884327295595
+    second: DBK_ConcreteDamageMax_Building (1)_10
+  - first:
+      213: 8679993447894979771
+    second: DBK_ConcreteDamageMax_Building (1)_11
+  - first:
+      213: 8914717928150247690
+    second: DBK_ConcreteDamageMax_Building (1)_12
+  - first:
+      213: 791103133148261681
+    second: DBK_ConcreteDamageMax_Building (1)_13
+  - first:
+      213: -3918266044348204584
+    second: DBK_ConcreteDamageMax_Building (1)_14
+  - first:
+      213: -5010415242929714012
+    second: DBK_ConcreteDamageMax_Building (1)_15
+  - first:
+      213: 8050108244135547956
+    second: DBK_ConcreteDamageMax_Building (1)_16
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_0
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 3300
+        width: 267
+        height: 164
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b3ac0d4326e288d0800000000000000
+      internalID: -2845458975253814346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_1
+      rect:
+        serializedVersion: 2
+        x: 1363
+        y: 3371
+        width: 265
+        height: 219
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23386277fff35a700800000000000000
+      internalID: 550916895870976818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_2
+      rect:
+        serializedVersion: 2
+        x: 1335
+        y: 2397
+        width: 213
+        height: 245
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b6b16dad955ce2d0800000000000000
+      internalID: -3248127095533881676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_3
+      rect:
+        serializedVersion: 2
+        x: 1547
+        y: 2554
+        width: 13
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55f691b72ce20ddc0800000000000000
+      internalID: -3616339087954710699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_4
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 2345
+        width: 18
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d53dbe08e43f6fb40800000000000000
+      internalID: 5473829915611353949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 2256
+        width: 261
+        height: 253
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00ede9f4458f9c820800000000000000
+      internalID: 2939153272832712192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_6
+      rect:
+        serializedVersion: 2
+        x: 2227
+        y: 1376
+        width: 227
+        height: 229
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d43c4dca1564a9400800000000000000
+      internalID: 331654839171072845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_7
+      rect:
+        serializedVersion: 2
+        x: 2333
+        y: 1589
+        width: 30
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57e1cf970908b6040800000000000000
+      internalID: 4641945198945640053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_8
+      rect:
+        serializedVersion: 2
+        x: 3278
+        y: 1422
+        width: 143
+        height: 233
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42508d26025bcdf60800000000000000
+      internalID: 8060516583788250404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_9
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 1253
+        width: 213
+        height: 297
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58ffadb3ca7ba94d0800000000000000
+      internalID: -3126985040888922235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_10
+      rect:
+        serializedVersion: 2
+        x: 1221
+        y: 1352
+        width: 275
+        height: 201
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6ab7364c6f5aee10800000000000000
+      internalID: 2227697884327295595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_11
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 1542
+        width: 4
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb49f726d08857870800000000000000
+      internalID: 8679993447894979771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_12
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1311
+        width: 13
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a09a33439b077bb70800000000000000
+      internalID: 8914717928150247690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_13
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 455
+        width: 269
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13d2000bb109afa00800000000000000
+      internalID: 791103133148261681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_14
+      rect:
+        serializedVersion: 2
+        x: 1420
+        y: 399
+        width: 275
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d97623eac58f99c0800000000000000
+      internalID: -3918266044348204584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_15
+      rect:
+        serializedVersion: 2
+        x: 2406
+        y: 339
+        width: 227
+        height: 288
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4acc8f302ed677ab0800000000000000
+      internalID: -5010415242929714012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMax_Building (1)_16
+      rect:
+        serializedVersion: 2
+        x: 3383
+        y: 291
+        width: 147
+        height: 290
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4349427fbcab7bf60800000000000000
+      internalID: 8050108244135547956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: bab7b9c6cbb112347a2e28698cdd47a2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

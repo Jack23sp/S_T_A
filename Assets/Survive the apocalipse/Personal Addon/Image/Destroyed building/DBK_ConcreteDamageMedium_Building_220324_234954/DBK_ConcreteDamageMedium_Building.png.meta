@@ -1,0 +1,415 @@
+fileFormatVersion: 2
+guid: 68dd5b66fa055f949a02e1a10432af6c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1480291516350708812
+    second: 0deg
+  - first:
+      213: 7114535235718178654
+    second: 30deg
+  - first:
+      213: -5048063038266490990
+    second: 60deg
+  - first:
+      213: -1218844832463651114
+    second: 90deg
+  - first:
+      213: -1588230216335661072
+    second: 120deg
+  - first:
+      213: -8008190554364036190
+    second: 150deg
+  - first:
+      213: -4916952005769091322
+    second: 180deg
+  - first:
+      213: 6314412520876877831
+    second: 210deg
+  - first:
+      213: -4278938335183157198
+    second: 240deg
+  - first:
+      213: 6799256274158981590
+    second: 270deg
+  - first:
+      213: -4964336200664390997
+    second: 300deg
+  - first:
+      213: -6580014094483266971
+    second: 330deg
+  - first:
+      213: 5162602708910632358
+    second: DBK_ConcreteDamageMedium_Building_0
+  - first:
+      213: 7155873604384000877
+    second: DBK_ConcreteDamageMedium_Building_1
+  - first:
+      213: -7872574293836433285
+    second: DBK_ConcreteDamageMedium_Building_2
+  - first:
+      213: -7728369951456576674
+    second: DBK_ConcreteDamageMedium_Building_3
+  - first:
+      213: 3820567275663555184
+    second: DBK_ConcreteDamageMedium_Building_4
+  - first:
+      213: 3040919734009759880
+    second: DBK_ConcreteDamageMedium_Building_5
+  - first:
+      213: -7731288413491962630
+    second: DBK_ConcreteDamageMedium_Building_6
+  - first:
+      213: -4315109492304722329
+    second: DBK_ConcreteDamageMedium_Building_7
+  - first:
+      213: -7020875013948360622
+    second: DBK_ConcreteDamageMedium_Building_8
+  - first:
+      213: -5931523957511645734
+    second: DBK_ConcreteDamageMedium_Building_9
+  - first:
+      213: -4551355920426443779
+    second: DBK_ConcreteDamageMedium_Building_10
+  - first:
+      213: -4838802658819908381
+    second: DBK_ConcreteDamageMedium_Building_11
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMedium_Building_0
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 3300
+        width: 244
+        height: 156
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ad6615afcf35a740800000000000000
+      internalID: 5162602708910632358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMedium_Building_1
+      rect:
+        serializedVersion: 2
+        x: 1365
+        y: 3371
+        width: 255
+        height: 251
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6b07e63125ce4360800000000000000
+      internalID: 7155873604384000877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMedium_Building_2
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 2264
+        width: 255
+        height: 233
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b78f104f36ffeb290800000000000000
+      internalID: -7872574293836433285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMedium_Building_3
+      rect:
+        serializedVersion: 2
+        x: 1338
+        y: 2399
+        width: 214
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5bb0aec9705fb490800000000000000
+      internalID: -7728369951456576674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMedium_Building_4
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 1270
+        width: 214
+        height: 269
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07a786ae1b1650530800000000000000
+      internalID: 3820567275663555184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMedium_Building_5
+      rect:
+        serializedVersion: 2
+        x: 1239
+        y: 1355
+        width: 254
+        height: 229
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8888028f264833a20800000000000000
+      internalID: 3040919734009759880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMedium_Building_6
+      rect:
+        serializedVersion: 2
+        x: 2237
+        y: 1379
+        width: 214
+        height: 263
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afcd7b96622f4b490800000000000000
+      internalID: -7731288413491962630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMedium_Building_7
+      rect:
+        serializedVersion: 2
+        x: 3279
+        y: 1422
+        width: 134
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 766c24877c6ad14c0800000000000000
+      internalID: -4315109492304722329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMedium_Building_8
+      rect:
+        serializedVersion: 2
+        x: 443
+        y: 455
+        width: 244
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 258313d7f57d09e90800000000000000
+      internalID: -7020875013948360622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMedium_Building_9
+      rect:
+        serializedVersion: 2
+        x: 1423
+        y: 406
+        width: 254
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad59ccf136efeada0800000000000000
+      internalID: -5931523957511645734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMedium_Building_10
+      rect:
+        serializedVersion: 2
+        x: 2409
+        y: 348
+        width: 214
+        height: 275
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfb5c9c87e556d0c0800000000000000
+      internalID: -4551355920426443779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_ConcreteDamageMedium_Building_11
+      rect:
+        serializedVersion: 2
+        x: 3391
+        y: 323
+        width: 134
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ecd2de6e9e19dcb0800000000000000
+      internalID: -4838802658819908381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 2196a881b1405514bb2b706ba35e0c1c
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

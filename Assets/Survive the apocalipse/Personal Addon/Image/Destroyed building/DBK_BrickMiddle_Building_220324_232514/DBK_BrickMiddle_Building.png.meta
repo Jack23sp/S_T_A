@@ -1,0 +1,415 @@
+fileFormatVersion: 2
+guid: 8db24cca9f4116c4e8d46979b1f3be89
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1480291516350708812
+    second: 0deg
+  - first:
+      213: 7114535235718178654
+    second: 30deg
+  - first:
+      213: -5048063038266490990
+    second: 60deg
+  - first:
+      213: -1218844832463651114
+    second: 90deg
+  - first:
+      213: -1588230216335661072
+    second: 120deg
+  - first:
+      213: -8008190554364036190
+    second: 150deg
+  - first:
+      213: -4916952005769091322
+    second: 180deg
+  - first:
+      213: 6314412520876877831
+    second: 210deg
+  - first:
+      213: -4278938335183157198
+    second: 240deg
+  - first:
+      213: 6799256274158981590
+    second: 270deg
+  - first:
+      213: -4964336200664390997
+    second: 300deg
+  - first:
+      213: -6580014094483266971
+    second: 330deg
+  - first:
+      213: 6137627556591866460
+    second: DBK_BrickMiddle_Building_0
+  - first:
+      213: -6167655807965510328
+    second: DBK_BrickMiddle_Building_1
+  - first:
+      213: 7615160485374836412
+    second: DBK_BrickMiddle_Building_2
+  - first:
+      213: -7120379062806905164
+    second: DBK_BrickMiddle_Building_3
+  - first:
+      213: 3675252172027994357
+    second: DBK_BrickMiddle_Building_4
+  - first:
+      213: 1439702536588361016
+    second: DBK_BrickMiddle_Building_5
+  - first:
+      213: -6955209073691578758
+    second: DBK_BrickMiddle_Building_6
+  - first:
+      213: -2093353045189907136
+    second: DBK_BrickMiddle_Building_7
+  - first:
+      213: 7288591978932585875
+    second: DBK_BrickMiddle_Building_8
+  - first:
+      213: -6266811520049944366
+    second: DBK_BrickMiddle_Building_9
+  - first:
+      213: -4930020862005703389
+    second: DBK_BrickMiddle_Building_10
+  - first:
+      213: 8720437381072823005
+    second: DBK_BrickMiddle_Building_11
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DBK_BrickMiddle_Building_0
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 3165
+        width: 420
+        height: 354
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c529e428ebb3d2550800000000000000
+      internalID: 6137627556591866460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMiddle_Building_1
+      rect:
+        serializedVersion: 2
+        x: 1355
+        y: 3345
+        width: 461
+        height: 492
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 845475568b5186aa0800000000000000
+      internalID: -6167655807965510328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMiddle_Building_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 2111
+        width: 461
+        height: 439
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbebb565d1c7ea960800000000000000
+      internalID: 7615160485374836412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMiddle_Building_3
+      rect:
+        serializedVersion: 2
+        x: 1288
+        y: 2373
+        width: 380
+        height: 543
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bef34fb7f45f2d90800000000000000
+      internalID: -7120379062806905164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMiddle_Building_4
+      rect:
+        serializedVersion: 2
+        x: 276
+        y: 1070
+        width: 380
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f026bdc06e110330800000000000000
+      internalID: 3675252172027994357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMiddle_Building_5
+      rect:
+        serializedVersion: 2
+        x: 1006
+        y: 1314
+        width: 461
+        height: 438
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83df39344d9daf310800000000000000
+      internalID: 1439702536588361016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMiddle_Building_6
+      rect:
+        serializedVersion: 2
+        x: 2059
+        y: 1372
+        width: 379
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7e2a00a2322a7f90800000000000000
+      internalID: -6955209073691578758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMiddle_Building_7
+      rect:
+        serializedVersion: 2
+        x: 3125
+        y: 1401
+        width: 281
+        height: 527
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04d29f71f7ae2f2e0800000000000000
+      internalID: -2093353045189907136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMiddle_Building_8
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 429
+        width: 420
+        height: 336
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 395c909c9c7462560800000000000000
+      internalID: 7288591978932585875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMiddle_Building_9
+      rect:
+        serializedVersion: 2
+        x: 1449
+        y: 308
+        width: 461
+        height: 438
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d8e8112020d709a0800000000000000
+      internalID: -6266811520049944366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMiddle_Building_10
+      rect:
+        serializedVersion: 2
+        x: 2422
+        y: 179
+        width: 379
+        height: 509
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32d82e8752c059bb0800000000000000
+      internalID: -4930020862005703389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMiddle_Building_11
+      rect:
+        serializedVersion: 2
+        x: 3398
+        y: 132
+        width: 281
+        height: 474
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd222e06897350970800000000000000
+      internalID: 8720437381072823005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 012545b0ca7fb374988e2bcf5993ce38
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

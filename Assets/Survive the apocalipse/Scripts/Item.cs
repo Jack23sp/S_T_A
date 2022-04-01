@@ -103,31 +103,31 @@ public partial struct Item
             {
                 tip.AppendLine("Vita : " + summonedHealth.ToString());
                 tip.AppendLine("Livello : " + summonedLevel.ToString());
-                tip.AppendLine("Esperienza : " + summonedExperience.ToString() + "\n");
+                tip.AppendLine("Esperienza : " + summonedExperience.ToString());
             }
 
             if (data is EquipmentItem)
             {
                 if (((EquipmentItem)data).maxAccuracyLevel > 0)
                 {
-                    tip.AppendLine("Livello di accuratezza : " + "" + accuracyLevel.ToString() + " / " + ((WeaponItem)data).maxAccuracyLevel + "\n");
+                    tip.AppendLine("Livello di accuratezza : " + "" + accuracyLevel.ToString() + " / " + ((WeaponItem)data).maxAccuracyLevel);
                 }
 
                 if (((EquipmentItem)data).maxMissLevel > 0)
                 {
-                    tip.AppendLine("Livello di evasione : " + "" + missLevel.ToString() + " / " + ((WeaponItem)data).maxMissLevel + "\n");
+                    tip.AppendLine("Livello di evasione : " + "" + missLevel.ToString() + " / " + ((WeaponItem)data).maxMissLevel);
                 }
 
                 if (((EquipmentItem)data).maxChargeLevel > 0)
                 {
                     tip.AppendLine("Livello di carica munizioni : " + "" + chargeLevel.ToString() + " / " + ((WeaponItem)data).maxChargeLevel);
-                    tip.AppendLine("Munizioni massime : " + ((EquipmentItem)data).chargeMunition.Get(chargeLevel) + "\n");
+                    tip.AppendLine("Munizioni massime : " + ((EquipmentItem)data).chargeMunition.Get(chargeLevel));
                 }
                 else if (((EquipmentItem)data).maxChargeLevel <= 0)
                 {
                     if (((EquipmentItem)data).chargeMunition.baseValue > 0)
                     {
-                        tip.AppendLine("Munizioni massime : " + ((EquipmentItem)data).chargeMunition.Get(chargeLevel) + "\n");
+                        tip.AppendLine("Munizioni massime : " + ((EquipmentItem)data).chargeMunition.Get(chargeLevel));
                     }
                 }
 
@@ -135,13 +135,13 @@ public partial struct Item
                 {
                     tip.AppendLine("Livello armatura : " + armorLevel.ToString() + " / " + ((EquipmentItem)data).maxArmorLevel);
                     tip.AppendLine("Aggiunge  " + ((EquipmentItem)data).armor.Get(armorLevel) + " ad armatura ");
-                    tip.AppendLine("Armatura attuale : " + currentArmor + "\n");
+                    tip.AppendLine("Armatura attuale : " + currentArmor);
                 }
                 else if (((EquipmentItem)data).maxArmorLevel <= 0)
                 {
                     if (((EquipmentItem)data).armor.baseValue > 0)
                     {
-                        tip.AppendLine("Armatura attuale : " + currentArmor + " / " + ((EquipmentItem)data).armor.Get(armorLevel) + "\n");
+                        tip.AppendLine("Armatura attuale : " + currentArmor + " / " + ((EquipmentItem)data).armor.Get(armorLevel));
                     }
                 }
 
@@ -150,7 +150,7 @@ public partial struct Item
                     tip.AppendLine("Livello della borsa : " + bagLevel + " / " + ((EquipmentItem)data).maxBagLevel);
                     tip.AppendLine("Slot addizionali correnti : " + ((EquipmentItem)data).additionalSlot.Get(bagLevel));
                     tip.AppendLine("Slot protetti : " + ((EquipmentItem)data).protectedSlot.Get(bagLevel));
-                    tip.AppendLine("Puo' trasportare un peso di : " + ((EquipmentItem)data).possibleBagWeight.Get(bagLevel) + "\n");
+                    tip.AppendLine("Puo' trasportare un peso di : " + ((EquipmentItem)data).possibleBagWeight.Get(bagLevel));
                 }
                 else if (((EquipmentItem)data).maxBagLevel <= 0)
                 {
@@ -198,7 +198,7 @@ public partial struct Item
             {
                 if (((ScriptableTorch)data).currentBattery.baseValue > 0)
                 {
-                    tip.AppendLine("Livello batteria attuale : " + torchCurrentBattery + " / " + ((ScriptableTorch)data).currentBattery.Get(batteryLevel) + "\n");
+                    tip.AppendLine("Livello batteria attuale : " + torchCurrentBattery + " / " + ((ScriptableTorch)data).currentBattery.Get(batteryLevel));
                 }
             }
 
@@ -206,19 +206,19 @@ public partial struct Item
             {
                 if (((ScriptableRadio)data).currentBattery.baseValue > 0)
                 {
-                    tip.AppendLine("Livello batteria attuale : " + torchCurrentBattery + " / " + ((ScriptableRadio)data).currentBattery.Get(batteryLevel) + "\n");
+                    tip.AppendLine("Livello batteria attuale : " + torchCurrentBattery + " / " + ((ScriptableRadio)data).currentBattery.Get(batteryLevel));
                 }
             }
 
             if (data.maxWeightLevel > 0)
             {
                 tip.AppendLine("Livello del peso : " + weightLevel + " / " + data.maxWeightLevel.ToString());
-                tip.AppendLine("Peso attuale : " + weight + "\n");
+                tip.AppendLine("Peso attuale : " + weight);
             }
             else
             {
                 if (data.maxWeight.baseValue > 0)
-                    tip.AppendLine("Peso attuale : " + weight + "\n");
+                    tip.AppendLine("Peso attuale : " + weight);
             }
 
             if (data is FoodItem)
@@ -226,47 +226,47 @@ public partial struct Item
                 if (((FoodItem)data).maxUnsanityLevel > 0)
                 {
                     tip.AppendLine("Livello di insanita' : " + unsanityLevel + " / " + ((FoodItem)data).maxUnsanityLevel.ToString());
-                    tip.Append("Attuale insanita' : " + currentUnsanity + " / " + ((FoodItem)data).maxUnsanity.Get(unsanityLevel) + "\n");
+                    tip.Append("Attuale insanita' : " + currentUnsanity + " / " + ((FoodItem)data).maxUnsanity.Get(unsanityLevel));
                 }
                 else
                 {
-                    tip.AppendLine("Attuale insanita' : " + currentUnsanity + " / " + ((FoodItem)data).maxUnsanity.Get(unsanityLevel) + "\n");
+                    tip.AppendLine("Attuale insanita' : " + currentUnsanity + " / " + ((FoodItem)data).maxUnsanity.Get(unsanityLevel));
                 }
 
                 if (((FoodItem)data).waterToAdd > 0)
                 {
-                    tip.AppendLine("Agginge : " + ((FoodItem)data).waterToAdd.ToString() + " acqua" + "\n");
+                    tip.AppendLine("Agginge : " + ((FoodItem)data).waterToAdd.ToString() + " acqua");
                 }
 
                 if (((FoodItem)data).foodToAdd > 0)
                 {
-                    tip.AppendLine("Aggiunge : " + ((FoodItem)data).foodToAdd.ToString() + " cibo" + "\n");
+                    tip.AppendLine("Aggiunge : " + ((FoodItem)data).foodToAdd.ToString() + " cibo");
                 }
             }
 
             if (data.maxDurabilityLevel > 0)
             {
                 tip.AppendLine("Livello di durabilita' : " + durabilityLevel + " / " + data.maxDurabilityLevel);
-                tip.AppendLine("Durabilita' attuale : " + durability + " / " + data.maxDurability.Get(durabilityLevel) + "\n");
+                tip.AppendLine("Durabilita' attuale : " + durability + " / " + data.maxDurability.Get(durabilityLevel));
             }
             else
             {
                 if (data.maxDurability.baseValue > 0)
                 {
-                    tip.AppendLine("Durabilita' attuale : " + durability + " / " + data.maxDurability.Get(durabilityLevel) + "\n");
+                    tip.AppendLine("Durabilita' attuale : " + durability + " / " + data.maxDurability.Get(durabilityLevel));
                 }
             }
 
             if (data is ScriptablePlant)
             {
                 if (((ScriptablePlant)data).waterToAdd > 0)
-                    if (((ScriptablePlant)data)) tip.AppendLine("Aggiunge : " + ((ScriptablePlant)data).waterToAdd.ToString() + " acqua");
+                    if (((ScriptablePlant)data)) tip.AppendLine("Aggiunge : " + ((ScriptablePlant)data).waterToAdd.ToString());
 
                 if (((ScriptablePlant)data).foodToAdd > 0)
-                    if (((ScriptablePlant)data)) tip.AppendLine("Aggiunge : " + ((ScriptablePlant)data).foodToAdd.ToString() + " cibo" + "\n");
+                    if (((ScriptablePlant)data)) tip.AppendLine("Aggiunge : " + ((ScriptablePlant)data).foodToAdd.ToString() + " cibo");
 
                 if (((ScriptablePlant)data).GrowSeason != String.Empty)
-                    if (((ScriptablePlant)data)) tip.AppendLine("Stagione di crescita : " + ((ScriptablePlant)data).GrowSeason.ToString() + "\n");
+                    if (((ScriptablePlant)data)) tip.AppendLine("Stagione di crescita : " + ((ScriptablePlant)data).GrowSeason.ToString());
 
 
                 tip.AppendLine();
@@ -275,49 +275,48 @@ public partial struct Item
             if (data is ScriptableItem)
             {
                 if (gasolineContainer > 0)
-                    tip.AppendLine("Carburante nel contenitore : " + gasolineContainer.ToString() + " / " + data.generalLiquidContainer + "\n");
+                    tip.AppendLine("Carburante nel contenitore : " + gasolineContainer.ToString() + " / " + data.generalLiquidContainer);
                 if (honeyContainer > 0)
-                    tip.AppendLine("Miele nel contenitore : " + honeyContainer.ToString() + " / " + data.generalLiquidContainer + "\n");
+                    tip.AppendLine("Miele nel contenitore : " + honeyContainer.ToString() + " / " + data.generalLiquidContainer);
                 if (waterContainer > 0)
-                    tip.AppendLine("Acqua nel contenitore : " + waterContainer.ToString() + " / " + data.generalLiquidContainer + "\n");
+                    tip.AppendLine("Acqua nel contenitore : " + waterContainer.ToString() + " / " + data.generalLiquidContainer);
             }
         }
         else
         {
-            Debug.Log("Item English");
 
             tip.AppendLine("<color=green><b>" + data.name.ToString() + "</b></color>");
             tip.AppendLine("Max stack : " + data.maxStack.ToString());
-            tip.AppendLine("{AMOUNT}" + "\n");
+            tip.AppendLine("{AMOUNT}" + "/n");
             if (data is PetItem)
             {
                 tip.AppendLine("Health : " + summonedHealth.ToString());
                 tip.AppendLine("Level : " + summonedLevel.ToString());
-                tip.AppendLine("Experience : " + summonedExperience.ToString() + "\n");
+                tip.AppendLine("Experience : " + summonedExperience.ToString());
             }
 
             if (data is EquipmentItem)
             {
                 if (((EquipmentItem)data).maxAccuracyLevel > 0)
                 {
-                    tip.AppendLine("Accuracy level : " + "" + accuracyLevel.ToString() + " / " + ((WeaponItem)data).maxAccuracyLevel + "\n");
+                    tip.AppendLine("Accuracy level : " + "" + accuracyLevel.ToString() + " / " + ((WeaponItem)data).maxAccuracyLevel);
                 }
 
                 if (((EquipmentItem)data).maxMissLevel > 0)
                 {
-                    tip.AppendLine("Dodge level : " + "" + missLevel.ToString() + " / " + ((WeaponItem)data).maxMissLevel + "\n");
+                    tip.AppendLine("Dodge level : " + "" + missLevel.ToString() + " / " + ((WeaponItem)data).maxMissLevel);
                 }
 
                 if (((EquipmentItem)data).maxChargeLevel > 0)
                 {
                     tip.AppendLine("Charge level : " + "" + chargeLevel.ToString() + " / " + ((WeaponItem)data).maxChargeLevel);
-                    tip.AppendLine("Max munition in charge : " + ((EquipmentItem)data).chargeMunition.Get(chargeLevel) + "\n");
+                    tip.AppendLine("Max munition in charge : " + ((EquipmentItem)data).chargeMunition.Get(chargeLevel));
                 }
                 else if (((EquipmentItem)data).maxChargeLevel <= 0)
                 {
                     if (((EquipmentItem)data).chargeMunition.baseValue > 0)
                     {
-                        tip.AppendLine("Max munition in charge : " + ((EquipmentItem)data).chargeMunition.Get(chargeLevel) + "\n");
+                        tip.AppendLine("Max munition in charge : " + ((EquipmentItem)data).chargeMunition.Get(chargeLevel));
                     }
                 }
 
@@ -325,13 +324,13 @@ public partial struct Item
                 {
                     tip.AppendLine("Armor level : " + armorLevel.ToString() + " / " + ((EquipmentItem)data).maxArmorLevel);
                     tip.AppendLine("Add  " + ((EquipmentItem)data).armor.Get(armorLevel) + " armor ");
-                    tip.AppendLine("Current armor : " + currentArmor + "\n");
+                    tip.AppendLine("Current armor : " + currentArmor);
                 }
                 else if (((EquipmentItem)data).maxArmorLevel <= 0)
                 {
                     if (((EquipmentItem)data).armor.baseValue > 0)
                     {
-                        tip.AppendLine("Current armor : " + currentArmor + " / " + ((EquipmentItem)data).armor.Get(armorLevel) + "\n");
+                        tip.AppendLine("Current armor : " + currentArmor + " / " + ((EquipmentItem)data).armor.Get(armorLevel));
                     }
                 }
 
@@ -340,7 +339,7 @@ public partial struct Item
                     tip.AppendLine("Bag Level : " + bagLevel + " / " + ((EquipmentItem)data).maxBagLevel);
                     tip.AppendLine("Current additional slot : " + ((EquipmentItem)data).additionalSlot.Get(bagLevel));
                     tip.AppendLine("Current Protect slot : " + ((EquipmentItem)data).protectedSlot.Get(bagLevel));
-                    tip.AppendLine("Can transport a weight of : " + ((EquipmentItem)data).possibleBagWeight.Get(bagLevel) + "\n");
+                    tip.AppendLine("Can transport a weight of : " + ((EquipmentItem)data).possibleBagWeight.Get(bagLevel));
                 }
                 else if (((EquipmentItem)data).maxBagLevel <= 0)
                 {
@@ -388,7 +387,7 @@ public partial struct Item
             {
                 if (((ScriptableTorch)data).currentBattery.baseValue > 0)
                 {
-                    tip.AppendLine("Current torch battery : " + torchCurrentBattery + " / " + ((ScriptableTorch)data).currentBattery.Get(batteryLevel) + "\n");
+                    tip.AppendLine("Current torch battery : " + torchCurrentBattery + " / " + ((ScriptableTorch)data).currentBattery.Get(batteryLevel));
                 }
             }
 
@@ -396,19 +395,19 @@ public partial struct Item
             {
                 if (((ScriptableRadio)data).currentBattery.baseValue > 0)
                 {
-                    tip.AppendLine("Current radio battery : " + torchCurrentBattery + " / " + ((ScriptableRadio)data).currentBattery.Get(batteryLevel) + "\n");
+                    tip.AppendLine("Current radio battery : " + torchCurrentBattery + " / " + ((ScriptableRadio)data).currentBattery.Get(batteryLevel));
                 }
             }
 
             if (data.maxWeightLevel > 0)
             {
                 tip.AppendLine("Weight level : " + weightLevel + " / " + data.maxWeightLevel.ToString());
-                tip.AppendLine("Current weight : " + weight + "\n");
+                tip.AppendLine("Current weight : " + weight);
             }
             else
             {
                 if (data.maxWeight.baseValue > 0)
-                    tip.AppendLine("Current weight : " + weight + "\n");
+                    tip.AppendLine("Current weight : " + weight);
             }
 
             if (data is FoodItem)
@@ -416,34 +415,34 @@ public partial struct Item
                 if (((FoodItem)data).maxUnsanityLevel > 0)
                 {
                     tip.AppendLine("Unsanity level : " + unsanityLevel + " / " + ((FoodItem)data).maxUnsanityLevel.ToString());
-                    tip.Append("Current unsanity : " + currentUnsanity + " / " + ((FoodItem)data).maxUnsanity.Get(unsanityLevel) + "\n");
+                    tip.Append("Current unsanity : " + currentUnsanity + " / " + ((FoodItem)data).maxUnsanity.Get(unsanityLevel));
                 }
                 else
                 {
-                    tip.AppendLine("Current unsanity : " + currentUnsanity + " / " + ((FoodItem)data).maxUnsanity.Get(unsanityLevel) + "\n");
+                    tip.AppendLine("Current unsanity : " + currentUnsanity + " / " + ((FoodItem)data).maxUnsanity.Get(unsanityLevel));
                 }
 
                 if (((FoodItem)data).waterToAdd > 0)
                 {
-                    tip.AppendLine("Add : " + ((FoodItem)data).waterToAdd.ToString() + " water" + "\n");
+                    tip.AppendLine("Add : " + ((FoodItem)data).waterToAdd.ToString() + " water");
                 }
 
                 if (((FoodItem)data).foodToAdd > 0)
                 {
-                    tip.AppendLine("Add : " + ((FoodItem)data).foodToAdd.ToString() + " food" + "\n");
+                    tip.AppendLine("Add : " + ((FoodItem)data).foodToAdd.ToString() + " food");
                 }
             }
 
             if (data.maxDurabilityLevel > 0)
             {
                 tip.AppendLine("Durability level : " + durabilityLevel + " / " + data.maxDurabilityLevel);
-                tip.AppendLine("Actual durability : " + durability + " / " + data.maxDurability.Get(durabilityLevel) + "\n");
+                tip.AppendLine("Actual durability : " + durability + " / " + data.maxDurability.Get(durabilityLevel));
             }
             else
             {
                 if (data.maxDurability.baseValue > 0)
                 {
-                    tip.AppendLine("Actual durability : " + durability + " / " + data.maxDurability.Get(durabilityLevel) + "\n");
+                    tip.AppendLine("Actual durability : " + durability + " / " + data.maxDurability.Get(durabilityLevel));
                 }
             }
 
@@ -453,10 +452,10 @@ public partial struct Item
                     if (((ScriptablePlant)data)) tip.AppendLine("Add : " + ((ScriptablePlant)data).waterToAdd.ToString() + " water");
 
                 if (((ScriptablePlant)data).foodToAdd > 0)
-                    if (((ScriptablePlant)data)) tip.AppendLine("Add : " + ((ScriptablePlant)data).foodToAdd.ToString() + " food" + "\n");
+                    if (((ScriptablePlant)data)) tip.AppendLine("Add : " + ((ScriptablePlant)data).foodToAdd.ToString() + " food");
 
                 if (((ScriptablePlant)data).GrowSeason != String.Empty)
-                    if (((ScriptablePlant)data)) tip.AppendLine("Grow season : " + ((ScriptablePlant)data).GrowSeason.ToString() + "\n");
+                    if (((ScriptablePlant)data)) tip.AppendLine("Grow season : " + ((ScriptablePlant)data).GrowSeason.ToString());
 
 
                 tip.AppendLine();
@@ -465,11 +464,11 @@ public partial struct Item
             if (data is ScriptableItem)
             {
                 if (gasolineContainer > 0)
-                    tip.AppendLine("Gasoline in container : " + gasolineContainer.ToString() + " / " + data.generalLiquidContainer + "\n");
+                    tip.AppendLine("Gasoline in container : " + gasolineContainer.ToString() + " / " + data.generalLiquidContainer);
                 if (honeyContainer > 0)
-                    tip.AppendLine("Honey in container : " + honeyContainer.ToString() + " / " + data.generalLiquidContainer + "\n");
+                    tip.AppendLine("Honey in container : " + honeyContainer.ToString() + " / " + data.generalLiquidContainer);
                 if (waterContainer > 0)
-                    tip.AppendLine("Water in container : " + waterContainer.ToString() + " / " + data.generalLiquidContainer + "\n");
+                    tip.AppendLine("Water in container : " + waterContainer.ToString() + " / " + data.generalLiquidContainer);
             }
         }
         // addon system hooks

@@ -1,0 +1,679 @@
+fileFormatVersion: 2
+guid: f8b8046094234e7488cf3bbae72cd5e2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1480291516350708812
+    second: 0deg
+  - first:
+      213: 7114535235718178654
+    second: 30deg
+  - first:
+      213: -5048063038266490990
+    second: 60deg
+  - first:
+      213: -1218844832463651114
+    second: 90deg
+  - first:
+      213: -1588230216335661072
+    second: 120deg
+  - first:
+      213: -8008190554364036190
+    second: 150deg
+  - first:
+      213: -4916952005769091322
+    second: 180deg
+  - first:
+      213: 6314412520876877831
+    second: 210deg
+  - first:
+      213: -4278938335183157198
+    second: 240deg
+  - first:
+      213: 6799256274158981590
+    second: 270deg
+  - first:
+      213: -4964336200664390997
+    second: 300deg
+  - first:
+      213: -6580014094483266971
+    second: 330deg
+  - first:
+      213: 1293649478099128475
+    second: DBK_BrickMedium_Building (1)_0
+  - first:
+      213: 1531414809918187267
+    second: DBK_BrickMedium_Building (1)_1
+  - first:
+      213: 9001680445382006350
+    second: DBK_BrickMedium_Building (1)_2
+  - first:
+      213: -5712743438071966822
+    second: DBK_BrickMedium_Building (1)_3
+  - first:
+      213: -5097609451982157687
+    second: DBK_BrickMedium_Building (1)_4
+  - first:
+      213: -3657825011904142933
+    second: DBK_BrickMedium_Building (1)_5
+  - first:
+      213: 7444285449679204221
+    second: DBK_BrickMedium_Building (1)_6
+  - first:
+      213: 8307902199896066018
+    second: DBK_BrickMedium_Building (1)_7
+  - first:
+      213: -1758944579473471110
+    second: DBK_BrickMedium_Building (1)_8
+  - first:
+      213: 6435254711421818416
+    second: DBK_BrickMedium_Building (1)_9
+  - first:
+      213: -1502489040601716169
+    second: DBK_BrickMedium_Building (1)_10
+  - first:
+      213: 6105718603179798299
+    second: DBK_BrickMedium_Building (1)_11
+  - first:
+      213: 6552507222061622402
+    second: DBK_BrickMedium_Building (1)_12
+  - first:
+      213: -4568366646812592613
+    second: DBK_BrickMedium_Building (1)_13
+  - first:
+      213: -2516180590039848945
+    second: DBK_BrickMedium_Building (1)_14
+  - first:
+      213: -5232846134812395699
+    second: DBK_BrickMedium_Building (1)_15
+  - first:
+      213: -4021243316054760892
+    second: DBK_BrickMedium_Building (1)_16
+  - first:
+      213: -1099490733694358510
+    second: DBK_BrickMedium_Building (1)_17
+  - first:
+      213: 6917465122070270954
+    second: DBK_BrickMedium_Building (1)_18
+  - first:
+      213: -4176322110665077818
+    second: DBK_BrickMedium_Building (1)_19
+  - first:
+      213: 3840187149848316455
+    second: DBK_BrickMedium_Building (1)_20
+  - first:
+      213: -6007026092073529784
+    second: DBK_BrickMedium_Building (1)_21
+  - first:
+      213: -8202076217574814579
+    second: DBK_BrickMedium_Building (1)_22
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_0
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 3224
+        width: 434
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b90d7f5a857f3f110800000000000000
+      internalID: 1293649478099128475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_1
+      rect:
+        serializedVersion: 2
+        x: 1404
+        y: 3392
+        width: 406
+        height: 311
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30722f4e7ada04510800000000000000
+      internalID: 1531414809918187267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_2
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 3225
+        width: 37
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4613901ca46cec70800000000000000
+      internalID: 9001680445382006350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_3
+      rect:
+        serializedVersion: 2
+        x: 1309
+        y: 2559
+        width: 27
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a93d6c84c1248b0b0800000000000000
+      internalID: -5712743438071966822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_4
+      rect:
+        serializedVersion: 2
+        x: 1341
+        y: 2420
+        width: 320
+        height: 368
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9880ee23637a149b0800000000000000
+      internalID: -5097609451982157687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_5
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 2169
+        width: 378
+        height: 331
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba12aea188bcc3dc0800000000000000
+      internalID: -3657825011904142933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_6
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 2237
+        width: 36
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7fecbacc2a6f4760800000000000000
+      internalID: 7444285449679204221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_7
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 2157
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e7cd7d98099b4370800000000000000
+      internalID: 8307902199896066018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_8
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 2167
+        width: 15
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7982e86939f697e0800000000000000
+      internalID: -1758944579473471110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_9
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 1361
+        width: 411
+        height: 345
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 036d479801e9e4950800000000000000
+      internalID: 6435254711421818416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_10
+      rect:
+        serializedVersion: 2
+        x: 2114
+        y: 1663
+        width: 31
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73a64089d26162be0800000000000000
+      internalID: -1502489040601716169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_11
+      rect:
+        serializedVersion: 2
+        x: 2129
+        y: 1438
+        width: 302
+        height: 376
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1fa60958bedbb450800000000000000
+      internalID: 6105718603179798299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_12
+      rect:
+        serializedVersion: 2
+        x: 3194
+        y: 1448
+        width: 220
+        height: 407
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2842a2f0a9e2fea50800000000000000
+      internalID: 6552507222061622402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_13
+      rect:
+        serializedVersion: 2
+        x: 2127
+        y: 1627
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b163efc2db6e990c0800000000000000
+      internalID: -4568366646812592613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_14
+      rect:
+        serializedVersion: 2
+        x: 3197
+        y: 1506
+        width: 13
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0821fba51bb41dd0800000000000000
+      internalID: -2516180590039848945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_15
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 1105
+        width: 320
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d473b3a4a223167b0800000000000000
+      internalID: -5232846134812395699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_16
+      rect:
+        serializedVersion: 2
+        x: 2207
+        y: 1411
+        width: 27
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 442642f628ca138c0800000000000000
+      internalID: -4021243316054760892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_17
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 1301
+        width: 28
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21c6058c003ddb0f0800000000000000
+      internalID: -1099490733694358510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_18
+      rect:
+        serializedVersion: 2
+        x: 1276
+        y: 1329
+        width: 37
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae31723d0e5cfff50800000000000000
+      internalID: 6917465122070270954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_19
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 476
+        width: 434
+        height: 214
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cbc23eda29ba06c0800000000000000
+      internalID: -4176322110665077818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_20
+      rect:
+        serializedVersion: 2
+        x: 1457
+        y: 310
+        width: 411
+        height: 331
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72a8ab9ddd51b4530800000000000000
+      internalID: 3840187149848316455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_21
+      rect:
+        serializedVersion: 2
+        x: 2429
+        y: 182
+        width: 317
+        height: 390
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84e44798891c2aca0800000000000000
+      internalID: -6007026092073529784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DBK_BrickMedium_Building (1)_22
+      rect:
+        serializedVersion: 2
+        x: 3390
+        y: 113
+        width: 220
+        height: 412
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8c06c6f22f5c2e80800000000000000
+      internalID: -8202076217574814579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 644fe1b0912a2724d8221f16d50ee9c0
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
