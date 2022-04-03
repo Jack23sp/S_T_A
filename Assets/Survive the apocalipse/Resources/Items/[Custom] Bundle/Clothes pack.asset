@@ -21,4 +21,4 @@ MonoBehaviour:
     quantity: 40
   - item: {fileID: 11400000, guid: 4bf904a75ee42474e8278d92dfbcc773, type: 2}
     quantity: 40
-  coins: 100
+  coins: 250

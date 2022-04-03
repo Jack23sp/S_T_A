@@ -42,6 +42,7 @@ MonoBehaviour:
   goldsToUpgrade: 0
   coinsToUpgrade: 0
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Munizioni glock perforanti
   maxStack: 5000
   buyPrice: 20
@@ -88,6 +89,14 @@ MonoBehaviour:
   firedWeapon: 0
   maxWet: 0
   clothes: {fileID: 0}
+  animatorToSet: {fileID: 0}
+  indexToSpawnWeapon: 0
+  indexHat: -1
+  indexAccessory: -1
+  indexShirt: -1
+  indexPants: -1
+  indexShoes: -1
+  ignorePants: 0
   category: Ammo
   healthBonus: 0
   manaBonus: 0

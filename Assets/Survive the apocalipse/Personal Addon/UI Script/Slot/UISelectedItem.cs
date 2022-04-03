@@ -37,6 +37,7 @@ public class UISelectedItem : MonoBehaviour
 
         if (!Player.localPlayer.playerBuilding.invBelt)
         {
+            if (UIInventory.singleton.selectedItem <= -1) Destroy(this.gameObject);
             if (UIInventory.singleton.player.inventory[UIInventory.singleton.selectedItem].item.waterContainer > 0 ||
                 UIInventory.singleton.player.inventory[UIInventory.singleton.selectedItem].item.honeyContainer > 0)
             {
@@ -460,6 +461,7 @@ public class UISelectedItem : MonoBehaviour
         }
         else
         {
+            if (Player.localPlayer.playerBuilding.inventoryIndex <= -1) Destroy(this.gameObject);
             if (Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.waterContainer > 0 ||
                 Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.honeyContainer > 0)
             {

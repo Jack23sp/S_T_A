@@ -28,8 +28,8 @@ MonoBehaviour:
     baseValue: 0
     bonusPerLevel: 0
   maxDurabilityLevel: 0
-  goldPrice: 750
-  coinPrice: 5
+  goldPrice: 250
+  coinPrice: 2
   craftDescription: 
   timeToCraft: 360
   maxCarItemInventory: 0
@@ -42,6 +42,7 @@ MonoBehaviour:
   goldsToUpgrade: 350
   coinsToUpgrade: 5
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Muro
   maxStack: 100
   buyPrice: 10
@@ -81,3 +82,6 @@ MonoBehaviour:
   isBasement: 0
   isWall: 1
   isDoor: 0
+  modularAccessory: 0
+  modularForniture: 0
+  necessaryTagObject: 

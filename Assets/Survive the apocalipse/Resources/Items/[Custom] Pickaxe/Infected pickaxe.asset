@@ -28,7 +28,7 @@ MonoBehaviour:
     baseValue: 100
     bonusPerLevel: 10
   maxDurabilityLevel: 5
-  goldPrice: 300
+  goldPrice: 150
   coinPrice: 2
   craftDescription: 
   timeToCraft: 360

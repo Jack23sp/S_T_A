@@ -28,7 +28,7 @@ MonoBehaviour:
     baseValue: 5
     bonusPerLevel: 1
   maxDurabilityLevel: 0
-  goldPrice: 250
+  goldPrice: 200
   coinPrice: 2
   craftDescription: 
   timeToCraft: 60
@@ -42,6 +42,7 @@ MonoBehaviour:
   goldsToUpgrade: 0
   coinsToUpgrade: 0
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Cura piccola
   maxStack: 100
   buyPrice: 250

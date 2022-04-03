@@ -28,8 +28,8 @@ MonoBehaviour:
     baseValue: 100
     bonusPerLevel: 5
   maxDurabilityLevel: 5
-  goldPrice: 300
-  coinPrice: 5
+  goldPrice: 400
+  coinPrice: 3
   craftDescription: 
   timeToCraft: 360
   maxCarItemInventory: 0
@@ -58,10 +58,7 @@ MonoBehaviour:
   sellable: 1
   tradable: 1
   destroyable: 1
-  toolTip: '
-
-
-'
+  toolTip: 
   image: {fileID: 21300000, guid: 2b81d82122404504f87a29594049d182, type: 3}
   craftMinLevel: 0
   minLevel: 0

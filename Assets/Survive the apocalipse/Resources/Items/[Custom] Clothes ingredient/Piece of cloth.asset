@@ -28,7 +28,7 @@ MonoBehaviour:
     baseValue: 0
     bonusPerLevel: 0
   maxDurabilityLevel: 0
-  goldPrice: 150
+  goldPrice: 30
   coinPrice: 1
   craftDescription: 
   timeToCraft: 180
@@ -42,6 +42,7 @@ MonoBehaviour:
   goldsToUpgrade: 0
   coinsToUpgrade: 0
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Pezzo di stoffa
   maxStack: 10000
   buyPrice: 2000

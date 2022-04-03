@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 158998612}
   - component: {fileID: 158998614}
   - component: {fileID: 7492850548233002508}
+  - component: {fileID: 5389307937708362164}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -156,6 +157,25 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5389307937708362164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158998611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e8ae58223f36e48aca38c8da9b94d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textTarget: {fileID: 7492850548233002508}
+  defaultLanguage: 
+  textToTranslate:
+  - defaultLanguage: Italian
+    returnString: Amici
+  - defaultLanguage: English
+    returnString: Friends
 --- !u!1 &749354447
 GameObject:
   m_ObjectHideFlags: 0

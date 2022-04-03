@@ -94,11 +94,13 @@ public partial struct Item
     public string ToolTip()
     {
         StringBuilder tip = new StringBuilder(data.ToolTip());
+
         if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
         {
             tip.AppendLine("<color=green><b>" + data.italianName.ToString() + "</b></color>");
             tip.AppendLine("Quantita' massima : " + data.maxStack.ToString());
-            tip.AppendLine("{AMOUNT}" + "\n");
+            tip.AppendLine("{AMOUNT}");
+            tip.AppendLine("");
             if (data is PetItem)
             {
                 tip.AppendLine("Vita : " + summonedHealth.ToString());
@@ -187,10 +189,10 @@ public partial struct Item
                 {
                     tip.AppendLine();
                     tip.AppendLine("Munizioni concesse : ");
-                    if (((WeaponItem)data).ammoItems.Count >= 0) tip.AppendLine("   * " + ((WeaponItem)data).ammoItems[0].italianName);
-                    if (((WeaponItem)data).ammoItems.Count >= 1) tip.AppendLine("   * " + ((WeaponItem)data).ammoItems[1].italianName);
-                    if (((WeaponItem)data).ammoItems.Count >= 2) tip.AppendLine("   * " + ((WeaponItem)data).ammoItems[2].italianName);
-                    if (((WeaponItem)data).ammoItems.Count >= 3) tip.AppendLine("   * " + ((WeaponItem)data).ammoItems[3].italianName);
+                    for (int i = 0; i < ((WeaponItem)data).ammoItems.Count; i++)
+                    {
+                        tip.AppendLine("   * " + ((WeaponItem)data).ammoItems[i].name);
+                    }
                 }
             }
 
@@ -287,7 +289,8 @@ public partial struct Item
 
             tip.AppendLine("<color=green><b>" + data.name.ToString() + "</b></color>");
             tip.AppendLine("Max stack : " + data.maxStack.ToString());
-            tip.AppendLine("{AMOUNT}" + "/n");
+            tip.AppendLine("{AMOUNT}");
+            tip.AppendLine("");
             if (data is PetItem)
             {
                 tip.AppendLine("Health : " + summonedHealth.ToString());
@@ -376,10 +379,10 @@ public partial struct Item
                 {
                     tip.AppendLine();
                     tip.AppendLine("Allowed munition : ");
-                    if (((WeaponItem)data).ammoItems.Count >= 0) tip.AppendLine("   * " + ((WeaponItem)data).ammoItems[0].name);
-                    if (((WeaponItem)data).ammoItems.Count >= 1) tip.AppendLine("   * " + ((WeaponItem)data).ammoItems[1].name);
-                    if (((WeaponItem)data).ammoItems.Count >= 2) tip.AppendLine("   * " + ((WeaponItem)data).ammoItems[2].name);
-                    if (((WeaponItem)data).ammoItems.Count >= 3) tip.AppendLine("   * " + ((WeaponItem)data).ammoItems[3].name);
+                    for(int i = 0; i < ((WeaponItem)data).ammoItems.Count; i++)
+                    {
+                        tip.AppendLine("   * " + ((WeaponItem)data).ammoItems[i].name);
+                    }
                 }
             }
 
@@ -473,7 +476,7 @@ public partial struct Item
         }
         // addon system hooks
         Utils.InvokeMany(typeof(Item), this, "ToolTip_", tip);
-
+        Debug.Log("Description : " + tip);
         return tip.ToString();
     }
 }

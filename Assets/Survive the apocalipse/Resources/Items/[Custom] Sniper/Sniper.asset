@@ -28,7 +28,7 @@ MonoBehaviour:
     baseValue: 0
     bonusPerLevel: 0
   maxDurabilityLevel: 0
-  goldPrice: 750
+  goldPrice: 600
   coinPrice: 6
   craftDescription: 
   timeToCraft: 360
@@ -91,8 +91,6 @@ MonoBehaviour:
   ammoItems:
   - {fileID: 11400000, guid: 093b31d77530114489a1741d8a14547f, type: 2}
   - {fileID: 11400000, guid: 6becda004f9faab468075950ba330bc2, type: 2}
-  - {fileID: 11400000, guid: 4891298071d931a40ac6326fc8e41fda, type: 2}
-  - {fileID: 11400000, guid: 1dfd47b9df93d804ba6306d940f3380a, type: 2}
   poisonedAttack: 0
   armorBreak: 0
   electricWeapon: 0

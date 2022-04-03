@@ -28,8 +28,8 @@ MonoBehaviour:
     baseValue: 200
     bonusPerLevel: 5
   maxDurabilityLevel: 10
-  goldPrice: 300
-  coinPrice: 3
+  goldPrice: 450
+  coinPrice: 4
   craftDescription: 
   timeToCraft: 360
   maxCarItemInventory: 0

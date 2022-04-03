@@ -29,7 +29,7 @@ MonoBehaviour:
     bonusPerLevel: 0
   maxDurabilityLevel: 0
   goldPrice: 500
-  coinPrice: 6
+  coinPrice: 7
   craftDescription: 
   timeToCraft: 300
   maxCarItemInventory: 0
@@ -42,6 +42,7 @@ MonoBehaviour:
   goldsToUpgrade: 0
   coinsToUpgrade: 0
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Cura massima
   maxStack: 100
   buyPrice: 1000

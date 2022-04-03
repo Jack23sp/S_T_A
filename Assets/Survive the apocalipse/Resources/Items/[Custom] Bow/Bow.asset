@@ -28,7 +28,7 @@ MonoBehaviour:
     baseValue: 100
     bonusPerLevel: 5
   maxDurabilityLevel: 5
-  goldPrice: 300
+  goldPrice: 200
   coinPrice: 2
   craftDescription: 
   timeToCraft: 360
@@ -46,6 +46,7 @@ MonoBehaviour:
   goldsToUpgrade: 1000
   coinsToUpgrade: 10
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Arco
   maxStack: 1
   buyPrice: 10000
@@ -112,7 +113,11 @@ MonoBehaviour:
   sprites: []
   distamceToGrab: 100
   requiredSkill: {fileID: 11400000, guid: 76ccd295ad31bce4b83272fb9653fe79, type: 2}
+  isClothes: 0
+  canUseWeaponStorage: 0
+  canUsePistolStorage: 0
   requiredAmmo: {fileID: 11400000, guid: c8f5a14dc93bf33488e5517002d65222, type: 2}
   shotClip: {fileID: 8300000, guid: a5c0f46650ef0cb43b723172aa1aad50, type: 3}
   reloadClip: {fileID: 0}
   bullettDrops: {fileID: 0}
+  stopMusic: 0

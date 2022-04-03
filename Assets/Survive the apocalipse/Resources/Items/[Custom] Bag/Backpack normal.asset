@@ -28,7 +28,7 @@ MonoBehaviour:
     baseValue: 0
     bonusPerLevel: 0
   maxDurabilityLevel: 0
-  goldPrice: 500
+  goldPrice: 300
   coinPrice: 2
   craftDescription: 
   timeToCraft: 240
@@ -46,6 +46,7 @@ MonoBehaviour:
   goldsToUpgrade: 5000
   coinsToUpgrade: 70
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Zaino
   maxStack: 1
   buyPrice: 5000
@@ -98,7 +99,6 @@ MonoBehaviour:
   indexPants: -1
   indexShoes: -1
   ignorePants: 0
-  isClothes: 1
   category: Bag
   healthBonus: 10
   manaBonus: 0

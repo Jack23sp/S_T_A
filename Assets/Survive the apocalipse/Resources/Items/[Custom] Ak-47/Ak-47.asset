@@ -28,8 +28,8 @@ MonoBehaviour:
     baseValue: 0
     bonusPerLevel: 0
   maxDurabilityLevel: 0
-  goldPrice: 300
-  coinPrice: 7
+  goldPrice: 500
+  coinPrice: 5
   craftDescription: 
   timeToCraft: 360
   maxCarItemInventory: 0
@@ -58,9 +58,7 @@ MonoBehaviour:
   sellable: 1
   tradable: 1
   destroyable: 1
-  toolTip: '
-
-'
+  toolTip: 
   image: {fileID: 21300000, guid: 1f672c18f3b49f247af83f1576ea8aaa, type: 3}
   craftMinLevel: 0
   minLevel: 0
@@ -93,8 +91,6 @@ MonoBehaviour:
   ammoItems:
   - {fileID: 11400000, guid: 38a14a8ab7319b641b54b45eee23a618, type: 2}
   - {fileID: 11400000, guid: 4085b7780ee9da94f80e3d42ba71585b, type: 2}
-  - {fileID: 11400000, guid: 006c7b87e7eee854187338fd8bcf1395, type: 2}
-  - {fileID: 11400000, guid: 76c9ae84c097f6740a4802394bcc1cd2, type: 2}
   poisonedAttack: 0
   armorBreak: 0
   electricWeapon: 0

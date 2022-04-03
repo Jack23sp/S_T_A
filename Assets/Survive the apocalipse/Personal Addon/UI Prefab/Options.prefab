@@ -487,6 +487,7 @@ GameObject:
   - component: {fileID: 158998612}
   - component: {fileID: 158998614}
   - component: {fileID: 3027220425879460408}
+  - component: {fileID: 5155196741762116905}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -574,7 +575,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 54
-  m_fontStyle: 0
+  m_fontStyle: 17
   m_textAlignment: 514
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -632,6 +633,25 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5155196741762116905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158998611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e8ae58223f36e48aca38c8da9b94d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textTarget: {fileID: 3027220425879460408}
+  defaultLanguage: 
+  textToTranslate:
+  - defaultLanguage: Italian
+    returnString: Opzioni
+  - defaultLanguage: English
+    returnString: Options
 --- !u!1 &165945983
 GameObject:
   m_ObjectHideFlags: 0

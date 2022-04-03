@@ -1094,8 +1094,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 1
-  center: {x: 3.38, y: -7.36}
-  size: {x: 0.01, y: 1.9}
+  center: {x: 3.38, y: -7.16}
+  size: {x: 0.01, y: 1.55}
   carve: 1
   go: {fileID: 0}
   identity: {fileID: 0}
@@ -1770,8 +1770,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 1
-  center: {x: 3.38, y: -4.45}
-  size: {x: 0.01, y: 8.1}
+  center: {x: 3.38, y: -4.21}
+  size: {x: 0.01, y: 7.52}
   carve: 1
   go: {fileID: 0}
   identity: {fileID: 0}
@@ -2173,8 +2173,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 1
-  center: {x: 3.38, y: -7.36}
-  size: {x: 0.01, y: 1.9}
+  center: {x: 3.38, y: -7.16}
+  size: {x: 0.01, y: 1.55}
   carve: 1
   go: {fileID: 0}
   identity: {fileID: 0}
@@ -2941,8 +2941,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 1
-  center: {x: 3.38, y: -4.45}
-  size: {x: 0.01, y: 8.1}
+  center: {x: 3.38, y: -4.21}
+  size: {x: 0.01, y: 7.52}
   carve: 1
   go: {fileID: 0}
   identity: {fileID: 0}
@@ -3426,7 +3426,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2233743247159163630}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.21, y: 0, z: 0}
+  m_LocalPosition: {x: -8.2, y: 0, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 2233743246782775854}

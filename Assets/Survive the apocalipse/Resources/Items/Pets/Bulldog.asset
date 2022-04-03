@@ -28,8 +28,8 @@ MonoBehaviour:
     baseValue: 0
     bonusPerLevel: 0
   maxDurabilityLevel: 0
-  goldPrice: 1500
-  coinPrice: 75
+  goldPrice: 400
+  coinPrice: 4
   craftDescription: 
   timeToCraft: 0
   maxCarItemInventory: 30
@@ -42,6 +42,7 @@ MonoBehaviour:
   goldsToUpgrade: 0
   coinsToUpgrade: 0
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Bulldog
   maxStack: 1
   buyPrice: 50

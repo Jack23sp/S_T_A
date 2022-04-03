@@ -90,8 +90,6 @@ MonoBehaviour:
   maxChargeLevel: 10
   ammoItems:
   - {fileID: 11400000, guid: 59a9241f5dc3a0343a1a9101b59a135c, type: 2}
-  - {fileID: 11400000, guid: 7ad3480d62683cf4c9883f86936ce7c0, type: 2}
-  - {fileID: 11400000, guid: f01df49b679648040a0891b96e70a5dc, type: 2}
   - {fileID: 11400000, guid: 5f994378507006747bf3b622f4902113, type: 2}
   poisonedAttack: 0
   armorBreak: 0

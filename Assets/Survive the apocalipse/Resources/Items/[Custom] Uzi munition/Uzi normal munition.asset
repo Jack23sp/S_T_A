@@ -28,7 +28,7 @@ MonoBehaviour:
     baseValue: 0
     bonusPerLevel: 0
   maxDurabilityLevel: 0
-  goldPrice: 10
+  goldPrice: 5
   coinPrice: 1
   craftDescription: 
   timeToCraft: 5
@@ -42,6 +42,7 @@ MonoBehaviour:
   goldsToUpgrade: 0
   coinsToUpgrade: 0
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Munizioni Uzi normali
   maxStack: 5000
   buyPrice: 20
@@ -88,6 +89,12 @@ MonoBehaviour:
   clothes: {fileID: 0}
   animatorToSet: {fileID: 0}
   indexToSpawnWeapon: 0
+  indexHat: -1
+  indexAccessory: -1
+  indexShirt: -1
+  indexPants: -1
+  indexShoes: -1
+  ignorePants: 0
   category: Ammo
   healthBonus: 0
   manaBonus: 0

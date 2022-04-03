@@ -28,7 +28,7 @@ MonoBehaviour:
     baseValue: 0
     bonusPerLevel: 0
   maxDurabilityLevel: 0
-  goldPrice: 250
+  goldPrice: 150
   coinPrice: 5
   craftDescription: 
   timeToCraft: 0
@@ -42,6 +42,7 @@ MonoBehaviour:
   goldsToUpgrade: 0
   coinsToUpgrade: 0
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Volk
   maxStack: 1
   buyPrice: 10000
@@ -107,6 +108,8 @@ MonoBehaviour:
   distamceToGrab: 0
   requiredSkill: {fileID: 0}
   isClothes: 1
+  canUseWeaponStorage: 0
+  canUsePistolStorage: 0
   requiredAmmo: {fileID: 0}
   shotClip: {fileID: 0}
   reloadClip: {fileID: 0}

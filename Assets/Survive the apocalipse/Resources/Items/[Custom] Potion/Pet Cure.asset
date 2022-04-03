@@ -28,8 +28,8 @@ MonoBehaviour:
     baseValue: 0
     bonusPerLevel: 0
   maxDurabilityLevel: 0
-  goldPrice: 450
-  coinPrice: 5
+  goldPrice: 200
+  coinPrice: 4
   craftDescription: Add 70 hp to your active pet
   timeToCraft: 180
   maxCarItemInventory: 0
@@ -42,6 +42,7 @@ MonoBehaviour:
   goldsToUpgrade: 0
   coinsToUpgrade: 0
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Cura pet
   maxStack: 1000
   buyPrice: 0

@@ -28,8 +28,8 @@ MonoBehaviour:
     baseValue: 0
     bonusPerLevel: 0
   maxDurabilityLevel: 0
-  goldPrice: 1500
-  coinPrice: 25
+  goldPrice: 250
+  coinPrice: 5
   craftDescription: 
   timeToCraft: 300
   maxCarItemInventory: 0
@@ -42,6 +42,7 @@ MonoBehaviour:
   goldsToUpgrade: 20
   coinsToUpgrade: 10
   generalLiquidContainer: 0
+  canUseFurnace: 0
   italianName: Radio piccola
   maxStack: 1
   buyPrice: 10
