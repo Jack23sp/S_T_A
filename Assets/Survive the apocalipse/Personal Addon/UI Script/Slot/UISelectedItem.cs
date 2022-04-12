@@ -29,6 +29,7 @@ public class UISelectedItem : MonoBehaviour
     public void Start()
     {
         if (!singleton) singleton = this;
+        itemImage.preserveAspect = true;
     }
 
     public void Update()

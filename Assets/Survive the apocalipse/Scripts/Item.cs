@@ -476,7 +476,6 @@ public partial struct Item
         }
         // addon system hooks
         Utils.InvokeMany(typeof(Item), this, "ToolTip_", tip);
-        Debug.Log("Description : " + tip);
         return tip.ToString();
     }
 }

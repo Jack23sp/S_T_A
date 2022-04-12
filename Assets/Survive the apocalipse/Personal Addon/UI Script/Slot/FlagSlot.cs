@@ -9,4 +9,9 @@ public class FlagSlot : MonoBehaviour
     public Button button;
     public Image flagImage;
     public TextMeshProUGUI flagName;
+
+    public void Start()
+    {
+        flagImage.preserveAspect = true;
+    }
 }

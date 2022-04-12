@@ -9,4 +9,9 @@ public class BasementSlot : MonoBehaviour
     public Button slotButton;
     public Image slotImage;
     public TextMeshProUGUI amountText;
+
+    public void Start()
+    {
+        slotImage.preserveAspect = true;
+    }
 }

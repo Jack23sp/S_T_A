@@ -9,4 +9,9 @@ public class UIPetSlot : MonoBehaviour
     public Image petImage;
     public Text nameLevelText;
     public Outline outline;
+
+    public void Start()
+    {
+        petImage.preserveAspect = true;
+    }
 }

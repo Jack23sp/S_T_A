@@ -78,7 +78,7 @@ public class TreeComponentVisualizer : ComponentVisualizer
                 rigidbody2D = rigid2D;
             }
             snowShaderVisualizer.enabled = true;
-            if (!navMeshObstacle2D.enabled)
+            if (navMeshObstacle2D && !navMeshObstacle2D.enabled)
             {
                 navMeshObstacle2D.go.SetActive(true);
                 navMeshObstacle2D.enabled = true;

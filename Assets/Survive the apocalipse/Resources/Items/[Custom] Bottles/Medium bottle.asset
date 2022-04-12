@@ -43,6 +43,7 @@ MonoBehaviour:
   coinsToUpgrade: 0
   generalLiquidContainer: 500
   canUseFurnace: 0
+  canUseWarehouse: 1
   italianName: Bottiglia media
   maxStack: 1
   buyPrice: 4000

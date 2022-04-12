@@ -11,4 +11,9 @@ public class AnimalListSlot : MonoBehaviour
     public TextMeshProUGUI agePregnatText;
     public Button takeProductButton;
     public Button killButton;
+
+    public void Start()
+    {
+        animalImage.preserveAspect = true;
+    }
 }

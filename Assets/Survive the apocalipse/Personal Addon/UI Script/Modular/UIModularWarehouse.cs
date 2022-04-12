@@ -70,6 +70,8 @@ public class UIModularWarehouse : MonoBehaviour
 
             if (itemSlot.amount > 0)
             {
+
+                slot.button.interactable = itemSlot.item.data.canUseWarehouse;
                 int icopy = i;
                 slot.button.onClick.SetListener(() =>
                 {

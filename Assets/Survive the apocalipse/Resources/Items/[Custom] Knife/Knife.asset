@@ -47,6 +47,7 @@ MonoBehaviour:
   coinsToUpgrade: 10
   generalLiquidContainer: 0
   canUseFurnace: 0
+  canUseWarehouse: 1
   italianName: Coltello
   maxStack: 1
   buyPrice: 10000

@@ -14,4 +14,10 @@ public class UIEquipmentSlotCustom : MonoBehaviour
     public TextMeshProUGUI amountText;
     public GameObject categoryOverlay;
     public Text categoryText;
+
+    public void Start()
+    {
+        image.preserveAspect = true;
+        cooldownCircle.preserveAspect = true;
+    }
 }

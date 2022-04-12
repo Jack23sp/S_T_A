@@ -15,4 +15,10 @@ public class UISkillbarSlot : MonoBehaviour
     public GameObject amountOverlay;
     public Text amountText;
     public Text hotkeyText;
+
+    public void Start()
+    {
+        image.preserveAspect = true;
+        cooldownCircle.preserveAspect = true;
+    }
 }

@@ -10,4 +10,9 @@ public class AddAnimalSlot : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI genderAnimalText;
     public Image animalImage;
+
+    public void Start()
+    {
+        animalImage.preserveAspect = true;
+    }
 }

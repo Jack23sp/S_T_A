@@ -470,6 +470,11 @@ public class GeneralManager : MonoBehaviour
     [Header("Bundle")]
     public BundleItem manVerticalItem;
     public BundleItem womanVerticalItem;
+
+    public List<BundleItem> womanOutfit;
+    public List<BundleItem> manOutfit;
+    public int equipmentIndex;
+
     public List<BundleItem> allItems;
 
     public BundleItem FindBundleItems(string bundleName)
@@ -479,6 +484,29 @@ public class GeneralManager : MonoBehaviour
             int index = i;
             if(allItems[index].name == bundleName)
                 return allItems[index];
+        }
+        return null;
+    }
+
+    public BundleItem FindEquipmentBundleItems(string bundleName, int Sex)
+    {
+        if (Sex == 0)
+        {
+            for (int i = 0; i < manOutfit.Count; i++)
+            {
+                int index = i;
+                if (manOutfit[index].name == bundleName)
+                    return manOutfit[index];
+            }
+        }
+        else
+        {
+            for (int i = 0; i < womanOutfit.Count; i++)
+            {
+                int index = i;
+                if (womanOutfit[index].name == bundleName)
+                    return womanOutfit[index];
+            }
         }
         return null;
     }
@@ -531,6 +559,9 @@ public class GeneralManager : MonoBehaviour
 
         Debug.unityLogger.logEnabled = allowDebug;
         languagesManager.GetDefaultLanguage();
+        Calendar myCal = CultureInfo.InvariantCulture.Calendar;
+        equipmentIndex = myCal.GetDayOfMonth(DateTime.Now);
+        //equipmentIndex = (DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)) -1;
     }
 
     public void Update()

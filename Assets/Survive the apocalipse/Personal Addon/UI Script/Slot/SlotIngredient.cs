@@ -10,4 +10,9 @@ public class SlotIngredient : MonoBehaviour
     public Text ingredientName;
     public Text ingredientAmount;
     public int ingredientIndex;
+
+    public void Start()
+    {
+        image.preserveAspect = true;
+    }
 }

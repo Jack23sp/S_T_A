@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee736e14635a49a4583548539f8853ae, type: 3}
+  m_Name: Man clothes pack 3
+  m_EditorClassIdentifier: 
+  bundleitems:
+  - item: {fileID: 11400000, guid: 0b5335f85e6d7d243b4b3e27a903766d, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: 1f6e384482998854baee46b7423ddc92, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: 6ebc98de01bee924f90564a8f97bfa95, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: 3200b62cc6120c24abcd1f34859d90ca, type: 2}
+    quantity: 1
+  coins: 400

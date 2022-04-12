@@ -43,6 +43,7 @@ MonoBehaviour:
   coinsToUpgrade: 0
   generalLiquidContainer: 0
   canUseFurnace: 0
+  canUseWarehouse: 1
   italianName: Freccie normali
   maxStack: 50000
   buyPrice: 5

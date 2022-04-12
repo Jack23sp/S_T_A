@@ -10,4 +10,9 @@ public class AbilitySlot : MonoBehaviour
     public TextMeshProUGUI statAmount;
     public Image image;
     public Button button;
+
+    public void Start()
+    {
+        image.preserveAspect = true;
+    }
 }

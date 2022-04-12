@@ -10,4 +10,9 @@ public class PieceSlot : MonoBehaviour
     public Text amount;
     public Outline outline;
     public Button selectButton;
+
+    public void Start()
+    {
+        pieceImage.preserveAspect = true;
+    }
 }

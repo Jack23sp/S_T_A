@@ -12,4 +12,10 @@ public class UILootSlot : MonoBehaviour
     public TextMeshProUGUI nameText;
     public GameObject amountOverlay;
     public TextMeshProUGUI amountText;
+
+    public void Start()
+    {
+        backgroundImage.preserveAspect = true;
+        itemImage.preserveAspect = true;
+    }
 }

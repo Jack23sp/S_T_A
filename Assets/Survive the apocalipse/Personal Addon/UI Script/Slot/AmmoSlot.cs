@@ -10,4 +10,9 @@ public class AmmoSlot : MonoBehaviour
     public Text ammoName;
     public Text ammoAmount;
     public Image notSelectedImage;
+
+    public void Start()
+    {
+        ammoImage.preserveAspect = true;
+    }
 }

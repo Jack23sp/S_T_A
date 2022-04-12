@@ -42,6 +42,8 @@ MonoBehaviour:
   goldsToUpgrade: 0
   coinsToUpgrade: 0
   generalLiquidContainer: 0
+  canUseFurnace: 0
+  canUseWarehouse: 1
   italianName: Torcia piccola
   maxStack: 1
   buyPrice: 250

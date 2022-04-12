@@ -47,6 +47,7 @@ MonoBehaviour:
   coinsToUpgrade: 150
   generalLiquidContainer: 0
   canUseFurnace: 0
+  canUseWarehouse: 1
   italianName: Zaino da climp
   maxStack: 1
   buyPrice: 30000

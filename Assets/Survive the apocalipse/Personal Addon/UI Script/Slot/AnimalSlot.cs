@@ -11,4 +11,11 @@ public class AnimalSlot : MonoBehaviour
     public Image pregnantImage;
     public Image takeImage;
     public Button killButton;
+
+    public void Start()
+    {
+        animalImage.preserveAspect = true;
+        pregnantImage.preserveAspect = true;
+        takeImage.preserveAspect = true;
+    }
 }

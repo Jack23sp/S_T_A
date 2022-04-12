@@ -142,6 +142,7 @@ public partial class ScriptableItem
     public int generalLiquidContainer = 0;
 
     public bool canUseFurnace = false;
+    public bool canUseWarehouse = false;
 
 }
 

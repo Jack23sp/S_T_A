@@ -10,4 +10,9 @@ public class PlantListSlot : MonoBehaviour
     public TextMeshProUGUI plantText;
     public Button plantButton;
     public TextMeshProUGUI plantButtonText;
+
+    public void Start()
+    {
+        plantImage.preserveAspect = true;
+    }
 }

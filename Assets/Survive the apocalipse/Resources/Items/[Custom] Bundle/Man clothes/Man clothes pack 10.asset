@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee736e14635a49a4583548539f8853ae, type: 3}
-  m_Name: Man clothes pack
+  m_Name: Man clothes pack 10
   m_EditorClassIdentifier: 
   bundleitems:
-  - item: {fileID: 11400000, guid: 7f3d23647b06cd0498203bcca23de428, type: 2}
+  - item: {fileID: 11400000, guid: 8be66335833ece444bdbe3d15e9e4b4d, type: 2}
     quantity: 1
-  - item: {fileID: 11400000, guid: 7cf83166f7a1faf4b8bcf6e01f0b24aa, type: 2}
+  - item: {fileID: 11400000, guid: ca44d519ecb7c0c409443631a58b7fba, type: 2}
     quantity: 1
-  - item: {fileID: 11400000, guid: 18765e40503fbc542a6ec4b6c6cfe0b8, type: 2}
+  - item: {fileID: 11400000, guid: 16ee6a88fa7bf924f9af715ce01a4e98, type: 2}
     quantity: 1
-  coins: 200
+  coins: 250

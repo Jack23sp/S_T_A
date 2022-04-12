@@ -11,4 +11,10 @@ public class UIUpgradeSlot : MonoBehaviour
     public TextMeshProUGUI itemLevel;
     public Button itemButton;
     public Image progressBar;
+
+    public void Start()
+    {
+        image.preserveAspect = true;
+        progressBar.preserveAspect = true;
+    }
 }

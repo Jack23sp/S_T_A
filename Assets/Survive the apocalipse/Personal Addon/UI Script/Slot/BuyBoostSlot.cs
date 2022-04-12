@@ -13,4 +13,11 @@ public class BuyBoostSlot : MonoBehaviour
     public Image coinImage;
     public Image goldImage;
     public Image boostImage;
+
+    public void Start()
+    {
+        coinImage.preserveAspect = true;
+        goldImage.preserveAspect = true;
+        boostImage.preserveAspect = true;
+    }
 }

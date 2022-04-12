@@ -69,7 +69,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Edge: 0.107
+    - _Edge: 0.058
     - _EdgeAround: 0.157
     - _EdgeAroundHDR: 1.8
     - _EdgeAroundPower: 3.26
@@ -81,7 +81,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Progress: 0
+    - _Progress: 0.484
     - _RangeIn: 0.034
     - _RangeOut: 0.001
     - _SmoothnessTextureChannel: 0

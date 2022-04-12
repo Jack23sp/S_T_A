@@ -43,6 +43,7 @@ MonoBehaviour:
   coinsToUpgrade: 0
   generalLiquidContainer: 0
   canUseFurnace: 0
+  canUseWarehouse: 1
   italianName: Khaburgh
   maxStack: 1
   buyPrice: 10000

@@ -955,7 +955,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.03274396, y: 1.1962471}
+  m_Offset: {x: -0.014646124, y: 0.8707093}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -966,7 +966,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7599432, y: 0.8079319}
+  m_Size: {x: 0.01, y: 0.01}
   m_EdgeRadius: 0
 --- !u!114 &114533660131814904
 MonoBehaviour:
@@ -1247,7 +1247,7 @@ MonoBehaviour:
   - reference: 
     hotKey: 53
   activeQuestLimit: 100
-  interactionRange: 10
+  interactionRange: 3
   targetNearestKey: 9
   localPlayerClickThrough: 1
   cancelActionKey: 27
@@ -2000,6 +2000,7 @@ MonoBehaviour:
   player: {fileID: 114732280623991920}
   nearMonster: []
   shakeCamera: 0
+  shakeCameraResource: 0
   customCameraShake: {fileID: 0}
 --- !u!114 &70829127602210398
 MonoBehaviour:
@@ -4777,6 +4778,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4080428743813425401, guid: b909f3cba68d98540845c7ef16b588e6,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1649855783
+      objectReference: {fileID: 0}
+    - target: {fileID: 4080428743813425401, guid: b909f3cba68d98540845c7ef16b588e6,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 32765
+      objectReference: {fileID: 0}
     - target: {fileID: 6735887900343249789, guid: b909f3cba68d98540845c7ef16b588e6,
         type: 3}
       propertyPath: m_IsActive
@@ -5117,7 +5128,7 @@ PrefabInstance:
     - target: {fileID: 2443890789212811133, guid: 26248c08890376542bb105d149556e20,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 32767
+      value: 32765
       objectReference: {fileID: 0}
     - target: {fileID: 2443890789212811133, guid: 26248c08890376542bb105d149556e20,
         type: 3}

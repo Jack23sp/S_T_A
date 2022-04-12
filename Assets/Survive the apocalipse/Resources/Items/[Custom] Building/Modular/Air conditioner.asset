@@ -43,6 +43,7 @@ MonoBehaviour:
   coinsToUpgrade: 5
   generalLiquidContainer: 0
   canUseFurnace: 0
+  canUseWarehouse: 0
   italianName: Condizionatore
   maxStack: 5
   buyPrice: 10

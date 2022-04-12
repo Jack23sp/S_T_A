@@ -10,4 +10,9 @@ public class BundleSlotInternal : MonoBehaviour
     public GameObject plus;
     public GameObject amountObject;
     public TextMeshProUGUI textAmount;
+
+    public void Start()
+    {
+        image.preserveAspect = true;
+    }
 }

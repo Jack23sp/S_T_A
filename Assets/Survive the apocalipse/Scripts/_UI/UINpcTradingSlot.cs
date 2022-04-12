@@ -8,4 +8,9 @@ public class UINpcTradingSlot : MonoBehaviour
     public UIShowToolTip tooltip;
     public Button button;
     public Image image;
+
+    public void Start()
+    {
+        image.preserveAspect = true;
+    }
 }

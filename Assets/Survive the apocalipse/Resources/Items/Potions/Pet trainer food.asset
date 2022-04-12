@@ -43,6 +43,7 @@ MonoBehaviour:
   coinsToUpgrade: 0
   generalLiquidContainer: 100
   canUseFurnace: 0
+  canUseWarehouse: 1
   italianName: Alimento allenamento pet
   maxStack: 50
   buyPrice: 4

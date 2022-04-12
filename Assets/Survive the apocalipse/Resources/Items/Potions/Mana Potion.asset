@@ -42,6 +42,9 @@ MonoBehaviour:
   goldsToUpgrade: 0
   coinsToUpgrade: 0
   generalLiquidContainer: 0
+  canUseFurnace: 0
+  canUseWarehouse: 1
+  italianName: 
   maxStack: 50
   buyPrice: 2
   sellPrice: 1

@@ -13,4 +13,10 @@ public class LeaderboardRewardSlot : MonoBehaviour
 
     public int index;
     public int category;
+
+    public void Start()
+    {
+        image.preserveAspect = true;
+        imageToColor.preserveAspect = true;
+    }
 }

@@ -10,4 +10,9 @@ public class UIItemMallSlotPremium : MonoBehaviour
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI priceText;
     public Button unlockButton;
+
+    public void Start()
+    {
+        image.preserveAspect = true;
+    }
 }

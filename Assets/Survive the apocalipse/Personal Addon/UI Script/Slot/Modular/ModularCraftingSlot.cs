@@ -14,4 +14,9 @@ public class ModularCraftingSlot : MonoBehaviour
     public GameObject amountContainer;
     public TextMeshProUGUI amountText;
     public Image progressBar;
+
+    public void Start()
+    {
+        image.preserveAspect = true;
+    }
 }

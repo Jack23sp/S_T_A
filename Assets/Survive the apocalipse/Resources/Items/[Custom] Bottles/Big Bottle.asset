@@ -43,6 +43,7 @@ MonoBehaviour:
   coinsToUpgrade: 0
   generalLiquidContainer: 800
   canUseFurnace: 0
+  canUseWarehouse: 1
   italianName: Bottiglia grande
   maxStack: 1
   buyPrice: 8000

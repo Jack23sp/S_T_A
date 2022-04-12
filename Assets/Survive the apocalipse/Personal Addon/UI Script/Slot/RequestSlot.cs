@@ -11,4 +11,9 @@ public class RequestSlot : MonoBehaviour
     public Button friendRequestAccept;
     public Button friendRequestRemove;
     public Button seeFriend;
+
+    public void Start()
+    {
+        online.preserveAspect = true;
+    }
 }

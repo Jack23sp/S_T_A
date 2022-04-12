@@ -117,8 +117,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1950317047620107499}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0022, y: 0.017, z: 0}
-  m_LocalScale: {x: 0.9657938, y: 1.0139695, z: 1}
+  m_LocalPosition: {x: -0.034, y: 0.256, z: 0}
+  m_LocalScale: {x: 0.58527106, y: 0.63373095, z: 1}
   m_Children: []
   m_Father: {fileID: 4814200968355302087}
   m_RootOrder: 5
@@ -161,8 +161,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 763793875
   m_SortingLayer: 8
-  m_SortingOrder: 32767
-  m_Sprite: {fileID: 21300000, guid: 2852315cf143bdb44b26d30152046dad, type: 3}
+  m_SortingOrder: 32766
+  m_Sprite: {fileID: 21300000, guid: b25edda249754244cbfd7b3c5d79e8aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -192,7 +192,6 @@ GameObject:
   - component: {fileID: 3537224959312104116}
   - component: {fileID: 8008277588344355937}
   - component: {fileID: 3188209774672765024}
-  - component: {fileID: 1031741192175085098}
   - component: {fileID: -2777645162992438797}
   - component: {fileID: 919786571898033261}
   - component: {fileID: 6532091962714400725}
@@ -221,6 +220,7 @@ Transform:
   - {fileID: 5665249559408076904}
   - {fileID: 2069841675470987983}
   - {fileID: 7701190578795236210}
+  - {fileID: 6293480746197148463}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -356,7 +356,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.023474686, y: -0.64680624}
+  m_Offset: {x: -0.03, y: -0.43}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -367,7 +367,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.23950191, y: 0.3048575}
+  m_Size: {x: 0.01, y: 0.01}
   m_EdgeRadius: 0
 --- !u!114 &1462009016661815342
 MonoBehaviour:
@@ -568,27 +568,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snowRenderer: {fileID: 1399485882566013404}
   mainRenderer: {fileID: 6041633720534880794}
---- !u!114 &1031741192175085098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2401820270191158568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a99d2eab88b747a9bd011e3d849162f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shape: 1
-  center: {x: 0, y: -0.77}
-  size: {x: 0.17, y: 0.07}
-  carve: 1
-  go: {fileID: 2401820270191158568}
-  identity: {fileID: 8456734344290027914}
-  setted: 0
-  isPermanentObject: 0
-  parent: {fileID: 0}
 --- !u!114 &-2777645162992438797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,11 +623,68 @@ MonoBehaviour:
   rigidbody2D: {fileID: 0}
   tree: {fileID: 8008277588344355937}
   snowShaderVisualizer: {fileID: 3188209774672765024}
-  navMeshObstacle2D: {fileID: 1031741192175085098}
+  navMeshObstacle2D: {fileID: 0}
   entity: {fileID: 8008277588344355937}
   snowShaderAmount: 0
   snowManager: {fileID: 0}
   isServer: 0
+--- !u!1 &2423789709249803515
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6293480746197148463}
+  - component: {fileID: 5544729683053002765}
+  m_Layer: 8
+  m_Name: Collider (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6293480746197148463
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2423789709249803515}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4814200968355302087}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &5544729683053002765
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2423789709249803515}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.044276476, y: -0.42183548}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.1820805, y: 0.70120335}
+  m_EdgeRadius: 0
 --- !u!1 &3249650930937381227
 GameObject:
   m_ObjectHideFlags: 0
@@ -860,8 +896,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6417320147247578023}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0022, y: 0.017, z: 0}
-  m_LocalScale: {x: 0.9657938, y: 1.0139695, z: 1}
+  m_LocalPosition: {x: -0.034, y: 0.256, z: 0}
+  m_LocalScale: {x: 0.58527106, y: 0.63373095, z: 1}
   m_Children: []
   m_Father: {fileID: 4814200968355302087}
   m_RootOrder: 6
@@ -905,7 +941,7 @@ SpriteRenderer:
   m_SortingLayerID: 763793875
   m_SortingLayer: 8
   m_SortingOrder: 32767
-  m_Sprite: {fileID: 21300000, guid: e71cfb4eaed2cdf47999c49dd15624b5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 002b1167f96d9a5409b51f805e3f86d7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -972,8 +1008,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8721834957645476305}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0022, y: 0.017, z: 0}
-  m_LocalScale: {x: 0.9657938, y: 1.0139695, z: 1}
+  m_LocalPosition: {x: -0.0423, y: 0.2414, z: 0}
+  m_LocalScale: {x: 0.5558981, y: 0.62209797, z: 1}
   m_Children: []
   m_Father: {fileID: 4814200968355302087}
   m_RootOrder: 3
@@ -1017,7 +1053,7 @@ SpriteRenderer:
   m_SortingLayerID: -870365055
   m_SortingLayer: 6
   m_SortingOrder: -32767
-  m_Sprite: {fileID: 21300000, guid: 57ae84ef060109d4c8858518b071d859, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5736d2d63261ed34a9ba43621342e283, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1039,6 +1075,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3332983157443659997, guid: e78a1c59edf4bb54f936edb2c444065b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4490633933240349972, guid: e78a1c59edf4bb54f936edb2c444065b,
         type: 3}

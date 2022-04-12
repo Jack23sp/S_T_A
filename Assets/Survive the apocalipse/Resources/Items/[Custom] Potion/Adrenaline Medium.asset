@@ -43,6 +43,7 @@ MonoBehaviour:
   coinsToUpgrade: 0
   generalLiquidContainer: 0
   canUseFurnace: 0
+  canUseWarehouse: 1
   italianName: Adrenalina media
   maxStack: 100
   buyPrice: 675

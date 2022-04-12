@@ -53,7 +53,7 @@ MonoBehaviour:
   tradable: 1
   destroyable: 1
   toolTip: 
-  image: {fileID: 21300000, guid: b5dd30abcb6739642bb61568c4105da5, type: 3}
+  image: {fileID: -4773249177693907470, guid: b217ca37712769242967d0bf28754246, type: 3}
   craftMinLevel: 0
   groupWarehouse: 0
   itemToClaim: []

@@ -8056,5 +8056,35 @@ public partial class Player : Entity
         }
     }
 
+    [Command]
+    public void CmdBuyBundleEquipment(string bundleName, int sex)
+    {
+        if (coins >= GeneralManager.singleton.FindEquipmentBundleItems(bundleName,sex).coins)
+        {
+            BundleItem bundleItem = GeneralManager.singleton.FindEquipmentBundleItems(bundleName, sex);
+            if (bundleItem != null)
+            {
+                for (int i = 0; i < bundleItem.bundleitems.Count; i++)
+                {
+                    int index = i;
+                    if (!InventoryCanAdd(new Item(bundleItem.bundleitems[index].item), bundleItem.bundleitems[index].quantity))
+                    {
+                        return;
+                    }
+                }
+                for (int i = 0; i < bundleItem.bundleitems.Count; i++)
+                {
+                    int index = i;
+                    if (InventoryCanAdd(new Item(bundleItem.bundleitems[index].item), bundleItem.bundleitems[index].quantity))
+                    {
+                        InventoryAdd(new Item(bundleItem.bundleitems[index].item), bundleItem.bundleitems[index].quantity);
+                    }
+                }
+                coins -= bundleItem.coins;
+            }
+        }
+    }
+
+
     #endregion
 }

@@ -47,6 +47,7 @@ MonoBehaviour:
   coinsToUpgrade: 70
   generalLiquidContainer: 0
   canUseFurnace: 0
+  canUseWarehouse: 1
   italianName: Zaino
   maxStack: 1
   buyPrice: 5000

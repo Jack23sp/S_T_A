@@ -1206,6 +1206,8 @@ public partial class PlayerMonsterGrab
     public List<Monster> nearMonster = new List<Monster>();
     [SyncVar]
     public bool shakeCamera;
+    [SyncVar]
+    public bool shakeCameraResource;
     public CustomCameraShake customCameraShake;
 
     // Start is called before the first frame update
@@ -1222,6 +1224,12 @@ public partial class PlayerMonsterGrab
             if (!customCameraShake) FindObjectOfType<CustomCameraShake>().animator.SetBool("SHAKE", true);
             if (!isServer) CmdDisableShake();
             shakeCamera = false;
+        }
+        if (shakeCameraResource)
+        {
+            if (!customCameraShake) FindObjectOfType<CustomCameraShake>().animator.SetBool("SHAKERESOURCE", true);
+            if (!isServer) CmdDisableShake();
+            shakeCameraResource = false;
         }
     }
 

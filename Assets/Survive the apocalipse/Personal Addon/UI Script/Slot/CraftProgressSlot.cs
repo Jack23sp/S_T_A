@@ -16,4 +16,9 @@ public class CraftProgressSlot : MonoBehaviour
     public int craftProgressIndex;
     public string timeBegin;
     public string timeEnd;
+
+    public void Start()
+    {
+        itemImage.preserveAspect = true;
+    }
 }

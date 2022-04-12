@@ -15,4 +15,10 @@ public class UIEquipmentSlot : MonoBehaviour
     public GameObject categoryOverlay;
     public Text categoryText;
     public Button unequipButton;
+
+    public void Start()
+    {
+        image.preserveAspect = true;
+        cooldownCircle.preserveAspect = true;
+    }
 }

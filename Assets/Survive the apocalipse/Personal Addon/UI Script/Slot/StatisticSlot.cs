@@ -35,6 +35,10 @@ public class StatisticSlot : MonoBehaviour
     public bool manaBonusPerc;
     public bool defenseBonusPerc;
 
+    public void Start()
+    {
+        image.preserveAspect = true;
+    }
 
     public void Update()
     {

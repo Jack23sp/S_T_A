@@ -10,4 +10,9 @@ public class UIPlayerTradingSlot : MonoBehaviour
     public Image image;
     public GameObject amountOverlay;
     public Text amountText;
+
+    public void Start()
+    {
+        image.preserveAspect = true;
+    }
 }

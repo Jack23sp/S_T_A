@@ -14,4 +14,9 @@ public class UIInventorySlot : MonoBehaviour
     public GameObject amountOverlay;
     public TextMeshProUGUI amountText;
     public Image protectedImage;
+
+    public void Start()
+    {
+        image.preserveAspect = true;
+    }
 }

@@ -8,4 +8,9 @@ public class UIBuffSlot : MonoBehaviour
     public Image image;
     public UIShowToolTip tooltip;
     public Slider slider;
+
+    public void Start()
+    {
+        image.preserveAspect = true;
+    }
 }

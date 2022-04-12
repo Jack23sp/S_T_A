@@ -13,4 +13,9 @@ public class UIItemMallSlot : MonoBehaviour
     public TextMeshProUGUI goldText;
     public TextMeshProUGUI coinText;
     public Button unlockButton;
+
+    public void Start()
+    {
+        image.preserveAspect = true;
+    }
 }

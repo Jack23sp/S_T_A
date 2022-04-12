@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee736e14635a49a4583548539f8853ae, type: 3}
+  m_Name: Woman clothes pack
+  m_EditorClassIdentifier: 
+  bundleitems:
+  - item: {fileID: 11400000, guid: cea5711fe05e59d459d5f87e54347550, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: b578671eee74ba74db077edf0107be79, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: d62529aaf40eadb4d8b3467b3dbd1682, type: 2}
+    quantity: 1
+  - item: {fileID: 11400000, guid: 71373b06dfb3e064ea55b58956f5cdb1, type: 2}
+    quantity: 1
+  coins: 400
