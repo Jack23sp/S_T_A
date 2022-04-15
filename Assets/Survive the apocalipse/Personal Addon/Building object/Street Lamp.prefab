@@ -176,7 +176,6 @@ GameObject:
   - component: {fileID: 3232372317465089835}
   - component: {fileID: 3040554681838944991}
   - component: {fileID: 1617724401529651146}
-  - component: {fileID: 2748100677469575739}
   m_Layer: 8
   m_Name: Street Lamp
   m_TagString: Building
@@ -276,7 +275,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1242795895
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: 90162a2665b11bc49ad15b51d0a0c931, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -496,7 +495,7 @@ MonoBehaviour:
   owner: 
   guild: 
   obstacle: 0
-  navMeshObstacle2D: {fileID: 2748100677469575739}
+  navMeshObstacle2D: {fileID: 0}
   actualBuildinigRotation: 0
   colliders: []
   textMesh: {fileID: 4373340984812338204}
@@ -650,27 +649,6 @@ MonoBehaviour:
   snowShaderVisualizer: {fileID: 0}
   hasAnimator: 0
   isServer: 0
---- !u!114 &2748100677469575739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4373340983212058398}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a99d2eab88b747a9bd011e3d849162f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shape: 1
-  center: {x: 0, y: -1.92}
-  size: {x: 0.53, y: 0.03}
-  carve: 1
-  go: {fileID: 0}
-  identity: {fileID: 4373340983212058384}
-  setted: 0
-  isPermanentObject: 1
-  parent: {fileID: 0}
 --- !u!1 &4373340983588454089
 GameObject:
   m_ObjectHideFlags: 0
@@ -1142,7 +1120,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1783918617
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: -32766
   m_Sprite: {fileID: 21300000, guid: f4049eae150d1dc49b0dcfd573ef1e41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

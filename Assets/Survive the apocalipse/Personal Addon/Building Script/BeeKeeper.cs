@@ -10,10 +10,15 @@ public class BeeKeeper : NetworkBehaviour
     public SyncListBeeContainer beeContainers = new SyncListBeeContainer();
     public BeeKeeper beeKeeper;
     public Building building;
-    // Start is called before the first frame update
-    void Start()
+
+    public void Start()
     {
         building = GetComponent<Building>();
+        Invoke(nameof(CreateBeeContainers), 1.5f);
+    }
+
+    public void CreateBeeContainers()
+    {
         if (isServer)
         {
             if (beeContainers.Count == 0)
@@ -26,12 +31,6 @@ public class BeeKeeper : NetworkBehaviour
             if (!beeKeeper) beeKeeper = GetComponent<BeeKeeper>();
             InvokeRepeating("IncreaseBee", 0.0f, GeneralManager.singleton.beeInvoke);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void IncreaseBee()

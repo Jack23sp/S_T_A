@@ -225,7 +225,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1242795895
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 120
   m_Sprite: {fileID: 21300000, guid: e679418e693822545a12e0b2df316a49, type: 3}
   m_Color: {r: 0.7019608, g: 0.5921569, b: 0.35686275, a: 1}
@@ -258,6 +258,7 @@ MonoBehaviour:
   identity: {fileID: 6405369390056753854}
   setted: 0
   isPermanentObject: 0
+  parent: {fileID: 0}
 --- !u!114 &6405369388284749381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,6 +274,8 @@ MonoBehaviour:
   renderer: {fileID: 6405369388284749403}
   precision: 103
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &6405369388831026671
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +345,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1242795895
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 120
   m_Sprite: {fileID: 21300000, guid: 5bfdee4163808c74f99bb1a49a03808a, type: 3}
   m_Color: {r: 0.7019608, g: 0.5921569, b: 0.35686275, a: 1}
@@ -370,6 +373,8 @@ MonoBehaviour:
   renderer: {fileID: 6405369388831026662}
   precision: 103
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &6405369388945951074
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,7 +445,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1242795895
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: 983588e9fe35afe4daea86f9b6815172, type: 3}
   m_Color: {r: 0.7019608, g: 0.5921569, b: 0.35686275, a: 1}
@@ -473,6 +478,7 @@ MonoBehaviour:
   identity: {fileID: 6405369390056753854}
   setted: 0
   isPermanentObject: 0
+  parent: {fileID: 0}
 --- !u!114 &6405369388945951072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -488,6 +494,8 @@ MonoBehaviour:
   renderer: {fileID: 6405369388945951078}
   precision: 103
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &6405369389467326736
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,7 +612,7 @@ GameObject:
   - component: {fileID: 1201710219493501124}
   m_Layer: 8
   m_Name: Gate
-  m_TagString: Building
+  m_TagString: Gate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -755,6 +763,7 @@ MonoBehaviour:
   mainEntity: {fileID: 6405369390056753848}
   isPremiumZone: 0
   placement: {fileID: 9189198339986741127}
+  floorIndex: 0
 --- !u!114 &6405369390056753851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1033,7 +1042,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1242795895
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 120
   m_Sprite: {fileID: 21300000, guid: 3115dcab3ba45934d94b1a7bedecfcfe, type: 3}
   m_Color: {r: 0.7019608, g: 0.5921569, b: 0.35686275, a: 1}
@@ -1066,6 +1075,7 @@ MonoBehaviour:
   identity: {fileID: 6405369390056753854}
   setted: 0
   isPermanentObject: 0
+  parent: {fileID: 0}
 --- !u!114 &6405369390238252702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1081,6 +1091,8 @@ MonoBehaviour:
   renderer: {fileID: 6405369390238252700}
   precision: 103
   offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
 --- !u!1 &7901471641287072269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,7 +1221,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1783918617
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: -32766
   m_Sprite: {fileID: 21300000, guid: f4049eae150d1dc49b0dcfd573ef1e41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

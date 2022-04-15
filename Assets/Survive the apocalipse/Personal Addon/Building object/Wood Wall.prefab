@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: -7308764446155375980}
   m_Layer: 8
   m_Name: Wood Wall
-  m_TagString: Building
+  m_TagString: WoodWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -347,7 +347,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1242795895
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: 337309e45de06f340a0c9c49a62681f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -899,7 +899,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1783918617
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: -32766
   m_Sprite: {fileID: 21300000, guid: f4049eae150d1dc49b0dcfd573ef1e41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1283,7 +1283,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 763793875
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: da42f97f85240814e82dca64f5087267, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

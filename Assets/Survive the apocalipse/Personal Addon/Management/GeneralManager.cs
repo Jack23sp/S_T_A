@@ -560,7 +560,7 @@ public class GeneralManager : MonoBehaviour
         Debug.unityLogger.logEnabled = allowDebug;
         languagesManager.GetDefaultLanguage();
         Calendar myCal = CultureInfo.InvariantCulture.Calendar;
-        equipmentIndex = myCal.GetDayOfMonth(DateTime.Now);
+        equipmentIndex = (myCal.GetDayOfMonth(DateTime.Now) - 1);
         //equipmentIndex = (DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)) -1;
     }
 

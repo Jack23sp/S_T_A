@@ -230,10 +230,10 @@ public partial struct Item
                     tip.AppendLine("Livello di insanita' : " + unsanityLevel + " / " + ((FoodItem)data).maxUnsanityLevel.ToString());
                     tip.Append("Attuale insanita' : " + currentUnsanity + " / " + ((FoodItem)data).maxUnsanity.Get(unsanityLevel));
                 }
-                else
-                {
-                    tip.AppendLine("Attuale insanita' : " + currentUnsanity + " / " + ((FoodItem)data).maxUnsanity.Get(unsanityLevel));
-                }
+                //else
+                //{
+                //    tip.AppendLine("Attuale insanita' : " + currentUnsanity + " / " + ((FoodItem)data).maxUnsanity.Get(unsanityLevel));
+                //}
 
                 if (((FoodItem)data).waterToAdd > 0)
                 {
@@ -420,10 +420,10 @@ public partial struct Item
                     tip.AppendLine("Unsanity level : " + unsanityLevel + " / " + ((FoodItem)data).maxUnsanityLevel.ToString());
                     tip.Append("Current unsanity : " + currentUnsanity + " / " + ((FoodItem)data).maxUnsanity.Get(unsanityLevel));
                 }
-                else
-                {
-                    tip.AppendLine("Current unsanity : " + currentUnsanity + " / " + ((FoodItem)data).maxUnsanity.Get(unsanityLevel));
-                }
+                //else if (((FoodItem)data).maxUnsanityLevel > 0)
+                //{
+                //    tip.AppendLine("Current unsanity : " + currentUnsanity + " / " + ((FoodItem)data).maxUnsanity.Get(unsanityLevel));
+                //}
 
                 if (((FoodItem)data).waterToAdd > 0)
                 {

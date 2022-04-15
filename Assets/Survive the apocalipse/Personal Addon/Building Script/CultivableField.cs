@@ -8,8 +8,20 @@ public class CultivableField : NetworkBehaviour
 {
     public SyncListPlant currentPlant = new SyncListPlant();
     public int cycleAmount = 0;
-    // Start is called before the first frame update
-    void Start()
+
+    public void Start()
+    {
+        Invoke(nameof(CreatePlantSlot), 1.5f);
+
+        if (isClient)
+        {
+            InvokeRepeating("ManagePlantOnClient", 0.0f, GeneralManager.singleton.intervalGrownPlantOnClient);
+        }
+
+        Debug.Log("Plant slot count : " + currentPlant.Count);
+    }
+
+    public void CreatePlantSlot()
     {
         if (isServer)
         {
@@ -27,15 +39,6 @@ public class CultivableField : NetworkBehaviour
             InvokeRepeating("ManagePlant", 0.0f, GeneralManager.singleton.intervalGrownPlant);
             if (isServer && isClient) InvokeRepeating("ManagePlantOnClient", 0.0f, GeneralManager.singleton.intervalGrownPlantOnClient);
         }
-        else
-        {
-            InvokeRepeating("ManagePlantOnClient", 0.0f, GeneralManager.singleton.intervalGrownPlantOnClient);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public void ManagePlant()
@@ -46,7 +49,11 @@ public class CultivableField : NetworkBehaviour
             int index = i;
             if (currentPlant[index].plantName != string.Empty)
             {
-                if (currentPlant[index].plantName == "Undefined") continue;
+                if (currentPlant[index].plantName == "Undefined")
+                {
+                    transform.GetChild(index + 5).GetComponent<SpriteRenderer>().sprite = null;
+                    continue;
+                }
                 if (ScriptablePlant.dict.TryGetValue(currentPlant[index].plantName.GetStableHashCode(), out ScriptablePlant plant))
                 {
                     if (currentPlant[index].alreadyGrown)
@@ -127,11 +134,25 @@ public class CultivableField : NetworkBehaviour
             {
                 transform.GetChild(index + 5).GetComponent<SpriteRenderer>().sprite = null;
             }
-
-
         }
     }
 
+    [ClientRpc]
+    public void RpcCheckFieldSlot()
+    {
+        for (int i = 0; i < currentPlant.Count; i++)
+        {
+            int index = i;
+            if (currentPlant[index].plantName != string.Empty)
+            {
+                if (currentPlant[index].plantName == "Undefined")
+                {
+                    transform.GetChild(index + 5).GetComponent<SpriteRenderer>().sprite = null;
+                    continue;
+                }
+            }
+        }
+    }
     public void ManagePlantOnClient()
     {
 

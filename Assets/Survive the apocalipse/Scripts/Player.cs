@@ -6937,8 +6937,8 @@ public partial class Player : Entity
                 food.grownQuantityX = 0.0f;
                 food.grownQuantityY = 0.0f;
                 food.season = ((ScriptablePlant)inventory[index].item.data).GrowSeason;
-                food.seeds = UnityEngine.Random.Range(1, ((ScriptablePlant)inventory[index].item.data).maxSeeds + 1);
-                food.plantAmount = UnityEngine.Random.Range(1, ((ScriptablePlant)inventory[index].item.data).plantAmountHarvest + 1);
+                food.seeds = UnityEngine.Random.Range(2, ((ScriptablePlant)inventory[index].item.data).maxSeeds + 1);
+                food.plantAmount = UnityEngine.Random.Range(2, ((ScriptablePlant)inventory[index].item.data).plantAmountHarvest + 1);
                 cultivableField.currentPlant[plantSlot] = food;
 
                 ItemSlot slot = inventory[index];
@@ -7003,6 +7003,7 @@ public partial class Player : Entity
                     food.grownQuantityX = 0.0f;
                     food.grownQuantityY = 0.0f;
                     cultivableField.currentPlant[plantSlot] = food;
+                    cultivableField.RpcCheckFieldSlot();
                     GeneralManager.singleton.plantPoint++;
                 }
             }

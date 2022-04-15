@@ -68,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 763793875
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: 924216bab98108449b029e786b2e644a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -384,7 +384,6 @@ GameObject:
   - component: {fileID: -554070804417695428}
   - component: {fileID: -8378414790221695360}
   - component: {fileID: 1997998625}
-  - component: {fileID: 2850546678883368572}
   m_Layer: 8
   m_Name: Water Well
   m_TagString: Building
@@ -484,7 +483,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -870365055
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 32767
   m_Sprite: {fileID: -3242143512967202306, guid: 6362992a8b3cc65479033c93a93899cd,
     type: 3}
@@ -705,7 +704,7 @@ MonoBehaviour:
   owner: 
   guild: 
   obstacle: 0
-  navMeshObstacle2D: {fileID: 2850546678883368572}
+  navMeshObstacle2D: {fileID: 0}
   actualBuildinigRotation: 0
   colliders: []
   textMesh: {fileID: 102264759413312934}
@@ -873,27 +872,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snowRenderer: {fileID: 1255906933}
   mainRenderer: {fileID: 212573911520600438}
---- !u!114 &2850546678883368572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1529476062757820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a99d2eab88b747a9bd011e3d849162f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shape: 1
-  center: {x: 0, y: -6.16}
-  size: {x: 4.94, y: 0.98}
-  carve: 1
-  go: {fileID: 0}
-  identity: {fileID: 114270635967185746}
-  setted: 0
-  isPermanentObject: 1
-  parent: {fileID: 0}
 --- !u!1 &1782932107138108
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,7 +1034,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 763793875
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 32766
   m_Sprite: {fileID: -3242143512967202306, guid: 6362992a8b3cc65479033c93a93899cd,
     type: 3}
@@ -1155,7 +1133,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1783918617
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: -32766
   m_Sprite: {fileID: 21300000, guid: f4049eae150d1dc49b0dcfd573ef1e41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &7366104873550418749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1637563168818390583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 744ff84bd9d30a24c9671c32459436bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  desiredUI: 0
-  desiredImage: {fileID: 1637563168818390581}
 --- !u!1 &5224675453256505908
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,8 +271,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 605433b68313d491a8ab88bc03a41651, type: 2}
-  m_sharedMaterial: {fileID: 2830636965969884548, guid: 605433b68313d491a8ab88bc03a41651,
+  m_fontAsset: {fileID: 11400000, guid: ca9c5c06adf3e3c40a84a384d6805c0b, type: 2}
+  m_sharedMaterial: {fileID: -4698493211687391336, guid: ca9c5c06adf3e3c40a84a384d6805c0b,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -316,9 +302,9 @@ MonoBehaviour:
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 1
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 17
   m_textAlignment: 514
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -413,6 +399,10 @@ PrefabInstance:
       objectReference: {fileID: 8169112230709752408}
     - target: {fileID: 1800932779, guid: e7a2ae7d0f219cb4192ca12075b679f1, type: 3}
       propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1800932779, guid: e7a2ae7d0f219cb4192ca12075b679f1, type: 3}
+      propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2923366450460373552, guid: e7a2ae7d0f219cb4192ca12075b679f1,
@@ -554,18 +544,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: b7102b9f12ad7444993d3ee94a2fcd4e,
+      objectReference: {fileID: 21300000, guid: 80d6947b4bec65342b1985726dba2a6c,
         type: 3}
     m_RemovedComponents:
     - {fileID: 407424241486593264, guid: e7a2ae7d0f219cb4192ca12075b679f1, type: 3}
     - {fileID: 158998613, guid: e7a2ae7d0f219cb4192ca12075b679f1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e7a2ae7d0f219cb4192ca12075b679f1, type: 3}
---- !u!1 &1637563168818390583 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7487040093455273453, guid: e7a2ae7d0f219cb4192ca12075b679f1,
-    type: 3}
-  m_PrefabInstance: {fileID: 8169112230062500826}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1637563168818390580 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7487040093455273454, guid: e7a2ae7d0f219cb4192ca12075b679f1,
@@ -578,7 +562,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 8169112230062500826}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1637563168818390583}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}

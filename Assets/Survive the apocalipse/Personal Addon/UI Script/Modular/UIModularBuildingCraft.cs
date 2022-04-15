@@ -18,11 +18,10 @@ public class UIModularBuildingCraft : MonoBehaviour
     public Button closeButton;
     public Button changePanel;
 
-    public Button goldButton;
-    public TextMeshProUGUI goldText;
-
     public Button gemsButton;
+    public GameObject gemsOverlay;
     public TextMeshProUGUI gemsText;
+    public TextMeshProUGUI gemsOverlayText;
 
     public TextMeshProUGUI description;
 
@@ -49,10 +48,11 @@ public class UIModularBuildingCraft : MonoBehaviour
 
     public GameObject upgradePanel;
 
+
     public void Start()
     {
         buildingTarget = Player.localPlayer.playerMove.fornitureClient.GetComponent<BuildingModularCrafting>();
-        //ManageList();
+        gemsText.text = GeneralManager.singleton.languagesManager.defaultLanguages == "Italian" ? "Crea" : "Craft";
     }
 
     void Update()
@@ -76,26 +76,6 @@ public class UIModularBuildingCraft : MonoBehaviour
                 Destroy(this.gameObject);
             });
         }
-
-        goldButton.onClick.SetListener(() =>
-        {
-            if (player.gold >= selectedBuilding.itemToCraft.item.goldPrice)
-            {
-                DateTime time = DateTime.Now;
-                player.playerBuilding.CmdCraftItemForniture(buildingTarget.building.name, selectedIndex, 0, time.ToString());
-                itemToCraftContent.GetChild(selectedIndex).GetComponent<Button>().onClick.Invoke();
-            }
-        });
-
-        gemsButton.onClick.SetListener(() =>
-        {
-            if (player.coins >= selectedBuilding.itemToCraft.item.coinPrice)
-            {
-                DateTime time = DateTime.Now;
-                player.playerBuilding.CmdCraftItemForniture(buildingTarget.building.name, selectedIndex, 1, time.ToString());
-                itemToCraftContent.GetChild(selectedIndex).GetComponent<Button>().onClick.Invoke();
-            }
-        });
 
         UIUtils.BalancePrefabs(itemToCraft, GeneralManager.singleton.FindItemToCraft(buildingTarget.building), itemToCraftContent);
         for (int i = 0; i < itemToCraftContent.childCount; i++)
@@ -144,17 +124,30 @@ public class UIModularBuildingCraft : MonoBehaviour
                             canCraft = false;
                     }
                 }
-                goldText.text = selectedBuilding.itemToCraft.item.goldPrice.ToString();
-                gemsText.text = selectedBuilding.itemToCraft.item.coinPrice.ToString();
+                gemsText.text = GeneralManager.singleton.languagesManager.defaultLanguages == "Italian" ? "Crea" : "Craft";
+                gemsOverlayText.text = selectedBuilding.itemToCraft.item.coinPrice.ToString();
+
+                gemsOverlay.gameObject.SetActive(!canCraft);
+                gemsButton.onClick.SetListener(() =>
+                {
+                    DateTime time = DateTime.Now;
+
+                    if (canCraft)
+                    {
+                        player.playerBuilding.CmdCraftItemForniture(buildingTarget.building.name, selectedIndex, 1, time.ToString());
+                        itemToCraftContent.GetChild(selectedIndex).GetComponent<Button>().onClick.Invoke();
+                    }
+                    else
+                    {
+                        player.playerBuilding.CmdCraftItemForniture(buildingTarget.building.name, selectedIndex, -1, time.ToString());
+                        itemToCraftContent.GetChild(selectedIndex).GetComponent<Button>().onClick.Invoke();
+                    }
+                });
+
             });
 
 
         }
-
-
-        goldButton.interactable = canCraft;
-
-        gemsButton.interactable = canCraft;
 
         progressItem = buildingTarget.craftItem.Select((x, index) => index)
             .Where(x => (DateTime.Parse(buildingTarget.craftItem[x].timeEnd) - DateTime.Now).TotalSeconds > 0).ToList();

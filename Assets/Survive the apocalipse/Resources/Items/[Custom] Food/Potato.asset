@@ -45,7 +45,8 @@ MonoBehaviour:
   coinsToUpgrade: 0
   generalLiquidContainer: 0
   canUseFurnace: 0
-  italianName: Pomodoro
+  canUseWarehouse: 0
+  italianName: Patata
   maxStack: 100
   buyPrice: 10
   sellPrice: 5

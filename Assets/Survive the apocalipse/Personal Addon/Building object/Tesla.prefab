@@ -302,7 +302,6 @@ GameObject:
   - component: {fileID: -7677979514664460838}
   - component: {fileID: -4695656063266899163}
   - component: {fileID: -2534247912601086613}
-  - component: {fileID: 9129770493276761125}
   m_Layer: 8
   m_Name: Tesla
   m_TagString: Building
@@ -403,7 +402,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1242795895
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: b4570f08a3305da409d09c3c5aa76160, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -623,7 +622,7 @@ MonoBehaviour:
   owner: 
   guild: 
   obstacle: 0
-  navMeshObstacle2D: {fileID: 9129770493276761125}
+  navMeshObstacle2D: {fileID: 0}
   actualBuildinigRotation: 0
   colliders: []
   textMesh: {fileID: 102264759413312934}
@@ -776,31 +775,10 @@ MonoBehaviour:
   teslaDamageObject: {fileID: 320235258}
   tesla: {fileID: 1228322691}
   flag: {fileID: 0}
-  navMeshObstacle2D: {fileID: 9129770493276761125}
+  navMeshObstacle2D: {fileID: 0}
   snowShaderVisualizer: {fileID: 0}
   hasAnimator: 0
   isServer: 0
---- !u!114 &9129770493276761125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1529476062757820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a99d2eab88b747a9bd011e3d849162f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shape: 1
-  center: {x: 0.34, y: -1.67}
-  size: {x: 1.05, y: 0.01}
-  carve: 1
-  go: {fileID: 0}
-  identity: {fileID: 114270635967185746}
-  setted: 0
-  isPermanentObject: 1
-  parent: {fileID: 0}
 --- !u!1 &1782932107138108
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,7 +1021,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1783918617
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: -32766
   m_Sprite: {fileID: 21300000, guid: 15f0bfc81cbad5d4ba2e60149c2c7426, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1245,7 +1223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 12080208, guid: a84cb58ef7faa67488076810242453b9, type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a84cb58ef7faa67488076810242453b9, type: 3}

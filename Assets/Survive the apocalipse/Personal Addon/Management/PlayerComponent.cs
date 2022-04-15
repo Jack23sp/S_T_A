@@ -2234,7 +2234,7 @@ public partial class PlayerBuilding
 
     public GameObject selectedGameObject;
     public int selectedInventoryIndex;
-    public string selectedNation;
+    public string selectedNationOut;
     public string selectedName;
     public string selectedGroup;
 
@@ -2259,9 +2259,9 @@ public partial class PlayerBuilding
                 {
                     buildingObject.GetComponent<WoodWall>().side = buildingObject.actualBuildinigRotation;
                 }
-                if (buildingObject.GetComponent<Flag>() && selectedNation != string.Empty)
+                if (buildingObject.GetComponent<Flag>() && selectedNationOut != string.Empty)
                 {
-                    buildingObject.GetComponent<Flag>().selectedNation = selectedNation;
+                    buildingObject.GetComponent<Flag>().selectedNation = selectedNationOut;
                 }
                 if (buildingObject.GetComponent<Mine>())
                 {
@@ -2307,9 +2307,9 @@ public partial class PlayerBuilding
                 {
                     buildingObject.GetComponent<WoodWall>().side = buildingObject.actualBuildinigRotation;
                 }
-                if (buildingObject.GetComponent<Flag>() && selectedNation != string.Empty)
+                if (buildingObject.GetComponent<Flag>() && selectedNationOut != string.Empty)
                 {
-                    buildingObject.GetComponent<Flag>().selectedNation = selectedNation;
+                    buildingObject.GetComponent<Flag>().selectedNation = selectedNationOut;
                 }
                 if (buildingObject.GetComponent<Mine>())
                 {
@@ -2442,6 +2442,7 @@ public partial class PlayerBuilding
 
                 selectedGameObject = g;
                 selectedInventoryIndex = inventoryIndex;
+                selectedNationOut = selectedNation;
 
                 Invoke(nameof(CheckSpawnInventory), 1.0f);
             }
@@ -2455,6 +2456,7 @@ public partial class PlayerBuilding
 
                 selectedGameObject = g;
                 selectedInventoryIndex = inventoryIndex;
+                selectedNationOut = selectedNation;
 
                 Invoke(nameof(CheckSpawnBelt), 1.0f);
             }
@@ -2888,21 +2890,20 @@ public partial class PlayerBuilding
             }
         }
 
-        if (!player.InventoryCanAdd(new Item(itemInBuilding.itemToCraft.item), itemInBuilding.itemToCraft.amount))
+        if (currencyType == 0)
         {
-            return;
-        }
-        for (int i = 0; i < itemInBuilding.craftablengredient.Count; i++)
-        {
-            int index = i;
-            if (player.InventoryCount(new Item(itemInBuilding.craftablengredient[index].item)) < itemInBuilding.craftablengredient[index].amount)
+            if (!player.InventoryCanAdd(new Item(itemInBuilding.itemToCraft.item), itemInBuilding.itemToCraft.amount))
             {
                 return;
             }
-        }
-
-        if (currencyType == 0)
-        {
+            for (int i = 0; i < itemInBuilding.craftablengredient.Count; i++)
+            {
+                int index = i;
+                if (player.InventoryCount(new Item(itemInBuilding.craftablengredient[index].item)) < itemInBuilding.craftablengredient[index].amount)
+                {
+                    return;
+                }
+            }
             if (player.gold >= itemInBuilding.itemToCraft.item.goldPrice)
             {
                 player.gold -= itemInBuilding.itemToCraft.item.goldPrice;
@@ -2919,6 +2920,18 @@ public partial class PlayerBuilding
         }
         if (currencyType == 1)
         {
+            if (!player.InventoryCanAdd(new Item(itemInBuilding.itemToCraft.item), itemInBuilding.itemToCraft.amount))
+            {
+                return;
+            }
+            for (int i = 0; i < itemInBuilding.craftablengredient.Count; i++)
+            {
+                int index = i;
+                if (player.InventoryCount(new Item(itemInBuilding.craftablengredient[index].item)) < itemInBuilding.craftablengredient[index].amount)
+                {
+                    return;
+                }
+            }
             if (player.coins >= itemInBuilding.itemToCraft.item.coinPrice)
             {
                 player.coins -= itemInBuilding.itemToCraft.item.coinPrice;
@@ -2931,6 +2944,14 @@ public partial class PlayerBuilding
             else
             {
                 return;
+            }
+        }
+        if (currencyType == -1)
+        {
+            for (int i = 0; i < itemInBuilding.craftablengredient.Count; i++)
+            {
+                int index = i;
+                player.InventoryRemove(new Item(itemInBuilding.craftablengredient[index].item), itemInBuilding.craftablengredient[index].amount);
             }
         }
 
