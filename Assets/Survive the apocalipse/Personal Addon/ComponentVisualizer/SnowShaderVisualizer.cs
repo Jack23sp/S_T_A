@@ -8,10 +8,13 @@ public class SnowShaderVisualizer : MonoBehaviour
 
     public SpriteRenderer mainRenderer;
 
-    void Update()
+    void Start()
     {
-        if (!mainRenderer) mainRenderer = GetComponent<SpriteRenderer>();
-        snowRenderer.sortingOrder = mainRenderer.sortingOrder + 1;
+        if (!mainRenderer)
+        {
+            mainRenderer = GetComponent<SpriteRenderer>();
+            snowRenderer.sortingOrder = mainRenderer.sortingOrder + 1;
+        }
     }
 
 }

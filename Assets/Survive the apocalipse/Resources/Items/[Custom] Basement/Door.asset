@@ -43,6 +43,7 @@ MonoBehaviour:
   coinsToUpgrade: 5
   generalLiquidContainer: 0
   canUseFurnace: 0
+  canUseWarehouse: 0
   italianName: Porta
   maxStack: 100
   buyPrice: 10
@@ -51,7 +52,7 @@ MonoBehaviour:
   tradable: 1
   destroyable: 1
   toolTip: 
-  image: {fileID: 21300000, guid: f092a44ab7a8fa34c889851dbfb4eb7f, type: 3}
+  image: {fileID: -1460718914826956615, guid: a78c5ea9883d892449a4b6eb3bab3d13, type: 3}
   craftMinLevel: 0
   groupWarehouse: 0
   itemToClaim: []

@@ -1,0 +1,499 @@
+fileFormatVersion: 2
+guid: a78c5ea9883d892449a4b6eb3bab3d13
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1460718914826956615
+    second: door-removebg-preview 1_0
+  - first:
+      213: -5352834398990797825
+    second: door-removebg-preview 1_1
+  - first:
+      213: -7848796989641697878
+    second: door-removebg-preview 1_0
+  - first:
+      213: -1041535998987631779
+    second: door-removebg-preview 1_1
+  - first:
+      213: 9182343713352831001
+    second: door-removebg-preview 1_2
+  - first:
+      213: -3442057297695365494
+    second: door-removebg-preview 1_3
+  - first:
+      213: 6427524299502446040
+    second: door-removebg-preview 1_4
+  - first:
+      213: -3635624198128584240
+    second: door-removebg-preview 1_5
+  - first:
+      213: -4798963458393242600
+    second: door-removebg-preview 1_6
+  - first:
+      213: -2472729962828751721
+    second: door-removebg-preview 1_7
+  - first:
+      213: -5101265913932293345
+    second: door-removebg-preview 1_8
+  - first:
+      213: 7005995978645062441
+    second: door-removebg-preview 1_9
+  - first:
+      213: 979578619580473980
+    second: door-removebg-preview 1_10
+  - first:
+      213: -6456300850529165359
+    second: door-removebg-preview 1_11
+  - first:
+      213: 5936730499685670846
+    second: door-removebg-preview 1_12
+  - first:
+      213: -2081330677916296399
+    second: door-removebg-preview 1_13
+  - first:
+      213: -1825284852338386913
+    second: door-removebg-preview 1_14
+  - first:
+      213: 5355605887060897008
+    second: door-removebg-preview 1_15
+  - first:
+      213: 957969471681399493
+    second: door-removebg-preview 1_16
+  - first:
+      213: 2489184000647941844
+    second: door-removebg-preview 1_17
+  - first:
+      213: 8741054699263743831
+    second: door-removebg-preview 1_18
+  - first:
+      213: 7786170478150348372
+    second: door-removebg-preview 1_19
+  - first:
+      213: 8035505237687892449
+    second: door-removebg-preview 1_20
+  - first:
+      213: 6001894968438770810
+    second: door-removebg-preview 1_21
+  - first:
+      213: 7006785784091689801
+    second: door-removebg-preview 1_22
+  - first:
+      213: -7387655648162785519
+    second: door-removebg-preview 1_23
+  - first:
+      213: 8118783784766172770
+    second: door-removebg-preview 1_24
+  - first:
+      213: -7881973889964101293
+    second: door-removebg-preview 1_25
+  - first:
+      213: 8673394605445171861
+    second: door-removebg-preview 1_26
+  - first:
+      213: -4852891258426086496
+    second: door-removebg-preview 1_27
+  - first:
+      213: 5489153166366893176
+    second: door-removebg-preview 1_28
+  - first:
+      213: -138909209192010430
+    second: door-removebg-preview 1_29
+  - first:
+      213: -4993572506745306897
+    second: door-removebg-preview 1_30
+  - first:
+      213: 1793330482486134343
+    second: door-removebg-preview 1_31
+  - first:
+      213: -5324686950352040212
+    second: door-removebg-preview 1_32
+  - first:
+      213: -6205083399055276024
+    second: door-removebg-preview 1_33
+  - first:
+      213: -2676775712401434620
+    second: door-removebg-preview 1_34
+  - first:
+      213: -79179471877301184
+    second: door-removebg-preview 1_35
+  - first:
+      213: 1829163313993828696
+    second: door-removebg-preview 1_36
+  - first:
+      213: 8836476704012043818
+    second: door-removebg-preview 1_37
+  - first:
+      213: 39222373564369394
+    second: door-removebg-preview 1_38
+  - first:
+      213: 5285275614842234793
+    second: door-removebg-preview 1_39
+  - first:
+      213: -5049844677058624055
+    second: door-removebg-preview 1_40
+  - first:
+      213: 3524539225207230796
+    second: door-removebg-preview 1_41
+  - first:
+      213: -8883365160726983802
+    second: door-removebg-preview 1_42
+  - first:
+      213: -2809236792525012028
+    second: door-removebg-preview 1_43
+  - first:
+      213: -8090267718053265903
+    second: door-removebg-preview 1_44
+  - first:
+      213: 1421728646659432285
+    second: door-removebg-preview 1_45
+  - first:
+      213: 6332873888785849223
+    second: door-removebg-preview 1_46
+  - first:
+      213: -1447942959514236741
+    second: door-removebg-preview 1_47
+  - first:
+      213: -6861487282850379722
+    second: door-removebg-preview 1_48
+  - first:
+      213: 2229691754210729769
+    second: door-removebg-preview 1_49
+  - first:
+      213: -3754406408323408403
+    second: door-removebg-preview 1_50
+  - first:
+      213: 4604084371579330665
+    second: door-removebg-preview 1_51
+  - first:
+      213: -1424460192249459372
+    second: door-removebg-preview 1_52
+  - first:
+      213: 6048050534552121725
+    second: door-removebg-preview 1_53
+  - first:
+      213: 5280161869497784423
+    second: door-removebg-preview 1_54
+  - first:
+      213: -8442306719031051685
+    second: door-removebg-preview 1_55
+  - first:
+      213: -4466011850319398227
+    second: door-removebg-preview 1_56
+  - first:
+      213: 4678015066078022458
+    second: door-removebg-preview 1_57
+  - first:
+      213: -3833801824902307926
+    second: door-removebg-preview 1_58
+  - first:
+      213: -4126626727828885855
+    second: door-removebg-preview 1_59
+  - first:
+      213: -6883234024477660636
+    second: door-removebg-preview 1_60
+  - first:
+      213: -8559529772907578415
+    second: door-removebg-preview 1_61
+  - first:
+      213: -8006379281249225134
+    second: door-removebg-preview 1_62
+  - first:
+      213: 7210215870723952234
+    second: door-removebg-preview 1_63
+  - first:
+      213: 8818328876419577927
+    second: door-removebg-preview 1_64
+  - first:
+      213: -7495647204122336642
+    second: door-removebg-preview 1_65
+  - first:
+      213: -8549427184805419470
+    second: door-removebg-preview 1_66
+  - first:
+      213: 4301851448720765957
+    second: door-removebg-preview 1_67
+  - first:
+      213: 5084789226017532050
+    second: door-removebg-preview 1_68
+  - first:
+      213: -7972012187488422649
+    second: door-removebg-preview 1_69
+  - first:
+      213: -7401395338540642075
+    second: door-removebg-preview 1_70
+  - first:
+      213: 4836326211336586109
+    second: door-removebg-preview 1_71
+  - first:
+      213: -4166082470886483555
+    second: door-removebg-preview 1_72
+  - first:
+      213: -1126519578088273016
+    second: door-removebg-preview 1_73
+  - first:
+      213: 8060205530157587995
+    second: door-removebg-preview 1_74
+  - first:
+      213: 994675730695167735
+    second: door-removebg-preview 1_75
+  - first:
+      213: 8911994060125678422
+    second: door-removebg-preview 1_76
+  - first:
+      213: 8825132530536785239
+    second: door-removebg-preview 1_77
+  - first:
+      213: -6455580471047558558
+    second: door-removebg-preview 1_78
+  - first:
+      213: -4747559931842435175
+    second: door-removebg-preview 1_79
+  - first:
+      213: 8098551776218199044
+    second: door-removebg-preview 1_80
+  - first:
+      213: -800152720777853327
+    second: door-removebg-preview 1_81
+  - first:
+      213: -5991048329084826423
+    second: door-removebg-preview 1_82
+  - first:
+      213: 4698736210114878999
+    second: door-removebg-preview 1_83
+  - first:
+      213: -4969165150749817486
+    second: door-removebg-preview 1_84
+  - first:
+      213: 6676879758398659474
+    second: door-removebg-preview 1_85
+  - first:
+      213: -4120362940874827882
+    second: door-removebg-preview 1_86
+  - first:
+      213: -6700534487826777005
+    second: door-removebg-preview 1_87
+  - first:
+      213: 2566592200221910622
+    second: door-removebg-preview 1_88
+  - first:
+      213: 6872904494063172065
+    second: door-removebg-preview 1_89
+  - first:
+      213: 7686662809523957162
+    second: door-removebg-preview 1_90
+  - first:
+      213: 8099986826767815213
+    second: door-removebg-preview 1_91
+  - first:
+      213: -8804751093789532481
+    second: door-removebg-preview 1_92
+  - first:
+      213: 9212382096749730087
+    second: door-removebg-preview 1_93
+  - first:
+      213: -1559971709409065671
+    second: door-removebg-preview 1_94
+  - first:
+      213: 3152620843133188856
+    second: door-removebg-preview 1_95
+  - first:
+      213: 4465263386399242549
+    second: door-removebg-preview 1_96
+  - first:
+      213: -3794880928215259539
+    second: door-removebg-preview 1_97
+  - first:
+      213: -681412684559361391
+    second: door-removebg-preview 1_98
+  - first:
+      213: 3656430280450878909
+    second: door-removebg-preview 1_99
+  - first:
+      213: 867979257246321983
+    second: door-removebg-preview 1_100
+  - first:
+      213: -7971729494106358130
+    second: door-removebg-preview 1_101
+  - first:
+      213: -7168222446777050150
+    second: door-removebg-preview 1_102
+  - first:
+      213: -5704315806187692194
+    second: door-removebg-preview 1_103
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: door-removebg-preview 1_0
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 506
+        width: 32
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa5504ef8b8731390800000000000000
+      internalID: -7848796989641697878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door-removebg-preview 1_1
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 362
+        width: 36
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d538f87f688bb81f0800000000000000
+      internalID: -1041535998987631779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -29,7 +29,7 @@ public class UISelectedItemMultiple : MonoBehaviour
     public void Start()
     {
         if (!singleton) singleton = this;
-        itemImage.preserveAspect = false;
+        itemImage.preserveAspect = true;
         //closeItemButton.onClick.SetListener(() =>
         //{
         //    Destroy(this.gameObject);

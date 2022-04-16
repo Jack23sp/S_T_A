@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 1399485882566013404}
   - component: {fileID: 8434109740685681785}
   m_Layer: 9
-  m_Name: root
+  m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 1399485882566013404}
-  precision: 100
+  precision: 102.5
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: 1
@@ -584,8 +584,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520f8be3270ef4a4a8a7919d76f6bfc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snowRenderer: {fileID: 1399485882566013404}
-  mainRenderer: {fileID: 6041633720534880794}
+  snowRenderer: {fileID: 8266776911134919486}
+  mainRenderer: {fileID: 1399485882566013404}
 --- !u!114 &-2777645162992438797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -901,7 +901,7 @@ GameObject:
   - component: {fileID: 8266776911134919486}
   - component: {fileID: 6990283981390885790}
   m_Layer: 9
-  m_Name: New Sprite (2)
+  m_Name: snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -984,7 +984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 8266776911134919486}
-  precision: 100
+  precision: 102.6
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: 2
@@ -1029,7 +1029,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6189586503535161844}
   - component: {fileID: 4113134690403037375}
-  - component: {fileID: 3055547361543823394}
+  - component: {fileID: 459063406423553325}
   m_Layer: 9
   m_Name: Root
   m_TagString: Untagged
@@ -1101,7 +1101,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3055547361543823394
+--- !u!114 &459063406423553325
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1114,10 +1114,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 4113134690403037375}
-  precision: 100
+  precision: 102.5
   offset: 0
   relatedToPlayer: 0
-  amountRelatedToPlayer: -1
+  amountRelatedToPlayer: 1
 --- !u!1001 &8128695719624170876
 PrefabInstance:
   m_ObjectHideFlags: 0

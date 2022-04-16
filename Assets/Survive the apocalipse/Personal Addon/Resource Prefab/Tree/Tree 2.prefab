@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3071926650257601313}
   - component: {fileID: 2292144996396113289}
   m_Layer: 0
-  m_Name: root
+  m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,9 +95,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 3071926650257601313}
-  precision: 100
+  precision: 102.5
   offset: 0
-  relatedToPlayer: 1
+  relatedToPlayer: 0
   amountRelatedToPlayer: 1
 --- !u!1 &1773126001280966797
 GameObject:
@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 1399485882566013404}
   - component: {fileID: 8851722574996034785}
   m_Layer: 0
-  m_Name: New Sprite (1)
+  m_Name: snow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 1399485882566013404}
-  precision: 100
+  precision: 102.6
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: 2
@@ -633,7 +633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snowRenderer: {fileID: 1399485882566013404}
-  mainRenderer: {fileID: 0}
+  mainRenderer: {fileID: 3071926650257601313}
 --- !u!114 &6459594703778425598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1014,7 +1014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 5387507035465684687}
-  precision: 100
+  precision: 102.5
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: -1
