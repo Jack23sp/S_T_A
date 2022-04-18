@@ -2892,10 +2892,6 @@ public partial class PlayerBuilding
 
         if (currencyType == 0)
         {
-            if (!player.InventoryCanAdd(new Item(itemInBuilding.itemToCraft.item), itemInBuilding.itemToCraft.amount))
-            {
-                return;
-            }
             for (int i = 0; i < itemInBuilding.craftablengredient.Count; i++)
             {
                 int index = i;
@@ -2920,10 +2916,6 @@ public partial class PlayerBuilding
         }
         if (currencyType == 1)
         {
-            if (!player.InventoryCanAdd(new Item(itemInBuilding.itemToCraft.item), itemInBuilding.itemToCraft.amount))
-            {
-                return;
-            }
             for (int i = 0; i < itemInBuilding.craftablengredient.Count; i++)
             {
                 int index = i;
@@ -2948,10 +2940,13 @@ public partial class PlayerBuilding
         }
         if (currencyType == -1)
         {
-            for (int i = 0; i < itemInBuilding.craftablengredient.Count; i++)
+            if (player.coins >= itemInBuilding.itemToCraft.item.coinPrice)
             {
-                int index = i;
-                player.InventoryRemove(new Item(itemInBuilding.craftablengredient[index].item), itemInBuilding.craftablengredient[index].amount);
+                player.coins -= itemInBuilding.itemToCraft.item.coinPrice;
+            }
+            else
+            {
+                return;
             }
         }
 

@@ -29,11 +29,11 @@ MonoBehaviour:
     bonusPerLevel: 0
   maxDurabilityLevel: 0
   goldPrice: 100
-  coinPrice: 1
+  coinPrice: 5
   craftDescription: '
 
 '
-  timeToCraft: 0
+  timeToCraft: 60
   maxCarItemInventory: 30
   repairTimer: 0
   repairItems: []
@@ -45,6 +45,7 @@ MonoBehaviour:
   coinsToUpgrade: 0
   generalLiquidContainer: 0
   canUseFurnace: 0
+  canUseWarehouse: 0
   italianName: Asparagi e carne
   maxStack: 50
   buyPrice: 100

@@ -1777,7 +1777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1e8ae58223f36e48aca38c8da9b94d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textTarget: {fileID: 0}
+  textTarget: {fileID: 1748648210368566984}
   defaultLanguage: 
   textToTranslate:
   - defaultLanguage: Italian
