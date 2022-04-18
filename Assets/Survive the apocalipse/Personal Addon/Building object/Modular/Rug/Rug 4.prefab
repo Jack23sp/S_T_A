@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2211585954794861453}
   - component: {fileID: 2687741777374876177}
   - component: {fileID: 2206452983880354037}
+  - component: {fileID: -394368436736129018}
   m_Layer: 0
   m_Name: Rug 4
   m_TagString: Forniture
@@ -89,8 +90,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -870365055
-  m_SortingLayer: 5
+  m_SortingLayerID: 1242795895
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cf0aef31c4a736c448360b08fc12123a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -164,7 +165,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  objectIndex: 0
   scriptableBuilding: {fileID: 11400000, guid: fd25224813e6c5f4da1cbfa785b56caf, type: 2}
+  isPremium: 0
   fornitureType: 0
   placement: {fileID: 4492152537974475043}
   collider: {fileID: 2211585954794861453}
@@ -182,6 +185,24 @@ MonoBehaviour:
   isWallObject: 0
   navMeshObstacle2D: {fileID: 0}
   oldPositioning: 1
+--- !u!114 &-394368436736129018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3332654847604144119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b5fb9ce1492452499576f473de1123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 0}
+  precision: 101.71
+  offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
+  onlyOnStart: 0
 --- !u!1 &8455544162480876715
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,6 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1391440760055233304}
   - component: {fileID: 4492152537974475043}
+  - component: {fileID: 1263136071161890832}
   m_Layer: 0
   m_Name: New Sprite
   m_TagString: Untagged
@@ -249,8 +271,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1783918617
-  m_SortingLayer: 4
+  m_SortingLayerID: 1242795895
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 188b40dc84436e4468cb9348ccf7ea02, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -263,6 +285,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1263136071161890832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8455544162480876715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b5fb9ce1492452499576f473de1123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 0}
+  precision: 101.55
+  offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
+  onlyOnStart: 0
 --- !u!1001 &6022458896712698586
 PrefabInstance:
   m_ObjectHideFlags: 0

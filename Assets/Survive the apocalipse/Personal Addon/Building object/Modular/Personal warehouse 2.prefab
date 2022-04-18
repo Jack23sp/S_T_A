@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5243371757929732268}
   - component: {fileID: 7339747833613281943}
+  - component: {fileID: 4780293723039799744}
   m_Layer: 0
   m_Name: New Sprite
   m_TagString: Untagged
@@ -67,8 +68,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1783918617
-  m_SortingLayer: 5
+  m_SortingLayerID: 1242795895
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 188b40dc84436e4468cb9348ccf7ea02, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -81,6 +82,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4780293723039799744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3374165578216115999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b5fb9ce1492452499576f473de1123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 7339747833613281943}
+  precision: 101.57
+  offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
+  onlyOnStart: 0
 --- !u!1 &8481587374756549699
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +114,6 @@ GameObject:
   - component: {fileID: 8341268083283399894}
   - component: {fileID: 7976326124335127659}
   - component: {fileID: 4988423368897892409}
-  - component: {fileID: 6308118954182763315}
   - component: {fileID: 9135437231136764325}
   m_Layer: 25
   m_Name: Personal warehouse 2
@@ -204,6 +222,7 @@ MonoBehaviour:
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: 1
+  onlyOnStart: 0
 --- !u!114 &7976326124335127659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +255,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   isWallObject: 0
-  navMeshObstacle2D: {fileID: 6308118954182763315}
+  navMeshObstacle2D: {fileID: 0}
   oldPositioning: 0
 --- !u!61 &4988423368897892409
 BoxCollider2D:
@@ -264,27 +283,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.6148517, y: 1.0088243}
   m_EdgeRadius: 0
---- !u!114 &6308118954182763315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8481587374756549699}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a99d2eab88b747a9bd011e3d849162f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shape: 1
-  center: {x: 0, y: 0.4}
-  size: {x: 1.77, y: 0.001}
-  carve: 1
-  go: {fileID: 0}
-  identity: {fileID: 4074972740201943555}
-  setted: 0
-  isPermanentObject: 0
-  parent: {fileID: 0}
 --- !u!50 &9135437231136764325
 Rigidbody2D:
   serializedVersion: 4

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb53f768bb9c0ac4aa68e73e9ad8d208, type: 3}
-  m_Name: Warehouse Store
+  m_Name: Rain Water Barrell
   m_EditorClassIdentifier: 
   Group: 
   subGroup: 
@@ -28,7 +28,7 @@ MonoBehaviour:
     baseValue: 0
     bonusPerLevel: 0
   maxDurabilityLevel: 0
-  goldPrice: 750
+  goldPrice: 500
   coinPrice: 5
   craftDescription: 
   timeToCraft: 360
@@ -42,7 +42,9 @@ MonoBehaviour:
   goldsToUpgrade: 350
   coinsToUpgrade: 5
   generalLiquidContainer: 0
-  italianName: 
+  canUseFurnace: 0
+  canUseWarehouse: 0
+  italianName: Raccoglitore d'acqua'
   maxStack: 100
   buyPrice: 10
   sellPrice: 4
@@ -50,7 +52,7 @@ MonoBehaviour:
   tradable: 1
   destroyable: 1
   toolTip: 
-  image: {fileID: 21300000, guid: 496c3159dd4584e3c8bd5b886097f454, type: 3}
+  image: {fileID: 21300000, guid: b254a206d8f80904288d90b61de9723e, type: 2}
   craftMinLevel: 0
   groupWarehouse: 0
   itemToClaim: []
@@ -79,5 +81,11 @@ MonoBehaviour:
     bonusPerLevel: 30
   buildingList:
   - buildingName: UP
-    buildingObject: {fileID: 1529476062757820, guid: 54579846a2ef5f14db861ca32ddc8b9e,
+    buildingObject: {fileID: 1529476062757820, guid: 08a90a052a51abb44b688e03c4d9a398,
       type: 3}
+  isBasement: 0
+  isWall: 0
+  isDoor: 0
+  modularAccessory: 0
+  modularForniture: 0
+  necessaryTagObject: 

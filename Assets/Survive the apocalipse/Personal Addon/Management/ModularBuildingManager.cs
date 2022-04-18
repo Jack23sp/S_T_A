@@ -318,10 +318,6 @@ public class ModularBuildingManager : NetworkBehaviour
             piece.rightWallPointer.enabled = ((nearModularPiece == null && piece.rightComponent == -5) || (nearModularPiece != null && (nearModularPiece.leftComponent == -5 && piece.rightComponent == -5)));
 
             nearModularPiece = (CheckFloorPresence(piece.upFloorPointer.transform));
-            //Debug.Log("nearModularPiece : " + nearModularPiece);
-            //Debug.Log("piece.upComponent : " + piece.upComponent);
-            //Debug.Log("nearModularPiece.downComponent : " + nearModularPiece.downComponent);
-            //Debug.Log("piece.upComponent : " + piece.upComponent);
             piece.upWallPointer.enabled = ((nearModularPiece == null && piece.upComponent == -5) || (nearModularPiece != null && (nearModularPiece.downComponent == -5 && piece.upComponent == -5)));
 
             nearModularPiece = (CheckFloorPresence(piece.downFloorPointer.transform));

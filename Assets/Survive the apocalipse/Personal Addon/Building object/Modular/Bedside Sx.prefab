@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5243371757929732268}
   - component: {fileID: 7339747833613281943}
+  - component: {fileID: 2914604404222246912}
   m_Layer: 0
   m_Name: New Sprite
   m_TagString: Untagged
@@ -67,8 +68,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1783918617
-  m_SortingLayer: 3
+  m_SortingLayerID: 1242795895
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 188b40dc84436e4468cb9348ccf7ea02, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -81,6 +82,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2914604404222246912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3374165578216115999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b5fb9ce1492452499576f473de1123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 7339747833613281943}
+  precision: 101.57
+  offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
+  onlyOnStart: 0
 --- !u!1 &8481587374756549699
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,16 +169,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  objectIndex: 0
   scriptableBuilding: {fileID: 11400000, guid: 602f9f4acadcad14da2ff4b1b8a4b2ee, type: 2}
+  isPremium: 0
   fornitureType: 13
   placement: {fileID: 7339747833613281943}
   collider: {fileID: 4988423368897892409}
   allColliders: []
   wallColliders: []
   obstacleColliders: []
+  owner: 
+  guild: 
   identity: {fileID: 4074972740201943555}
   canSpawn: 0
   needALayerUnder: 0
+  layerObjectUnder:
+    serializedVersion: 2
+    m_Bits: 0
   isWallObject: 0
   navMeshObstacle2D: {fileID: 6308118954182763315}
   oldPositioning: 1
@@ -200,7 +226,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1242795895
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ae06d51cee1e9f14d822c6ac56552dc5, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -230,6 +256,7 @@ MonoBehaviour:
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: 1
+  onlyOnStart: 0
 --- !u!61 &4988423368897892409
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -243,7 +270,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0010681152, y: -0.5148163}
+  m_Offset: {x: -0.0074920654, y: -0.39614105}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -254,7 +281,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.204956, y: 0.9262085}
+  m_Size: {x: 1.0888367, y: 0.68885803}
   m_EdgeRadius: 0
 --- !u!114 &6308118954182763315
 MonoBehaviour:
@@ -263,7 +290,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8481587374756549699}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a99d2eab88b747a9bd011e3d849162f, type: 3}
   m_Name: 

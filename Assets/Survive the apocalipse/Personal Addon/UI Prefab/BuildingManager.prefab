@@ -3508,6 +3508,7 @@ GameObject:
   - component: {fileID: 6056953174934467872}
   - component: {fileID: 6407038523885072942}
   - component: {fileID: 3686626959682033035}
+  - component: {fileID: 8038555896002318397}
   m_Layer: 5
   m_Name: Text (1)
   m_TagString: Untagged
@@ -3595,7 +3596,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 5
   m_fontSizeMax: 45
-  m_fontStyle: 0
+  m_fontStyle: 17
   m_textAlignment: 258
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -3653,6 +3654,25 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8038555896002318397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5105498867020524535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1e8ae58223f36e48aca38c8da9b94d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textTarget: {fileID: 3686626959682033035}
+  defaultLanguage: 
+  textToTranslate:
+  - defaultLanguage: Italian
+    returnString: Pannello edificio
+  - defaultLanguage: Building panl
+    returnString: 
 --- !u!1 &5350178325635416934
 GameObject:
   m_ObjectHideFlags: 0
@@ -6620,18 +6640,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 55961abfe5bd94243a9b7eafdf325b72, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d56854e86551b4969b643942ce33c9cf, type: 3}
---- !u!1 &178473143724294088 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1924467094471520400, guid: d56854e86551b4969b643942ce33c9cf,
-    type: 3}
-  m_PrefabInstance: {fileID: 1787652802559151960}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &178473143724294089 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1924467094471520401, guid: d56854e86551b4969b643942ce33c9cf,
-    type: 3}
-  m_PrefabInstance: {fileID: 1787652802559151960}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &178473143724294090 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1924467094471520402, guid: d56854e86551b4969b643942ce33c9cf,
@@ -6644,6 +6652,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &178473143724294089 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1924467094471520401, guid: d56854e86551b4969b643942ce33c9cf,
+    type: 3}
+  m_PrefabInstance: {fileID: 1787652802559151960}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &178473143724294088 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1924467094471520400, guid: d56854e86551b4969b643942ce33c9cf,
+    type: 3}
+  m_PrefabInstance: {fileID: 1787652802559151960}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3288559056735139929
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6866,12 +6886,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 55961abfe5bd94243a9b7eafdf325b72, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d56854e86551b4969b643942ce33c9cf, type: 3}
---- !u!224 &3969460905471658184 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1924467094471520401, guid: d56854e86551b4969b643942ce33c9cf,
-    type: 3}
-  m_PrefabInstance: {fileID: 3288559056735139929}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3969460905471658187 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1924467094471520402, guid: d56854e86551b4969b643942ce33c9cf,
@@ -6884,6 +6898,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &3969460905471658184 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1924467094471520401, guid: d56854e86551b4969b643942ce33c9cf,
+    type: 3}
+  m_PrefabInstance: {fileID: 3288559056735139929}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3969460905471658185 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1924467094471520400, guid: d56854e86551b4969b643942ce33c9cf,

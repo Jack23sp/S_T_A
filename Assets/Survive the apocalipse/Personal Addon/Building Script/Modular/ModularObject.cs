@@ -90,6 +90,7 @@ public class ModularObject : Forniture
         if (identity.isClient || identity.isServer)
         {
             if (placement) Destroy(placement.gameObject);
+            if (navMeshObstacle2D) navMeshObstacle2D.enabled = true;
         }
         else
         {

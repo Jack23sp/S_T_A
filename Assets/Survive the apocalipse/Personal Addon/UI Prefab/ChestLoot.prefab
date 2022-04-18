@@ -1975,12 +1975,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 922feedfafa1853418eb8fc0bfa33306,
+      objectReference: {fileID: 21300000, guid: 38d6847f2021df749b3e3eded9b96a74,
         type: 3}
     - target: {fileID: 114281510642110374, guid: 656e81c1467148042962149a5f168b50,
         type: 3}
       propertyPath: m_Type
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114618347802592718, guid: 656e81c1467148042962149a5f168b50,
         type: 3}
@@ -2160,22 +2160,22 @@ PrefabInstance:
     - target: {fileID: 2125729941610290413, guid: 656e81c1467148042962149a5f168b50,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 584.1652
+      value: 584.17
       objectReference: {fileID: 0}
     - target: {fileID: 2125729941610290413, guid: 656e81c1467148042962149a5f168b50,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 7.4
+      value: -0.000013351
       objectReference: {fileID: 0}
     - target: {fileID: 2125729941610290413, guid: 656e81c1467148042962149a5f168b50,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 40.680634
+      value: 43.6
       objectReference: {fileID: 0}
     - target: {fileID: 3040835248359700115, guid: 656e81c1467148042962149a5f168b50,
         type: 3}
       propertyPath: m_fontSize
-      value: 33.15
+      value: 35.55
       objectReference: {fileID: 0}
     - target: {fileID: 3040835248359700115, guid: 656e81c1467148042962149a5f168b50,
         type: 3}
@@ -2244,7 +2244,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1407844217, guid: 656e81c1467148042962149a5f168b50, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 656e81c1467148042962149a5f168b50, type: 3}
 --- !u!114 &5824143284416939300 stripped
 MonoBehaviour:

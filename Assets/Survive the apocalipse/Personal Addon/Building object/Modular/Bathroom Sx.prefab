@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5428265618712820474}
   - component: {fileID: 8143337372737331110}
-  - component: {fileID: 2736551136235247153}
+  - component: {fileID: 1738558040570070888}
   - component: {fileID: 2633991932557687957}
   - component: {fileID: 4201268069309471091}
   - component: {fileID: 915836783510576540}
@@ -55,7 +55,7 @@ MonoBehaviour:
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
---- !u!114 &2736551136235247153
+--- !u!114 &1738558040570070888
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,26 +64,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 4340171430290627046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9819da1ce9603ad4e94cd566cc85683d, type: 3}
+  m_Script: {fileID: 11500000, guid: 87700d041033a354c88fbb9bf6226e8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  objectIndex: 0
   scriptableBuilding: {fileID: 11400000, guid: a7f358f5e4e65ec45afd50dcf109b72a, type: 2}
+  isPremium: 0
   fornitureType: 11
   placement: {fileID: 3194109764497745714}
   collider: {fileID: 915836783510576540}
   allColliders: []
   wallColliders: []
   obstacleColliders: []
+  owner: 
+  guild: 
   identity: {fileID: 8143337372737331110}
   canSpawn: 0
   needALayerUnder: 0
+  layerObjectUnder:
+    serializedVersion: 2
+    m_Bits: 0
   isWallObject: 0
   navMeshObstacle2D: {fileID: 2163193368634470038}
   oldPositioning: 1
-  currentWater: 0
-  maxWater: 100
 --- !u!212 &2633991932557687957
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -121,7 +126,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1242795895
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 09ee61318b79f514f85af907e6c17d45, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -151,6 +156,7 @@ MonoBehaviour:
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: 1
+  onlyOnStart: 0
 --- !u!61 &915836783510576540
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -184,7 +190,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4340171430290627046}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a99d2eab88b747a9bd011e3d849162f, type: 3}
   m_Name: 
@@ -229,6 +235,7 @@ GameObject:
   m_Component:
   - component: {fileID: 93439768037119241}
   - component: {fileID: 3194109764497745714}
+  - component: {fileID: 3914941526182913191}
   m_Layer: 0
   m_Name: New Sprite
   m_TagString: Untagged
@@ -286,8 +293,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1783918617
-  m_SortingLayer: 3
+  m_SortingLayerID: 1242795895
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 188b40dc84436e4468cb9348ccf7ea02, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -300,6 +307,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3914941526182913191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7448027562630234810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b5fb9ce1492452499576f473de1123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 3194109764497745714}
+  precision: 101.57
+  offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
+  onlyOnStart: 0
 --- !u!1001 &8758514644727849197
 PrefabInstance:
   m_ObjectHideFlags: 0

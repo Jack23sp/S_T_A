@@ -10,6 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2637610271925382509}
   - component: {fileID: 2637610271925382506}
+  - component: {fileID: 1972077495}
+  - component: {fileID: 1972077496}
+  - component: {fileID: 1972077497}
   m_Layer: 0
   m_Name: GeneralManager
   m_TagString: Untagged
@@ -43,114 +46,449 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5c9584f20c0604a925597e6bdc0b60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingSensibility: 0.1
+  languagesManager: {fileID: 0}
+  ableBasemodeEditor: 0
+  timeZone: 
+  allowDebug: 1
+  wetInterval: 60
+  weightInterval: 2
+  goodServerPick: 150
+  mediumServicePick: 400
+  buildingSensibility: 0.05
   buildingManager: {fileID: 4172794196791113430, guid: 2b79cb56e85fff54898b7e7aac4fd81d,
-    type: 3}
-  attackManager: {fileID: 5044455699621956805, guid: 6f9ed19df7345bb4c8aca8d1fac2ed23,
     type: 3}
   buildingCheckObstacle:
     serializedVersion: 2
-    m_Bits: 3840
-  buildingCountdown:
-  - building: {fileID: 11400000, guid: e041f1fb1c82ff642b2bc6ce70308b3a, type: 2}
-    countdownEachLevel:
-      baseValue: 30
-      bonusPerLevel: 5
-  - building: {fileID: 11400000, guid: f57e99231d1ebb34aac9f5cdd8a47093, type: 2}
-    countdownEachLevel:
-      baseValue: 30
-      bonusPerLevel: 5
-  - building: {fileID: 11400000, guid: f2895a8e5a714b2428c181449eda82b9, type: 2}
-    countdownEachLevel:
-      baseValue: 75
-      bonusPerLevel: 18
+    m_Bits: 8448
+  buildingCheckSpawn:
+    serializedVersion: 2
+    m_Bits: 1073743616
   buildingExperience: 0
+  smokePrefab: {fileID: 1166618814086398, guid: 72983f02a3a520f4eb37c860e5feaf8f,
+    type: 3}
+  hitPrefab: {fileID: 100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
+  flagManager: {fileID: 5905771984717760873, guid: 94c7d742174a49743871d687502013ec,
+    type: 3}
+  flagSprite:
+  - {fileID: 21300000, guid: d1a6dc69d1d33482b9bd700e9be48768, type: 3}
+  - {fileID: 21300000, guid: d1a6dc69d1d33482b9bd700e9be48768, type: 3}
+  - {fileID: 21300000, guid: a953406b7025d484ca487a22a5eafd2a, type: 3}
+  - {fileID: 21300000, guid: be47086f79d5f4dea943c793b1eb08ff, type: 3}
+  - {fileID: 21300000, guid: 44b32f2a9c4994a1f8ee3069d3a808b4, type: 3}
+  - {fileID: 21300000, guid: 85c8261b59c3a4b05bee761a336e161f, type: 3}
+  - {fileID: 21300000, guid: 32d73c91ad84e4a46a5d39b7fc94ae8e, type: 3}
+  - {fileID: 21300000, guid: db3c80b09141745b5b13e9302144d166, type: 3}
+  - {fileID: 21300000, guid: dfe4504d8dd5f4a18829ac390dcb92c1, type: 3}
+  - {fileID: 21300000, guid: 40c8897d33dc24750ac86cd989361af8, type: 3}
+  - {fileID: 21300000, guid: 302efaa07cd32470690d1e7915c16143, type: 3}
+  - {fileID: 21300000, guid: e8341741b2e904af79c9278a99b9bbd0, type: 3}
+  - {fileID: 21300000, guid: 99ce2aa3409aa48e6bbe8bebc36fd347, type: 3}
+  - {fileID: 21300000, guid: fbebe0ee081f44f3bbd0858a090fd36f, type: 3}
+  - {fileID: 21300000, guid: de9797242c4d148fea45fbf4b73e5d4b, type: 3}
+  - {fileID: 21300000, guid: 2ecbc57ff7f97439fb8b744c32845aae, type: 3}
+  - {fileID: 21300000, guid: 07c0e1b225104487cb25f4d532a45434, type: 3}
+  - {fileID: 21300000, guid: 618f101a2b5304d5eac4760316626208, type: 3}
+  - {fileID: 21300000, guid: 0ee140a360a2746ddbeeb19315ffa747, type: 3}
+  - {fileID: 21300000, guid: 0b561949cd9e643c082723e739699c2a, type: 3}
+  - {fileID: 21300000, guid: 847f2884e64b24681b16c34d7040813c, type: 3}
+  - {fileID: 21300000, guid: febf496d23f4c4b1da9e01c09552d3e2, type: 3}
+  - {fileID: 21300000, guid: caa7d18b39e8b4e19a53e37dbb7fa8be, type: 3}
+  - {fileID: 21300000, guid: 6acbfc6958616430490037a9c43e9cd4, type: 3}
+  - {fileID: 21300000, guid: b11b679788a5c406ab2da926f0f29038, type: 3}
+  - {fileID: 21300000, guid: 2df658e8ae2464a9daf15321938f00c3, type: 3}
+  - {fileID: 21300000, guid: 634b7f79e2c3847b88a6180246284a06, type: 3}
+  - {fileID: 21300000, guid: c7734c894b99a42d8895a5eb098ab209, type: 3}
+  - {fileID: 21300000, guid: b66f7402223b944288778ccd903e0e82, type: 3}
+  - {fileID: 21300000, guid: 603e1dbf31ce447d980be5836aa7b048, type: 3}
+  - {fileID: 21300000, guid: c88006b40aaa34b7eba5c9d1dc9581c7, type: 3}
+  - {fileID: 21300000, guid: 751d646898a29480797bc77074f8c7a2, type: 3}
+  - {fileID: 21300000, guid: da57f06ac840d4790a78fa7ade80bd0d, type: 3}
+  - {fileID: 21300000, guid: 60341eb17c5fb46ccb6b779c2821d079, type: 3}
+  - {fileID: 21300000, guid: 633099bbaf61f4009bb8e746202276a2, type: 3}
+  - {fileID: 21300000, guid: 765344663ad9e4146b59de97dcd993e5, type: 3}
+  - {fileID: 21300000, guid: 5765c8f817b5c4599884c4d638c9d7c1, type: 3}
+  - {fileID: 21300000, guid: 4a718e0d0b5ab4a9f808871f2495b16a, type: 3}
+  - {fileID: 21300000, guid: 9121e5d6d43ae42ca894f8b5d4fc240f, type: 3}
+  - {fileID: 21300000, guid: b613802d406214902a798601d90388b2, type: 3}
+  - {fileID: 21300000, guid: 1a8e8f5b1ce3545a89acc03db1dc9ceb, type: 3}
+  - {fileID: 21300000, guid: 97ce2677499364f68953e0fb59409789, type: 3}
+  - {fileID: 21300000, guid: 7b8a7fec4052645139e6871bb9f7f4e1, type: 3}
+  - {fileID: 21300000, guid: 5893ae85a9946485784c6cf266cdc19f, type: 3}
+  - {fileID: 21300000, guid: 35b61868419814ca8b4a43289e615c2d, type: 3}
+  - {fileID: 21300000, guid: d130464106e44453cb57dac7cd02d979, type: 3}
+  - {fileID: 21300000, guid: 45f70061ad4a440d3a70574667d53b5b, type: 3}
+  - {fileID: 21300000, guid: ecefd703e82054fa7b8a074dba082836, type: 3}
+  - {fileID: 21300000, guid: 49037a2f301704266a37d0a197592e94, type: 3}
+  - {fileID: 21300000, guid: a64fcb1bc301141f381025df44e93a67, type: 3}
+  - {fileID: 21300000, guid: 1a956b414a50440d98b551132ed927d4, type: 3}
+  - {fileID: 21300000, guid: 8d9002c0e24fd4e4aaf8fcf3f7c0a0f6, type: 3}
+  - {fileID: 21300000, guid: bc07e1adcaee94c75b75be53e81d7212, type: 3}
+  - {fileID: 21300000, guid: be46f02489e834401812aaa3684405fd, type: 3}
+  - {fileID: 21300000, guid: 5a4b7ff3085464593a496bf66e044e56, type: 3}
+  - {fileID: 21300000, guid: fe613ded11528403aa8cc7c7ca5f767f, type: 3}
+  - {fileID: 21300000, guid: 63bdb3e34a5484d73b8824c507012a48, type: 3}
+  - {fileID: 21300000, guid: c15738a5a0e1740aab8d204ca73e10a7, type: 3}
+  - {fileID: 21300000, guid: 081e9edbbb6c64fdf849aa827e2b3620, type: 3}
+  - {fileID: 21300000, guid: 8459162fd6c1e412d9c0d384336f65b7, type: 3}
+  - {fileID: 21300000, guid: f2427c6032bc74f188f41e6335f1ddef, type: 3}
+  - {fileID: 21300000, guid: 622ece54e29f94061b3cc472c2ec70f9, type: 3}
+  - {fileID: 21300000, guid: 5e0e4d87620dc46dbbd8dc941fcb9637, type: 3}
+  - {fileID: 21300000, guid: 616a49286d7a94715895c9a70c34648d, type: 3}
+  - {fileID: 21300000, guid: b5e1c46fd465f436c9088e0b0fe0f9d6, type: 3}
+  - {fileID: 21300000, guid: ac182ea7039474c3c8a607156686876f, type: 3}
+  - {fileID: 21300000, guid: 8010df265fe334edfb0821d220e14f8d, type: 3}
+  - {fileID: 21300000, guid: 779abc5edf6bd4fe89490236bcf5a978, type: 3}
+  - {fileID: 21300000, guid: 68e2f1a88ac1d42fc99ea4900d169453, type: 3}
+  - {fileID: 21300000, guid: 38f119e371e594aabba12d0c4a9bb281, type: 3}
+  - {fileID: 21300000, guid: f4e73456ce4c84213bef907d5e9856d6, type: 3}
+  - {fileID: 21300000, guid: 2fe592040d3f748078a49488baccf38f, type: 3}
+  - {fileID: 21300000, guid: 3222dd30a945543cc922c5127ae21852, type: 3}
+  - {fileID: 21300000, guid: 5b8b92a537e9a429aa1783838a1d56af, type: 3}
+  - {fileID: 21300000, guid: 78a4294c72ccb44d2bfda77bdcd81976, type: 3}
+  - {fileID: 21300000, guid: 4868fc36ec90f45a6a2a33055b1f7c66, type: 3}
+  - {fileID: 21300000, guid: 1e8fdb60c370046898fba4fd2f2777cb, type: 3}
+  - {fileID: 21300000, guid: 2f6986fa0626943b1b75b613140ac927, type: 3}
+  - {fileID: 21300000, guid: d9ba5dabd3a5745f288636e8d6bfdf6c, type: 3}
+  - {fileID: 21300000, guid: f3cd54e6897ab45e5a660d6812c24c79, type: 3}
+  - {fileID: 21300000, guid: 48c27d1c81b754047b83b090a0f704e7, type: 3}
+  - {fileID: 21300000, guid: 16ae537debbac401eac2393b3c72741e, type: 3}
+  - {fileID: 21300000, guid: fbe54cf3e07d547f999ba83d18f4e0ee, type: 3}
+  - {fileID: 21300000, guid: b904236fe36894dc5a0440b087c7922a, type: 3}
+  - {fileID: 21300000, guid: 0d8d629fd59544654aba48ee53753b14, type: 3}
+  - {fileID: 21300000, guid: 1c64ff7233bbd463cb5b92cfef21eda9, type: 3}
+  - {fileID: 21300000, guid: 45310f0f9fec2493ebc4b6fa8c508b16, type: 3}
+  - {fileID: 21300000, guid: b275d574c07cf4aaaadab492b1965187, type: 3}
+  - {fileID: 21300000, guid: c84acc7e7bd2742f69f264d771836291, type: 3}
+  - {fileID: 21300000, guid: 0807f6b9fe42347e7af6a5fc2f398205, type: 3}
+  - {fileID: 21300000, guid: c4ff6f35de80c49af975f01a8b6872d7, type: 3}
+  - {fileID: 21300000, guid: 8e7a6e3e7ce194599a8fc41f7eae3466, type: 3}
+  - {fileID: 21300000, guid: 731f225157ca543d2bbd6ea52b4d22d4, type: 3}
+  - {fileID: 21300000, guid: f587b7f7068d2439b852d47928e12792, type: 3}
+  - {fileID: 21300000, guid: f1a6508be08ab494d877cf8d8e0dfa46, type: 3}
+  - {fileID: 21300000, guid: a8e3d37d46fd8459bb7d4043900486c2, type: 3}
+  - {fileID: 21300000, guid: b4780ad1b08134679ac182921731da6f, type: 3}
+  - {fileID: 21300000, guid: 92dd60b20650c4f2480354cc7d1dd653, type: 3}
+  - {fileID: 21300000, guid: de210062285d3421bba8d3b13efce55c, type: 3}
+  - {fileID: 21300000, guid: 254f497b2e84542cfa4b396ca552e52a, type: 3}
+  - {fileID: 21300000, guid: 4177112f0166f4f88a717939d410b58f, type: 3}
+  - {fileID: 21300000, guid: ecbf8aced848c4eecba95f18514ff3ca, type: 3}
+  - {fileID: 21300000, guid: d617f9c8bb5024cbe862e6f56f091d8e, type: 3}
+  - {fileID: 21300000, guid: 73f9e1bf023d841d1b802e366b960b41, type: 3}
+  - {fileID: 21300000, guid: 8b52c594ec08a4b99b53fbdf9ae8aced, type: 3}
+  - {fileID: 21300000, guid: 9894f17012d164ab8b884845e59e9f22, type: 3}
+  - {fileID: 21300000, guid: 66156cbd76e8e4157b4e4d5f75427cb1, type: 3}
+  - {fileID: 21300000, guid: d49591c264f0e40ba8994d0c1b19c170, type: 3}
+  - {fileID: 21300000, guid: 81ebc5841e7a941a8a88967c4b719580, type: 3}
+  - {fileID: 21300000, guid: c4131e62630f94ce8ae9eaf9bcf7f98f, type: 3}
+  - {fileID: 21300000, guid: 1aa091d794ec746a7aa0090fd84199c0, type: 3}
+  - {fileID: 21300000, guid: 7ac7c1bdf4059456d888c13a0e6bcbe6, type: 3}
+  - {fileID: 21300000, guid: 82e2bfbbe3c644d11a4b3b51d1ed1fd0, type: 3}
+  - {fileID: 21300000, guid: b4f5c5c926ca64889b62d23d38176767, type: 3}
+  - {fileID: 21300000, guid: 6b1a2568292674596b9dbde1491c16e9, type: 3}
+  - {fileID: 21300000, guid: 7b57e81e28af843c19d0399d9e920e9e, type: 3}
+  - {fileID: 21300000, guid: 1d3941995df534152bfd088f6820bc59, type: 3}
+  - {fileID: 21300000, guid: 4d8db3f3140624591a18d37a884c08ae, type: 3}
+  - {fileID: 21300000, guid: 627b524e7820d4bdea11edd32f01cd59, type: 3}
+  - {fileID: 21300000, guid: 5fb949bcf54e94bbabb40d2509fbf749, type: 3}
+  - {fileID: 21300000, guid: 4b5d11dd4cbe840ebaeede238f26f007, type: 3}
+  - {fileID: 21300000, guid: c944e76b51f734a278072b2b52fa5497, type: 3}
+  - {fileID: 21300000, guid: 267b30c4ba9494425b3567b963c9af3d, type: 3}
+  - {fileID: 21300000, guid: 8ede5f341de30470ea69b80e048b3601, type: 3}
+  - {fileID: 21300000, guid: 6498d4c3a111744118eb41a063046d71, type: 3}
+  - {fileID: 21300000, guid: 46b4c5538e6f24b7d80350c4370ed006, type: 3}
+  - {fileID: 21300000, guid: ea50ac1f4736a40c1836f98b128f3cc7, type: 3}
+  - {fileID: 21300000, guid: 13e70318481f14d9ea10b8360f8e8139, type: 3}
+  - {fileID: 21300000, guid: 8feadc8a6d08147de92766c596197f20, type: 3}
+  - {fileID: 21300000, guid: 1fd262132055e4edebdfe6e0351e4b11, type: 3}
+  - {fileID: 21300000, guid: b15ba225b37cf41dc95fb02e20190984, type: 3}
+  - {fileID: 21300000, guid: 20f405e63a4664bd3850902fc08299f1, type: 3}
+  - {fileID: 21300000, guid: c119c7bc198a242f2aec028ba8e4082f, type: 3}
+  - {fileID: 21300000, guid: 2298e190f476a4e75b9db05a372d71f8, type: 3}
+  - {fileID: 21300000, guid: 8887486f62d2d43ca8746a130d6b856d, type: 3}
+  - {fileID: 21300000, guid: 6f73f3f0709654a579325d26cf26ee00, type: 3}
+  - {fileID: 21300000, guid: f0aceea041f084fe991ea7604b160736, type: 3}
+  - {fileID: 21300000, guid: f32599a459f27456b962eb5cd90ff905, type: 3}
+  - {fileID: 21300000, guid: aea45ffb986f645af894cf53dbed1a9a, type: 3}
+  - {fileID: 21300000, guid: cb916dc618d064104a6523506efdf9be, type: 3}
+  - {fileID: 21300000, guid: d4579517bd8ba46f29e200b45a269ff9, type: 3}
+  - {fileID: 21300000, guid: 663c3ef553c1741f2a5db4da57949e00, type: 3}
+  - {fileID: 21300000, guid: df718666b8efc4e2aaae2dfac66569d8, type: 3}
+  - {fileID: 21300000, guid: b9937181597614d2cb0a32487f336d2a, type: 3}
+  - {fileID: 21300000, guid: 1572fac9395e64c7fb079cddccce1bdb, type: 3}
+  - {fileID: 21300000, guid: 81970609b93a542d68cdc52c2fe1daa1, type: 3}
+  - {fileID: 21300000, guid: d993cf0fd381340be9c3ae37364a894f, type: 3}
+  - {fileID: 21300000, guid: 4fc4087a86d0f40de86e5ee081f98a96, type: 3}
+  - {fileID: 21300000, guid: d695c9ee5e4a2402d8b45697b0f82b09, type: 3}
+  - {fileID: 21300000, guid: d9bdfe613d73f49119cd5f7c97760e5b, type: 3}
+  - {fileID: 21300000, guid: 43ed1b3c40801401abc2d1e8e1b684b5, type: 3}
+  - {fileID: 21300000, guid: 340a6b596c69e4560871abac8c723eeb, type: 3}
+  - {fileID: 21300000, guid: 2223ee5d247ee476aae877f852d8d036, type: 3}
+  - {fileID: 21300000, guid: 851aa12b900234e1d854db3025b975aa, type: 3}
+  - {fileID: 21300000, guid: ce8fa9427195443569c846545da581a8, type: 3}
+  - {fileID: 21300000, guid: 636deaf797d294619a626dcba65ef07b, type: 3}
+  - {fileID: 21300000, guid: 1d349bf62f5a04e7f92ff5c885cdd06e, type: 3}
+  - {fileID: 21300000, guid: 50e199b8857484fc886e408af578b815, type: 3}
+  - {fileID: 21300000, guid: 7b0a31875f22e44a59b7fdccfb3be1f1, type: 3}
+  - {fileID: 21300000, guid: 71f9c04cd94614c7f8d5518c19254cf5, type: 3}
+  - {fileID: 21300000, guid: 798b698f3846b4c45bbb731d5b8b8521, type: 3}
+  - {fileID: 21300000, guid: d6208b3d38c3b4aaf9fd4e15e2ab5934, type: 3}
+  - {fileID: 21300000, guid: 831162a9e6f50480c8e9f5acdd95c13d, type: 3}
+  - {fileID: 21300000, guid: 5b6c3abe0ccf644c19ce5f5d0e726811, type: 3}
+  - {fileID: 21300000, guid: 50d875332c9764844a3f3c6963d20709, type: 3}
+  - {fileID: 21300000, guid: 4eab35bf561bb4d33ac271f710a969ff, type: 3}
+  - {fileID: 21300000, guid: c4db40526013c4f008b943f459233096, type: 3}
+  - {fileID: 21300000, guid: 8b57926f7f8af457492fb433213ee557, type: 3}
+  - {fileID: 21300000, guid: 32813159eca4347ae95fff7be8fbce0a, type: 3}
+  - {fileID: 21300000, guid: 9f3d75b86b76a463fbffd5b686b37096, type: 3}
+  - {fileID: 21300000, guid: 2a66d888a8a3f4feaabb2ab3bcbf0176, type: 3}
+  - {fileID: 21300000, guid: 6f550afd9af4d4febbb216160fd1602a, type: 3}
+  - {fileID: 21300000, guid: d750e8d66d8c14ab5a2702dcc92d8146, type: 3}
+  - {fileID: 21300000, guid: 7a77f0a1530f84f5db89bfc80b2977a0, type: 3}
+  - {fileID: 21300000, guid: d4b36593841074f5fa59aa1c1254d966, type: 3}
+  - {fileID: 21300000, guid: 7291fdaca67324a968b50e6e39ac1e21, type: 3}
+  - {fileID: 21300000, guid: 95afdf356dd6246bfa9790702477bf41, type: 3}
+  - {fileID: 21300000, guid: 67a26490d25654164a8936dd424dc7cb, type: 3}
+  - {fileID: 21300000, guid: b59c73684127a47508eb388e2c417592, type: 3}
+  - {fileID: 21300000, guid: 014a85e0139394487b2549e3690ad9c3, type: 3}
+  - {fileID: 21300000, guid: 3d5e778da6b6f49e3a835db37f9e87a2, type: 3}
+  - {fileID: 21300000, guid: a813b65cdda5c4f24b7f62e5e06cb724, type: 3}
+  - {fileID: 21300000, guid: 3f3f64b2aceea4dbea7d462a4b19b4c6, type: 3}
+  - {fileID: 21300000, guid: b97c50ee2def44cbfb58a7213cf7c7d0, type: 3}
+  - {fileID: 21300000, guid: f20d1b0b855df4612acc4d6009f3a818, type: 3}
+  - {fileID: 21300000, guid: 22df1c1672f9742398631d2189a208de, type: 3}
+  - {fileID: 21300000, guid: ef90c45b804064e2383f245b5472c068, type: 3}
+  - {fileID: 21300000, guid: 67986d63541f54a07ab04e131b53ed65, type: 3}
+  - {fileID: 21300000, guid: e7c2dcb5c42c2482f8a09f42fd8369b6, type: 3}
+  - {fileID: 21300000, guid: 6226428be16194b18b9f44a59e9d666c, type: 3}
+  - {fileID: 21300000, guid: f587821df9070471c947d9497e73fec6, type: 3}
+  - {fileID: 21300000, guid: 51293ab49ca474342b653868f1339e9d, type: 3}
+  - {fileID: 21300000, guid: c0f29fa0e5d61477ab0a4545ec25cf1e, type: 3}
+  - {fileID: 21300000, guid: 1308f8fffa020438a830aea273718107, type: 3}
+  - {fileID: 21300000, guid: f5ccc82d58ec544d1a2d01de19020336, type: 3}
+  - {fileID: 21300000, guid: 33a3cf2314714457eaeb34685657311d, type: 3}
+  - {fileID: 21300000, guid: 9a7fc20866a424f5e837deb66da09187, type: 3}
+  - {fileID: 21300000, guid: 02da2045f3d824da7a2c8686d765f1eb, type: 3}
+  - {fileID: 21300000, guid: d1b00634b93da4f3ebe721f28c101b02, type: 3}
+  - {fileID: 21300000, guid: e3787e1166ce045e4ae335704abe93ea, type: 3}
+  - {fileID: 21300000, guid: 656495f768e9744b286f35671f6b84bf, type: 3}
+  - {fileID: 21300000, guid: ccfe1ac9b50ad4331b2e5c80ebfd4405, type: 3}
+  - {fileID: 21300000, guid: ce97e820d5a1e445a9b19314ab4d6df3, type: 3}
+  - {fileID: 21300000, guid: 64a17fe2728d7444e832d4298bbc10fc, type: 3}
+  - {fileID: 21300000, guid: 2191e6f7c3d844cdd84281a63f2adeff, type: 3}
+  - {fileID: 21300000, guid: b5733f3bd3e5b49bc9ec1be583a50b7a, type: 3}
+  - {fileID: 21300000, guid: b8ca2a303ff0848b69b6573c37153600, type: 3}
+  - {fileID: 21300000, guid: bd2e4912231574f6eab79506ea250a3a, type: 3}
+  - {fileID: 21300000, guid: 8cbc9df3a977940ae896a10f5296e657, type: 3}
+  - {fileID: 21300000, guid: 520ae1da98df041e596a3f4fd6f77fa3, type: 3}
+  - {fileID: 21300000, guid: 35589f1b022434d42973fa16df4751e7, type: 3}
+  - {fileID: 21300000, guid: 7230a2f806d824825a767e8c66830a09, type: 3}
+  - {fileID: 21300000, guid: f748115fde9d141728c06519635e01f0, type: 3}
+  - {fileID: 21300000, guid: ab7a4beec3b0647f7afb2721b2e504a2, type: 3}
+  - {fileID: 21300000, guid: 1a0e11fccab6f466387049cebe664798, type: 3}
+  - {fileID: 21300000, guid: e2504434bd23e4c06aed557415c67f26, type: 3}
+  - {fileID: 21300000, guid: a4a639d0400fe43b8bcee0e0ba92b8c2, type: 3}
+  - {fileID: 21300000, guid: 1eb3fb0ad2cdb49dc8471c06b7ffc6d8, type: 3}
+  - {fileID: 21300000, guid: 8d0f24084c2c047b4893d4b9682f76ab, type: 3}
+  - {fileID: 21300000, guid: c4e1d848bb9b945ff8b25750e59bef29, type: 3}
+  - {fileID: 21300000, guid: 7ef0731afa8ce4af0bfd5fb158d6672d, type: 3}
+  - {fileID: 21300000, guid: fa797c7bdbdb744109696fa6b614763e, type: 3}
+  - {fileID: 21300000, guid: 988ea0f2c4df44985ad173a2c8af677b, type: 3}
+  - {fileID: 21300000, guid: 856e7ab7edf2240f19ff00245b6cb48f, type: 3}
+  - {fileID: 21300000, guid: 6b6e81fa7c57743ab8e0afd183fd5c2f, type: 3}
+  - {fileID: 21300000, guid: 385b4d26c7eca4989aa0c67d1647432d, type: 3}
+  - {fileID: 21300000, guid: ff9fd3225d49643a8bd8e8cad5add073, type: 3}
+  - {fileID: 21300000, guid: d28650ba0284a40eda2475324952831d, type: 3}
+  - {fileID: 21300000, guid: 36f9bc493458e4404adaac430bf89564, type: 3}
+  - {fileID: 21300000, guid: 56877e589b3104f999841d668ae7c389, type: 3}
+  - {fileID: 21300000, guid: 3cd31c01f53bf4c418d5d33f0e082296, type: 3}
+  - {fileID: 21300000, guid: 2f0f6278b54fb4fd2a10097bd7febc0a, type: 3}
+  - {fileID: 21300000, guid: 7ed33c4a68fb44262addf21483e8b8f8, type: 3}
+  - {fileID: 21300000, guid: 97a871a606dc0419fad7b14da53086f3, type: 3}
+  - {fileID: 21300000, guid: 99e4c7e324eeb417fad95046e5a05e3b, type: 3}
+  - {fileID: 21300000, guid: bf6c390812c9743bca3446615425ae79, type: 3}
+  - {fileID: 21300000, guid: 2d51899afb9534b359aac3221e47e983, type: 3}
+  - {fileID: 21300000, guid: 3e01328b6b26748d0b0f5320f3be9732, type: 3}
   spawnedBuildingObject: {fileID: 0}
   spawnedAttackObject: {fileID: 0}
   canSpawn: {r: 0, g: 1, b: 0.052033424, a: 0.76862746}
   notSpawn: {r: 1, g: 0, b: 0, a: 0.76862746}
   canvas: {fileID: 0}
-  buttonDungeon:
-    placeToSpawn: {fileID: 0}
-    entity: {fileID: 0}
-    objectToSpawn: {fileID: 7158786679747202441, guid: 2ee4cbbec7b1caa4883a202bd16beab0,
-      type: 3}
-  dungeonTeleport:
-  - npc: {fileID: 0}
-    teleportPoint: {fileID: 0}
   emojiSpawner:
     placeToSpawn: {fileID: 0}
     entity: {fileID: 0}
     objectToSpawn: {fileID: 6612976049848337670, guid: a02b00040ca738f4ebe7b9799a31d681,
       type: 3}
   listCompleteOfBoost:
-  - {fileID: 11400000, guid: 4efaa6ecee6ea3948ae7b55ea4f7ace5, type: 2}
+  - {fileID: 11400000, guid: 0c6f4ec95d0bd6245819e8f32ecbb8e7, type: 2}
+  - {fileID: 11400000, guid: 35f64d621fc3f6249b57695f5b96c4f3, type: 2}
+  - {fileID: 11400000, guid: 5f3d2ca7b0834994994747196bd0b8b7, type: 2}
+  - {fileID: 11400000, guid: 2faf3ec3964127443bd3c708eb3c2a7e, type: 2}
+  - {fileID: 11400000, guid: 7424d4b58c79eb041a7858f348adb92f, type: 2}
+  - {fileID: 11400000, guid: 552b7a1c832f2ed44a2a52193becd9e2, type: 2}
+  - {fileID: 11400000, guid: da567f6b6e21a4444ad189e807b76942, type: 2}
+  - {fileID: 11400000, guid: 4a66c9121e4de9345b2b0b3cb9dc3646, type: 2}
+  - {fileID: 11400000, guid: ed9bb0efe28a1c9438c307eca3636892, type: 2}
   listCompleteOfEmoji:
+  - {fileID: 11400000, guid: 97f6843819cad754a993d608850b4d69, type: 2}
+  - {fileID: 11400000, guid: df5255de662bebb47905ec62d118dd4a, type: 2}
   - {fileID: 11400000, guid: e901f099941001948ae436a96b32da3d, type: 2}
-  - {fileID: 11400000, guid: 8288ca333263b14479de30996b37e3ab, type: 2}
+  - {fileID: 11400000, guid: 709f4fe48f6c18b40bd73c44df8c6709, type: 2}
+  - {fileID: 11400000, guid: b85be570402f00f40a1a65e25932bc91, type: 2}
+  - {fileID: 11400000, guid: 413e815e7650179428a28084f124155d, type: 2}
+  - {fileID: 11400000, guid: 4272cda4f8436354492a47c81fe8e4e6, type: 2}
+  - {fileID: 11400000, guid: 25fe0c98df4393c4899f6709478fafd1, type: 2}
+  - {fileID: 11400000, guid: b14db832a6d63ab4f8bd85387ce07616, type: 2}
+  - {fileID: 11400000, guid: ebc02655740146a4c842735bb958d23d, type: 2}
+  - {fileID: 11400000, guid: be049e12fe1d65f499e6926d03b553f1, type: 2}
+  - {fileID: 11400000, guid: 10e5b9809103fa847bc3c3c1f18c2a4a, type: 2}
+  - {fileID: 11400000, guid: 343a0378f8f3e2742bdab09d07819036, type: 2}
+  - {fileID: 11400000, guid: 33bb0695ab951f942979b2031dfed7fe, type: 2}
+  - {fileID: 11400000, guid: f721e3af645cb334d921363cbf6d9c3d, type: 2}
+  - {fileID: 11400000, guid: 464d4515885b4bb4cae2b01ab08a0632, type: 2}
+  - {fileID: 11400000, guid: 4e1b1d48f7b559440925cb38da83f161, type: 2}
+  - {fileID: 11400000, guid: 60a987d9be79c404098cd7e2d2f4ceeb, type: 2}
+  - {fileID: 11400000, guid: 831dda9488da12846989da4f1d590617, type: 2}
+  - {fileID: 11400000, guid: e386f8d0893aa35499484d4d6698cf24, type: 2}
+  - {fileID: 11400000, guid: 3cbcf7e091d56484681b8d051f912fa4, type: 2}
+  - {fileID: 11400000, guid: 90452d853d6459b46b29a966bebced67, type: 2}
+  - {fileID: 11400000, guid: b28a9163796f3034c8d855450fcf86be, type: 2}
+  - {fileID: 11400000, guid: 65484232ba47d9048b5de40110b88dbc, type: 2}
+  - {fileID: 11400000, guid: 661f3af4251795e45bb8329711a952a8, type: 2}
+  - {fileID: 11400000, guid: 72452d5c3a689074882029d72bc09c49, type: 2}
+  - {fileID: 11400000, guid: b1c55f2170ac71c4db3439f578fd19dd, type: 2}
+  - {fileID: 11400000, guid: 5233fc863961f1140885b253aceb68b0, type: 2}
+  - {fileID: 11400000, guid: 6c05d5f384b82f54eb61b9b5eb338121, type: 2}
+  - {fileID: 11400000, guid: a59e62fc7c02bc14886d73ed0bb41f71, type: 2}
+  - {fileID: 11400000, guid: afb1e301bd98f9c418a84cf3f3b5095b, type: 2}
+  - {fileID: 11400000, guid: 31632773ad249dc408466fac720ccabd, type: 2}
+  - {fileID: 11400000, guid: 2a85a8053d5a61247bdabb1dd718f5b2, type: 2}
+  - {fileID: 11400000, guid: 20d44c8fcd197f441be23deee1f89196, type: 2}
+  - {fileID: 11400000, guid: 75a1afa510902a04f9fe7e6d26d27ac3, type: 2}
+  - {fileID: 11400000, guid: 7c9ac63683d271544bdbde1fbb3ce80f, type: 2}
+  listCompleteOfDance:
+  - {fileID: 11400000, guid: 2998738b26edb894d8a0edaa27453f48, type: 2}
+  - {fileID: 11400000, guid: bc1272e246da34d4f9235743599e07c0, type: 2}
+  - {fileID: 11400000, guid: 194d734c205177c4d933f1b866fbcbd0, type: 2}
+  - {fileID: 11400000, guid: 2add8f5120da6f5419dc7fc088356d99, type: 2}
+  - {fileID: 11400000, guid: fa6db840fbcbe3548b3be7578c9b38a6, type: 2}
+  - {fileID: 11400000, guid: 79d9f0819a3ec844f9ee71365ff1813d, type: 2}
+  - {fileID: 11400000, guid: 05d3bed654b29be4ca2afebbb495838e, type: 2}
+  - {fileID: 11400000, guid: 33242c917349b4f4e9c08edf3f26e5f8, type: 2}
+  - {fileID: 11400000, guid: 402dc6aafd8b990499839b717e5dd9e1, type: 2}
+  - {fileID: 11400000, guid: ba51e95a403dd7649baf11ecd5731b2b, type: 2}
+  - {fileID: 11400000, guid: 6315244b6211d944eb1b2b8f796eddee, type: 2}
+  - {fileID: 11400000, guid: b9c97eeb4605f794d830bc60c7664530, type: 2}
+  - {fileID: 11400000, guid: 322bbfcd451dc404b81d3dba7881141e, type: 2}
+  - {fileID: 11400000, guid: cf59d4d2328bbfa4c8c24934170a1a3f, type: 2}
+  - {fileID: 11400000, guid: c81fbddf41bda6241954c7fe62f10edd, type: 2}
+  - {fileID: 11400000, guid: 03f1eeab635c8694b93bbf8fbc81ae09, type: 2}
+  - {fileID: 11400000, guid: c2695bfd50ef23848a5593b1f52284a6, type: 2}
+  - {fileID: 11400000, guid: 09c3c40afba8ef241932bbe01c049c69, type: 2}
+  - {fileID: 11400000, guid: 1f6908d79f49a0c4c8e3c8c7e304a94d, type: 2}
+  - {fileID: 11400000, guid: 8399e0f15beece44c85fe12e92b7eb38, type: 2}
+  - {fileID: 11400000, guid: 7830df902771ec64787011f13c7a946c, type: 2}
+  - {fileID: 11400000, guid: 23e3fc5fae811004c93fa7d55258b2a7, type: 2}
+  - {fileID: 11400000, guid: 2f5ca81fe96a8e545b34b77eb0e62113, type: 2}
+  - {fileID: 11400000, guid: 4dd64feac9119ea4dbff8cb9db25f4ef, type: 2}
+  - {fileID: 11400000, guid: d35e63f3c566f1345a116228dd102d50, type: 2}
+  - {fileID: 11400000, guid: a1af2d476caac1a44b7528c2e4ca4fce, type: 2}
+  - {fileID: 11400000, guid: 4c0f0096f616ab94789d196dae32baca, type: 2}
+  - {fileID: 11400000, guid: 508345886c177054c8e6c7f7ea97ac5e, type: 2}
+  - {fileID: 11400000, guid: 080cc06c52dfc2540a1306118d21c434, type: 2}
   emojiToSpawn: {fileID: 7045690215827679474, guid: c9429b40cf207ad4dbac41190bf50591,
     type: 3}
-  premiumZoneSpawn: {x: 0, y: 0}
-  ticketImage: {fileID: 21300000, guid: 08344df6af628495895d418c53ce126c, type: 3}
-  radioImg: {fileID: 21300000, guid: 39236856a8f6a401f8bddefef9e24729, type: 3}
-  torchImg: {fileID: 21300000, guid: 1b7175db89ad4413891e374b8d49597d, type: 3}
+  premiumZoneSpawn: {fileID: 0}
+  ticketImage: {fileID: 21300000, guid: 55905ca8050c54fbeb946b13184695b3, type: 3}
+  radioImg: {fileID: 21300000, guid: 06ce3347944853447967a397cba2b0ff, type: 3}
+  torchImg: {fileID: 21300000, guid: e28491287b0863c4a8012d31fe61e5ea, type: 3}
   torchInvoke: 100
-  radioInvoke: 60
-  boostInvoke: 1
+  radioInvoke: 100
+  boostInvoke: 2
   unsanityInvoke: 60
   hungryInvoke: 60
   poisoningInvoke: 60
   thirstyInvoke: 60
-  temperatureInvoke: 60
-  prefered: {fileID: 21300000, guid: 156c6c860c11543648721bc9b3d22ad0, type: 3}
-  notPrefered: {fileID: 21300000, guid: 5f3791aa2fa5f468bb767e805b5e4922, type: 3}
-  Instantresurrect: {fileID: 11400000, guid: efcd52c07805b4550930638bb90d380c, type: 2}
+  temperatureInvoke: 8000000
+  prefered: {fileID: 21300000, guid: 30f1e0594d7e94b6fa912dfeb355f0aa, type: 3}
+  notPrefered: {fileID: 21300000, guid: ec3859de72a8c42bcaf1df54a25b2179, type: 3}
+  Instantresurrect: {fileID: 11400000, guid: 0015c944578f41e4cb387d752eec805d, type: 2}
   spawnpointPanelToCreate: {fileID: 1600881697048282700, guid: 794a14a78ac058545a9148ea50e4ae2b,
     type: 3}
-  messageInDescription: You cannot set a spawnpoint when dead or when in dungeon
-    or in premium zone.
+  messageInDescription: You cannot set a spawnpoint when dead or in premium zone.
+  messageInDescriptionIta: Non puoi impostare un punto di rinascita quando morto
+    o quando nella zona premium.
   chestItem: {fileID: 1862907754274882, guid: 0fb8e7923eff39d47a2ae0345cd9c1da, type: 3}
-  uiChestPanel: {fileID: 8577683055255909237, guid: 9d6cc7d73d628cd4a90a088764df2b48,
-    type: 3}
+  uiChestPanel: {fileID: 0}
   spawnAtStart: {fileID: 1199, guid: a26b2b1beb4371b4f879d1dbca8d1ded, type: 3}
   tradingPanelToSpawn: {fileID: 6710798200551898906, guid: e855f9311c59bf24e9514c91b48fffbe,
     type: 3}
   spawnedTradingPanel: {fileID: 0}
   abilityList:
-  - {fileID: 11400000, guid: 808c9ed661edf9e41bf08f9485600888, type: 2}
-  allianceAbility: {fileID: 11400000, guid: 808c9ed661edf9e41bf08f9485600888, type: 2}
-  conservativeAbility: {fileID: 11400000, guid: 808c9ed661edf9e41bf08f9485600888,
+  - {fileID: 11400000, guid: 7de5efbe6b7f99f4cb51d63798e862d1, type: 2}
+  - {fileID: 11400000, guid: fa5c67cbe19987a4b92af56fa42a631b, type: 2}
+  - {fileID: 11400000, guid: 3a2f1d40bdf4d5a4fa3aa31d3c772424, type: 2}
+  - {fileID: 11400000, guid: 581a7e27312007649b9336bb0e7a0434, type: 2}
+  - {fileID: 11400000, guid: e37749d01cae4214cabce6c6be938e8f, type: 2}
+  - {fileID: 11400000, guid: 4648d9165c9a7534cac2535ef53e1707, type: 2}
+  - {fileID: 11400000, guid: 2ce820cb4cca6c84381693972fc0c27b, type: 2}
+  - {fileID: 11400000, guid: f9bd93e5f9ccd704e99f13b8c88cf8ae, type: 2}
+  - {fileID: 11400000, guid: c406e956ee963904db6fcfdfa9955665, type: 2}
+  - {fileID: 11400000, guid: 9e756b1380b51b242850263a7a6d1962, type: 2}
+  - {fileID: 11400000, guid: 5336f2e2f6b515c448e0a178af7b3dc5, type: 2}
+  allianceAbility: {fileID: 11400000, guid: 3a2f1d40bdf4d5a4fa3aa31d3c772424, type: 2}
+  accuracyAbility: {fileID: 11400000, guid: 7de5efbe6b7f99f4cb51d63798e862d1, type: 2}
+  missAbility: {fileID: 11400000, guid: e37749d01cae4214cabce6c6be938e8f, type: 2}
+  rockAbility: {fileID: 11400000, guid: 581a7e27312007649b9336bb0e7a0434, type: 2}
+  treeAbility: {fileID: 11400000, guid: 2ce820cb4cca6c84381693972fc0c27b, type: 2}
+  conservativeAbility: {fileID: 11400000, guid: fa5c67cbe19987a4b92af56fa42a631b,
     type: 2}
-  spawnpointAbility: {fileID: 11400000, guid: 808c9ed661edf9e41bf08f9485600888, type: 2}
-  stealAbility: {fileID: 11400000, guid: 808c9ed661edf9e41bf08f9485600888, type: 2}
-  firedEffectToSpawnAtPlayer: {fileID: 1987394715921876, guid: 55e51ce29f07544b98f55e8da33e201c,
+  spawnpointAbility: {fileID: 11400000, guid: 4648d9165c9a7534cac2535ef53e1707, type: 2}
+  firedEffectToSpawnAtPlayer: {fileID: 100004, guid: 1c20c7996d683754db1f0f62a361952c,
     type: 3}
   firedDamage: 10
   cycleAmountFireToAdd: 3
   firePlayerInvoke: 2
+  electricEffectToSpawnAtPlayer: {fileID: 100000, guid: 77ec3c4e07a36814fb3169ecef41b50a,
+    type: 3}
   electricDamage: 10
   cycleAmountElectricToAdd: 3
   electricPlayerInvoke: 2
-  armor: {fileID: 21300000, guid: 156c6c860c11543648721bc9b3d22ad0, type: 3}
-  health: {fileID: 21300000, guid: 39236856a8f6a401f8bddefef9e24729, type: 3}
-  adrenaline: {fileID: 21300000, guid: 496c3159dd4584e3c8bd5b886097f454, type: 3}
-  damage: {fileID: 21300000, guid: 842edca4295084a5fb84bf99699adcda, type: 3}
-  defense: {fileID: 21300000, guid: 02ea833e3a0b840549de62d868b1932d, type: 3}
-  accuracy: {fileID: 21300000, guid: 5f3791aa2fa5f468bb767e805b5e4922, type: 3}
-  miss: {fileID: 21300000, guid: c89e207b9261246a591f7c0709c6cacd, type: 3}
-  critPerc: {fileID: 21300000, guid: 1d886492699df438f90ebc31f33f1307, type: 3}
-  weight: {fileID: 21300000, guid: 12c88845cc65f4c2f83608de60569403, type: 3}
-  poisoned: {fileID: 21300000, guid: cb7d494e3bd2a4dff83f6ddc3e7ce638, type: 3}
-  hungry: {fileID: 21300000, guid: 8d22fd8d10b8645d7a8d348159aa5e30, type: 3}
-  thirsty: {fileID: 21300000, guid: cfbe8d32bbe794097ada11a240f123b9, type: 3}
-  marriage: {fileID: 21300000, guid: 2bf13d00a7d534ad886959c28fe0fa21, type: 3}
-  activeBoost: {fileID: 21300000, guid: 9bfb0da6051d94d318c09fe6b9c6a2b5, type: 3}
-  defenseBonus: {fileID: 21300000, guid: 1b7175db89ad4413891e374b8d49597d, type: 3}
-  healthBonus: {fileID: 21300000, guid: 08344df6af628495895d418c53ce126c, type: 3}
-  damageBonus: {fileID: 21300000, guid: 590c9ec1f8e2c46599799b103c07a758, type: 3}
-  marriageHealth: 5
-  marriageDefense: 10
-  marriageDamage: 15
+  poisonedEffectToSpawnAtPlayer: {fileID: 100006, guid: 2a474af3f4c27be4e9bdce39cfe4315d,
+    type: 3}
+  spawnEffectWhenAttackBuilding: {fileID: 100004, guid: f95ff734540a0d749be6571b6cb5b37f,
+    type: 3}
+  meleeToBuilding: {fileID: 8300000, guid: 1d0532346c811400282f986150d8de50, type: 3}
+  spawnEffectWhenAttackRock: {fileID: 1040608886635896, guid: a97415c6b57076f41a6621a7b51d63a3,
+    type: 3}
+  meleeToRock: {fileID: 8300000, guid: df5bfc63750af41529ce1ef8dfa394de, type: 3}
+  spawnEffectWhenAttackTree: {fileID: 1040608886635896, guid: 12e5fc46eaa8fd54f9c2ce033384f293,
+    type: 3}
+  meleeToTree: {fileID: 8300000, guid: 56a002e63f2524589a63cef425a64884, type: 3}
+  armor: {fileID: 21300000, guid: 060a4b8247e221e4484ccf02f2a7079c, type: 3}
+  health: {fileID: 21300000, guid: 368676ff2648c484d99e5b2ea263f13a, type: 3}
+  adrenaline: {fileID: 21300000, guid: efa2a3275dbfb724a9bf702c835897c3, type: 3}
+  damage: {fileID: 21300000, guid: 43f6fefffef122f4dbcb24e44b5925a9, type: 3}
+  defense: {fileID: 21300000, guid: 363927f521797e548ad00845f0188214, type: 3}
+  accuracy: {fileID: 21300000, guid: 43e39d69bda268e44af4638bfedf3aad, type: 3}
+  miss: {fileID: 21300000, guid: 7b9860d0c3ca698418b404a47fead6c5, type: 3}
+  critPerc: {fileID: 21300000, guid: e570c0034f421ce42b09e885c1493c8b, type: 3}
+  weight: {fileID: 21300000, guid: 3749f112ff23e98459abec3c6681049d, type: 3}
+  poisoned: {fileID: 21300000, guid: f983d006fa15c7747869d75ed34e721b, type: 3}
+  hungry: {fileID: 21300000, guid: 685ff325abfef8540b36845cb9c28697, type: 3}
+  thirsty: {fileID: 21300000, guid: 3e8826f999318634fbfc815747adde41, type: 3}
+  blood: {fileID: 21300000, guid: 46547616dbc5d6948b3bf125b42852aa, type: 3}
+  marriage: {fileID: 21300000, guid: 35b308244e659f44a8a26fa538b6fce8, type: 3}
+  cover: {fileID: 21300000, guid: 6f001d8a4fa01ae4fafc3ac4853133e1, type: 3}
+  activeBoost: {fileID: 21300000, guid: 4cbf829a2ecf84019bf5045cd4ad110a, type: 3}
+  defenseBonus: {fileID: 21300000, guid: 363927f521797e548ad00845f0188214, type: 3}
+  healthBonus: {fileID: 21300000, guid: 368676ff2648c484d99e5b2ea263f13a, type: 3}
+  manaBonus: {fileID: 21300000, guid: efa2a3275dbfb724a9bf702c835897c3, type: 3}
+  trap: {fileID: 21300000, guid: 5604130c3074dc3419d6f832ea194715, type: 3}
+  ill: {fileID: 21300000, guid: a81b811d419055c43a7ddc04ce938fab, type: 3}
+  lostable: {fileID: 21300000, guid: 70774b76adfb2504897abef2f642a090, type: 3}
+  marriageHealth: 30
+  marriageDefense: 100
+  marriageMana: 30
   activeMarriageBonusPerc: 0.3
   marriageRemovePanel: {fileID: 1694, guid: 493f0dcca96844349bcb219a5df084b0, type: 3}
   alreadyRefresh: 0
@@ -171,7 +509,7 @@ MonoBehaviour:
     uiToSpawn: {fileID: 6475038616784378831, guid: 10c1ec66423c3904eaed29f6ca9cf670,
       type: 3}
   - building: {fileID: 11400000, guid: a05edde3e4032fc46868a0221bb72c40, type: 2}
-    uiToSpawn: {fileID: 8371108985228370418, guid: 039ca5fd3cd68bc44b228c412f8d1bb8,
+    uiToSpawn: {fileID: 8371108985228370418, guid: fb3c01e7b265acb419bbbcf2437b7b4f,
       type: 3}
   - building: {fileID: 11400000, guid: 3167279e4dbfb6047940661d9a0a1311, type: 2}
     uiToSpawn: {fileID: 6475038616784378831, guid: 208209aafc008f54c875d8b71a494dc5,
@@ -191,170 +529,1131 @@ MonoBehaviour:
   - building: {fileID: 11400000, guid: d06b0d292b4bf1e44823e1b6ca630e70, type: 2}
     uiToSpawn: {fileID: 2945250111266371172, guid: 184ecfea6c0ea8849ab909a6e3da83d6,
       type: 3}
-  runMultiplier: 1.5
+  - building: {fileID: 11400000, guid: 76df88dd7d67f95478205026d68f7299, type: 2}
+    uiToSpawn: {fileID: 8371108985228370418, guid: 039ca5fd3cd68bc44b228c412f8d1bb8,
+      type: 3}
+  - building: {fileID: 11400000, guid: 3167279e4dbfb6047940661d9a0a1311, type: 2}
+    uiToSpawn: {fileID: 6475038616784378831, guid: 208209aafc008f54c875d8b71a494dc5,
+      type: 3}
+  - building: {fileID: 11400000, guid: b1c65b9a306084c4a84865122db2dca9, type: 2}
+    uiToSpawn: {fileID: 8181955524529407568, guid: 297f352d0b0a3a9429636cf388046451,
+      type: 3}
+  - building: {fileID: 11400000, guid: 033b147202729bd43ba6e8f88cf3d554, type: 2}
+    uiToSpawn: {fileID: 8181955524529407568, guid: 59aa5237408b1dd4dbcf023556721b5f,
+      type: 3}
+  - building: {fileID: 11400000, guid: 623eadad7ba53b040949f78a71f14d3c, type: 2}
+    uiToSpawn: {fileID: 8181955524529407568, guid: 7a78bc996175cdb4ea686550ad806247,
+      type: 3}
+  - building: {fileID: 11400000, guid: cf75f4d880b165340a54bf330040b97f, type: 2}
+    uiToSpawn: {fileID: 8181955524529407568, guid: 4e21b1c94dbf37942860afd5b41e0296,
+      type: 3}
+  - building: {fileID: 11400000, guid: 7db834cf496f5814f8a3bfa33794bf9e, type: 2}
+    uiToSpawn: {fileID: 8181955524529407568, guid: bc487511b52421b4e9d5924e70837f34,
+      type: 3}
+  - building: {fileID: 11400000, guid: 9e72b6846e1ff1f479404b970c9ec2d2, type: 2}
+    uiToSpawn: {fileID: 8181955524529407568, guid: 89d735971b18655489f208a73b8dfa60,
+      type: 3}
+  - building: {fileID: 11400000, guid: 90945811a71ef974d8f65fb2bc640d56, type: 2}
+    uiToSpawn: {fileID: 8181955524529407568, guid: 136304fa9bb7b964e87466a5b78d77c3,
+      type: 3}
+  - building: {fileID: 11400000, guid: f2709e7af480ec54aa3b5d21c9587255, type: 2}
+    uiToSpawn: {fileID: 2945250111266371172, guid: f5152ea313b300b4082051e8227a34b7,
+      type: 3}
+  - building: {fileID: 11400000, guid: d61a4b5d16ab57844b5f88752555222a, type: 2}
+    uiToSpawn: {fileID: 8371108985228370418, guid: 1fb6f92073c829e49b057d90c53243ce,
+      type: 3}
+  - building: {fileID: 11400000, guid: f4e87161290c0b243888b4de0cb5d9e9, type: 2}
+    uiToSpawn: {fileID: 8371108985228370418, guid: 5feeaffee0ae165439dbd8cb4d43d36c,
+      type: 3}
+  - building: {fileID: 11400000, guid: a3ad4d19b0febbd4196a82f50c3fb776, type: 2}
+    uiToSpawn: {fileID: 6679645557097694155, guid: 8c6179be4d961b143bf3c488565d3354,
+      type: 3}
+  - building: {fileID: 11400000, guid: 21dec76c789263d4ab5220f0123f0db4, type: 2}
+    uiToSpawn: {fileID: 8181955524529407568, guid: ab3dbea85b62798488e743b03118fdc7,
+      type: 3}
+  - building: {fileID: 11400000, guid: e06857313a7c49e458f5b6bc9f19f20b, type: 2}
+    uiToSpawn: {fileID: 8181955524529407568, guid: 29bb6f373c228f04cba10a2c4ad93b31,
+      type: 3}
+  - building: {fileID: 11400000, guid: 58de9f54f3014f84a83767e5175d5eae, type: 2}
+    uiToSpawn: {fileID: 8181955524529407568, guid: 9868ce0c381a4cc46996ec3b6c6c2e02,
+      type: 3}
+  - building: {fileID: 11400000, guid: 72e82596186f2be479f02c4dc13c442f, type: 2}
+    uiToSpawn: {fileID: 8181955524529407568, guid: 5832275de7f73094a8eeb5138d2f4bf8,
+      type: 3}
+  runMultiplier: 1.3
   sneakMultiplier: 0.5
   normalMultiplier: 1
   initialSpeed: 3
   carMultiplier: 2.5
   maxFriends: 20
   maxFriendRequest: 20
-  onlineColor: {r: 0, g: 0, b: 0, a: 0}
-  offlineColor: {r: 0, g: 0, b: 0, a: 0}
+  onlineColor: {r: 0.13725491, g: 0.7921569, b: 0.7921569, a: 1}
+  offlineColor: {r: 0.5176471, g: 0.5176471, b: 0.5176471, a: 1}
   friendMessageInvite: {fileID: 1506, guid: 9dff67262c0e93741934fb8f76410d10, type: 3}
   spawnedUIInvite: {fileID: 0}
   allAnimal:
+  - {fileID: 11400000, guid: 1c9b72ae62bcebc4c9d7c8ee7f6b4faf, type: 2}
+  - {fileID: 11400000, guid: 3e50e883a9a0b15438bab4ab99bc4152, type: 2}
   - {fileID: 11400000, guid: b870c1248c069104cbece07fe285f19d, type: 2}
   - {fileID: 11400000, guid: 086dff9857136c344b26e3f3580eaa19, type: 2}
+  - {fileID: 11400000, guid: 03326fa0217137841970e012b4652465, type: 2}
+  - {fileID: 11400000, guid: d60b4ac1a3c8a514ca0be9e87b321e61, type: 2}
+  - {fileID: 11400000, guid: 7c40e15661465a94db5f9a5d010aeb26, type: 2}
+  - {fileID: 11400000, guid: a8afdadc87ea40f4cbc76af652065e16, type: 2}
   - {fileID: 11400000, guid: 1109bc9dad0f50248b45b9ecb02686b7, type: 2}
   - {fileID: 11400000, guid: cad366b77f919194e9048b92b7ce3dcf, type: 2}
   issueSuggestion: {fileID: 6841937431231828959, guid: c20a1c9ec86397544ad9120a4613d350,
     type: 3}
   maxBlood: 150
-  decreaseBloodTimer: 5
+  decreaseBloodTimer: 30
   itemMallPanel: {fileID: 2313618620676622502, guid: 991fd6d5229397240b377cd4bfcaa7cd,
     type: 3}
   uiItemMallPanel: {fileID: 0}
-  selectedItemMallPanel: {fileID: 6841937431231828959, guid: 446c2c22f72af544c8de8fa3385709a5,
+  selectedItemMallMultiple: {fileID: 6841937431231828959, guid: 0ac42915199e48044b8bb1d6957f2ae3,
     type: 3}
   ListRewards:
   - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
-    coins: 0
-  - name: 
-    reward: []
-    gold: 0
+    reward:
+    - item: {fileID: 11400000, guid: 3e7366fede84c264287ed5225cf1d685, type: 2}
+      amount: 10
+    - item: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
+      amount: 20
+    - item: {fileID: 11400000, guid: 8a99f6bae4728a843a438359f8431bf7, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: feaf28cfdb8e13a489463f608844e021, type: 2}
+      amount: 1
+    gold: 100
     coins: 0
   - name: 
     reward:
-    - item: {fileID: 11400000, guid: 7c79c11de18f2441c88df3e38606ccda, type: 2}
-      amount: 5
+    - item: {fileID: 11400000, guid: 2e7631938493a4e42bef8e3cff98d6a8, type: 2}
+      amount: 10
+    gold: 200
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
+      amount: 20
     - item: {fileID: 0}
       amount: 10
+    gold: 300
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 7608632c8863e8e40bc4d5696a4a7545, type: 2}
+      amount: 10
+    - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+      amount: 20
+    gold: 400
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+      amount: 50
+    - item: {fileID: 11400000, guid: 903e88d520ffcdb4fa398a43adc7b365, type: 2}
+      amount: 10
+    gold: 500
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 3d5552f47f26ced46bc2a6854a400325, type: 2}
+      amount: 10
+    - item: {fileID: 11400000, guid: 2fff968df4ee7434ea0d044e17ce55b8, type: 2}
+      amount: 3
+    - item: {fileID: 11400000, guid: da394f7a83ea0c945976cc6516bbcc9a, type: 2}
+      amount: 1
+    gold: 600
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 2e41ca204bc1e3841a24a3237653fe49, type: 2}
+      amount: 20
+    - item: {fileID: 11400000, guid: 543083ca59f8a2343b2eb70a147a4606, type: 2}
+      amount: 20
+    - item: {fileID: 11400000, guid: 9c2f03bff1a81b947844dac1db849728, type: 2}
+      amount: 1
+    gold: 700
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 8c3bd80b7ac42b4429174caff2e70af7, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: de61c4932cb285c47842898660f6ae80, type: 2}
+      amount: 3
+    - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+      amount: 20
+    gold: 800
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 0}
+      amount: 30
+    - item: {fileID: 11400000, guid: f8347f26b8d3fa0428c79dc64bb33036, type: 2}
+      amount: 3
+    - item: {fileID: 11400000, guid: 5aab02aef1960c64b81250e840eb469f, type: 2}
+      amount: 15
+    gold: 900
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 1c9b72ae62bcebc4c9d7c8ee7f6b4faf, type: 2}
+      amount: 2
+    - item: {fileID: 11400000, guid: 3e50e883a9a0b15438bab4ab99bc4152, type: 2}
+      amount: 2
+    - item: {fileID: 11400000, guid: 65dd6280a60983c41ad5ac69c66758f7, type: 2}
+      amount: 1
     gold: 1000
-    coins: 13
-  - name: 
-    reward: []
-    gold: 0
     coins: 0
   - name: 
-    reward: []
-    gold: 0
+    reward:
+    - item: {fileID: 11400000, guid: 28d49c86d4fe9f94694a39d61c790ee4, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: 85d49730d0ecca543b295d61ab82a43a, type: 2}
+      amount: 1
+    - item: {fileID: 0}
+      amount: 5
+    gold: 1500
+    coins: 40
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: bc49353be09613f4b81db32c81a1e52f, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: 754e3a1340a1fe94793a05ff1ab91dfb, type: 2}
+      amount: 2
+    - item: {fileID: 11400000, guid: e1f2697213047e544a345f54bf32de85, type: 2}
+      amount: 1
+    gold: 1600
     coins: 0
   - name: 
-    reward: []
-    gold: 0
+    reward:
+    - item: {fileID: 11400000, guid: 4dc493627ec434f5dadf44c28f65c795, type: 2}
+      amount: 200
+    - item: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+      amount: 100
+    - item: {fileID: 11400000, guid: 3e7366fede84c264287ed5225cf1d685, type: 2}
+      amount: 25
+    gold: 1700
     coins: 0
   - name: 
-    reward: []
-    gold: 0
+    reward:
+    - item: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
+      amount: 25
+    - item: {fileID: 11400000, guid: c54cd9872bd6b6a448d5bb97e6d58742, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: f52dce53c5bf6bf4091d6e2af8d4f116, type: 2}
+      amount: 500
+    gold: 1800
     coins: 0
   - name: 
-    reward: []
-    gold: 0
+    reward:
+    - item: {fileID: 11400000, guid: 63c71c98473d5fd499a636fe13a2066d, type: 2}
+      amount: 5
+    - item: {fileID: 11400000, guid: e07c54e09b328be4a883a063086b5433, type: 2}
+      amount: 5
+    - item: {fileID: 11400000, guid: c4b6a69bff68a3f40b18d2f5e2f45df1, type: 2}
+      amount: 10
+    gold: 1900
     coins: 0
   - name: 
-    reward: []
-    gold: 0
+    reward:
+    - item: {fileID: 11400000, guid: 79c806e5ebba36949a484a3eb89a3b11, type: 2}
+      amount: 3
+    - item: {fileID: 11400000, guid: 9f63338546056f04ebb4655a33bef28d, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: 65dd6280a60983c41ad5ac69c66758f7, type: 2}
+      amount: 1
+    gold: 2000
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: b870c1248c069104cbece07fe285f19d, type: 2}
+      amount: 2
+    - item: {fileID: 11400000, guid: 086dff9857136c344b26e3f3580eaa19, type: 2}
+      amount: 2
+    - item: {fileID: 11400000, guid: 0e024ae33510ae44a8a019fe7b9399ba, type: 2}
+      amount: 10
+    - item: {fileID: 11400000, guid: c92b0c2ca7156d94f901986d852694d0, type: 2}
+      amount: 10
+    gold: 2100
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: c2a2044f5b5545140bb25631d75154bc, type: 2}
+      amount: 1
+    - item: {fileID: 0}
+      amount: 20
+    - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+      amount: 30
+    gold: 2200
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+      amount: 20
+    - item: {fileID: 11400000, guid: 3e7366fede84c264287ed5225cf1d685, type: 2}
+      amount: 50
+    - item: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
+      amount: 50
+    gold: 2300
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: c54cd9872bd6b6a448d5bb97e6d58742, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: f52dce53c5bf6bf4091d6e2af8d4f116, type: 2}
+      amount: 500
+    - item: {fileID: 11400000, guid: 754e3a1340a1fe94793a05ff1ab91dfb, type: 2}
+      amount: 5
+    gold: 2400
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 704b1dc34f9397849a5019545968b3ee, type: 2}
+      amount: 3
+    - item: {fileID: 11400000, guid: e7e37b9c86be4d24bbf13afeca11c317, type: 2}
+      amount: 10
+    - item: {fileID: 11400000, guid: 5ce934c2b3bd0774f801fd1564a08c82, type: 2}
+      amount: 1
+    gold: 2500
+    coins: 70
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 65dd6280a60983c41ad5ac69c66758f7, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: d60b4ac1a3c8a514ca0be9e87b321e61, type: 2}
+      amount: 3
+    - item: {fileID: 11400000, guid: 03326fa0217137841970e012b4652465, type: 2}
+      amount: 3
+    gold: 2600
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 3e7366fede84c264287ed5225cf1d685, type: 2}
+      amount: 30
+    - item: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
+      amount: 30
+    - item: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+      amount: 30
+    gold: 2700
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+      amount: 20
+    - item: {fileID: 11400000, guid: e1f2697213047e544a345f54bf32de85, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: 4dc493627ec434f5dadf44c28f65c795, type: 2}
+      amount: 500
+    gold: 2800
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 0673a99a171f7418e918fed69b37622c, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: 7c79c11de18f2441c88df3e38606ccda, type: 2}
+      amount: 3
+    gold: 2900
+    coins: 30
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+      amount: 20
+    - item: {fileID: 11400000, guid: 65dd6280a60983c41ad5ac69c66758f7, type: 2}
+      amount: 2
+    gold: 3000
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+      amount: 30
+    - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+      amount: 30
+    - item: {fileID: 11400000, guid: 42dfe7120da28f344aaa5fd6510e1590, type: 2}
+      amount: 5
+    - item: {fileID: 11400000, guid: fc13c98affc570a4ea6dcfdcbc205f79, type: 2}
+      amount: 10
+    - item: {fileID: 11400000, guid: 5aab02aef1960c64b81250e840eb469f, type: 2}
+      amount: 5
+    gold: 3100
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 3e7366fede84c264287ed5225cf1d685, type: 2}
+      amount: 20
+    - item: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
+      amount: 20
+    - item: {fileID: 11400000, guid: f52dce53c5bf6bf4091d6e2af8d4f116, type: 2}
+      amount: 150
+    - item: {fileID: 11400000, guid: 4dc493627ec434f5dadf44c28f65c795, type: 2}
+      amount: 200
+    gold: 3200
+    coins: 100
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 0c1b67ae8bcd90f45aba0cf146b3771e, type: 2}
+      amount: 1
+    - item: {fileID: 11400000, guid: 903e88d520ffcdb4fa398a43adc7b365, type: 2}
+      amount: 5
+    - item: {fileID: 11400000, guid: f9cf2a452f1f3c3438d3660a8b847ed2, type: 2}
+      amount: 5
+    gold: 3300
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 3e7366fede84c264287ed5225cf1d685, type: 2}
+      amount: 20
+    - item: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
+      amount: 20
+    - item: {fileID: 0}
+      amount: 20
+    gold: 3400
+    coins: 0
+  - name: 
+    reward:
+    - item: {fileID: 11400000, guid: 680052c68dfdbe341aa0495b899438c3, type: 2}
+      amount: 5
+    - item: {fileID: 11400000, guid: 5d487e06317c87b4d98f0f979082cb29, type: 2}
+      amount: 10
+    - item: {fileID: 11400000, guid: 4b983c878ec11b748bf6d50691e46afd, type: 2}
+      amount: 15
+    gold: 3500
     coins: 0
   buildingItems:
-  - specificBuilding: {fileID: 11400000, guid: 9dbb9e7e27e64934598651b32277caa1, type: 2}
+  - specificBuilding: {fileID: 11400000, guid: bd94a405a98103a4486f682e87db85a1, type: 2}
     buildingItem:
     - itemToCraft:
-        item: {fileID: 11400000, guid: 8c3bd80b7ac42b4429174caff2e70af7, type: 2}
-        amount: 5
-      buildingLevel: 1
-      craftablengredient:
-      - item: {fileID: 11400000, guid: b870c1248c069104cbece07fe285f19d, type: 2}
+        item: {fileID: 11400000, guid: f2895a8e5a714b2428c181449eda82b9, type: 2}
         amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 588f0918547c33f4ea1e358f5245480b, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: e041f1fb1c82ff642b2bc6ce70308b3a, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: a64b0ed5f5ff01a4d834baa2d6128b99, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: fefe4e98cd8c76c478217b4efe284fca, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 7db834cf496f5814f8a3bfa33794bf9e, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 76df88dd7d67f95478205026d68f7299, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 033b147202729bd43ba6e8f88cf3d554, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: b1c65b9a306084c4a84865122db2dca9, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: c7c1352a3c07fcb468df368474f37f15, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: a05edde3e4032fc46868a0221bb72c40, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: cf75f4d880b165340a54bf330040b97f, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 95f2cd2b8ba3c28448560f545f711982, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: f57e99231d1ebb34aac9f5cdd8a47093, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 8b94bd72549b74740b50830ea04e0b86, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 02d6901c41f2e4542b90e1d18751f830, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: d06b0d292b4bf1e44823e1b6ca630e70, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 206ec73c3adaec6418c7b88ba3218ecc, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 64b0330718b20574facbdf900ec6f2aa, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+    - itemToCraft:
+        item: {fileID: 11400000, guid: a069219aa6ab8274182d647dbcd56e6c, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient: []
+  - specificBuilding: {fileID: 11400000, guid: 72e82596186f2be479f02c4dc13c442f, type: 2}
+    buildingItem:
+    - itemToCraft:
+        item: {fileID: 11400000, guid: a3e0623b17ee3ee459bd6d89c7bb0cc0, type: 2}
+        amount: 5
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 2498001e2ebef4347893407b138512f9, type: 2}
+        amount: 20
+      - item: {fileID: 11400000, guid: 4bf904a75ee42474e8278d92dfbcc773, type: 2}
+        amount: 10
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 15
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+        amount: 30
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 50f41840caf74114d90312b8e7c0f5f4, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 10
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 38a14a8ab7319b641b54b45eee23a618, type: 2}
+        amount: 25
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: a3e0623b17ee3ee459bd6d89c7bb0cc0, type: 2}
+        amount: 25
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 4
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 4085b7780ee9da94f80e3d42ba71585b, type: 2}
+        amount: 25
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: a3e0623b17ee3ee459bd6d89c7bb0cc0, type: 2}
+        amount: 25
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 8
+    - itemToCraft:
+        item: {fileID: 11400000, guid: b757f164b0fd04d4fa0a94db9fb44074, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 5
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 1
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 59a9241f5dc3a0343a1a9101b59a135c, type: 2}
+        amount: 25
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: a3e0623b17ee3ee459bd6d89c7bb0cc0, type: 2}
+        amount: 25
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 4
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 5f994378507006747bf3b622f4902113, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 25
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 8
+    - itemToCraft:
+        item: {fileID: 11400000, guid: e1f2697213047e544a345f54bf32de85, type: 2}
+        amount: 25
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 3
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 10
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 4dc493627ec434f5dadf44c28f65c795, type: 2}
+        amount: 15
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 3
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 10
+    - itemToCraft:
+        item: {fileID: 11400000, guid: e359f64305d0a6c409b47ba7af8a8c6e, type: 2}
+        amount: 15
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 3
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 10
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 7
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 3f34e79397c01fb4882747791b8d17d4, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 7
+      - item: {fileID: 11400000, guid: 65dd6280a60983c41ad5ac69c66758f7, type: 2}
+        amount: 3
+    - itemToCraft:
+        item: {fileID: 11400000, guid: c54cd9872bd6b6a448d5bb97e6d58742, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 9
+    - itemToCraft:
+        item: {fileID: 11400000, guid: f52dce53c5bf6bf4091d6e2af8d4f116, type: 2}
+        amount: 25
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: a3e0623b17ee3ee459bd6d89c7bb0cc0, type: 2}
+        amount: 25
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 4
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 2daac3a435caeda498fe5b5ac33b6216, type: 2}
+        amount: 25
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: a3e0623b17ee3ee459bd6d89c7bb0cc0, type: 2}
+        amount: 25
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 8
+    - itemToCraft:
+        item: {fileID: 11400000, guid: c2a2044f5b5545140bb25631d75154bc, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 5
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 10
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 9328529b382555948aecac369ba5d088, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 5
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 10
+      - item: {fileID: 11400000, guid: 65dd6280a60983c41ad5ac69c66758f7, type: 2}
+        amount: 3
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 308c3cc4893611f428ab2524f094ddf7, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 2
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 10
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 35747bb83489f6c4e873e9fda9e93fb6, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 2
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 10
+      - item: {fileID: 11400000, guid: 65dd6280a60983c41ad5ac69c66758f7, type: 2}
+        amount: 3
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 8a99f6bae4728a843a438359f8431bf7, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 1
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 5
+    - itemToCraft:
+        item: {fileID: 11400000, guid: aecf9cac22842ef4e8b5907ccb1dd868, type: 2}
+        amount: 25
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 1
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 5
+      - item: {fileID: 11400000, guid: 65dd6280a60983c41ad5ac69c66758f7, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 308c3cc4893611f428ab2524f094ddf7, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 1
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 5
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 35747bb83489f6c4e873e9fda9e93fb6, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 25
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 5
+      - item: {fileID: 11400000, guid: 65dd6280a60983c41ad5ac69c66758f7, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 934173f809c4b8d479c4dbba90a3be54, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 1
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 5
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 1103f40c4196951489595505d72fa211, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 1
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 5
+      - item: {fileID: 11400000, guid: 65dd6280a60983c41ad5ac69c66758f7, type: 2}
+        amount: 1
+    - itemToCraft:
+        item: {fileID: 11400000, guid: a95edaf94ec11384aab4992b5cdef71a, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 10
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 10
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 093b31d77530114489a1741d8a14547f, type: 2}
+        amount: 25
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: a3e0623b17ee3ee459bd6d89c7bb0cc0, type: 2}
+        amount: 25
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 4
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 6becda004f9faab468075950ba330bc2, type: 2}
+        amount: 25
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: a3e0623b17ee3ee459bd6d89c7bb0cc0, type: 2}
+        amount: 25
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 4
+    - itemToCraft:
+        item: {fileID: 11400000, guid: ed22a9b175d0440488076779766aa66c, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 10
+      - item: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+        amount: 5
+      - item: {fileID: 11400000, guid: 65dd6280a60983c41ad5ac69c66758f7, type: 2}
+        amount: 1
+    - itemToCraft:
+        item: {fileID: 11400000, guid: f851488314b8a344cac3463bd4ddfe17, type: 2}
+        amount: 25
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: a3e0623b17ee3ee459bd6d89c7bb0cc0, type: 2}
+        amount: 25
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 4
+    - itemToCraft:
+        item: {fileID: 11400000, guid: f93e4a810c755e84987d30607519d3b2, type: 2}
+        amount: 25
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: a3e0623b17ee3ee459bd6d89c7bb0cc0, type: 2}
+        amount: 25
+      - item: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+        amount: 8
+  - specificBuilding: {fileID: 11400000, guid: 58de9f54f3014f84a83767e5175d5eae, type: 2}
+    buildingItem:
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 2e7631938493a4e42bef8e3cff98d6a8, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 0d42018ba167b8546bd68d33d70daef8, type: 2}
+        amount: 4
+      - item: {fileID: 11400000, guid: 766f2e5f4f19a3e4e88626eb62b6bd9a, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: f8347f26b8d3fa0428c79dc64bb33036, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 0d42018ba167b8546bd68d33d70daef8, type: 2}
+        amount: 4
+      - item: {fileID: 11400000, guid: 766f2e5f4f19a3e4e88626eb62b6bd9a, type: 2}
+        amount: 2
+      - item: {fileID: 11400000, guid: 4eaf4706ba5046c47b00553341f5e6d3, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 754e3a1340a1fe94793a05ff1ab91dfb, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 0d42018ba167b8546bd68d33d70daef8, type: 2}
+        amount: 6
+      - item: {fileID: 11400000, guid: 766f2e5f4f19a3e4e88626eb62b6bd9a, type: 2}
+        amount: 3
+      - item: {fileID: 11400000, guid: 4eaf4706ba5046c47b00553341f5e6d3, type: 2}
+        amount: 3
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 6679f06de3df40f4997e184f73a9bb5b, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 0d42018ba167b8546bd68d33d70daef8, type: 2}
+        amount: 6
+      - item: {fileID: 11400000, guid: 766f2e5f4f19a3e4e88626eb62b6bd9a, type: 2}
+        amount: 5
+      - item: {fileID: 11400000, guid: 571abdc20e698954089298030855ce4f, type: 2}
+        amount: 3
+      - item: {fileID: 11400000, guid: 3ef159f49792d5f48b2333f13be1ff78, type: 2}
+        amount: 4
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 7608632c8863e8e40bc4d5696a4a7545, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 571abdc20e698954089298030855ce4f, type: 2}
+        amount: 4
+      - item: {fileID: 11400000, guid: 3ef159f49792d5f48b2333f13be1ff78, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 5433d872d28560a488f1f5e92e84a974, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 571abdc20e698954089298030855ce4f, type: 2}
+        amount: 4
+      - item: {fileID: 11400000, guid: 3ef159f49792d5f48b2333f13be1ff78, type: 2}
+        amount: 2
+      - item: {fileID: 11400000, guid: 59dc908f932bee34faefa0eb0d4b99d8, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 704b1dc34f9397849a5019545968b3ee, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 571abdc20e698954089298030855ce4f, type: 2}
+        amount: 6
+      - item: {fileID: 11400000, guid: 3ef159f49792d5f48b2333f13be1ff78, type: 2}
+        amount: 3
+      - item: {fileID: 11400000, guid: 59dc908f932bee34faefa0eb0d4b99d8, type: 2}
+        amount: 3
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 5144ce8fe4ec07a42b17b895fecceae8, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 766f2e5f4f19a3e4e88626eb62b6bd9a, type: 2}
+        amount: 5
+      - item: {fileID: 11400000, guid: 768e7a3893f8ed14aa175954c40fc793, type: 2}
+        amount: 5
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 0f8a814d35a4a4042a6ee5f28574fb8c, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 0d42018ba167b8546bd68d33d70daef8, type: 2}
+        amount: 5
+      - item: {fileID: 11400000, guid: 59dc908f932bee34faefa0eb0d4b99d8, type: 2}
+        amount: 5
+  - specificBuilding: {fileID: 11400000, guid: e06857313a7c49e458f5b6bc9f19f20b, type: 2}
+    buildingItem:
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 4f3bd4ce6de388041a1b03846e8098ae, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 903e88d520ffcdb4fa398a43adc7b365, type: 2}
+        amount: 5
+      - item: {fileID: 11400000, guid: 673957762ddaa244493e48fb1fb098df, type: 2}
+        amount: 3
+    - itemToCraft:
+        item: {fileID: 11400000, guid: d00abba57fd2e434b8c17c171e952653, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 903e88d520ffcdb4fa398a43adc7b365, type: 2}
+        amount: 3
+      - item: {fileID: 11400000, guid: 2fff968df4ee7434ea0d044e17ce55b8, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 2f7e3a7d5bfc0954ebca176ba26bbb9f, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 903e88d520ffcdb4fa398a43adc7b365, type: 2}
+        amount: 2
+      - item: {fileID: 11400000, guid: 3d5552f47f26ced46bc2a6854a400325, type: 2}
+        amount: 1
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 56e7e64774424b24ba8d21524ee1bad2, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: e7e37b9c86be4d24bbf13afeca11c317, type: 2}
+        amount: 5
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 9b710826e28955d4ba8af0f883ae8fae, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: e7e37b9c86be4d24bbf13afeca11c317, type: 2}
+        amount: 3
+      - item: {fileID: 11400000, guid: e07c54e09b328be4a883a063086b5433, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: d92d95b8f40223b4587b241354bff7cc, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 3d5552f47f26ced46bc2a6854a400325, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: c434be4f63daf7a49bb3975c56fac2a0, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: c4b6a69bff68a3f40b18d2f5e2f45df1, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: a63d1ae7ae6fb15489c1d7194ca410f5, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 5ce934c2b3bd0774f801fd1564a08c82, type: 2}
+        amount: 1
+    - itemToCraft:
+        item: {fileID: 11400000, guid: fb787801a914e85419c82a4fe7924cc4, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 2fff968df4ee7434ea0d044e17ce55b8, type: 2}
+        amount: 1
+    - itemToCraft:
+        item: {fileID: 11400000, guid: b7acd268bb8ce924788382ffdba281b3, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: e92ac5035ec6d2844afbad74a17e91b1, type: 2}
+        amount: 3
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 2a46f3366c2b88349899546982b00795, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: e92ac5035ec6d2844afbad74a17e91b1, type: 2}
+        amount: 5
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 0de9d8db394745f4fbe2209084694baf, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 4b983c878ec11b748bf6d50691e46afd, type: 2}
+        amount: 3
+      - item: {fileID: 11400000, guid: 5aab02aef1960c64b81250e840eb469f, type: 2}
+        amount: 2
+      - item: {fileID: 11400000, guid: 63c71c98473d5fd499a636fe13a2066d, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: a60f9259e68ce7b45999aab79c291423, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: f9cf2a452f1f3c3438d3660a8b847ed2, type: 2}
+        amount: 2
+      - item: {fileID: 11400000, guid: 3d5552f47f26ced46bc2a6854a400325, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: de61c4932cb285c47842898660f6ae80, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 2e41ca204bc1e3841a24a3237653fe49, type: 2}
+        amount: 3
+    - itemToCraft:
+        item: {fileID: 11400000, guid: def1b617f5036e342a6d5f67ebc7a2dc, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 61be15440067f5f4b8c2801aeedb93b3, type: 2}
+        amount: 3
+      - item: {fileID: 11400000, guid: 3d5552f47f26ced46bc2a6854a400325, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: e81c479cc49a99049b35e0f70adf33df, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: ef24ba3bc5907bf4b85d383072e5551a, type: 2}
+        amount: 4
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 0f02da2d5eb526945b0b5dffaed4619c, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 79c806e5ebba36949a484a3eb89a3b11, type: 2}
+        amount: 2
+      - item: {fileID: 11400000, guid: e7e37b9c86be4d24bbf13afeca11c317, type: 2}
+        amount: 3
+      - item: {fileID: 11400000, guid: e07c54e09b328be4a883a063086b5433, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: a0c07aff5cf68d24897e77c93cbb327e, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: f9cf2a452f1f3c3438d3660a8b847ed2, type: 2}
+        amount: 3
+      - item: {fileID: 11400000, guid: 673957762ddaa244493e48fb1fb098df, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 9207ad96caa97884085f59f08d1df658, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: f9cf2a452f1f3c3438d3660a8b847ed2, type: 2}
+        amount: 2
+      - item: {fileID: 11400000, guid: e7e37b9c86be4d24bbf13afeca11c317, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: ecf357e8794f8ad43a025ce458298872, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 5c5a33040ec665042ab03310ee814547, type: 2}
+        amount: 4
+      - item: {fileID: 11400000, guid: e92ac5035ec6d2844afbad74a17e91b1, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 51114c9d71f0682449ae7ec22cca2edc, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: e07c54e09b328be4a883a063086b5433, type: 2}
+        amount: 2
+      - item: {fileID: 11400000, guid: 903e88d520ffcdb4fa398a43adc7b365, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: 828febf5930658b4f9026591e0e17367, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 4b983c878ec11b748bf6d50691e46afd, type: 2}
+        amount: 4
+    - itemToCraft:
+        item: {fileID: 11400000, guid: b7df76206941a374f90b0a14cfc54cf3, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: e92ac5035ec6d2844afbad74a17e91b1, type: 2}
+        amount: 1
+      - item: {fileID: 11400000, guid: 63c71c98473d5fd499a636fe13a2066d, type: 2}
+        amount: 2
+      - item: {fileID: 11400000, guid: 2e41ca204bc1e3841a24a3237653fe49, type: 2}
+        amount: 1
+      - item: {fileID: 11400000, guid: 903e88d520ffcdb4fa398a43adc7b365, type: 2}
+        amount: 1
+    - itemToCraft:
+        item: {fileID: 11400000, guid: e0090a88ac3e4d148874228a043671a8, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: e07c54e09b328be4a883a063086b5433, type: 2}
+        amount: 2
+      - item: {fileID: 11400000, guid: 673957762ddaa244493e48fb1fb098df, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: be2cdda8414ed9d4ba010e6c372ef604, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: e07c54e09b328be4a883a063086b5433, type: 2}
+        amount: 1
+      - item: {fileID: 11400000, guid: e7e37b9c86be4d24bbf13afeca11c317, type: 2}
+        amount: 2
+    - itemToCraft:
+        item: {fileID: 11400000, guid: fa171314f85b62444b6b82e43614da19, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: e92ac5035ec6d2844afbad74a17e91b1, type: 2}
+        amount: 2
+      - item: {fileID: 11400000, guid: e07c54e09b328be4a883a063086b5433, type: 2}
+        amount: 1
+  - specificBuilding: {fileID: 11400000, guid: 21dec76c789263d4ab5220f0123f0db4, type: 2}
+    buildingItem:
+    - itemToCraft:
+        item: {fileID: 11400000, guid: aafcdb694ec382244b0542f66971c49f, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 903e88d520ffcdb4fa398a43adc7b365, type: 2}
+        amount: 5
+      - item: {fileID: 11400000, guid: 673957762ddaa244493e48fb1fb098df, type: 2}
+        amount: 3
+    - itemToCraft:
+        item: {fileID: 11400000, guid: eca89b427c4ebbc44b67506502cb168e, type: 2}
+        amount: 1
+      buildingLevel: 0
+      craftablengredient:
+      - item: {fileID: 11400000, guid: 3e7366fede84c264287ed5225cf1d685, type: 2}
+        amount: 3
   alreadyCraftPanel: {fileID: 5905771984717760873, guid: bb2d832021083bf41998751ec9306995,
     type: 3}
   carPanelToSpawn: {fileID: 6841937431231828959, guid: 7a522303e0acbf5479f915ff1c9ff029,
@@ -372,55 +1671,115 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 38cf787e5075f420a94548551ce92f7f, type: 2}
     - {fileID: 11400000, guid: efcd52c07805b4550930638bb90d380c, type: 2}
     - {fileID: 11400000, guid: ff3a0b3446ea94daaad3be97b3a3d15e, type: 2}
-  plants: []
+  plants:
+  - resource: {fileID: 0}
+    allowedWeapons:
+    - {fileID: 11400000, guid: 7d021443f7d35d2418ec93bf3676ef3d, type: 2}
+    normalRewards: {fileID: 11400000, guid: a64b0ed5f5ff01a4d834baa2d6128b99, type: 2}
+    specialRewards: {fileID: 11400000, guid: efcd52c07805b4550930638bb90d380c, type: 2}
+    superSpecialRewards: {fileID: 11400000, guid: 38cf787e5075f420a94548551ce92f7f,
+      type: 2}
   rocks:
   - resource: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
     allowedWeapons:
-    - {fileID: 11400000, guid: 7d021443f7d35d2418ec93bf3676ef3d, type: 2}
-    normalRewards: {fileID: 11400000, guid: efcd52c07805b4550930638bb90d380c, type: 2}
-    specialRewards: {fileID: 11400000, guid: 38cf787e5075f420a94548551ce92f7f, type: 2}
-    superSpecialRewards: {fileID: 11400000, guid: 26b404de2c160499bab1fcda06a555f4,
-      type: 2}
+    - {fileID: 11400000, guid: 934173f809c4b8d479c4dbba90a3be54, type: 2}
+    - {fileID: 11400000, guid: 1103f40c4196951489595505d72fa211, type: 2}
+    normalRewards: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+    specialRewards: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+    superSpecialRewards: {fileID: 0}
+  - resource: {fileID: 11400000, guid: 771e08f14098e744aa962eee0243f886, type: 2}
+    allowedWeapons:
+    - {fileID: 11400000, guid: 934173f809c4b8d479c4dbba90a3be54, type: 2}
+    - {fileID: 11400000, guid: 1103f40c4196951489595505d72fa211, type: 2}
+    normalRewards: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+    specialRewards: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+    superSpecialRewards: {fileID: 0}
+  - resource: {fileID: 11400000, guid: 4ccbc11f3e8f4034c8572867518af866, type: 2}
+    allowedWeapons:
+    - {fileID: 11400000, guid: 934173f809c4b8d479c4dbba90a3be54, type: 2}
+    - {fileID: 11400000, guid: 1103f40c4196951489595505d72fa211, type: 2}
+    normalRewards: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+    specialRewards: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+    superSpecialRewards: {fileID: 0}
+  - resource: {fileID: 11400000, guid: 6b21b292034b5e045a42ce1364a76dc1, type: 2}
+    allowedWeapons:
+    - {fileID: 11400000, guid: 934173f809c4b8d479c4dbba90a3be54, type: 2}
+    - {fileID: 11400000, guid: 1103f40c4196951489595505d72fa211, type: 2}
+    normalRewards: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+    specialRewards: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+    superSpecialRewards: {fileID: 0}
   damageToResource: 10
   trees:
   - resource: {fileID: 11400000, guid: 86fdf51535ad9284caa7dd04de2a86fc, type: 2}
     allowedWeapons:
-    - {fileID: 0}
-    normalRewards: {fileID: 11400000, guid: 0673a99a171f7418e918fed69b37622c, type: 2}
-    specialRewards: {fileID: 11400000, guid: efcd52c07805b4550930638bb90d380c, type: 2}
-    superSpecialRewards: {fileID: 11400000, guid: 38cf787e5075f420a94548551ce92f7f,
+    - {fileID: 11400000, guid: 308c3cc4893611f428ab2524f094ddf7, type: 2}
+    - {fileID: 11400000, guid: 35747bb83489f6c4e873e9fda9e93fb6, type: 2}
+    - {fileID: 11400000, guid: 8a99f6bae4728a843a438359f8431bf7, type: 2}
+    - {fileID: 11400000, guid: aecf9cac22842ef4e8b5907ccb1dd868, type: 2}
+    - {fileID: 11400000, guid: 7a3fef1d8be5846408fa09e71e4ec299, type: 2}
+    - {fileID: 11400000, guid: bc49353be09613f4b81db32c81a1e52f, type: 2}
+    normalRewards: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+    specialRewards: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+    superSpecialRewards: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa,
       type: 2}
-  playerItems:
-  - resource: {fileID: 0}
+  - resource: {fileID: 11400000, guid: ba208ffd063439144831af2fb217908e, type: 2}
     allowedWeapons:
-    - {fileID: 11400000, guid: 7d021443f7d35d2418ec93bf3676ef3d, type: 2}
-    normalRewards: {fileID: 0}
-    specialRewards: {fileID: 0}
-    superSpecialRewards: {fileID: 0}
+    - {fileID: 11400000, guid: 308c3cc4893611f428ab2524f094ddf7, type: 2}
+    - {fileID: 11400000, guid: 35747bb83489f6c4e873e9fda9e93fb6, type: 2}
+    - {fileID: 11400000, guid: 8a99f6bae4728a843a438359f8431bf7, type: 2}
+    - {fileID: 11400000, guid: aecf9cac22842ef4e8b5907ccb1dd868, type: 2}
+    - {fileID: 11400000, guid: 7a3fef1d8be5846408fa09e71e4ec299, type: 2}
+    - {fileID: 11400000, guid: bc49353be09613f4b81db32c81a1e52f, type: 2}
+    normalRewards: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+    specialRewards: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+    superSpecialRewards: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa,
+      type: 2}
+  - resource: {fileID: 11400000, guid: e6d364abef13f0641a95fa174a061886, type: 2}
+    allowedWeapons:
+    - {fileID: 11400000, guid: 308c3cc4893611f428ab2524f094ddf7, type: 2}
+    - {fileID: 11400000, guid: 35747bb83489f6c4e873e9fda9e93fb6, type: 2}
+    - {fileID: 11400000, guid: 8a99f6bae4728a843a438359f8431bf7, type: 2}
+    - {fileID: 11400000, guid: aecf9cac22842ef4e8b5907ccb1dd868, type: 2}
+    - {fileID: 11400000, guid: 7a3fef1d8be5846408fa09e71e4ec299, type: 2}
+    - {fileID: 11400000, guid: bc49353be09613f4b81db32c81a1e52f, type: 2}
+    normalRewards: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+    specialRewards: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+    superSpecialRewards: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa,
+      type: 2}
   resourceRewardImage:
   - resourceType: RockNormal
-    spriteImage: {fileID: 21300000, guid: c89e207b9261246a591f7c0709c6cacd, type: 3}
+    spriteImage: {fileID: 21300000, guid: b706d508606701142a25d49f35428873, type: 3}
   - resourceType: TreeNormal
-    spriteImage: {fileID: 21300000, guid: 9a720ade646914885b49c192a8a70f72, type: 3}
+    spriteImage: {fileID: 21300000, guid: 8145350730a59be42a8030b2dd3a9090, type: 3}
   - resourceType: PlantNormal
     spriteImage: {fileID: 21300000, guid: bf1a404bdf15344abbc4c0e4d89e48c9, type: 3}
-  plantPoint: 1
-  rockPoint: 2
-  treePoint: 3
-  monsterPoint: 4
-  bossKill: 5
-  upgradeItemPoint: 6
-  craftItemPoint: 7
-  playerPoint: 8
-  buyBoostPoint: 9
-  buildingCreatePoint: 10
-  buildingClaimPoint: 11
-  buildingUpgradePoint: 12
-  buildingRepaorPoint: 13
-  buildingCutPoint: 0
+  - resourceType: RockSpecial
+    spriteImage: {fileID: 21300000, guid: b706d508606701142a25d49f35428873, type: 3}
+  - resourceType: TreeSpecial
+    spriteImage: {fileID: 21300000, guid: 8145350730a59be42a8030b2dd3a9090, type: 3}
+  - resourceType: PlantSpecial
+    spriteImage: {fileID: 21300000, guid: bf1a404bdf15344abbc4c0e4d89e48c9, type: 3}
+  - resourceType: RockSuperSpecial
+    spriteImage: {fileID: 21300000, guid: 396f4c27865e70d448272c6f345d5257, type: 3}
+  - resourceType: TreeSuperSpecial
+    spriteImage: {fileID: 21300000, guid: 8145350730a59be42a8030b2dd3a9090, type: 3}
+  - resourceType: PlantSuperSpecial
+    spriteImage: {fileID: 21300000, guid: bf1a404bdf15344abbc4c0e4d89e48c9, type: 3}
+  plantPoint: 0
+  rockPoint: 0
+  treePoint: 0
+  monsterPoint: 0
+  bossKill: 0
+  craftItemPoint: 0
+  playerPoint: 0
+  buyBoostPoint: 0
+  buildingCreatePoint: 0
+  buildingClaimPoint: 0
+  buildingUpgradePoint: 0
+  buildingRepairPoint: 0
   personalPoints: 1000
-  groupPoint: 1000
-  AlliancePoint: 50000000
+  groupPoint: 100000
+  AlliancePoint: 10000000
   leaderboardReward:
   - personalPoint: 10
     groupPoint: 0
@@ -442,52 +1801,146 @@ MonoBehaviour:
   personalColor: {r: 0.039850973, g: 1, b: 0.0047169924, a: 1}
   groupColor: {r: 1, g: 0.23113209, b: 0.23113209, a: 1}
   allyClor: {r: 1, g: 0.9780377, b: 0, a: 1}
-  maxBeeForContainer: 200
-  maxHoneyForContainer: 200
-  maxBeeForHours: 11
-  beeInvoke: 40000
+  maxBeeForContainer: 100
+  maxHoneyForContainer: 300
+  maxBeeForHours: 5
+  beeInvoke: 15
   levelWater:
-    baseValue: 123
+    baseValue: 200
     bonusPerLevel: 5
   waterInvoke: 5
-  intervalPregnantGrow: 10
-  intervalYear: 30
+  intervalPregnantGrow: 2
+  intervalYear: 60
   intervalWater: 0
   intervalFood: 0
-  intervalDistanceBetweenSex: 5
-  intervalTake: 1
-  intervalCheckAfterDeath: 10
-  intervalGrownPlant: 1
-  intervalConsumeWoodCampfire: 5
-  intervalCookCampfire: 5
+  intervalDistanceBetweenSex: 40
+  intervalTake: 2
+  intervalCheckAfterDeath: 60
+  intervalGrownPlant: 30
+  intervalGrownPlantOnClient: 3
+  intervalConsumeWoodCampfire: 180
   intervalDryCampfire: 30
-  intervalIllness: 10
-  addAnimalPanel: {fileID: 5224675453256505908, guid: e24e91f5f2715924cbaa9b9ddfad5e07,
+  intervalIllness: 600
+  addAnimalPanel: {fileID: 7703959089731126778, guid: e24e91f5f2715924cbaa9b9ddfad5e07,
     type: 3}
   animalListPanel: {fileID: 5224675453256505908, guid: 74c1e87d10f61ce4f992883e3c991f29,
     type: 3}
-  cow: 2
-  horse: 2
-  sheep: 5
-  pig: 3
-  chicken: 10
-  contentAnimalChild: {fileID: 1801037487391204124, guid: 2ad847f826e265a43b4878e28057d758,
-    type: 3}
+  cow: 6
+  horse: 6
+  sheep: 6
+  pig: 6
+  chicken: 6
   animalImage:
   - currentAnimal: {fileID: 11400000, guid: b870c1248c069104cbece07fe285f19d, type: 2}
     fatherImage:
-      leftImage: {fileID: 21300000, guid: 156c6c860c11543648721bc9b3d22ad0, type: 3}
-      rightImage: {fileID: 21300000, guid: 39236856a8f6a401f8bddefef9e24729, type: 3}
+      leftImage: {fileID: 4602671725330524230, guid: 2898f3385191e6e4da4300a4586ff6a3,
+        type: 3}
+      rightImage: {fileID: 4602671725330524230, guid: 2898f3385191e6e4da4300a4586ff6a3,
+        type: 3}
     childImage:
-      leftImage: {fileID: 21300000, guid: cfbe8d32bbe794097ada11a240f123b9, type: 3}
-      rightImage: {fileID: 21300000, guid: 1b7175db89ad4413891e374b8d49597d, type: 3}
+      leftImage: {fileID: 4602671725330524230, guid: 2898f3385191e6e4da4300a4586ff6a3,
+        type: 3}
+      rightImage: {fileID: 4602671725330524230, guid: 2898f3385191e6e4da4300a4586ff6a3,
+        type: 3}
   - currentAnimal: {fileID: 11400000, guid: 086dff9857136c344b26e3f3580eaa19, type: 2}
     fatherImage:
-      leftImage: {fileID: 21300000, guid: 91c77b10cac2b408a9247ca012c1b939, type: 3}
-      rightImage: {fileID: 21300000, guid: 590c9ec1f8e2c46599799b103c07a758, type: 3}
+      leftImage: {fileID: 4602671725330524230, guid: 41891f4aeea382e41b43763e69550a40,
+        type: 3}
+      rightImage: {fileID: 4602671725330524230, guid: 41891f4aeea382e41b43763e69550a40,
+        type: 3}
     childImage:
-      leftImage: {fileID: 21300000, guid: 97295df96b2374edf8af419cea534021, type: 3}
-      rightImage: {fileID: 21300000, guid: 34978b719a1b54ef09a7656745d13047, type: 3}
+      leftImage: {fileID: 4602671725330524230, guid: 41891f4aeea382e41b43763e69550a40,
+        type: 3}
+      rightImage: {fileID: 4602671725330524230, guid: 41891f4aeea382e41b43763e69550a40,
+        type: 3}
+  - currentAnimal: {fileID: 11400000, guid: 3e50e883a9a0b15438bab4ab99bc4152, type: 2}
+    fatherImage:
+      leftImage: {fileID: 5660216739863239297, guid: d0d54c2335e186a419f1197532bc62d0,
+        type: 3}
+      rightImage: {fileID: 5660216739863239297, guid: d0d54c2335e186a419f1197532bc62d0,
+        type: 3}
+    childImage:
+      leftImage: {fileID: 5660216739863239297, guid: d0d54c2335e186a419f1197532bc62d0,
+        type: 3}
+      rightImage: {fileID: 5660216739863239297, guid: d0d54c2335e186a419f1197532bc62d0,
+        type: 3}
+  - currentAnimal: {fileID: 11400000, guid: 1c9b72ae62bcebc4c9d7c8ee7f6b4faf, type: 2}
+    fatherImage:
+      leftImage: {fileID: 5660216739863239297, guid: e3cd8bd16a23f5e44a815afd4afbd1c1,
+        type: 3}
+      rightImage: {fileID: 5660216739863239297, guid: e3cd8bd16a23f5e44a815afd4afbd1c1,
+        type: 3}
+    childImage:
+      leftImage: {fileID: 5660216739863239297, guid: e3cd8bd16a23f5e44a815afd4afbd1c1,
+        type: 3}
+      rightImage: {fileID: 5660216739863239297, guid: e3cd8bd16a23f5e44a815afd4afbd1c1,
+        type: 3}
+  - currentAnimal: {fileID: 11400000, guid: 03326fa0217137841970e012b4652465, type: 2}
+    fatherImage:
+      leftImage: {fileID: 4602671725330524230, guid: f8a7a759347f79c4d90e69bf365428ef,
+        type: 3}
+      rightImage: {fileID: 4602671725330524230, guid: f8a7a759347f79c4d90e69bf365428ef,
+        type: 3}
+    childImage:
+      leftImage: {fileID: 4602671725330524230, guid: f8a7a759347f79c4d90e69bf365428ef,
+        type: 3}
+      rightImage: {fileID: 4602671725330524230, guid: f8a7a759347f79c4d90e69bf365428ef,
+        type: 3}
+  - currentAnimal: {fileID: 11400000, guid: d60b4ac1a3c8a514ca0be9e87b321e61, type: 2}
+    fatherImage:
+      leftImage: {fileID: 4602671725330524230, guid: 69638e46c4ad6834a95adc990d3609d3,
+        type: 3}
+      rightImage: {fileID: 4602671725330524230, guid: 69638e46c4ad6834a95adc990d3609d3,
+        type: 3}
+    childImage:
+      leftImage: {fileID: 4602671725330524230, guid: 69638e46c4ad6834a95adc990d3609d3,
+        type: 3}
+      rightImage: {fileID: 4602671725330524230, guid: 69638e46c4ad6834a95adc990d3609d3,
+        type: 3}
+  - currentAnimal: {fileID: 11400000, guid: 7c40e15661465a94db5f9a5d010aeb26, type: 2}
+    fatherImage:
+      leftImage: {fileID: 4602671725330524230, guid: cc785b8a3e22c7442ac55a7b4f3deb7c,
+        type: 3}
+      rightImage: {fileID: 4602671725330524230, guid: cc785b8a3e22c7442ac55a7b4f3deb7c,
+        type: 3}
+    childImage:
+      leftImage: {fileID: 4602671725330524230, guid: cc785b8a3e22c7442ac55a7b4f3deb7c,
+        type: 3}
+      rightImage: {fileID: 4602671725330524230, guid: cc785b8a3e22c7442ac55a7b4f3deb7c,
+        type: 3}
+  - currentAnimal: {fileID: 11400000, guid: a8afdadc87ea40f4cbc76af652065e16, type: 2}
+    fatherImage:
+      leftImage: {fileID: 4602671725330524230, guid: ffd0f7f193695274abb4f615a39d24fe,
+        type: 3}
+      rightImage: {fileID: 4602671725330524230, guid: ffd0f7f193695274abb4f615a39d24fe,
+        type: 3}
+    childImage:
+      leftImage: {fileID: 4602671725330524230, guid: ffd0f7f193695274abb4f615a39d24fe,
+        type: 3}
+      rightImage: {fileID: 4602671725330524230, guid: ffd0f7f193695274abb4f615a39d24fe,
+        type: 3}
+  - currentAnimal: {fileID: 11400000, guid: 1109bc9dad0f50248b45b9ecb02686b7, type: 2}
+    fatherImage:
+      leftImage: {fileID: 4602671725330524230, guid: fe89c430173075f40926ed95385db65a,
+        type: 3}
+      rightImage: {fileID: 4602671725330524230, guid: fe89c430173075f40926ed95385db65a,
+        type: 3}
+    childImage:
+      leftImage: {fileID: 4602671725330524230, guid: fe89c430173075f40926ed95385db65a,
+        type: 3}
+      rightImage: {fileID: 4602671725330524230, guid: fe89c430173075f40926ed95385db65a,
+        type: 3}
+  - currentAnimal: {fileID: 11400000, guid: cad366b77f919194e9048b92b7ce3dcf, type: 2}
+    fatherImage:
+      leftImage: {fileID: 4602671725330524230, guid: 676da2e70d318e447a932ddf10af5f49,
+        type: 3}
+      rightImage: {fileID: 4602671725330524230, guid: 676da2e70d318e447a932ddf10af5f49,
+        type: 3}
+    childImage:
+      leftImage: {fileID: 4602671725330524230, guid: 676da2e70d318e447a932ddf10af5f49,
+        type: 3}
+      rightImage: {fileID: 4602671725330524230, guid: 676da2e70d318e447a932ddf10af5f49,
+        type: 3}
   buildingManagerPanel: {fileID: 6475038616784378831, guid: 4002e257ac56eca4190cdf13e8dcaa42,
     type: 3}
   plantSelectorPanel: {fileID: 6475038616784378831, guid: 8c4ce5d9a5d7fc844a86d197d76fae72,
@@ -495,67 +1948,1023 @@ MonoBehaviour:
   groupWarehouseSlot: 50
   personalWarehouseSlot: 100
   itemSpawner:
-  - items: {fileID: 11400000, guid: 38cf787e5075f420a94548551ce92f7f, type: 2}
-    amount: 5
-  - items: {fileID: 11400000, guid: efcd52c07805b4550930638bb90d380c, type: 2}
+  - items: {fileID: 11400000, guid: 1c9b72ae62bcebc4c9d7c8ee7f6b4faf, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 3e50e883a9a0b15438bab4ab99bc4152, type: 2}
     amount: 8
-  - items: {fileID: 11400000, guid: 7c79c11de18f2441c88df3e38606ccda, type: 2}
-    amount: 2
-  maxItemInWorldHouse: 7
-  intervalCheckWorldHouse: 1
+  - items: {fileID: 11400000, guid: b870c1248c069104cbece07fe285f19d, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 086dff9857136c344b26e3f3580eaa19, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 03326fa0217137841970e012b4652465, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: d60b4ac1a3c8a514ca0be9e87b321e61, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 7c40e15661465a94db5f9a5d010aeb26, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: a8afdadc87ea40f4cbc76af652065e16, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 1109bc9dad0f50248b45b9ecb02686b7, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: cad366b77f919194e9048b92b7ce3dcf, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 6679f06de3df40f4997e184f73a9bb5b, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 8c3bd80b7ac42b4429174caff2e70af7, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 65dd6280a60983c41ad5ac69c66758f7, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 85d49730d0ecca543b295d61ab82a43a, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 903e88d520ffcdb4fa398a43adc7b365, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 70f1c612934e6b84cb312ef1944e9a33, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 79c806e5ebba36949a484a3eb89a3b11, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 61be15440067f5f4b8c2801aeedb93b3, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 3d5552f47f26ced46bc2a6854a400325, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: c4b6a69bff68a3f40b18d2f5e2f45df1, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 4b983c878ec11b748bf6d50691e46afd, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 2fff968df4ee7434ea0d044e17ce55b8, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 2e7631938493a4e42bef8e3cff98d6a8, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: 7608632c8863e8e40bc4d5696a4a7545, type: 2}
+    amount: 1
+  - items: {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+    amount: 10
+  - items: {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+    amount: 10
+  - items: {fileID: 11400000, guid: 4dc493627ec434f5dadf44c28f65c795, type: 2}
+    amount: 100
+  - items: {fileID: 11400000, guid: f52dce53c5bf6bf4091d6e2af8d4f116, type: 2}
+    amount: 100
+  - items: {fileID: 11400000, guid: 38a14a8ab7319b641b54b45eee23a618, type: 2}
+    amount: 100
+  - items: {fileID: 11400000, guid: 59a9241f5dc3a0343a1a9101b59a135c, type: 2}
+    amount: 100
+  - items: {fileID: 11400000, guid: f52dce53c5bf6bf4091d6e2af8d4f116, type: 2}
+    amount: 100
+  - items: {fileID: 11400000, guid: f851488314b8a344cac3463bd4ddfe17, type: 2}
+    amount: 100
+  - items: {fileID: 11400000, guid: 093b31d77530114489a1741d8a14547f, type: 2}
+    amount: 100
+  - items: {fileID: 11400000, guid: 3e7366fede84c264287ed5225cf1d685, type: 2}
+    amount: 10
+  - items: {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
+    amount: 10
+  maxItemInWorldHouse: 30
+  intervalCheckWorldHouse: 21600
   maxGasStationGasoline: 5000
-  explosionPrefab: {fileID: 1987394715921876, guid: 55e51ce29f07544b98f55e8da33e201c,
+  intervalChargeGasStation: 0
+  chargeGasolineAmount: 0
+  explosionPrefab: {fileID: 1012308308133313404, guid: 59b687b7096021f48a120d0eeb940f14,
     type: 3}
   affectedByMineExplosion:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1792
   mineDamage:
     baseValue: 70
     bonusPerLevel: 0
-  nearEntityExplosionRange: 3
+  nearEntityExplosionRange: 10
   confirmDeletePanel: {fileID: 8886715316965372330, guid: 05263f9e913cd564ba1cc0bb8da80bf9,
     type: 3}
+  objectToExplode: []
   totemPrefab: {fileID: 6475038616784378831, guid: 78b37686296ad7948b19af422883f345,
     type: 3}
   uiTotem: {fileID: 0}
-  amountToDryWithCampfire: 0
   woodAmount:
     baseValue: 30
     bonusPerLevel: 10
   maxCookedAmount:
-    baseValue: 5
+    baseValue: 10
     bonusPerLevel: 0
   cookedItemPanel: {fileID: 6475038616784378831, guid: 9adb2e2ab829a964ea4abc191f61bbd1,
     type: 3}
   campfireLayerMask:
     serializedVersion: 2
-    m_Bits: 256
-  auctionHousePanel: {fileID: 1165934152068870, guid: 54d2291de2f623a4083ffcd2ae2f3aeb,
-    type: 3}
+    m_Bits: 512
   teslaDamage:
-    baseValue: 1
+    baseValue: 2
     bonusPerLevel: 1
   upgradeRepairMaterialPanel: {fileID: 9063535281153156210, guid: c6896f8debde1e3458d262734cf23048,
     type: 3}
   upgradebuyMaterial: {fileID: 6841937431231828959, guid: 5e62122b04d72d24481dfbb3578d10fe,
     type: 3}
-  illnessImage: {fileID: 21300000, guid: 590c9ec1f8e2c46599799b103c07a758, type: 3}
-  wetImage: {fileID: 21300036, guid: 7aec6926d2f40475fb928cf6354a6060, type: 3}
-  temperatureImage: {fileID: 21300040, guid: bc2a9e6f563d44bb6a44fec40dcc1558, type: 3}
-  coinsImage: {fileID: 21300040, guid: 57539dfb4705943fb849661279492410, type: 3}
-  goldImage: {fileID: 21300194, guid: 8fe1a28a11d43499c9bfb7c7c1182f81, type: 3}
-  decreaseHealthIfIllness: 30
-  characterCreationPanel: {fileID: 2278860575543273085, guid: 6a397cad91142d94cbfb6a28dfd6a841,
+  temperatureImage: {fileID: 21300000, guid: 57fddd8b9308e014ca623b7e8a612e1f, type: 3}
+  coinsImage: {fileID: 21300000, guid: 4ca0708151b60449d97a6e6a1455f979, type: 3}
+  goldImage: {fileID: 21300000, guid: a77307887b71d4ae39a74dddc88c7da0, type: 3}
+  decreaseHealthIfWet: 5
+  popUpAutomicaticName: {fileID: 655340773746009604, guid: a2d766d94ba6b864991535da5934f040,
     type: 3}
   playerRank:
-  - points: 1
-    rankImage: {fileID: 21300000, guid: 1c1bef4b40e990c42aed6432ebd324ef, type: 3}
-  - points: 4
-    rankImage: {fileID: 21300000, guid: 87258a2e98839004986e33d9a04e825e, type: 3}
+  - points: 0
+    rankImage: {fileID: 1804645584479342, guid: 7f6f89c7823ea31419413b572823de23,
+      type: 3}
   - points: 10
-    rankImage: {fileID: 21300000, guid: 03e3778d7fcbf9243a5787a6adac408f, type: 3}
-  guildInvite: {fileID: 0}
-  guildAllyInvite: {fileID: 0}
-  partnerInvite: {fileID: 0}
-  partyInvite: {fileID: 0}
-  tradeInvite: {fileID: 0}
+    rankImage: {fileID: 1157150292537728, guid: c0343523a8930b340adc25dcf9529a87,
+      type: 3}
+  - points: 20
+    rankImage: {fileID: 1114821713678990, guid: eb5d9b0a2602dc04ebf5d89411b67470,
+      type: 3}
+  - points: 40
+    rankImage: {fileID: 1084402055365032, guid: 18091a97aa1509d4583705350dd4f106,
+      type: 3}
+  - points: 80
+    rankImage: {fileID: 1763507261302510, guid: 80b1b6128bd5f524d952751aa477b09f,
+      type: 3}
+  - points: 160
+    rankImage: {fileID: 1346423655715946, guid: 837c73496a2073646b3ea637954a913c,
+      type: 3}
+  - points: 320
+    rankImage: {fileID: 1852132442047264, guid: 0c3bf1dce8a01b6438210f7f974cdc1e,
+      type: 3}
+  - points: 640
+    rankImage: {fileID: 1977975247178428, guid: 6c54d0a60ab2356499fe65562e426dfb,
+      type: 3}
+  - points: 800
+    rankImage: {fileID: 1397011443163964, guid: 5fdf82b970c443b439c9102c4ad071c5,
+      type: 3}
+  - points: 1000
+    rankImage: {fileID: 1150295014035066, guid: 4b8c572cfdfb5cc4eb4291295d3190ac,
+      type: 3}
+  - points: 1200
+    rankImage: {fileID: 1480294549637970, guid: a16fa1a71247b1847be01475143ba74e,
+      type: 3}
+  - points: 1400
+    rankImage: {fileID: 1623500641321418, guid: 181384c89ce8173459bd961e05b665fa,
+      type: 3}
+  - points: 1700
+    rankImage: {fileID: 1337760568032754, guid: 87a7ae4f0157ce14e84b236796a42a6c,
+      type: 3}
+  - points: 2000
+    rankImage: {fileID: 1865880300934056, guid: 7c135fa8a789ba042b0e4a78378a179c,
+      type: 3}
+  - points: 2250
+    rankImage: {fileID: 1555041050906182, guid: 77e9792928593aa4bb1a82b4d71c5bb9,
+      type: 3}
+  - points: 2600
+    rankImage: {fileID: 1377596835272516, guid: 450bc1910545cdd458549c2b465fc385,
+      type: 3}
+  - points: 3000
+    rankImage: {fileID: 1264658791866520, guid: 35442a5b4777d9c4194c11eeb025afc5,
+      type: 3}
+  - points: 3700
+    rankImage: {fileID: 1844108989914720, guid: 1fb23ab33c2cfa74b8f0d4eb1296b1de,
+      type: 3}
+  teslaItem:
+  - {fileID: 0}
+  teleportSeconds: 30
+  teleportInviteSlot: {fileID: 1010899777424064155, guid: a5671e435b932f04c923bdbd0eeee0e1,
+    type: 3}
+  spawnedTeleport: {fileID: 0}
+  teleportInviter: {fileID: 225861253454449989, guid: 28aba91e63d54b54e8b5a2ead77824e8,
+    type: 3}
+  spawnedteleportInviter: {fileID: 0}
+  experienceForEachFoodItem: 1000
+  timeToUpgradeOfOneLevel: 60
+  foodToUpgradeLevelOfItem: {fileID: 11400000, guid: 7c79c11de18f2441c88df3e38606ccda,
+    type: 2}
+  petTrainingInProgress: {fileID: 5905771984717760873, guid: 63a0680c86b364341a672babf4f761e9,
+    type: 3}
+  perReviveAndCure: {fileID: 7487040093455273453, guid: e615592ee105f684b80b2e3bf0720c10,
+    type: 3}
+  curePetItem: {fileID: 11400000, guid: 0173f1cae1440bc418f63299f8c4b9c2, type: 2}
+  revivePetItem: {fileID: 11400000, guid: 08598fdcf03759d47bd4a396d8bd9d67, type: 2}
+  buildingCrafterPanel: {fileID: 8181955524529407568, guid: 35e35aedebd26cc4bbbf5a57453a903e,
+    type: 3}
+  thanksPanel: {fileID: 2919575756718122020, guid: c6f08dd75398be64d8d6e9b7cbe832fe,
+    type: 3}
+  createGroupPanel: {fileID: 1346328405228881148, guid: cb1b983ba9df7304fa7ccced542f888d,
+    type: 3}
+  itemMallCategories:
+  - category: Weapons
+    categoryIta: Armi
+    items:
+    - {fileID: 11400000, guid: 50f41840caf74114d90312b8e7c0f5f4, type: 2}
+    - {fileID: 11400000, guid: 28d49c86d4fe9f94694a39d61c790ee4, type: 2}
+    - {fileID: 11400000, guid: 10362d3d9271d2f42869efa29b5ffd2f, type: 2}
+    - {fileID: 11400000, guid: 9c2f03bff1a81b947844dac1db849728, type: 2}
+    - {fileID: 11400000, guid: b757f164b0fd04d4fa0a94db9fb44074, type: 2}
+    - {fileID: 11400000, guid: e1f2697213047e544a345f54bf32de85, type: 2}
+    - {fileID: 11400000, guid: da394f7a83ea0c945976cc6516bbcc9a, type: 2}
+    - {fileID: 11400000, guid: 3f34e79397c01fb4882747791b8d17d4, type: 2}
+    - {fileID: 11400000, guid: c54cd9872bd6b6a448d5bb97e6d58742, type: 2}
+    - {fileID: 11400000, guid: c2a2044f5b5545140bb25631d75154bc, type: 2}
+    - {fileID: 11400000, guid: 9328529b382555948aecac369ba5d088, type: 2}
+    - {fileID: 11400000, guid: 308c3cc4893611f428ab2524f094ddf7, type: 2}
+    - {fileID: 11400000, guid: 35747bb83489f6c4e873e9fda9e93fb6, type: 2}
+    - {fileID: 11400000, guid: 8a99f6bae4728a843a438359f8431bf7, type: 2}
+    - {fileID: 11400000, guid: aecf9cac22842ef4e8b5907ccb1dd868, type: 2}
+    - {fileID: 11400000, guid: bc49353be09613f4b81db32c81a1e52f, type: 2}
+    - {fileID: 11400000, guid: 7a3fef1d8be5846408fa09e71e4ec299, type: 2}
+    - {fileID: 11400000, guid: ed22a9b175d0440488076779766aa66c, type: 2}
+    - {fileID: 11400000, guid: 934173f809c4b8d479c4dbba90a3be54, type: 2}
+    - {fileID: 11400000, guid: 1103f40c4196951489595505d72fa211, type: 2}
+    - {fileID: 11400000, guid: a95edaf94ec11384aab4992b5cdef71a, type: 2}
+  - category: Animals
+    categoryIta: Animali
+    items:
+    - {fileID: 11400000, guid: 1c9b72ae62bcebc4c9d7c8ee7f6b4faf, type: 2}
+    - {fileID: 11400000, guid: 3e50e883a9a0b15438bab4ab99bc4152, type: 2}
+    - {fileID: 11400000, guid: b870c1248c069104cbece07fe285f19d, type: 2}
+    - {fileID: 11400000, guid: 086dff9857136c344b26e3f3580eaa19, type: 2}
+    - {fileID: 11400000, guid: d60b4ac1a3c8a514ca0be9e87b321e61, type: 2}
+    - {fileID: 11400000, guid: 03326fa0217137841970e012b4652465, type: 2}
+    - {fileID: 11400000, guid: 7c40e15661465a94db5f9a5d010aeb26, type: 2}
+    - {fileID: 11400000, guid: a8afdadc87ea40f4cbc76af652065e16, type: 2}
+    - {fileID: 11400000, guid: 1109bc9dad0f50248b45b9ecb02686b7, type: 2}
+    - {fileID: 11400000, guid: cad366b77f919194e9048b92b7ce3dcf, type: 2}
+  - category: Power up
+    categoryIta: Potenziamenti
+    items:
+    - {fileID: 11400000, guid: 6679f06de3df40f4997e184f73a9bb5b, type: 2}
+    - {fileID: 11400000, guid: 2e7631938493a4e42bef8e3cff98d6a8, type: 2}
+    - {fileID: 11400000, guid: f8347f26b8d3fa0428c79dc64bb33036, type: 2}
+    - {fileID: 11400000, guid: 754e3a1340a1fe94793a05ff1ab91dfb, type: 2}
+    - {fileID: 11400000, guid: 7608632c8863e8e40bc4d5696a4a7545, type: 2}
+    - {fileID: 11400000, guid: 5433d872d28560a488f1f5e92e84a974, type: 2}
+    - {fileID: 11400000, guid: 704b1dc34f9397849a5019545968b3ee, type: 2}
+  - category: Resources
+    categoryIta: Risorse
+    items:
+    - {fileID: 11400000, guid: 47fc1cd6f82e65e4099dc7a476536eaa, type: 2}
+    - {fileID: 11400000, guid: ef623475eb49a80409ed406f3b642cc8, type: 2}
+    - {fileID: 11400000, guid: 3e7366fede84c264287ed5225cf1d685, type: 2}
+    - {fileID: 11400000, guid: 8fc052a879b193747946b1ebe9655e18, type: 2}
+    - {fileID: 11400000, guid: 2498001e2ebef4347893407b138512f9, type: 2}
+    - {fileID: 11400000, guid: a3e0623b17ee3ee459bd6d89c7bb0cc0, type: 2}
+    - {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+  - category: Communications
+    categoryIta: Comunicazioni
+    items:
+    - {fileID: 11400000, guid: 0c1b67ae8bcd90f45aba0cf146b3771e, type: 2}
+    - {fileID: 11400000, guid: 5b3e51def6de8744f963b5ed4b284c2a, type: 2}
+    - {fileID: 11400000, guid: af49c439359863e4394dec07b0d7044c, type: 2}
+  - category: Foods
+    categoryIta: Alimenti
+    items:
+    - {fileID: 11400000, guid: 903e88d520ffcdb4fa398a43adc7b365, type: 2}
+    - {fileID: 11400000, guid: 673957762ddaa244493e48fb1fb098df, type: 2}
+    - {fileID: 11400000, guid: e7e37b9c86be4d24bbf13afeca11c317, type: 2}
+    - {fileID: 11400000, guid: af7fbd1960aa40e45be3cd2186b8b25f, type: 2}
+    - {fileID: 11400000, guid: 5aab02aef1960c64b81250e840eb469f, type: 2}
+    - {fileID: 11400000, guid: 70f1c612934e6b84cb312ef1944e9a33, type: 2}
+    - {fileID: 11400000, guid: 1b7d81a09e5324046affa0a98cf4041a, type: 2}
+    - {fileID: 11400000, guid: 2fff968df4ee7434ea0d044e17ce55b8, type: 2}
+    - {fileID: 11400000, guid: 680052c68dfdbe341aa0495b899438c3, type: 2}
+    - {fileID: 11400000, guid: e92ac5035ec6d2844afbad74a17e91b1, type: 2}
+    - {fileID: 11400000, guid: 5ce934c2b3bd0774f801fd1564a08c82, type: 2}
+    - {fileID: 11400000, guid: c92b0c2ca7156d94f901986d852694d0, type: 2}
+    - {fileID: 11400000, guid: 63c71c98473d5fd499a636fe13a2066d, type: 2}
+    - {fileID: 11400000, guid: 79c806e5ebba36949a484a3eb89a3b11, type: 2}
+    - {fileID: 11400000, guid: 2e41ca204bc1e3841a24a3237653fe49, type: 2}
+    - {fileID: 11400000, guid: 543083ca59f8a2343b2eb70a147a4606, type: 2}
+    - {fileID: 11400000, guid: 61be15440067f5f4b8c2801aeedb93b3, type: 2}
+    - {fileID: 11400000, guid: ef24ba3bc5907bf4b85d383072e5551a, type: 2}
+    - {fileID: 11400000, guid: 5d487e06317c87b4d98f0f979082cb29, type: 2}
+    - {fileID: 11400000, guid: f9cf2a452f1f3c3438d3660a8b847ed2, type: 2}
+    - {fileID: 11400000, guid: 0e024ae33510ae44a8a019fe7b9399ba, type: 2}
+    - {fileID: 11400000, guid: 3d5552f47f26ced46bc2a6854a400325, type: 2}
+    - {fileID: 11400000, guid: fc13c98affc570a4ea6dcfdcbc205f79, type: 2}
+    - {fileID: 11400000, guid: 4b983c878ec11b748bf6d50691e46afd, type: 2}
+    - {fileID: 11400000, guid: 5c5a33040ec665042ab03310ee814547, type: 2}
+    - {fileID: 11400000, guid: e07c54e09b328be4a883a063086b5433, type: 2}
+    - {fileID: 11400000, guid: 42dfe7120da28f344aaa5fd6510e1590, type: 2}
+    - {fileID: 11400000, guid: 9010ff3aaa1e5224c9bf8db4cb84cd4d, type: 2}
+    - {fileID: 11400000, guid: c4b6a69bff68a3f40b18d2f5e2f45df1, type: 2}
+  - category: Extra
+    categoryIta: Extra
+    items:
+    - {fileID: 11400000, guid: 9023905a03392a148b34bd747052680d, type: 2}
+    - {fileID: 11400000, guid: 0015c944578f41e4cb387d752eec805d, type: 2}
+    - {fileID: 11400000, guid: 5144ce8fe4ec07a42b17b895fecceae8, type: 2}
+    - {fileID: 11400000, guid: 0f8a814d35a4a4042a6ee5f28574fb8c, type: 2}
+    - {fileID: 11400000, guid: 7c79c11de18f2441c88df3e38606ccda, type: 2}
+    - {fileID: 11400000, guid: 65dd6280a60983c41ad5ac69c66758f7, type: 2}
+    - {fileID: 11400000, guid: 85d49730d0ecca543b295d61ab82a43a, type: 2}
+    - {fileID: 11400000, guid: 9f63338546056f04ebb4655a33bef28d, type: 2}
+    - {fileID: 11400000, guid: b195148625e83b643ba0d3311f52d412, type: 2}
+    - {fileID: 11400000, guid: feaf28cfdb8e13a489463f608844e021, type: 2}
+    - {fileID: 11400000, guid: 6ec4f33010009904e91e6a41ce17e5c0, type: 2}
+    - {fileID: 11400000, guid: 28a3fff2497fb6f4d8d0a76f7431177b, type: 2}
+  - category: Equipments
+    categoryIta: Equipaggiamenti
+    items:
+    - {fileID: 11400000, guid: 8c3bd80b7ac42b4429174caff2e70af7, type: 2}
+    - {fileID: 11400000, guid: 2be8539ea8f22aa47b68b1c28332da09, type: 2}
+    - {fileID: 11400000, guid: b160c25eedf3ea04796372d0d865573b, type: 2}
+    - {fileID: 11400000, guid: 49b7ece665485b3489b8e2c544754a66, type: 2}
+  - category: Munitions
+    categoryIta: Munizioni
+    items:
+    - {fileID: 11400000, guid: 38a14a8ab7319b641b54b45eee23a618, type: 2}
+    - {fileID: 11400000, guid: 4085b7780ee9da94f80e3d42ba71585b, type: 2}
+    - {fileID: 11400000, guid: 59a9241f5dc3a0343a1a9101b59a135c, type: 2}
+    - {fileID: 11400000, guid: 5f994378507006747bf3b622f4902113, type: 2}
+    - {fileID: 11400000, guid: f52dce53c5bf6bf4091d6e2af8d4f116, type: 2}
+    - {fileID: 11400000, guid: 2daac3a435caeda498fe5b5ac33b6216, type: 2}
+    - {fileID: 11400000, guid: f851488314b8a344cac3463bd4ddfe17, type: 2}
+    - {fileID: 11400000, guid: f93e4a810c755e84987d30607519d3b2, type: 2}
+    - {fileID: 11400000, guid: 093b31d77530114489a1741d8a14547f, type: 2}
+    - {fileID: 11400000, guid: 6becda004f9faab468075950ba330bc2, type: 2}
+    - {fileID: 11400000, guid: 4dc493627ec434f5dadf44c28f65c795, type: 2}
+    - {fileID: 11400000, guid: e359f64305d0a6c409b47ba7af8a8c6e, type: 2}
+  - category: Pets
+    categoryIta: Pets
+    items:
+    - {fileID: 11400000, guid: ec3f9a035a459f54293655c9558d0aa1, type: 2}
+    - {fileID: 11400000, guid: e3b26d9eaa869994f967997d971e3a49, type: 2}
+    - {fileID: 11400000, guid: 0673a99a171f7418e918fed69b37622c, type: 2}
+    - {fileID: 11400000, guid: 9e2ba057da06b844c8df0bd9e05c95c6, type: 2}
+    - {fileID: 11400000, guid: 89b0ca63d5b48d649b328f58e23554ee, type: 2}
+    - {fileID: 11400000, guid: fc31676e99524eb489eed420b2b0f529, type: 2}
+    - {fileID: 11400000, guid: b01785aad920ea9449054c2eab9f4901, type: 2}
+  - category: Buildings
+    categoryIta: Edifici
+    items:
+    - {fileID: 11400000, guid: f2895a8e5a714b2428c181449eda82b9, type: 2}
+    - {fileID: 11400000, guid: a069219aa6ab8274182d647dbcd56e6c, type: 2}
+    - {fileID: 11400000, guid: e041f1fb1c82ff642b2bc6ce70308b3a, type: 2}
+    - {fileID: 11400000, guid: 588f0918547c33f4ea1e358f5245480b, type: 2}
+    - {fileID: 11400000, guid: a64b0ed5f5ff01a4d834baa2d6128b99, type: 2}
+    - {fileID: 11400000, guid: fefe4e98cd8c76c478217b4efe284fca, type: 2}
+    - {fileID: 11400000, guid: 430d26a2e16b0ea4ead98162f5ebc449, type: 2}
+    - {fileID: 11400000, guid: 7db834cf496f5814f8a3bfa33794bf9e, type: 2}
+    - {fileID: 11400000, guid: 64b0330718b20574facbdf900ec6f2aa, type: 2}
+    - {fileID: 11400000, guid: c7c1352a3c07fcb468df368474f37f15, type: 2}
+    - {fileID: 11400000, guid: cf75f4d880b165340a54bf330040b97f, type: 2}
+    - {fileID: 11400000, guid: 95f2cd2b8ba3c28448560f545f711982, type: 2}
+    - {fileID: 11400000, guid: 8b94bd72549b74740b50830ea04e0b86, type: 2}
+    - {fileID: 11400000, guid: 206ec73c3adaec6418c7b88ba3218ecc, type: 2}
+  - category: Modules
+    categoryIta: Moduli
+    items:
+    - {fileID: 11400000, guid: adbb8a12ce5385744946cf55b79db883, type: 2}
+    - {fileID: 11400000, guid: 6afa9a4353ca49049927f1727d8d3d35, type: 2}
+    - {fileID: 11400000, guid: 4f906860cfce7e143bc38df3292f80d4, type: 2}
+    - {fileID: 11400000, guid: f2709e7af480ec54aa3b5d21c9587255, type: 2}
+    - {fileID: 11400000, guid: 7f7cc9c3ee5440f458ea71de5fe6f66d, type: 2}
+    - {fileID: 11400000, guid: bf7f9384f988a3e4ebbf93b02f9d4a34, type: 2}
+    - {fileID: 11400000, guid: 72dbe395c149c044b87f5e89ba3dc811, type: 2}
+    - {fileID: 11400000, guid: 602f9f4acadcad14da2ff4b1b8a4b2ee, type: 2}
+    - {fileID: 11400000, guid: d61a4b5d16ab57844b5f88752555222a, type: 2}
+    - {fileID: 11400000, guid: f4e87161290c0b243888b4de0cb5d9e9, type: 2}
+    - {fileID: 11400000, guid: 45eceea16f8275e4d884674efb7a8ca4, type: 2}
+    - {fileID: 11400000, guid: d532b3bf637ecf34f802bf586fa2cc73, type: 2}
+    - {fileID: 11400000, guid: dd779b8001fa2f742856fe7e6f45f67a, type: 2}
+    - {fileID: 11400000, guid: a7f358f5e4e65ec45afd50dcf109b72a, type: 2}
+    - {fileID: 11400000, guid: 3f5d68a91284d77459b94c17433cc375, type: 2}
+    - {fileID: 11400000, guid: 07afe753551ddce4eb126b58329393ff, type: 2}
+    - {fileID: 11400000, guid: d14d082df9d5a51469d855a3aa61e158, type: 2}
+    - {fileID: 11400000, guid: a49b0a2c43d641d4f8989d1319f44c6e, type: 2}
+    - {fileID: 11400000, guid: 80c589a34cac8754ba6d70e400183873, type: 2}
+    - {fileID: 11400000, guid: e06857313a7c49e458f5b6bc9f19f20b, type: 2}
+    - {fileID: 11400000, guid: f4dfcc5e76614ce4dad581b4002dc690, type: 2}
+    - {fileID: 11400000, guid: aa28f566f20dd2a47959d6b6ace848b3, type: 2}
+    - {fileID: 11400000, guid: 3ef245f0f985165428fdb729dcb23e2a, type: 2}
+    - {fileID: 11400000, guid: 21dec76c789263d4ab5220f0123f0db4, type: 2}
+    - {fileID: 11400000, guid: a3ad4d19b0febbd4196a82f50c3fb776, type: 2}
+    - {fileID: 11400000, guid: 58de9f54f3014f84a83767e5175d5eae, type: 2}
+    - {fileID: 11400000, guid: 72e82596186f2be479f02c4dc13c442f, type: 2}
+    - {fileID: 11400000, guid: c14fc037c32851f41a8bea8b8fe1a983, type: 2}
+    - {fileID: 11400000, guid: 27bde659e53371f4787b37b8f67e1c28, type: 2}
+    - {fileID: 11400000, guid: 1265055c0260d634bb9d74d2a401ec88, type: 2}
+    - {fileID: 11400000, guid: fd25224813e6c5f4da1cbfa785b56caf, type: 2}
+    - {fileID: 11400000, guid: cc70d484ef2a096459a68fc26ced8eb5, type: 2}
+    - {fileID: 11400000, guid: 409b81ec72bb75e419005f4d9382f72a, type: 2}
+    - {fileID: 11400000, guid: 5ab945900a23b784fb19fa53f75a2bad, type: 2}
+    - {fileID: 11400000, guid: 80a30d62b925e6c4fb96d25e4b196a8c, type: 2}
+    - {fileID: 11400000, guid: ca138a0ebff9e544488f636aa76a9939, type: 2}
+    - {fileID: 11400000, guid: aa63062287a741044b37537db8c760db, type: 2}
+    - {fileID: 11400000, guid: 2e99638563909e642931dc68212836ac, type: 2}
+    - {fileID: 11400000, guid: 9965218d5706664498339dfdfc0eb37e, type: 2}
+    - {fileID: 11400000, guid: 7151a14248067654184c9b52c636fbd5, type: 2}
+    - {fileID: 11400000, guid: 27b78eb0b4c04e946b261dea2cb0164f, type: 2}
+    - {fileID: 11400000, guid: 79ecb8d64c846ad4c860287549d19cb4, type: 2}
+    - {fileID: 11400000, guid: a05edde3e4032fc46868a0221bb72c40, type: 2}
+  manClothes:
+  - category: Hats
+    categoryIta: Cappelli
+    items:
+    - {fileID: 11400000, guid: eca89b427c4ebbc44b67506502cb168e, type: 2}
+    - {fileID: 11400000, guid: dd491455947d2a046b6157d6439e317d, type: 2}
+    - {fileID: 11400000, guid: 3ccbc2bf6c3f6f34f901e82bbd97c206, type: 2}
+    - {fileID: 11400000, guid: 756bdc10be940724e8b625e52c01a61d, type: 2}
+    - {fileID: 11400000, guid: 0b5335f85e6d7d243b4b3e27a903766d, type: 2}
+    - {fileID: 11400000, guid: 5f504105f82ddba48b32b150ea4b605e, type: 2}
+    - {fileID: 11400000, guid: aafcdb694ec382244b0542f66971c49f, type: 2}
+  - category: Shirts
+    categoryIta: Maglie
+    items:
+    - {fileID: 11400000, guid: 867dc5f628c790b488a9c647ab09f953, type: 2}
+    - {fileID: 11400000, guid: b866d262645101f48be03d0a3c161503, type: 2}
+    - {fileID: 11400000, guid: 3c283da3a45d8e6488fb9dece97f4f15, type: 2}
+    - {fileID: 11400000, guid: ca44d519ecb7c0c409443631a58b7fba, type: 2}
+    - {fileID: 11400000, guid: 10e30c7dc395d49418075cbecdfd6bfc, type: 2}
+    - {fileID: 11400000, guid: 92355c33190292f4d9cbdde07be936f1, type: 2}
+    - {fileID: 11400000, guid: 7ae547ffb680bf0469efc5682eaa5f60, type: 2}
+    - {fileID: 11400000, guid: 5453bbf4ceab58f4e856d6ecc9f6a34f, type: 2}
+    - {fileID: 11400000, guid: 42938a1f96ab94548828a5c3dab305a0, type: 2}
+    - {fileID: 11400000, guid: 7cf83166f7a1faf4b8bcf6e01f0b24aa, type: 2}
+    - {fileID: 11400000, guid: 216d191a0362a104c9476a9ddea6fff9, type: 2}
+    - {fileID: 11400000, guid: 24a54f1ff06011544b6c94d652b63857, type: 2}
+    - {fileID: 11400000, guid: 6ebc98de01bee924f90564a8f97bfa95, type: 2}
+    - {fileID: 11400000, guid: 2a651fe8051f8784f88728754523d426, type: 2}
+    - {fileID: 11400000, guid: b3ed3339a3a7d424498b985ad301ac45, type: 2}
+  - category: Pants
+    categoryIta: Pantaloni
+    items:
+    - {fileID: 11400000, guid: b2b88a1fdbc5cdd4b973c823c154b614, type: 2}
+    - {fileID: 11400000, guid: 7f3d23647b06cd0498203bcca23de428, type: 2}
+    - {fileID: 11400000, guid: 44a4aaeb9a1b9f14fba27bda89edbbb9, type: 2}
+    - {fileID: 11400000, guid: 8be66335833ece444bdbe3d15e9e4b4d, type: 2}
+    - {fileID: 11400000, guid: 35cae7dc361795b479d3df1771a56a3d, type: 2}
+    - {fileID: 11400000, guid: 4bfa51067a21412408d92891feb0bf15, type: 2}
+    - {fileID: 11400000, guid: e350e2052f2a68f4aa9ae6f6c7e0bae3, type: 2}
+    - {fileID: 11400000, guid: 1792122c45bd68c4a99f914ae92c3402, type: 2}
+    - {fileID: 11400000, guid: 35c6d871ec4647b48bad642837fe573b, type: 2}
+    - {fileID: 11400000, guid: da08aa7976daaba4eacf6685c521b134, type: 2}
+    - {fileID: 11400000, guid: 764eaf1569ca28c44a9aea1f8f56d0c8, type: 2}
+    - {fileID: 11400000, guid: 69d3c71d36391f9439357be74a0b6a4c, type: 2}
+    - {fileID: 11400000, guid: 1f6e384482998854baee46b7423ddc92, type: 2}
+    - {fileID: 11400000, guid: 088b78a46b5e4f143ab988883990ffbf, type: 2}
+    - {fileID: 11400000, guid: 05258c588c520314f9231a30b486aa8f, type: 2}
+  - category: Shoes
+    categoryIta: Scarpe
+    items:
+    - {fileID: 11400000, guid: 7563f16f30d1ae7448561e4d3686cf96, type: 2}
+    - {fileID: 11400000, guid: e9547dd499245f74aabb832ba1b9775b, type: 2}
+    - {fileID: 11400000, guid: 3846a93ec32b089499e8b0bb59583e88, type: 2}
+    - {fileID: 11400000, guid: 16ee6a88fa7bf924f9af715ce01a4e98, type: 2}
+    - {fileID: 11400000, guid: 2b005e96464f46144acf6e6454de6ccf, type: 2}
+    - {fileID: 11400000, guid: e45f46ebb47684b40b80f2c8b75c585a, type: 2}
+    - {fileID: 11400000, guid: 5519dc854476b5f478bf249119e463e6, type: 2}
+    - {fileID: 11400000, guid: 417dbc89638e6d7498409d849e887447, type: 2}
+    - {fileID: 11400000, guid: 4762f2189fe8b3441a0232352246c77e, type: 2}
+    - {fileID: 11400000, guid: 3df8654600b11f143b3f9683598d6f93, type: 2}
+    - {fileID: 11400000, guid: 18765e40503fbc542a6ec4b6c6cfe0b8, type: 2}
+    - {fileID: 11400000, guid: d680ef6e2b6c3b3408e6bdd8fa1d7e73, type: 2}
+    - {fileID: 11400000, guid: 3200b62cc6120c24abcd1f34859d90ca, type: 2}
+    - {fileID: 11400000, guid: a68d56141b997684eba73c46121bbe21, type: 2}
+    - {fileID: 11400000, guid: c82084ce17628604f80e302b72e6ba79, type: 2}
+  - category: Accessories
+    categoryIta: Accessori
+    items:
+    - {fileID: 11400000, guid: 90f4f33ef6ed64948a3fcaa497fb7780, type: 2}
+    - {fileID: 11400000, guid: a378ff76d146f8f43a0060f4e70b8553, type: 2}
+    - {fileID: 11400000, guid: 512410368aa85c2458a41de7b49c4223, type: 2}
+    - {fileID: 11400000, guid: 71bbf03207c7d1648aa5e28d3a75b0fd, type: 2}
+    - {fileID: 11400000, guid: 63ec8155156053e45bb8c340617f2c7b, type: 2}
+    - {fileID: 11400000, guid: 3cb54d43c88ab684b85681c7faa3bdad, type: 2}
+    - {fileID: 11400000, guid: 690004575df883149b8e43cb9fc7287c, type: 2}
+    - {fileID: 11400000, guid: 27abdea7572b4d0479fb951e005f77a8, type: 2}
+    - {fileID: 11400000, guid: 9bb350dcae335304da9e29d0c0fcb66d, type: 2}
+    - {fileID: 11400000, guid: afe01df06f0c5f64198bf68ccbde6573, type: 2}
+    - {fileID: 11400000, guid: e14f7a9cb2c2c5e40a32282306e05e45, type: 2}
+    - {fileID: 11400000, guid: b711962a7791b824fb1daf585f04ba58, type: 2}
+    - {fileID: 11400000, guid: 7c83eca804676fe458fb7394b00adb7c, type: 2}
+  womanClothes:
+  - category: Hats
+    categoryIta: Cappelli
+    items:
+    - {fileID: 11400000, guid: 32052f74a2d9bed459734efd1cf73517, type: 2}
+    - {fileID: 11400000, guid: 02ddadfd6c4c7fa4488287497781751f, type: 2}
+    - {fileID: 11400000, guid: 38c21fda5c85299418f31950332b682d, type: 2}
+    - {fileID: 11400000, guid: a14ed4d2caead7847b884a018ce7f593, type: 2}
+    - {fileID: 11400000, guid: 1851df4f567831a4f879d25aba27a079, type: 2}
+    - {fileID: 11400000, guid: 80722cb79cc8c2e4eb16efcf5169fa62, type: 2}
+    - {fileID: 11400000, guid: cea5711fe05e59d459d5f87e54347550, type: 2}
+  - category: Shirts
+    categoryIta: Maglie
+    items:
+    - {fileID: 11400000, guid: d52e0c70380b85741911822ff6b96e3f, type: 2}
+    - {fileID: 11400000, guid: d62529aaf40eadb4d8b3467b3dbd1682, type: 2}
+    - {fileID: 11400000, guid: 015ee959952df78449d7a81e10768900, type: 2}
+    - {fileID: 11400000, guid: 0e7c0bfbecb124f428fa61c5b324eace, type: 2}
+    - {fileID: 11400000, guid: 657ad776576876c438c143925227375f, type: 2}
+    - {fileID: 11400000, guid: 9ac8927b0de9f7f4ca97e2e13a3c4e94, type: 2}
+    - {fileID: 11400000, guid: 3942dd3c75c893548a7b8e6dbaa375e6, type: 2}
+    - {fileID: 11400000, guid: 2204263ded9f7a64c98d4f8d18408ae5, type: 2}
+    - {fileID: 11400000, guid: ff423e2ebf6d8344ea3ffd6293b2f58e, type: 2}
+    - {fileID: 11400000, guid: 0467d9ce984ea354492750bdf3ee69f1, type: 2}
+    - {fileID: 11400000, guid: efee2c1fd0fcef24f9a66f67f95dcbd3, type: 2}
+    - {fileID: 11400000, guid: 9f153e3db42113347a6cfbfce4ad3084, type: 2}
+    - {fileID: 11400000, guid: da25196b617653d4e8d2fd30e711de39, type: 2}
+    - {fileID: 11400000, guid: 851ab37c4d28e04408b4fb361eac2dc9, type: 2}
+    - {fileID: 11400000, guid: b7c0dd9f2c9e8954a9c84471cf432505, type: 2}
+  - category: Pants
+    categoryIta: Pantaloni
+    items:
+    - {fileID: 11400000, guid: a63ba59cfcf59fe4ab1ec7264d03de62, type: 2}
+    - {fileID: 11400000, guid: ad280a6eff559214786d4f6b22db0e56, type: 2}
+    - {fileID: 11400000, guid: ee29f5e9f0b15134a813fe81e05c499d, type: 2}
+    - {fileID: 11400000, guid: d9b581ea81894074ca8c614dba868da0, type: 2}
+    - {fileID: 11400000, guid: 871f710e84ba9474a98e2fb7b690f04e, type: 2}
+    - {fileID: 11400000, guid: b578671eee74ba74db077edf0107be79, type: 2}
+    - {fileID: 11400000, guid: efb9cdf5534f95542b4b0d1b17f927cc, type: 2}
+    - {fileID: 11400000, guid: 3946d1b5978ef0a4da7bdcf524332c87, type: 2}
+    - {fileID: 11400000, guid: 5f379118fd9afdd4ba32c322124a5c8d, type: 2}
+    - {fileID: 11400000, guid: d6e2e5da8c7861040a973e186eecfb87, type: 2}
+    - {fileID: 11400000, guid: 7bb0dee72fa523c4db9fa03fac20b187, type: 2}
+    - {fileID: 11400000, guid: 2939e14ba03013a48b7c9ce81f7e8679, type: 2}
+    - {fileID: 11400000, guid: 7236834f15eab7f4d9e285104a2f8b91, type: 2}
+    - {fileID: 11400000, guid: 48d286abc5f41174fa7d9150e35bd855, type: 2}
+  - category: Shoes
+    categoryIta: Scarpe
+    items:
+    - {fileID: 11400000, guid: cd8a32a1d3499954f8a974198a4d9d0e, type: 2}
+    - {fileID: 11400000, guid: 3b2a28a2be2900147acc7684f812bbe3, type: 2}
+    - {fileID: 11400000, guid: f8eed85c0cf323044b69faefadf6ad27, type: 2}
+    - {fileID: 11400000, guid: 5c831644d2c792e4787da8e302053d1c, type: 2}
+    - {fileID: 11400000, guid: f17f9298eca2ba641b8bdfa60d1cc758, type: 2}
+    - {fileID: 11400000, guid: fc9114bb0c8b5594688ff15578326e88, type: 2}
+    - {fileID: 11400000, guid: 1dcaf21374f4aab478fafbee4e6c9f1c, type: 2}
+    - {fileID: 11400000, guid: 71cd4a893b724ca4ab25ce4e811d2820, type: 2}
+    - {fileID: 11400000, guid: 263b7d1c53a2dc041b44f5bca74af472, type: 2}
+    - {fileID: 11400000, guid: 1bd56f68e38409b4dabe10137756e9be, type: 2}
+    - {fileID: 11400000, guid: 71373b06dfb3e064ea55b58956f5cdb1, type: 2}
+    - {fileID: 11400000, guid: f4069f463ab9f1049badee385a7c93b3, type: 2}
+    - {fileID: 11400000, guid: d2ad8bab850822f4191aed4a88f09527, type: 2}
+    - {fileID: 11400000, guid: 74b20a12f677c0e45af2f97ddd50a87f, type: 2}
+    - {fileID: 11400000, guid: 96bab45f31be0b44c9a01796ef4324af, type: 2}
+  - category: Accessories
+    categoryIta: Accessori
+    items:
+    - {fileID: 11400000, guid: 15d76fef4c307824ebc3639021d347a9, type: 2}
+    - {fileID: 11400000, guid: d585204d3354a4f42a65c355d72f10aa, type: 2}
+    - {fileID: 11400000, guid: 9c4452cd2e0f5864bbfeafb38d3fe870, type: 2}
+    - {fileID: 11400000, guid: d3781b5854ab8584ea9037fc3db8831e, type: 2}
+    - {fileID: 11400000, guid: 5a35f5a69104d664298ffa1f18c94c10, type: 2}
+    - {fileID: 11400000, guid: 0c4388f0232b67e4eb1d45ef8abe6cc8, type: 2}
+    - {fileID: 11400000, guid: 9812f151417f957429040364eb23eefa, type: 2}
+    - {fileID: 11400000, guid: a08f0f005ce5b6e42973e041c7ca8a6f, type: 2}
+    - {fileID: 11400000, guid: d563029012562d9429cf785e049b5624, type: 2}
+    - {fileID: 11400000, guid: 6bcd4f858130d2340981ba2ee12549c6, type: 2}
+    - {fileID: 11400000, guid: 4baf326a9c9f95545a5c17be5a6ae61b, type: 2}
+    - {fileID: 11400000, guid: 6c1e971de4bf3bf44a6cd255abb8a8c7, type: 2}
+    - {fileID: 11400000, guid: 3a7928ec1b8442147a64e315cff9ee65, type: 2}
+  shotAudioSource: {fileID: 1972077497}
+  bulletsDropAudioSource: {fileID: 1972077496}
+  reloadAudioSource: {fileID: 1972077495}
+  itemDisplayer: {fileID: 6841937431231828959, guid: 8a1c907d8ce9e89468c238c40dcedd54,
+    type: 3}
+  makeMarriage: {fileID: 100004, guid: 3af6f68141914ca43ba39b2403757bd0, type: 3}
+  breakMarriage: {fileID: 100006, guid: bcaff8fc36e95584bb27cc3cf7c6cb14, type: 3}
+  infoMessage:
+  - Stain your clothes with blood and sneak near zombie without getting noticed
+  - Be careful of other mine, will not be visibile to you
+  - Remember if is winter and you are wet you will lost health
+  - When snowy enemy can see your your footprint
+  - Shoot with fire weapon will attract near zombie to you
+  - If you transport too much weight you can't run
+  - To speak with alliance member you need a radio
+  - Increase your "Leader" ability to make more arrangements with other group
+  - Visit the premimum zone to use building functionality faster and to claim free
+    object
+  - With bag you can have safety slot, object in safety slot can't be lost at death
+  - Increase your  "Woodcuter" ability to take more wood from tree
+  - Increase your  "Miner" ability to take more rock or special rock
+  - Increase your  "Conservative" ability to lost less item at death
+  - Take attention to ground bag, sometimes contains interesting things
+  - You can teleport to premium zone clicking on top-left corner player stats
+  - Increase your  "Spawnpoint dealer" ability to place more point where respawn
+    after death
+  sampleTexture: {fileID: 8400000, guid: b9ef0f2af48ebab41aca8cdfba888999, type: 2}
+  malePrefab: {fileID: 7569330324763479486, guid: b51a98b12f2f4bb46973176b696bd211,
+    type: 3}
+  male: {fileID: 1505016760143036, guid: ba422a474fc0a164e989feb807e196d1, type: 3}
+  femalePrefab: {fileID: 7569330324763479486, guid: 7ce636f1f098a1542adf690786f2b3eb,
+    type: 3}
+  female: {fileID: 1505016760143036, guid: ba422a474fc0a164e989feb807e196d1, type: 3}
+  minHeight: -0.3
+  maxHeight: 0.05
+  defaultAnimatorController: {fileID: 9100000, guid: 5f887f214000b444ca0b36f4ec39648f,
+    type: 2}
+  localPlayer:
+    serializedVersion: 2
+    m_Bits: 2097152
+  notLocalPlayer:
+    serializedVersion: 2
+    m_Bits: 1048576
+  idleSound: {fileID: 8300000, guid: f1ff3e33006a291449618f6fc613e928, type: 3}
+  moveSound:
+  - {fileID: 8300000, guid: 9df77b70cadc8384ca073a95aebc666f, type: 3}
+  - {fileID: 8300000, guid: ebb96c703224744479e6294bd49515d9, type: 3}
+  - {fileID: 8300000, guid: f1ff3e33006a291449618f6fc613e928, type: 3}
+  deathSound: {fileID: 8300000, guid: 1d92c5ac0e056b045b4461b147f95be5, type: 3}
+  entityLayerMask:
+    serializedVersion: 2
+    m_Bits: 1582848
+  modularBuildingManager: {fileID: 59939429113317557, guid: 98631e82d8c70524d8750a568754be87,
+    type: 3}
+  modularFloorCheckSpawn:
+    serializedVersion: 2
+    m_Bits: 1073750272
+  modularObjectLayerMask:
+    serializedVersion: 2
+    m_Bits: 1073741824
+  modularObjectNeedBaseLayerMask:
+    serializedVersion: 2
+    m_Bits: 33554432
+  modularObjectWallLayerMask:
+    serializedVersion: 2
+    m_Bits: 134217728
+  modularObjecObstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 8388608
+  modularObjecObstaclePlacementLayerMask:
+    serializedVersion: 2
+    m_Bits: 33554432
+  searchFornitureLayerMask:
+    serializedVersion: 2
+    m_Bits: 100663296
+  modularWallMinePositioning:
+    serializedVersion: 2
+    m_Bits: 134221824
+  modularObjectToDelete:
+    serializedVersion: 2
+    m_Bits: 100663297
+  sulfur: {fileID: 11400000, guid: 4bf904a75ee42474e8278d92dfbcc773, type: 2}
+  highMetal: {fileID: 11400000, guid: 001a563cf05a106439c989aa9bdb7ede, type: 2}
+  coal: {fileID: 11400000, guid: 2498001e2ebef4347893407b138512f9, type: 2}
+  electricBoxObject: {fileID: 5549682345151554047, guid: e2718f1f343a10845b27ab19c4248efa,
+    type: 3}
+  instantiatedElecteicBox: {fileID: 0}
+  deleteObject: {fileID: 5549682345151554047, guid: f43fb0532e7c8f349a43465a03463c00,
+    type: 3}
+  instantiatedDeleteObject: {fileID: 0}
+  plantUIObject: {fileID: 3180586116463587940, guid: 79d54eb9ee1608b408695045896e3e0d,
+    type: 3}
+  spawnedPlantUIObject: {fileID: 0}
+  manVerticalItem: {fileID: 11400000, guid: bc4557838445d5645a8eb09ca3c251c1, type: 2}
+  womanVerticalItem: {fileID: 11400000, guid: ec7ea6f80ea2cbf45b3d7c81259b860f, type: 2}
+  womanOutfit:
+  - {fileID: 11400000, guid: 565dff86eb68603449cb50f3e8472c00, type: 2}
+  - {fileID: 11400000, guid: 35c708fff494c0b47912d0a3bef1f77c, type: 2}
+  - {fileID: 11400000, guid: 676db4bcc3c4f0749866d91c8e537467, type: 2}
+  - {fileID: 11400000, guid: 6324b0458806e434baf43f9a091a96c0, type: 2}
+  - {fileID: 11400000, guid: d9563ada7d1d2bf4c991e0d4540b8dfb, type: 2}
+  - {fileID: 11400000, guid: 839262a6a705b83469f66766f5dfd328, type: 2}
+  - {fileID: 11400000, guid: 51273037331b5514797db551689c0b25, type: 2}
+  - {fileID: 11400000, guid: f4384178bc927a541baeb6d90f67955d, type: 2}
+  - {fileID: 11400000, guid: 8dd5b7f31f9cce842af26b4e585e6664, type: 2}
+  - {fileID: 11400000, guid: c6496d550d811b247a4eb5503d2878eb, type: 2}
+  - {fileID: 11400000, guid: d23bf072cb3cc124f88ebb8c8f6679c6, type: 2}
+  - {fileID: 11400000, guid: 74a68095970b1214f9c8c9241a358577, type: 2}
+  - {fileID: 11400000, guid: b2dc61e55e4c7a64a8ecc315e5c93126, type: 2}
+  - {fileID: 11400000, guid: 128f7dad775d5024593700af59cc9d9a, type: 2}
+  - {fileID: 11400000, guid: aa77aaf082a52bd4e8baad37bf0e48d7, type: 2}
+  - {fileID: 11400000, guid: ef6112ff1394eb44d8e922e36ba53318, type: 2}
+  - {fileID: 11400000, guid: 565dff86eb68603449cb50f3e8472c00, type: 2}
+  - {fileID: 11400000, guid: 35c708fff494c0b47912d0a3bef1f77c, type: 2}
+  - {fileID: 11400000, guid: 676db4bcc3c4f0749866d91c8e537467, type: 2}
+  - {fileID: 11400000, guid: 6324b0458806e434baf43f9a091a96c0, type: 2}
+  - {fileID: 11400000, guid: d9563ada7d1d2bf4c991e0d4540b8dfb, type: 2}
+  - {fileID: 11400000, guid: 839262a6a705b83469f66766f5dfd328, type: 2}
+  - {fileID: 11400000, guid: 51273037331b5514797db551689c0b25, type: 2}
+  - {fileID: 11400000, guid: f4384178bc927a541baeb6d90f67955d, type: 2}
+  - {fileID: 11400000, guid: 8dd5b7f31f9cce842af26b4e585e6664, type: 2}
+  - {fileID: 11400000, guid: c6496d550d811b247a4eb5503d2878eb, type: 2}
+  - {fileID: 11400000, guid: d23bf072cb3cc124f88ebb8c8f6679c6, type: 2}
+  - {fileID: 11400000, guid: 74a68095970b1214f9c8c9241a358577, type: 2}
+  - {fileID: 11400000, guid: b2dc61e55e4c7a64a8ecc315e5c93126, type: 2}
+  - {fileID: 11400000, guid: 128f7dad775d5024593700af59cc9d9a, type: 2}
+  - {fileID: 11400000, guid: aa77aaf082a52bd4e8baad37bf0e48d7, type: 2}
+  manOutfit:
+  - {fileID: 11400000, guid: 0013bd4409970db439ab816ee99ed07d, type: 2}
+  - {fileID: 11400000, guid: d3dbd3ab2e451864582aef8f4a0a766a, type: 2}
+  - {fileID: 11400000, guid: 0e1b6db882c7815438a1d02f7415abb9, type: 2}
+  - {fileID: 11400000, guid: 0533669b51387434bb5db6947909073b, type: 2}
+  - {fileID: 11400000, guid: b960bc4f5e67b594e8db593b907e0eb8, type: 2}
+  - {fileID: 11400000, guid: 4e86276463edfff41a73fb9c912e47d5, type: 2}
+  - {fileID: 11400000, guid: 7fbf4d26b6422de4281794fef1f5c604, type: 2}
+  - {fileID: 11400000, guid: d97a9dec37654aa47aa18839f83e2b2f, type: 2}
+  - {fileID: 11400000, guid: 6c241663a49e6e34184ca6d598ab9ba7, type: 2}
+  - {fileID: 11400000, guid: 5cdc85f3c104ef84b98ec80ca8831089, type: 2}
+  - {fileID: 11400000, guid: 360ece90541d59b4e8f51d036693499b, type: 2}
+  - {fileID: 11400000, guid: d8c9e4d61970afc499c04a0d611a62b0, type: 2}
+  - {fileID: 11400000, guid: 5758d2a89edbf1641903fd0ccbdca6cb, type: 2}
+  - {fileID: 11400000, guid: 4ffaaf5562b27f2498f2eaea90f31215, type: 2}
+  - {fileID: 11400000, guid: 7f706c7838f2eaa478681a7bc3f96cc8, type: 2}
+  - {fileID: 11400000, guid: 202013b828836554b940f7fe73417312, type: 2}
+  - {fileID: 11400000, guid: bc4557838445d5645a8eb09ca3c251c1, type: 2}
+  - {fileID: 11400000, guid: 0013bd4409970db439ab816ee99ed07d, type: 2}
+  - {fileID: 11400000, guid: d3dbd3ab2e451864582aef8f4a0a766a, type: 2}
+  - {fileID: 11400000, guid: 0e1b6db882c7815438a1d02f7415abb9, type: 2}
+  - {fileID: 11400000, guid: 0533669b51387434bb5db6947909073b, type: 2}
+  - {fileID: 11400000, guid: b960bc4f5e67b594e8db593b907e0eb8, type: 2}
+  - {fileID: 11400000, guid: 4e86276463edfff41a73fb9c912e47d5, type: 2}
+  - {fileID: 11400000, guid: 7fbf4d26b6422de4281794fef1f5c604, type: 2}
+  - {fileID: 11400000, guid: d97a9dec37654aa47aa18839f83e2b2f, type: 2}
+  - {fileID: 11400000, guid: 6c241663a49e6e34184ca6d598ab9ba7, type: 2}
+  - {fileID: 11400000, guid: 5cdc85f3c104ef84b98ec80ca8831089, type: 2}
+  - {fileID: 11400000, guid: 360ece90541d59b4e8f51d036693499b, type: 2}
+  - {fileID: 11400000, guid: d8c9e4d61970afc499c04a0d611a62b0, type: 2}
+  - {fileID: 11400000, guid: 5758d2a89edbf1641903fd0ccbdca6cb, type: 2}
+  - {fileID: 11400000, guid: 4ffaaf5562b27f2498f2eaea90f31215, type: 2}
+  equipmentIndex: -1
+  allItems:
+  - {fileID: 11400000, guid: 901f59cadcc33cb42a5ab6b2e7edaaec, type: 2}
+  - {fileID: 11400000, guid: 5137334799782f8489621fd702c43c5a, type: 2}
+  - {fileID: 11400000, guid: 6a55f07108024324fb7e53759e82ecd5, type: 2}
+  - {fileID: 11400000, guid: 4cccc591e6a51f7418feb3cd112dce72, type: 2}
+  - {fileID: 11400000, guid: 2618dbe817528c44bb3e06a8a1892841, type: 2}
+  - {fileID: 11400000, guid: 1584ae9b6856ffe448a06c7c26a5e8cc, type: 2}
+  - {fileID: 11400000, guid: 687c4292de198b843b220235a632cf6e, type: 2}
+  - {fileID: 11400000, guid: fffcf5ca8b2071740a1f96672f1141ed, type: 2}
+  - {fileID: 11400000, guid: c83baf6652f06f140b55cdc47fcf4b64, type: 2}
+  joystick: {fileID: 0}
+--- !u!82 &1972077495
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2637610271925382507}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &1972077496
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2637610271925382507}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &1972077497
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2637610271925382507}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

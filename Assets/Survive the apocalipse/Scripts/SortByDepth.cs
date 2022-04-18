@@ -1,5 +1,6 @@
 ﻿// simple script to always set y position to order in layer for visiblity
 using UnityEngine;
+using Mirror;
 
 public class SortByDepth : MonoBehaviour
 {
@@ -17,14 +18,39 @@ public class SortByDepth : MonoBehaviour
 
     public bool relatedToPlayer = false;
     public int amountRelatedToPlayer = 1;
+    public bool onlyOnStart = false;
+    private NetworkIdentity identity;
+    private Entity entity;
 
     private void Start()
     {
         if (!renderer) renderer = GetComponent<SpriteRenderer>();
+        if (!identity) identity = GetComponent<NetworkIdentity>();
+        if (!identity) identity = GetComponentInParent<NetworkIdentity>();
+        if (!entity) entity = GetComponent<Entity>();
+        if (onlyOnStart)
+        {
+            SetOrder();
+            return;
+        }
     }
 
     void Update()
     {
+        if(identity)
+        {
+            if (entity && (entity is Player || entity is Monster))
+            {
+
+            }
+            else
+            {
+                if (identity.netId != 0)
+                {
+                    Destroy(this);
+                }
+            }
+        }
         if (relatedToPlayer)
         {
             if(Player.localPlayer)

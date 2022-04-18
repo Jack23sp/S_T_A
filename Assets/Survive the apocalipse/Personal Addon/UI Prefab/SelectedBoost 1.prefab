@@ -614,8 +614,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: dea400c05ff939f4ea57d1fcb1b307ba,
+      objectReference: {fileID: 21300000, guid: 38d6847f2021df749b3e3eded9b96a74,
         type: 3}
+    - target: {fileID: 3827702113445000764, guid: a65ce4b2a49995c44966d69d8c5ec007,
+        type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4088110810943083816, guid: a65ce4b2a49995c44966d69d8c5ec007,
         type: 3}
       propertyPath: m_FontData.m_BestFit

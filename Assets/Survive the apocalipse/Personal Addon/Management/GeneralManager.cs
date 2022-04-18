@@ -1222,6 +1222,7 @@ public class GeneralManager : MonoBehaviour
         for (int i = 0; i < buildingItems.Count; i++)
         {
             int index = i;
+            if (buildingItems[index].specificBuilding) continue;
             if (buildingItems[index].specificBuilding.name == building.name)
             {
                 return buildingItems[index].buildingItem.Count;

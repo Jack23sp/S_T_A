@@ -14,7 +14,7 @@ public class UISelectedBoost : MonoBehaviour
     public Button gold;
 
     public Button closeButton;
-    // Start is called before the first frame update
+
     void Start()
     {
         if (!singleton) singleton = this;
@@ -23,7 +23,7 @@ public class UISelectedBoost : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (!player) player = Player.localPlayer;
@@ -37,36 +37,20 @@ public class UISelectedBoost : MonoBehaviour
             description.text = boost.GetDescription();
 
             coin.GetComponentInChildren<TextMeshProUGUI>().text = boost.coin.ToString();
-            //coin.gameObject.SetActive(true);
-            //coin.interactable = player.coins >= boost.coin;
+            coin.interactable = player.coins >= boost.coin;
             coin.onClick.SetListener(() =>
             {
-                if (player.coins < boost.coin)
-                {
-                    if (!GeneralManager.singleton.uiItemMallPanel)
-                    {
-                        GeneralManager.singleton.uiItemMallPanel = Instantiate(GeneralManager.singleton.itemMallPanel, GeneralManager.singleton.canvas);
-                    }
-                }
-                else
+                if (player.coins >= boost.coin)
                 {
                     player.playerBoost.CmdAddBoost(GeneralManager.singleton.listCompleteOfBoost.IndexOf(boost), 0, System.DateTime.Now.AddSeconds(GeneralManager.singleton.AddSecondsToBoost(boost)).ToString());
                 }
             });
 
             gold.GetComponentInChildren<TextMeshProUGUI>().text = boost.gold.ToString();
-            //gold.gameObject.SetActive(true);
-            //gold.interactable = player.gold >= boost.gold;
+            gold.interactable = player.gold >= boost.gold;
             gold.onClick.SetListener(() =>
             {
                 if (player.gold < boost.gold)
-                {
-                    if (!GeneralManager.singleton.uiItemMallPanel)
-                    {
-                        GeneralManager.singleton.uiItemMallPanel = Instantiate(GeneralManager.singleton.itemMallPanel, GeneralManager.singleton.canvas);
-                    }
-                }
-                else
                 {
                     player.playerBoost.CmdAddBoost(GeneralManager.singleton.listCompleteOfBoost.IndexOf(boost), 1, System.DateTime.Now.AddSeconds(GeneralManager.singleton.AddSecondsToBoost(boost)).ToString());
                 }

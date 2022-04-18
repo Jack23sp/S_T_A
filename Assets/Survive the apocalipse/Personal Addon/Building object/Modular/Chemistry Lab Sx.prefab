@@ -69,20 +69,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  objectIndex: 0
   scriptableBuilding: {fileID: 11400000, guid: 58de9f54f3014f84a83767e5175d5eae, type: 2}
+  isPremium: 0
   fornitureType: 1
   placement: {fileID: 4492152537974475043}
   collider: {fileID: 2211585954794861453}
   allColliders: []
   wallColliders: []
   obstacleColliders: []
+  owner: 
+  guild: 
   identity: {fileID: 7135504147356578231}
   canSpawn: 0
   needALayerUnder: 0
+  layerObjectUnder:
+    serializedVersion: 2
+    m_Bits: 0
   isWallObject: 0
   navMeshObstacle2D: {fileID: 865150650451230855}
   oldPositioning: 1
-  isPremium: 0
   building: {fileID: 11400000, guid: 58de9f54f3014f84a83767e5175d5eae, type: 2}
 --- !u!212 &3929747688029966980
 SpriteRenderer:
@@ -121,7 +127,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1242795895
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -8439193662133190779, guid: 2d5a0e817246c9444810ea0f9b477c66,
     type: 3}
@@ -152,6 +158,7 @@ MonoBehaviour:
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: 1
+  onlyOnStart: 0
 --- !u!61 &2211585954794861453
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -185,7 +192,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3332654847604144119}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a99d2eab88b747a9bd011e3d849162f, type: 3}
   m_Name: 
@@ -230,6 +237,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1391440760055233304}
   - component: {fileID: 4492152537974475043}
+  - component: {fileID: 6311247534087736443}
   m_Layer: 0
   m_Name: New Sprite
   m_TagString: Untagged
@@ -287,8 +295,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1783918617
-  m_SortingLayer: 4
+  m_SortingLayerID: 1242795895
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 188b40dc84436e4468cb9348ccf7ea02, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -301,6 +309,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6311247534087736443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8455544162480876715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b5fb9ce1492452499576f473de1123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer: {fileID: 4492152537974475043}
+  precision: 101.57
+  offset: 0
+  relatedToPlayer: 0
+  amountRelatedToPlayer: 1
+  onlyOnStart: 0
 --- !u!1001 &6022458896712698586
 PrefabInstance:
   m_ObjectHideFlags: 0

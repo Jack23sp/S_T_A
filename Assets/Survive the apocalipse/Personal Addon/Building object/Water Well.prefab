@@ -400,7 +400,7 @@ Transform:
   m_GameObject: {fileID: 1529476062757820}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.28, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.073640004, y: 0.112399995, z: 1}
   m_Children:
   - {fileID: 1796574586226094290}
   - {fileID: 4736439703752328}
@@ -698,7 +698,7 @@ MonoBehaviour:
   plantObject: {fileID: 0}
   monsterObject: {fileID: 0}
   spawnManager: 0
-  building: {fileID: 11400000, guid: d06b0d292b4bf1e44823e1b6ca630e70, type: 2}
+  building: {fileID: 0}
   buildingName: 
   countdown: 0
   owner: 
@@ -843,19 +843,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6e8767fbdfdc984dba9edf25b0c2590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  identity: {fileID: 0}
+  identity: {fileID: 114270635967185746}
   animator: {fileID: 0}
-  sortByDepth: {fileID: 0}
-  audioSource: {fileID: 0}
-  boxCollider: {fileID: 0}
-  rigidbody2D: {fileID: 0}
-  building: {fileID: 0}
-  entity: {fileID: 0}
+  sortByDepth: {fileID: 8691272369313649911}
+  audioSource: {fileID: 82620519608085002}
+  boxCollider: {fileID: 7211924680770364527}
+  rigidbody2D: {fileID: 6251529680979376529}
+  building: {fileID: 2023497517667855718}
+  entity: {fileID: 2023497517667855718}
   teslaDamageObject: {fileID: 0}
   tesla: {fileID: 0}
   flag: {fileID: 0}
   navMeshObstacle2D: {fileID: 0}
-  snowShaderVisualizer: {fileID: 0}
+  snowShaderVisualizer: {fileID: 1997998625}
   hasAnimator: 0
   isServer: 0
 --- !u!114 &1997998625

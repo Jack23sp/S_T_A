@@ -1673,7 +1673,7 @@ MonoBehaviour:
   flagSelectedNation: 
   selectedGameObject: {fileID: 0}
   selectedInventoryIndex: 0
-  selectedNation: 
+  selectedNationOut: 
   selectedName: 
   selectedGroup: 
   g: {fileID: 0}
@@ -2613,7 +2613,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a4bab5f194a505e49aa9c32fe2728952, type: 2}
   - {fileID: 11400000, guid: 17c1b1903bdca3443a41857153836fd4, type: 2}
   - {fileID: 11400000, guid: 0145c3f6619963f459397e0f28e0a9dc, type: 2}
-  - {fileID: 11400000, guid: cc2e95979e811a24c8660af11d871427, type: 2}
   - {fileID: 11400000, guid: 8d93beb688ddad3478e6350f7dfd2a24, type: 2}
   - {fileID: 11400000, guid: 095ebdd121f0b6b478586e17e252cf76, type: 2}
   - {fileID: 11400000, guid: cd77e9a28e0a18d46a8e31c0b1374f23, type: 2}

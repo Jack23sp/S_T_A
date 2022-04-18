@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
+using TMPro;
 
 public class UIDeleteObject : MonoBehaviour
 {
@@ -11,6 +12,12 @@ public class UIDeleteObject : MonoBehaviour
     public Button closeButton;
     public Button removeButton;
     public Image itemImage;
+
+    public void Start()
+    {
+        itemImage.preserveAspect = true;
+        closeButton.GetComponentInChildren<TextMeshProUGUI>().text = GeneralManager.singleton.languagesManager.defaultLanguages == "Italian" ?  "Rimuovi" : "Remove";
+    }
 
     void Update()
     {

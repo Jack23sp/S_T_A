@@ -2642,11 +2642,11 @@ public partial class PlayerBuilding
             {
                 if (modular.upComponent == 0)
                 {
-                    wallColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(((BoxCollider2D)modular.upWall.GetComponent<Collider2D>()).size.x, ((BoxCollider2D)modular.upWall.GetComponent<Collider2D>()).size.y), 0, GeneralManager.singleton.modularObjectToDelete);
+                    wallColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(((BoxCollider2D)modular.upWall.GetComponent<BoxCollider2D>()).size.x, ((BoxCollider2D)modular.upWall.GetComponent<BoxCollider2D>()).size.y), 0, GeneralManager.singleton.modularObjectToDelete);
                 }
                 else if (modular.upComponent == 1)
                 {
-                    wallColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(((BoxCollider2D)modular.upDoor.GetComponent<Collider2D>()).size.x, ((BoxCollider2D)modular.upDoor.GetComponent<Collider2D>()).size.y), 0, GeneralManager.singleton.modularObjectToDelete);
+                    wallColliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(((BoxCollider2D)modular.upDoor.GetComponent<BoxCollider2D>()).size.x, ((BoxCollider2D)modular.upDoor.GetComponent<BoxCollider2D>()).size.y), 0, GeneralManager.singleton.modularObjectToDelete);
                 }
                 for (int i = 0; i < wallColliders.Length; i++)
                 {
@@ -3858,7 +3858,7 @@ public partial class PlayerMove
     {
         if (ModularBuildingManager.singleton.inThisCollider)
         {
-            if (player.target != null)
+            if (player.target != null && !(player.target is Player && player.target is Chest))
                 player.CmdSetTarget(null);
 
             return;
