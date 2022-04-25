@@ -2627,7 +2627,7 @@ public partial class PlayerBuilding
                 }
             }
 
-            TargetSyncClientModular(identity);
+            //RpcSyncClientModular(identity);
         }
     }
 
@@ -2659,7 +2659,7 @@ public partial class PlayerBuilding
             if (modular.downComponent != -5) modular.downComponent = down;
             if (modular.leftComponent != -5) modular.leftComponent = left;
             if (modular.rightComponent != -5) modular.rightComponent = right;
-            TargetSyncClientModular(identity);
+            //RpcSyncClientModular(identity);
         }
     }
 
@@ -2777,8 +2777,8 @@ public partial class PlayerBuilding
         }
     }
 
-    [TargetRpc]
-    public void TargetSyncClientModular(NetworkIdentity identity)
+    [ClientRpc]
+    public void RpcSyncClientModular(NetworkIdentity identity)
     {
         ModularPiece piece = identity.GetComponent<ModularPiece>();
         piece.clientdownComponent = piece.downComponent;
@@ -3477,6 +3477,10 @@ public partial class PlayerMove
 
     public Vector3 positioningVector = new Vector3(7.960999f, -1.264f, 7.457145f);
 
+    public List<ModularPiece> sortedPieces = new List<ModularPiece>();
+
+    public ModularPiece nearestModularPiece;
+
     [SyncVar]
     public bool drink;
     [SyncVar]
@@ -3506,8 +3510,9 @@ public partial class PlayerMove
         if (player.isClient)
         {
             if (player.isLocalPlayer)
+            {
                 InvokeRepeating(nameof(SmartTargeting), 0.3f, 0.3f);
-
+            }
             InvokeRepeating(nameof(MovementController), 0.0f, 0.01f);
         }
     }
@@ -3531,6 +3536,7 @@ public partial class PlayerMove
             CancelInvoke("SyncRotation");
         }
     }
+
 
     public void SyncRotationJoystick()
     {
@@ -3892,7 +3898,7 @@ public partial class PlayerMove
     }
 
     [Client]
-    public void SmartTargetingForniture()
+    public bool SmartTargetingForniture()
     {
         if (ModularBuildingManager.singleton.inThisCollider)
         {
@@ -3906,14 +3912,64 @@ public partial class PlayerMove
                 {
                     int index = i;
                     if (sortedForniture[index] == null) continue;
-                    if (Vector2.Distance(transform.position, sortedForniture[index].transform.position) > 10) continue;
+                    if (Vector2.Distance(transform.position, sortedForniture[index].transform.position) > distanceToCheckEntity) continue;
 
-                    fornitureClient = sortedForniture[index].GetComponent<ModularObject>();
-                    player.CmdSetForniture(sortedForniture[index].identity);
-                    return;
+                    if(player.playerMove.nearestModularPiece != null)
+                    {
+                        if(Vector2.Distance(transform.position, sortedForniture[index].transform.position) > GeneralManager.singleton.GetClosestDistance(player.playerMove.nearestModularPiece.floorDoor.ToArray()))
+                        {
+                            player.CmdManageDoor(player.playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(player.playerMove.nearestModularPiece.floorDoor.ToArray()));
+                            return false;
+                        }
+                        else
+                        {
+                            fornitureClient = sortedForniture[index].GetComponent<ModularObject>();
+                            player.CmdSetForniture(sortedForniture[index].identity);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        fornitureClient = sortedForniture[index].GetComponent<ModularObject>();
+                        player.CmdSetForniture(sortedForniture[index].identity);
+                        return false;
+
+                    }                    
+                }
+                return false;
+            }
+            else
+            {
+                if (player.playerMove.nearestModularPiece != null)
+                {
+                    player.CmdManageDoor(player.playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(player.playerMove.nearestModularPiece.floorDoor.ToArray()));
+                    return false;
                 }
             }
         }
+        else
+        {
+            if (player.playerMove.nearestModularPiece != null)
+            {
+                if(player.target)
+                {
+                    if (Vector2.Distance(transform.position, player.target.transform.position) < GeneralManager.singleton.GetClosestDistance(player.playerMove.nearestModularPiece.floorDoor.ToArray()))
+                        return true;
+                    else
+                    {
+                        player.CmdManageDoor(player.playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(player.playerMove.nearestModularPiece.floorDoor.ToArray()));
+                        return false;
+                    }
+                }
+                else
+                {
+                    player.CmdManageDoor(player.playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(player.playerMove.nearestModularPiece.floorDoor.ToArray()));
+                    return false;
+                }
+            }
+            return true;
+        }
+        return true;
     }
 
     //void OnDrawGizmos()

@@ -333,23 +333,23 @@ public partial class NetworkManagerMMO : NetworkManager
                     {
                         player.playerCreation.accessory = -1;
                     }
-                }    
+                }
             }
         }
-            player.playerCreation.sex = character.sex;
-            player.playerCreation.hairType = character.hairType;
-            player.playerCreation.beard = character.beard;
-            player.playerCreation.hairColor = character.hairColor;
-            player.playerCreation.underwearColor = character.underwearColor;
-            player.playerCreation.eyesColor = character.eyesColor;
-            player.playerCreation.skinColor = character.skinColor;
-            player.playerCreation.fat = character.fat;
-            player.playerCreation.thin = character.thin;
-            player.playerCreation.muscle = character.muscle;
-            player.playerCreation.height = character.height;
-            player.playerCreation.breast = character.breast;
+        player.playerCreation.sex = character.sex;
+        player.playerCreation.hairType = character.hairType;
+        player.playerCreation.beard = character.beard;
+        player.playerCreation.hairColor = character.hairColor;
+        player.playerCreation.underwearColor = character.underwearColor;
+        player.playerCreation.eyesColor = character.eyesColor;
+        player.playerCreation.skinColor = character.skinColor;
+        player.playerCreation.fat = character.fat;
+        player.playerCreation.thin = character.thin;
+        player.playerCreation.muscle = character.muscle;
+        player.playerCreation.height = character.height;
+        player.playerCreation.breast = character.breast;
 
-        if(player.playerCreation.sex == 0)
+        if (player.playerCreation.sex == 0)
         {
             GameObject prefabPreview = Instantiate(GeneralManager.singleton.malePrefab.gameObject, player.playerCreation.dummyPresentation.transform.position, player.playerCreation.dummyPresentation.transform.rotation);
             characterCustomization = prefabPreview.GetComponent<CharacterCustomization>();
@@ -418,9 +418,9 @@ public partial class NetworkManagerMMO : NetworkManager
             prefabPreview.transform.localPosition = new Vector3(0.0f, positioning, 0.0f);
         }
 
-       
 
-        if (player.GetComponent<NotOnlinePlayerPremiumManager>())player.GetComponent<NotOnlinePlayerPremiumManager>().inPremiumZone = character.premiumZone;
+
+        if (player.GetComponent<NotOnlinePlayerPremiumManager>()) player.GetComponent<NotOnlinePlayerPremiumManager>().inPremiumZone = character.premiumZone;
 
         // add selection script
         preview.AddComponent<SelectableCharacter>();
@@ -620,7 +620,6 @@ public partial class NetworkManagerMMO : NetworkManager
         player.playerCreation.muscle = message.muscle;
         player.playerCreation.height = message.height;
         player.playerCreation.breast = message.breast;
-
         return player;
     }
 
@@ -631,7 +630,6 @@ public partial class NetworkManagerMMO : NetworkManager
         // only while in lobby (aka after handshake and not ingame)
         if (lobby.ContainsKey(conn))
         {
-
             // allowed character name?
             if (IsAllowedCharacterName(message.name))
             {

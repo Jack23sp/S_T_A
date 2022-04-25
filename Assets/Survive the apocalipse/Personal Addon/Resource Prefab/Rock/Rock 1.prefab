@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 6709993170637310520}
   - component: {fileID: 7314594853503688876}
   - component: {fileID: -8248189072003861056}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Rock 1
   m_TagString: Rock
   m_Icon: {fileID: 0}
@@ -260,6 +260,7 @@ MonoBehaviour:
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: 1
+  onlyOnStart: 0
 --- !u!61 &135153663840495400
 BoxCollider2D:
   m_ObjectHideFlags: 0

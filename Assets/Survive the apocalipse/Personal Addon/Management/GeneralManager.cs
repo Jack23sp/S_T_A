@@ -924,9 +924,11 @@ public class GeneralManager : MonoBehaviour
         {
             for (int i = 0; i < player.playerAbility.networkAbilities.Count; i++)
             {
-                if (player.playerAbility.networkAbilities[i].name == abilityName)
+                int index = i;
+                Debug.Log("Ability name : " + player.playerAbility.networkAbilities[index].name);
+                if (player.playerAbility.networkAbilities[index].name == abilityName)
                 {
-                    return player.playerAbility.networkAbilities[i].level;
+                    return player.playerAbility.networkAbilities[index].level;
                 }
             }
         }
@@ -2382,6 +2384,58 @@ public class GeneralManager : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public Transform GetClosestObject(Transform[] enemies)
+    {
+        Transform tMin = null;
+        float minDist = Mathf.Infinity;
+        Vector2 currentPos = Player.localPlayer.transform.position;
+        foreach (Transform t in enemies)
+        {
+            float dist = Vector2.Distance(t.position, currentPos);
+            if (dist < minDist)
+            {
+                tMin = t;
+                minDist = dist;
+            }
+        }
+        return tMin;
+    }
+
+    public float GetClosestDistance(Transform[] enemies)
+    {
+        Transform tMin = null;
+        float minDist = Mathf.Infinity;
+        Vector2 currentPos = Player.localPlayer.transform.position;
+        foreach (Transform t in enemies)
+        {
+            float dist = Vector2.Distance(t.position, currentPos);
+            if (dist < minDist)
+            {
+                tMin = t;
+                minDist = dist;
+            }
+        }
+        return minDist;
+    }
+
+    public int GetClosestDistanceIndex(Transform[] enemies)
+    {
+        int indexOfCloser = -1;
+        float minDist = Mathf.Infinity;
+        Vector2 currentPos = Player.localPlayer.transform.position;
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            int index = i;
+            float dist = Vector2.Distance(enemies[index].position, currentPos);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                indexOfCloser = index;
+            }
+        }
+        return indexOfCloser;
     }
 }
 

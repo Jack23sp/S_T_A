@@ -82,16 +82,20 @@ public class ModularPiece : NetworkBehaviour
 
     private NavMeshObstacle2D[] navMeshObstacle2Ds;
 
-    public List<Transform> floorAccessories = new List<Transform>();
+    public List<Transform> floorDoor = new List<Transform>();
+    public Transform upTransfomrDoor;
+    public Transform downTransfomrDoor;
+    public Transform leftTransfomrDoor;
+    public Transform rightTransfomrDoor;
 
-    [SyncVar]
-    public int playerInsideLeftDoor;
-    [SyncVar]
-    public int playerInsideRightDoor;
-    [SyncVar]
-    public int playerInsideUpDoor;
-    [SyncVar]
-    public int playerInsideDownDoor;
+    //[SyncVar]
+    //public int playerInsideLeftDoor;
+    //[SyncVar]
+    //public int playerInsideRightDoor;
+    //[SyncVar]
+    //public int playerInsideUpDoor;
+    //[SyncVar]
+    //public int playerInsideDownDoor;
 
     public List<Collider2D> buildingColliders = new List<Collider2D>();
     public List<Collider2D> fornitureColliders = new List<Collider2D>();
@@ -99,10 +103,30 @@ public class ModularPiece : NetworkBehaviour
 
     public GameObject roof;
 
-    public List<SortByDepth> sortPlus = new List<SortByDepth>();
-    public List<SortByDepth> sortMinus = new List<SortByDepth>();
-
     public List<ModularObject> insideModularObject = new List<ModularObject>();
+
+    private NavMeshObstacle2D[] leftDoors;
+    private NavMeshObstacle2D[] leftWalls;
+    private NavMeshObstacle2D[] rightDoors;
+    private NavMeshObstacle2D[] rightWalls;
+    private NavMeshObstacle2D[] upDoors;
+    private NavMeshObstacle2D[] upWalls;
+    private NavMeshObstacle2D[] downDoors;
+    private NavMeshObstacle2D[] downWalls;
+
+    public SpriteRenderer upDoorKey;
+    public SpriteRenderer downDoorKey;
+    public SpriteRenderer leftDoorKey;
+    public SpriteRenderer rightDoorKey;
+
+    [SyncVar]
+    public bool doorUpOpen;
+    [SyncVar]
+    public bool doorDownOpen;
+    [SyncVar]
+    public bool doorLeftOpen;
+    [SyncVar]
+    public bool doorRightOpen;
 
     public void OnDestroy()
     {
@@ -111,6 +135,7 @@ public class ModularPiece : NetworkBehaviour
         clientupComponent = -5;
         clientleftComponent = -5;
         clientrightComponent = -5;
+        CancelInvoke();
         CheckWall();
     }
 
@@ -120,12 +145,22 @@ public class ModularPiece : NetworkBehaviour
         name.Replace("(Clone)", "");
         name = name + UnityEngine.Random.Range(0, 100000);
 
+        leftDoors = leftDoor.GetComponents<NavMeshObstacle2D>();
+        leftWalls = leftWall.GetComponents<NavMeshObstacle2D>();
+        rightDoors = rightDoor.GetComponents<NavMeshObstacle2D>();
+        rightWalls = rightWall.GetComponents<NavMeshObstacle2D>();
+        upDoors = upDoor.GetComponents<NavMeshObstacle2D>();
+        upWalls = upWall.GetComponents<NavMeshObstacle2D>();
+        downDoors = downDoor.GetComponents<NavMeshObstacle2D>();
+        downWalls = downWall.GetComponents<NavMeshObstacle2D>();
+
         if (isClient)
         {
             Invoke(nameof(SetColor), 0.2f);
+            InvokeRepeating(nameof(CheckWall), 0.5f,0.5f);
             electricBox.SetActive(isMain);
-            if((leftComponent != -5 && rightComponent != -5 && upComponent != -5 && downComponent != -5) || 
-                (leftComponent != -5 && rightComponent != -5) || (upComponent != -5 && downComponent != -5) )
+            if ((leftComponent != -5 && rightComponent != -5 && upComponent != -5 && downComponent != -5) ||
+                (leftComponent != -5 && rightComponent != -5) || (upComponent != -5 && downComponent != -5))
             {
                 roof.SetActive(true);
             }
@@ -135,8 +170,14 @@ public class ModularPiece : NetworkBehaviour
             Invoke(nameof(SyncStartValue), 0.7f);
         }
 
-        ModularBuildingManager.singleton.allModularPiece.Add(this);
+        if(ModularBuildingManager.singleton) ModularBuildingManager.singleton.allModularPiece.Add(this);
+        else Invoke(nameof(RegisterModularPiece), 2.0f);
         Invoke(nameof(CallCheckWall), 0.5f);
+    }
+
+    public void RegisterModularPiece()
+    {
+        ModularBuildingManager.singleton.allModularPiece.Add(this);
     }
 
     [ClientRpc]
@@ -155,7 +196,7 @@ public class ModularPiece : NetworkBehaviour
         else
         {
             CheckWall();
-            if(ModularBuildingManager.singleton.inThisCollider)
+            if (ModularBuildingManager.singleton.inThisCollider)
                 ModularBuildingManager.singleton.DisableRoof();
             else
             {
@@ -166,7 +207,7 @@ public class ModularPiece : NetworkBehaviour
 
     public void CheckRoofAtStart()
     {
-        if(ModularBuildingManager.singleton.inThisCollider)
+        if (ModularBuildingManager.singleton.inThisCollider)
             ModularBuildingManager.singleton.DisableRoof();
         else
             Invoke(nameof(CheckRoofAtStart), 0.5f);
@@ -192,13 +233,14 @@ public class ModularPiece : NetworkBehaviour
 
     public void CheckWall()
     {
+        floorDoor.Clear();
         if (leftComponent != -5)
         {
             if (leftComponent == 0)
             {
                 leftWall.SetActive(true);
-                navMeshObstacle2Ds = leftWall.GetComponents<NavMeshObstacle2D>();
-                foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
+                if(floorDoor.Contains(leftTransfomrDoor))floorDoor.Remove(leftTransfomrDoor);
+                foreach (NavMeshObstacle2D obstacle2D in leftWalls)
                 {
                     obstacle2D.Spawn();
                 }
@@ -206,8 +248,8 @@ public class ModularPiece : NetworkBehaviour
             else if (leftComponent == 1)
             {
                 leftDoor.SetActive(true);
-                navMeshObstacle2Ds = leftDoor.GetComponents<NavMeshObstacle2D>();
-                foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
+                if (!floorDoor.Contains(leftTransfomrDoor)) floorDoor.Add(leftTransfomrDoor);
+                foreach (NavMeshObstacle2D obstacle2D in leftDoors)
                 {
                     obstacle2D.Spawn();
                 }
@@ -231,16 +273,12 @@ public class ModularPiece : NetworkBehaviour
                 leftWall.SetActive(false);
                 leftDoor.SetActive(false);
             }
-            //leftWall.SetActive(false);
-            //leftDoor.SetActive(false);
-            navMeshObstacle2Ds = leftWall.GetComponents<NavMeshObstacle2D>();
-            foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
+            foreach (NavMeshObstacle2D obstacle2D in leftWalls)
             {
                 Destroy(obstacle2D.go);
                 obstacle2D.go = null;
             }
-            navMeshObstacle2Ds = leftDoor.GetComponents<NavMeshObstacle2D>();
-            foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
+            foreach (NavMeshObstacle2D obstacle2D in leftDoors)
             {
                 Destroy(obstacle2D.go);
                 obstacle2D.go = null;
@@ -254,8 +292,8 @@ public class ModularPiece : NetworkBehaviour
             if (rightComponent == 0)
             {
                 rightWall.SetActive(true);
-                navMeshObstacle2Ds = rightWall.GetComponents<NavMeshObstacle2D>();
-                foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
+                if (floorDoor.Contains(rightTransfomrDoor)) floorDoor.Remove(rightTransfomrDoor);
+                foreach (NavMeshObstacle2D obstacle2D in rightWalls)
                 {
                     obstacle2D.Spawn();
                 }
@@ -263,8 +301,8 @@ public class ModularPiece : NetworkBehaviour
             else if (rightComponent == 1)
             {
                 rightDoor.SetActive(true);
-                navMeshObstacle2Ds = rightDoor.GetComponents<NavMeshObstacle2D>();
-                foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
+                if (!floorDoor.Contains(rightTransfomrDoor)) floorDoor.Add(rightTransfomrDoor);
+                foreach (NavMeshObstacle2D obstacle2D in rightDoors)
                 {
                     obstacle2D.Spawn();
                 }
@@ -288,17 +326,12 @@ public class ModularPiece : NetworkBehaviour
                 rightWall.SetActive(false);
                 rightDoor.SetActive(false);
             }
-
-            //rightWall.SetActive(false);
-            navMeshObstacle2Ds = rightWall.GetComponents<NavMeshObstacle2D>();
-            foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
+            foreach (NavMeshObstacle2D obstacle2D in rightWalls)
             {
                 Destroy(obstacle2D.go);
                 obstacle2D.go = null;
             }
-            //rightDoor.SetActive(false);
-            navMeshObstacle2Ds = rightDoor.GetComponents<NavMeshObstacle2D>();
-            foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
+            foreach (NavMeshObstacle2D obstacle2D in rightDoors)
             {
                 Destroy(obstacle2D.go);
                 obstacle2D.go = null;
@@ -311,8 +344,8 @@ public class ModularPiece : NetworkBehaviour
             if (upComponent == 0)
             {
                 upWall.SetActive(true);
-                navMeshObstacle2Ds = upWall.GetComponents<NavMeshObstacle2D>();
-                foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
+                if (floorDoor.Contains(upTransfomrDoor)) floorDoor.Remove(upTransfomrDoor);
+                foreach (NavMeshObstacle2D obstacle2D in upWalls)
                 {
                     obstacle2D.Spawn();
                 }
@@ -320,8 +353,8 @@ public class ModularPiece : NetworkBehaviour
             else if (upComponent == 1)
             {
                 upDoor.SetActive(true);
-                navMeshObstacle2Ds = upDoor.GetComponents<NavMeshObstacle2D>();
-                foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
+                if (!floorDoor.Contains(upTransfomrDoor)) floorDoor.Add(upTransfomrDoor);
+                foreach (NavMeshObstacle2D obstacle2D in upDoors)
                 {
                     obstacle2D.Spawn();
                 }
@@ -345,17 +378,12 @@ public class ModularPiece : NetworkBehaviour
                 upWall.SetActive(false);
                 upDoor.SetActive(false);
             }
-
-            //upWall.SetActive(false);
-            navMeshObstacle2Ds = upWall.GetComponents<NavMeshObstacle2D>();
-            foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
+            foreach (NavMeshObstacle2D obstacle2D in upWalls)
             {
                 Destroy(obstacle2D.go);
                 obstacle2D.go = null;
             }
-            //upDoor.SetActive(false);
-            navMeshObstacle2Ds = upDoor.GetComponents<NavMeshObstacle2D>();
-            foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
+            foreach (NavMeshObstacle2D obstacle2D in upDoors)
             {
                 Destroy(obstacle2D.go);
                 obstacle2D.go = null;
@@ -368,8 +396,8 @@ public class ModularPiece : NetworkBehaviour
             if (downComponent == 0)
             {
                 downWall.SetActive(true);
-                navMeshObstacle2Ds = downWall.GetComponents<NavMeshObstacle2D>();
-                foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
+                if (floorDoor.Contains(downTransfomrDoor)) floorDoor.Remove(downTransfomrDoor);
+                foreach (NavMeshObstacle2D obstacle2D in downWalls)
                 {
                     obstacle2D.Spawn();
                 }
@@ -377,8 +405,8 @@ public class ModularPiece : NetworkBehaviour
             else if (downComponent == 1)
             {
                 downDoor.SetActive(true);
-                navMeshObstacle2Ds = downDoor.GetComponents<NavMeshObstacle2D>();
-                foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
+                if (!floorDoor.Contains(downTransfomrDoor)) floorDoor.Add(downTransfomrDoor);
+                foreach (NavMeshObstacle2D obstacle2D in downDoors)
                 {
                     obstacle2D.Spawn();
                 }
@@ -402,17 +430,12 @@ public class ModularPiece : NetworkBehaviour
                 downWall.SetActive(false);
                 downDoor.SetActive(false);
             }
-
-            //downWall.SetActive(false);
-            navMeshObstacle2Ds = downWall.GetComponents<NavMeshObstacle2D>();
-            foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
+            foreach (NavMeshObstacle2D obstacle2D in downWalls)
             {
                 Destroy(obstacle2D.go);
                 obstacle2D.go = null;
             }
-            //downDoor.SetActive(false);
-            navMeshObstacle2Ds = downDoor.GetComponents<NavMeshObstacle2D>();
-            foreach (NavMeshObstacle2D obstacle2D in navMeshObstacle2Ds)
+            foreach (NavMeshObstacle2D obstacle2D in downDoors)
             {
                 Destroy(obstacle2D.go);
                 obstacle2D.go = null;

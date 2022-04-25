@@ -921,6 +921,7 @@ MonoBehaviour:
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: 1
+  onlyOnStart: 0
 --- !u!50 &50382803059724738
 Rigidbody2D:
   serializedVersion: 4
@@ -1137,8 +1138,6 @@ MonoBehaviour:
   indicator: {fileID: 0}
   inventorySizeDefault: 30
   defaultItems:
-  - item: {fileID: 11400000, guid: bd94a405a98103a4486f682e87db85a1, type: 2}
-    amount: 1
   - item: {fileID: 11400000, guid: c54cd9872bd6b6a448d5bb97e6d58742, type: 2}
     amount: 1
   - item: {fileID: 11400000, guid: f52dce53c5bf6bf4091d6e2af8d4f116, type: 2}
@@ -4855,7 +4854,7 @@ PrefabInstance:
     - target: {fileID: 7698982906431646488, guid: b909f3cba68d98540845c7ef16b588e6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.1
+      value: -0.99
       objectReference: {fileID: 0}
     - target: {fileID: 7698982906431646488, guid: b909f3cba68d98540845c7ef16b588e6,
         type: 3}

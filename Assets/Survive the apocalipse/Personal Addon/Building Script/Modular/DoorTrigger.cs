@@ -8,8 +8,6 @@ public class DoorTrigger : MonoBehaviour
 
     public ModularPiece modularPiece;
 
-    public List<Collider2D> playerInside = new List<Collider2D>();
-
     public bool up, down, left, right;
 
     public NavMeshObstacle2D navMeshObstacle2D;
@@ -18,87 +16,27 @@ public class DoorTrigger : MonoBehaviour
     {
         if (up)
         {
-            animator.SetBool("OPEN", modularPiece.playerInsideUpDoor > 0);
+            animator.SetBool("OPEN", modularPiece.doorUpOpen == true);
             if (navMeshObstacle2D)
-                navMeshObstacle2D.enabled = modularPiece.playerInsideUpDoor <= 0;
+                navMeshObstacle2D.enabled = modularPiece.doorUpOpen == false;
         }
         if (down)
         {
-            animator.SetBool("OPEN", modularPiece.playerInsideDownDoor > 0);
+            animator.SetBool("OPEN", modularPiece.doorDownOpen == true);
             if (navMeshObstacle2D)
-                navMeshObstacle2D.enabled = modularPiece.playerInsideDownDoor <= 0;
+                navMeshObstacle2D.enabled = modularPiece.doorDownOpen == false;
         }
         if (left)
         {
-            animator.SetBool("OPEN", modularPiece.playerInsideLeftDoor > 0);
+            animator.SetBool("OPEN", modularPiece.doorLeftOpen == true);
             if (navMeshObstacle2D)
-                navMeshObstacle2D.enabled = modularPiece.playerInsideLeftDoor <= 0;
+                navMeshObstacle2D.enabled = modularPiece.doorLeftOpen == false;
         }
         if (right)
         {
-            animator.SetBool("OPEN", modularPiece.playerInsideRightDoor > 0);
+            animator.SetBool("OPEN", modularPiece.doorRightOpen == true);
             if (navMeshObstacle2D)
-                navMeshObstacle2D.enabled = modularPiece.playerInsideRightDoor <= 0;
-        }
-    }
-
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (modularPiece.isServer)
-        {
-            if ((collision.CompareTag("Player") && GeneralManager.singleton.CanEnterHome(modularPiece, collision.GetComponent<Player>())) || (collision.CompareTag("Player") && modularPiece.level < GeneralManager.singleton.FindNetworkAbilityLevel("Burglar", collision.GetComponent<Player>().name)))
-            {
-                if (!playerInside.Contains(collision))
-                {
-                    playerInside.Add(collision);
-                    if (up)
-                    {
-                        modularPiece.playerInsideUpDoor = playerInside.Count;
-                    }
-                    if (down)
-                    {
-                        modularPiece.playerInsideDownDoor = playerInside.Count;
-                    }
-                    if (left)
-                    {
-                        modularPiece.playerInsideLeftDoor = playerInside.Count;
-                    }
-                    if (right)
-                    {
-                        modularPiece.playerInsideRightDoor = playerInside.Count;
-                    }
-                }
-            }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (modularPiece.isServer)
-        {
-            if ((collision.CompareTag("Player") && GeneralManager.singleton.CanEnterHome(modularPiece, collision.GetComponent<Player>())) || (collision.CompareTag("Player") && modularPiece.level < GeneralManager.singleton.FindNetworkAbilityLevel("Burglar", collision.GetComponent<Player>().name)))
-            {
-                if (playerInside.Contains(collision))
-                {
-                    playerInside.Remove(collision);
-                    if (up)
-                    {
-                        modularPiece.playerInsideUpDoor = playerInside.Count;
-                    }
-                    if (down)
-                    {
-                        modularPiece.playerInsideDownDoor = playerInside.Count;
-                    }
-                    if (left)
-                    {
-                        modularPiece.playerInsideLeftDoor = playerInside.Count;
-                    }
-                    if (right)
-                    {
-                        modularPiece.playerInsideRightDoor = playerInside.Count;
-                    }
-                }
-            }
+                navMeshObstacle2D.enabled = modularPiece.doorRightOpen == false;
         }
     }
 }

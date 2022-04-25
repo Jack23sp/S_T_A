@@ -164,242 +164,249 @@ public class ModularObject : Forniture
     {
         if (!isClient && !isServer)
         {
-            if (needALayerUnder)
+            if (collision.GetType() == typeof(BoxCollider2D))
             {
-                if ((GeneralManager.singleton.modularObjectNeedBaseLayerMask.value & (1 << collision.gameObject.layer)) > 0)
-                {
-                    if (!allColliders.Contains(((BoxCollider2D)collision)))
-                    {
-                        allColliders.Add(((BoxCollider2D)collision));
-                    }
-                }
 
-                if (allColliders.Count > 1) { canSpawn = false; return; }
-                else
+                if (needALayerUnder)
                 {
-                    if (allColliders.Count == 1 && allColliders[0].CompareTag(scriptableBuilding.necessaryTagObject))
+                    if ((GeneralManager.singleton.modularObjectNeedBaseLayerMask.value & (1 << collision.gameObject.layer)) > 0)
                     {
-                        if (GeneralManager.singleton.IsInside(allColliders[0], collider))
+                        if (!allColliders.Contains(((BoxCollider2D)collision)))
                         {
-                            canSpawn = true; return;
+                            allColliders.Add(((BoxCollider2D)collision));
                         }
                     }
 
-                    canSpawn = false; return;
-                }
-
-            }
-            else if (isWallObject)
-            {
-                if ((GeneralManager.singleton.modularObjectWallLayerMask.value & (1 << collision.gameObject.layer)) > 0)
-                {
-                    if (!allColliders.Contains(((BoxCollider2D)collision)))
-                    {
-                        allColliders.Add(((BoxCollider2D)collision));
-                    }
-                }
-
-                if ((GeneralManager.singleton.modularObjecObstacleLayerMask.value & (1 << collision.gameObject.layer)) > 0)
-                {
-                    if (!obstacleColliders.Contains(((BoxCollider2D)collision)))
-                    {
-                        obstacleColliders.Add(((BoxCollider2D)collision));
-                    }
-                }
-
-                if (obstacleColliders.Count > 0) { canSpawn = false; return; }
-                else
-                {
                     if (allColliders.Count > 1) { canSpawn = false; return; }
                     else
                     {
-                        if (allColliders.Count == 1)
+                        if (allColliders.Count == 1 && allColliders[0].CompareTag(scriptableBuilding.necessaryTagObject))
                         {
                             if (GeneralManager.singleton.IsInside(allColliders[0], collider))
                             {
                                 canSpawn = true; return;
                             }
                         }
+
                         canSpawn = false; return;
                     }
+
                 }
-            }
-            else
-            {
-                if ((GeneralManager.singleton.modularObjectLayerMask.value & (1 << collision.gameObject.layer)) > 0)
+                else if (isWallObject)
                 {
-                    if (!allColliders.Contains(((BoxCollider2D)collision)))
+                    if ((GeneralManager.singleton.modularObjectWallLayerMask.value & (1 << collision.gameObject.layer)) > 0)
                     {
-                        allColliders.Add(((BoxCollider2D)collision));
+                        if (!allColliders.Contains(((BoxCollider2D)collision)))
+                        {
+                            allColliders.Add(((BoxCollider2D)collision));
+                        }
                     }
-                }
 
-                if ((GeneralManager.singleton.modularObjecObstaclePlacementLayerMask.value & (1 << collision.gameObject.layer)) > 0)
-                {
-                    if (!obstacleColliders.Contains(((BoxCollider2D)collision)))
+                    if ((GeneralManager.singleton.modularObjecObstacleLayerMask.value & (1 << collision.gameObject.layer)) > 0)
                     {
-                        obstacleColliders.Add(((BoxCollider2D)collision));
+                        if (!obstacleColliders.Contains(((BoxCollider2D)collision)))
+                        {
+                            obstacleColliders.Add(((BoxCollider2D)collision));
+                        }
                     }
-                }
 
-                List<BoxCollider2D> listCollider = obstacleColliders.ToList();
-                for (int i = 0; i < listCollider.Count; i++)
-                {
-                    int index = i;
-                    if (listCollider[index] == collider)
-                    {
-                        listCollider.Remove(listCollider[index]);
-                    }
-                }
-
-                obstacleColliders = listCollider;
-
-                if (obstacleColliders.Count > 0) { canSpawn = false; return; }
-                else
-                {
-                    if (allColliders.Count > 1) { canSpawn = false; return; }
+                    if (obstacleColliders.Count > 0) { canSpawn = false; return; }
                     else
                     {
-                        if (allColliders.Count == 1)
+                        if (allColliders.Count > 1) { canSpawn = false; return; }
+                        else
                         {
-                            if (GeneralManager.singleton.IsInside(allColliders[0], collider))
+                            if (allColliders.Count == 1)
                             {
-                                canSpawn = true;
-                                return;
+                                if (GeneralManager.singleton.IsInside(allColliders[0], collider))
+                                {
+                                    canSpawn = true; return;
+                                }
                             }
+                            canSpawn = false; return;
                         }
-                        canSpawn = false; return;
+                    }
+                }
+                else
+                {
+                    if ((GeneralManager.singleton.modularObjectLayerMask.value & (1 << collision.gameObject.layer)) > 0)
+                    {
+                        if (!allColliders.Contains(((BoxCollider2D)collision)))
+                        {
+                            allColliders.Add(((BoxCollider2D)collision));
+                        }
+                    }
+
+                    if ((GeneralManager.singleton.modularObjecObstaclePlacementLayerMask.value & (1 << collision.gameObject.layer)) > 0)
+                    {
+                        if (!obstacleColliders.Contains(((BoxCollider2D)collision)))
+                        {
+                            obstacleColliders.Add(((BoxCollider2D)collision));
+                        }
+                    }
+
+                    List<BoxCollider2D> listCollider = obstacleColliders.ToList();
+                    for (int i = 0; i < listCollider.Count; i++)
+                    {
+                        int index = i;
+                        if (listCollider[index] == collider)
+                        {
+                            listCollider.Remove(listCollider[index]);
+                        }
+                    }
+
+                    obstacleColliders = listCollider;
+
+                    if (obstacleColliders.Count > 0) { canSpawn = false; return; }
+                    else
+                    {
+                        if (allColliders.Count > 1) { canSpawn = false; return; }
+                        else
+                        {
+                            if (allColliders.Count == 1)
+                            {
+                                if (GeneralManager.singleton.IsInside(allColliders[0], collider))
+                                {
+                                    canSpawn = true;
+                                    return;
+                                }
+                            }
+                            canSpawn = false; return;
+                        }
                     }
                 }
             }
         }
     }
 
-    public void OnTriggerStay2D(Collider2D collision)
-    {
-        if (!isClient && !isServer)
-        {
-            if (needALayerUnder)
-            {
-                if ((layerObjectUnder.value & (1 << collision.gameObject.layer)) > 0)
-                {
-                    if (!allColliders.Contains(((BoxCollider2D)collision)))
-                    {
-                        allColliders.Add(((BoxCollider2D)collision));
-                    }
-                }
+    //public void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    if (!isClient && !isServer)
+    //    {
+    //        if (needALayerUnder)
+    //        {
+    //            if ((layerObjectUnder.value & (1 << collision.gameObject.layer)) > 0)
+    //            {
+    //                if (!allColliders.Contains(((BoxCollider2D)collision)))
+    //                {
+    //                    allColliders.Add(((BoxCollider2D)collision));
+    //                }
+    //            }
 
-                if (allColliders.Count > 1) { canSpawn = false; return; }
-                else
-                {
-                    if (allColliders.Count == 1 && allColliders[0].CompareTag(scriptableBuilding.necessaryTagObject))
-                    {
-                        if (GeneralManager.singleton.IsInside(allColliders[0], collider))
-                        {
-                            canSpawn = true; return;
-                        }
-                    }
+    //            if (allColliders.Count > 1) { canSpawn = false; return; }
+    //            else
+    //            {
+    //                if (allColliders.Count == 1 && allColliders[0].CompareTag(scriptableBuilding.necessaryTagObject))
+    //                {
+    //                    if (GeneralManager.singleton.IsInside(allColliders[0], collider))
+    //                    {
+    //                        canSpawn = true; return;
+    //                    }
+    //                }
 
-                    canSpawn = false; return;
-                }
+    //                canSpawn = false; return;
+    //            }
 
-            }
-            else if (isWallObject)
-            {
-                if ((GeneralManager.singleton.modularObjectWallLayerMask.value & (1 << collision.gameObject.layer)) > 0)
-                {
-                    if (!allColliders.Contains(((BoxCollider2D)collision)))
-                    {
-                        allColliders.Add(((BoxCollider2D)collision));
-                    }
-                }
+    //        }
+    //        else if (isWallObject)
+    //        {
+    //            if ((GeneralManager.singleton.modularObjectWallLayerMask.value & (1 << collision.gameObject.layer)) > 0)
+    //            {
+    //                if (!allColliders.Contains(((BoxCollider2D)collision)))
+    //                {
+    //                    allColliders.Add(((BoxCollider2D)collision));
+    //                }
+    //            }
 
-                if ((GeneralManager.singleton.modularObjecObstacleLayerMask.value & (1 << collision.gameObject.layer)) > 0)
-                {
-                    if (!obstacleColliders.Contains(((BoxCollider2D)collision)))
-                    {
-                        obstacleColliders.Add(((BoxCollider2D)collision));
-                    }
-                }
+    //            if ((GeneralManager.singleton.modularObjecObstacleLayerMask.value & (1 << collision.gameObject.layer)) > 0)
+    //            {
+    //                if (!obstacleColliders.Contains(((BoxCollider2D)collision)))
+    //                {
+    //                    obstacleColliders.Add(((BoxCollider2D)collision));
+    //                }
+    //            }
 
-                if (obstacleColliders.Count > 0) { canSpawn = false; return; }
-                else
-                {
-                    if (allColliders.Count > 1) { canSpawn = false; return; }
-                    else
-                    {
-                        if (allColliders.Count == 1)
-                        {
-                            if (GeneralManager.singleton.IsInside(allColliders[0], collider))
-                            {
-                                canSpawn = true; return;
-                            }
-                        }
-                        canSpawn = false; return;
-                    }
-                }
-            }
-            else
-            {
-                if ((GeneralManager.singleton.modularObjectLayerMask.value & (1 << collision.gameObject.layer)) > 0)
-                {
-                    if (!allColliders.Contains(((BoxCollider2D)collision)))
-                    {
-                        allColliders.Add(((BoxCollider2D)collision));
-                    }
-                }
+    //            if (obstacleColliders.Count > 0) { canSpawn = false; return; }
+    //            else
+    //            {
+    //                if (allColliders.Count > 1) { canSpawn = false; return; }
+    //                else
+    //                {
+    //                    if (allColliders.Count == 1)
+    //                    {
+    //                        if (GeneralManager.singleton.IsInside(allColliders[0], collider))
+    //                        {
+    //                            canSpawn = true; return;
+    //                        }
+    //                    }
+    //                    canSpawn = false; return;
+    //                }
+    //            }
+    //        }
+    //        else
+    //        {
+    //            if ((GeneralManager.singleton.modularObjectLayerMask.value & (1 << collision.gameObject.layer)) > 0)
+    //            {
+    //                if (!allColliders.Contains(((BoxCollider2D)collision)))
+    //                {
+    //                    allColliders.Add(((BoxCollider2D)collision));
+    //                }
+    //            }
 
-                if ((GeneralManager.singleton.modularObjecObstaclePlacementLayerMask.value & (1 << collision.gameObject.layer)) > 0)
-                {
-                    if (!obstacleColliders.Contains(((BoxCollider2D)collision)))
-                    {
-                        obstacleColliders.Add(((BoxCollider2D)collision));
-                    }
-                }
+    //            if ((GeneralManager.singleton.modularObjecObstaclePlacementLayerMask.value & (1 << collision.gameObject.layer)) > 0)
+    //            {
+    //                if (!obstacleColliders.Contains(((BoxCollider2D)collision)))
+    //                {
+    //                    obstacleColliders.Add(((BoxCollider2D)collision));
+    //                }
+    //            }
 
-                List<BoxCollider2D> listCollider = obstacleColliders.ToList();
-                for (int i = 0; i < listCollider.Count; i++)
-                {
-                    int index = i;
-                    if (listCollider[index] == collider)
-                    {
-                        listCollider.Remove(listCollider[index]);
-                    }
-                }
+    //            List<BoxCollider2D> listCollider = obstacleColliders.ToList();
+    //            for (int i = 0; i < listCollider.Count; i++)
+    //            {
+    //                int index = i;
+    //                if (listCollider[index] == collider)
+    //                {
+    //                    listCollider.Remove(listCollider[index]);
+    //                }
+    //            }
 
-                obstacleColliders = listCollider;
+    //            obstacleColliders = listCollider;
 
-                if (obstacleColliders.Count > 0) { canSpawn = false; return; }
-                else
-                {
-                    if (allColliders.Count > 1) { canSpawn = false; return; }
-                    else
-                    {
-                        if (allColliders.Count == 1)
-                        {
-                            if (GeneralManager.singleton.IsInside(allColliders[0], collider))
-                            {
-                                canSpawn = true;
-                                return;
-                            }
-                        }
-                        canSpawn = false; return;
-                    }
-                }
-            }
-        }
-    }
+    //            if (obstacleColliders.Count > 0) { canSpawn = false; return; }
+    //            else
+    //            {
+    //                if (allColliders.Count > 1) { canSpawn = false; return; }
+    //                else
+    //                {
+    //                    if (allColliders.Count == 1)
+    //                    {
+    //                        if (GeneralManager.singleton.IsInside(allColliders[0], collider))
+    //                        {
+    //                            canSpawn = true;
+    //                            return;
+    //                        }
+    //                    }
+    //                    canSpawn = false; return;
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (allColliders.Contains((BoxCollider2D)collision))
+        if (collision.GetType() == typeof(BoxCollider2D))
         {
-            allColliders.Remove((BoxCollider2D)collision);
-        }
+            if (allColliders.Contains((BoxCollider2D)collision))
+            {
+                allColliders.Remove((BoxCollider2D)collision);
+            }
 
-        if (obstacleColliders.Contains((BoxCollider2D)collision))
-        {
-            obstacleColliders.Remove((BoxCollider2D)collision);
+            if (obstacleColliders.Contains((BoxCollider2D)collision))
+            {
+                obstacleColliders.Remove((BoxCollider2D)collision);
+            }
         }
     }
 }

@@ -925,6 +925,7 @@ MonoBehaviour:
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: 1
+  onlyOnStart: 0
 --- !u!50 &50382803059724738
 Rigidbody2D:
   serializedVersion: 4
@@ -1142,14 +1143,12 @@ MonoBehaviour:
   indicator: {fileID: 0}
   inventorySizeDefault: 30
   defaultItems:
-  - item: {fileID: 11400000, guid: bd94a405a98103a4486f682e87db85a1, type: 2}
-    amount: 1
   - item: {fileID: 11400000, guid: c54cd9872bd6b6a448d5bb97e6d58742, type: 2}
     amount: 1
   - item: {fileID: 11400000, guid: f52dce53c5bf6bf4091d6e2af8d4f116, type: 2}
     amount: 50
   - item: {fileID: 11400000, guid: 308c3cc4893611f428ab2524f094ddf7, type: 2}
-    amount: 1
+    amount: 50
   - item: {fileID: 11400000, guid: 934173f809c4b8d479c4dbba90a3be54, type: 2}
     amount: 1
   inventorySplitKeys: 300100002f010000
@@ -1678,7 +1677,7 @@ MonoBehaviour:
   flagSelectedNation: 
   selectedGameObject: {fileID: 0}
   selectedInventoryIndex: 0
-  selectedNation: 
+  selectedNationOut: 
   selectedName: 
   selectedGroup: 
   g: {fileID: 0}
@@ -2005,6 +2004,7 @@ MonoBehaviour:
   player: {fileID: 114732280623991920}
   nearMonster: []
   shakeCamera: 0
+  shakeCameraResource: 0
   customCameraShake: {fileID: 0}
 --- !u!114 &70829127602210398
 MonoBehaviour:
@@ -2617,7 +2617,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a4bab5f194a505e49aa9c32fe2728952, type: 2}
   - {fileID: 11400000, guid: 17c1b1903bdca3443a41857153836fd4, type: 2}
   - {fileID: 11400000, guid: 0145c3f6619963f459397e0f28e0a9dc, type: 2}
-  - {fileID: 11400000, guid: cc2e95979e811a24c8660af11d871427, type: 2}
   - {fileID: 11400000, guid: 8d93beb688ddad3478e6350f7dfd2a24, type: 2}
   - {fileID: 11400000, guid: 095ebdd121f0b6b478586e17e252cf76, type: 2}
   - {fileID: 11400000, guid: cd77e9a28e0a18d46a8e31c0b1374f23, type: 2}

@@ -45,10 +45,10 @@ public class SortByDepth : MonoBehaviour
             }
             else
             {
-                if (identity.netId != 0)
-                {
-                    Destroy(this);
-                }
+                //if (identity.netId != 0)
+                //{
+                //    Destroy(this);
+                //}
             }
         }
         if (relatedToPlayer)

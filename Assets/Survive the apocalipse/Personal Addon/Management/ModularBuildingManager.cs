@@ -41,6 +41,9 @@ public class ModularBuildingManager : NetworkBehaviour
 
     public int insideIndex = -1;
 
+    public Color openDoorColor;
+    public Color closeDoorColor;
+
     void Start()
     {
         if (!singleton) singleton = this;
@@ -65,20 +68,6 @@ public class ModularBuildingManager : NetworkBehaviour
             foreach (ModularPiece modularPiece in allModularPiece)
             {
                 if (modularPiece.modularIndex == insideIndex) modularPiece.roof.SetActive(false);
-
-                foreach (SortByDepth sortByDepth in modularPiece.sortPlus)
-                {
-                    sortByDepth.relatedToPlayer = true;
-                    sortByDepth.amountRelatedToPlayer = 1;
-                    sortByDepth.SetOrder();
-                }
-
-                foreach (SortByDepth sortByDepth in modularPiece.sortMinus)
-                {
-                    sortByDepth.relatedToPlayer = true;
-                    sortByDepth.amountRelatedToPlayer = -1;
-                    sortByDepth.SetOrder();
-                }
             }
             insideIndex = -1;
         }

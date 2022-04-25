@@ -191,6 +191,7 @@ MonoBehaviour:
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: 2
+  onlyOnStart: 0
 --- !u!1 &2143081696237731627
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +271,7 @@ GameObject:
   - component: {fileID: 8070231334695952521}
   - component: {fileID: -2366553131055762483}
   - component: {fileID: -7880764454184029509}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Tree
   m_TagString: Tree
   m_Icon: {fileID: 0}
@@ -418,6 +419,7 @@ MonoBehaviour:
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: 1
+  onlyOnStart: 0
 --- !u!61 &135153663840495400
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -895,6 +897,7 @@ MonoBehaviour:
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: -1
+  onlyOnStart: 0
 --- !u!1 &5200501797619494490
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,6 +1121,7 @@ MonoBehaviour:
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: 1
+  onlyOnStart: 0
 --- !u!1001 &2732340086125785203
 PrefabInstance:
   m_ObjectHideFlags: 0

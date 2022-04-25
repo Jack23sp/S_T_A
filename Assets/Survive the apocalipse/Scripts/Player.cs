@@ -596,6 +596,12 @@ public partial class Player : Entity
         if (!isServer && !isClient) return;
 
         base.Start();
+
+        playerMove.nearestModularPiece = ManageDoorModular("IDLE");
+
+        if (isClient)
+            InvokeRepeating(nameof(AssignModularPiece), 0.5f, 0.5f);
+
         onlinePlayers[name] = this;
 
         if (playerCreation.sex == 0)
@@ -626,6 +632,11 @@ public partial class Player : Entity
         InvokeRepeating(nameof(CheckJoystick), 0.0f, 1.0f);
         InvokeRepeating(nameof(UpdateOverlays), 0.0f, 2.0f);
 
+    }
+
+    public void AssignModularPiece()
+    {
+        playerMove.nearestModularPiece = ManageDoorModular("MOVING");
     }
 
     public void CheckJoystick()
@@ -4732,7 +4743,6 @@ public partial class Player : Entity
         List<Entity> monsters = objects.Select(go => go.GetComponent<Entity>()).Where(m => m.health > 0).ToList();
         List<Entity> sorted = monsters.OrderBy(m => Vector2.Distance(transform.position, m.transform.position)).ToList();
 
-
         if (target)
         {
             if (target == sorted[1])
@@ -4814,17 +4824,25 @@ public partial class Player : Entity
         if (ModularBuildingManager.singleton.inThisCollider)
         {
             playerMove.SmartTargetingForniture();
-            if (ModularBuildingManager.singleton.instantiatedUI == null)
+            if (ModularBuildingManager.singleton.instantiatedUI == null && playerMove.forniture)
             {
                 ModularBuildingManager.singleton.instantiatedUI = Instantiate(Player.localPlayer.SearchUiToSpawnInManager(playerMove.forniture.GetComponent<ModularObject>().scriptableBuilding), GeneralManager.singleton.canvas);
                 return;
             }
         }
 
+
         useSkillWhenCloser = -1;
         Entity entity = null;
         if (target) entity = target;
         else return;
+
+        if (playerMove.nearestModularPiece != null && Vector2.Distance(target.transform.position, transform.position) > GeneralManager.singleton.GetClosestDistanceIndex(playerMove.nearestModularPiece.floorDoor.ToArray()))
+        {
+            CmdManageDoor(playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(playerMove.nearestModularPiece.floorDoor.ToArray()));
+            return;
+        }
+
 
         if (CanAttack(entity) && skills.Count > 0)
         {
@@ -5926,31 +5944,34 @@ public partial class Player : Entity
     [Command]
     public void CmdAddWeaponToWeaponStorage(int inventoryIndex, int type)
     {
-        WeaponStorage weaponStorage = playerMove.forniture.GetComponent<WeaponStorage>();
-        if (weaponStorage)
+        if (playerMove.forniture)
         {
-            if (type == 0)
+            WeaponStorage weaponStorage = playerMove.forniture.GetComponent<WeaponStorage>();
+            if (weaponStorage)
             {
-                if (weaponStorage.InventoryCanAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 5, 0, true))
+                if (type == 0)
                 {
-                    weaponStorage.InventoryAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 5, inventoryIndex, 0, true);
-                    return;
+                    if (weaponStorage.InventoryCanAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 5, 0, true))
+                    {
+                        weaponStorage.InventoryAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 5, inventoryIndex, 0, true);
+                        return;
+                    }
                 }
-            }
-            else if (type == 1)
-            {
-                if (weaponStorage.InventoryCanAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 10, 5, true))
+                else if (type == 1)
                 {
-                    weaponStorage.InventoryAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 10, inventoryIndex, 5, true);
-                    return;
+                    if (weaponStorage.InventoryCanAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 10, 5, true))
+                    {
+                        weaponStorage.InventoryAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 10, inventoryIndex, 5, true);
+                        return;
+                    }
                 }
-            }
-            else
-            {
-                if (weaponStorage.InventoryCanAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 15, 10, false))
+                else
                 {
-                    weaponStorage.InventoryAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 15, inventoryIndex, 10, false);
-                    return;
+                    if (weaponStorage.InventoryCanAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 15, 10, false))
+                    {
+                        weaponStorage.InventoryAdd(inventory[inventoryIndex].item, inventory[inventoryIndex].amount, 15, inventoryIndex, 10, false);
+                        return;
+                    }
                 }
             }
         }
@@ -7567,7 +7588,6 @@ public partial class Player : Entity
 
     #endregion
 
-
     #region World House
     [Command]
     public void CmdTakeProductFromHouse(int index)
@@ -7840,6 +7860,80 @@ public partial class Player : Entity
 
     #endregion
 
+    #region Modular
+
+    [Client]
+    public ModularPiece ManageDoorModular(string moving)
+    {
+        if (state == moving)
+        {
+            playerMove.sortedPieces = ModularBuildingManager.singleton.allModularPiece.OrderBy(m => Vector3.Distance(transform.position, m.transform.position)).ToList();
+            for (int i = 0; i < playerMove.sortedPieces.Count; i++)
+            {
+                int index = i;
+                if (index == 0)
+                {
+                    if (GeneralManager.singleton.CanEnterHome(playerMove.sortedPieces[index], this))
+                    {
+                        playerMove.sortedPieces[index].upDoorKey.color = playerMove.sortedPieces[index].upComponent == 1 ? playerMove.sortedPieces[index].doorUpOpen == true ? ModularBuildingManager.singleton.openDoorColor : ModularBuildingManager.singleton.closeDoorColor : ModularBuildingManager.singleton.closeDoorColor;
+                        playerMove.sortedPieces[index].upDoorKey.enabled = playerMove.sortedPieces[index].upComponent == 1 ? true : false;
+                        playerMove.sortedPieces[index].downDoorKey.color = playerMove.sortedPieces[index].downComponent == 1 ? playerMove.sortedPieces[index].doorDownOpen == true ? ModularBuildingManager.singleton.openDoorColor : ModularBuildingManager.singleton.closeDoorColor : ModularBuildingManager.singleton.closeDoorColor;
+                        playerMove.sortedPieces[index].downDoorKey.enabled = playerMove.sortedPieces[index].downComponent == 1 ? true : false;
+                        playerMove.sortedPieces[index].leftDoorKey.color = playerMove.sortedPieces[index].leftComponent == 1 ? playerMove.sortedPieces[index].doorLeftOpen == true ? ModularBuildingManager.singleton.openDoorColor : ModularBuildingManager.singleton.closeDoorColor : ModularBuildingManager.singleton.closeDoorColor;
+                        playerMove.sortedPieces[index].leftDoorKey.enabled = playerMove.sortedPieces[index].leftComponent == 1 ? true : false;
+                        playerMove.sortedPieces[index].rightDoorKey.color = playerMove.sortedPieces[index].rightComponent == 1 ? playerMove.sortedPieces[index].doorRightOpen == true ? ModularBuildingManager.singleton.openDoorColor : ModularBuildingManager.singleton.closeDoorColor : ModularBuildingManager.singleton.closeDoorColor;
+                        playerMove.sortedPieces[index].rightDoorKey.enabled = playerMove.sortedPieces[index].rightComponent == 1 ? true : false;
+                    }
+                    else
+                    {
+                        playerMove.sortedPieces[index].upDoorKey.enabled = false;
+                        playerMove.sortedPieces[index].downDoorKey.enabled = false;
+                        playerMove.sortedPieces[index].leftDoorKey.enabled = false;
+                        playerMove.sortedPieces[index].rightDoorKey.enabled = false;
+
+                    }
+                }
+                else
+                {
+                    playerMove.sortedPieces[index].upDoorKey.enabled = false;
+                    playerMove.sortedPieces[index].downDoorKey.enabled = false;
+                    playerMove.sortedPieces[index].leftDoorKey.enabled = false;
+                    playerMove.sortedPieces[index].rightDoorKey.enabled = false;
+                }
+            }
+            return playerMove.sortedPieces.Count == 0 ? null : playerMove.sortedPieces[0];
+        }
+        return null;
+    }
+
+    [Command]
+    public void CmdManageDoor(NetworkIdentity identity, int indexOfDoor)
+    {
+        ModularPiece piece = identity.GetComponent<ModularPiece>();
+        DoorTrigger doorTrigger = piece.floorDoor[indexOfDoor].GetComponent<DoorTrigger>();
+        if (GeneralManager.singleton.CanEnterHome(piece, this))
+        {
+            if (doorTrigger.up)
+            {
+                piece.doorUpOpen = !piece.doorUpOpen;
+            }
+            if (doorTrigger.down)
+            {
+                piece.doorDownOpen = !piece.doorDownOpen;
+            }
+            if (doorTrigger.left)
+            {
+                piece.doorLeftOpen = !piece.doorLeftOpen;
+            }
+            if (doorTrigger.right)
+            {
+                piece.doorRightOpen = !piece.doorRightOpen;
+            }
+        }
+    }
+
+    #endregion
+
     [Command]
     public void CmdChangeCoinGold(int coin)
     {
@@ -8060,7 +8154,7 @@ public partial class Player : Entity
     [Command]
     public void CmdBuyBundleEquipment(string bundleName, int sex)
     {
-        if (coins >= GeneralManager.singleton.FindEquipmentBundleItems(bundleName,sex).coins)
+        if (coins >= GeneralManager.singleton.FindEquipmentBundleItems(bundleName, sex).coins)
         {
             BundleItem bundleItem = GeneralManager.singleton.FindEquipmentBundleItems(bundleName, sex);
             if (bundleItem != null)
