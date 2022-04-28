@@ -11241,6 +11241,9 @@ MonoBehaviour:
   sneakSound: {fileID: 8300000, guid: 6cb3eace11794c84db4995aa0a617ad1, type: 3}
   walkSound: {fileID: 8300000, guid: bd2e21727b290c94586e70231e309cbd, type: 3}
   runSound: {fileID: 8300000, guid: 79a7606463e6a0748b531715f315489d, type: 3}
+  sneakSoundHome: {fileID: 8300000, guid: 3af6e561e364a274aa306461461c386b, type: 3}
+  walkSoundHome: {fileID: 8300000, guid: eea9624d96ae191439615ca598fe01fa, type: 3}
+  runSoundHome: {fileID: 8300000, guid: 8b4e405a508185e428652ccc26469d53, type: 3}
 --- !u!114 &3462993658615093097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13502,6 +13505,9 @@ MonoBehaviour:
   sneakSound: {fileID: 8300000, guid: 6cb3eace11794c84db4995aa0a617ad1, type: 3}
   walkSound: {fileID: 8300000, guid: bd2e21727b290c94586e70231e309cbd, type: 3}
   runSound: {fileID: 8300000, guid: 79a7606463e6a0748b531715f315489d, type: 3}
+  sneakSoundHome: {fileID: 8300000, guid: 3af6e561e364a274aa306461461c386b, type: 3}
+  walkSoundHome: {fileID: 8300000, guid: eea9624d96ae191439615ca598fe01fa, type: 3}
+  runSoundHome: {fileID: 8300000, guid: 8b4e405a508185e428652ccc26469d53, type: 3}
 --- !u!114 &1367881728963225990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14078,6 +14084,9 @@ MonoBehaviour:
   sneakSound: {fileID: 8300000, guid: 6cb3eace11794c84db4995aa0a617ad1, type: 3}
   walkSound: {fileID: 8300000, guid: bd2e21727b290c94586e70231e309cbd, type: 3}
   runSound: {fileID: 8300000, guid: 79a7606463e6a0748b531715f315489d, type: 3}
+  sneakSoundHome: {fileID: 8300000, guid: 3af6e561e364a274aa306461461c386b, type: 3}
+  walkSoundHome: {fileID: 8300000, guid: eea9624d96ae191439615ca598fe01fa, type: 3}
+  runSoundHome: {fileID: 8300000, guid: 8b4e405a508185e428652ccc26469d53, type: 3}
 --- !u!114 &3006774941079011338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19720,6 +19729,9 @@ MonoBehaviour:
   sneakSound: {fileID: 8300000, guid: 6cb3eace11794c84db4995aa0a617ad1, type: 3}
   walkSound: {fileID: 8300000, guid: bd2e21727b290c94586e70231e309cbd, type: 3}
   runSound: {fileID: 8300000, guid: 79a7606463e6a0748b531715f315489d, type: 3}
+  sneakSoundHome: {fileID: 8300000, guid: 3af6e561e364a274aa306461461c386b, type: 3}
+  walkSoundHome: {fileID: 8300000, guid: eea9624d96ae191439615ca598fe01fa, type: 3}
+  runSoundHome: {fileID: 8300000, guid: 8b4e405a508185e428652ccc26469d53, type: 3}
 --- !u!114 &2122468522513516948
 MonoBehaviour:
   m_ObjectHideFlags: 0

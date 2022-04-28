@@ -1213,7 +1213,7 @@ public partial class PlayerMonsterGrab
     // Start is called before the first frame update
     void Start()
     {
-
+        if (!customCameraShake) FindObjectOfType<CustomCameraShake>();
     }
 
     // Update is called once per frame
@@ -1221,13 +1221,13 @@ public partial class PlayerMonsterGrab
     {
         if (shakeCamera)
         {
-            if (!customCameraShake) FindObjectOfType<CustomCameraShake>().animator.SetBool("SHAKE", true);
+            customCameraShake.animator.SetBool("SHAKE", true);
             if (!isServer) CmdDisableShake();
             shakeCamera = false;
         }
         if (shakeCameraResource)
         {
-            if (!customCameraShake) FindObjectOfType<CustomCameraShake>().animator.SetBool("SHAKERESOURCE", true);
+            customCameraShake.animator.SetBool("SHAKERESOURCE", true);
             if (!isServer) CmdDisableShake();
             shakeCameraResource = false;
         }
@@ -2626,8 +2626,6 @@ public partial class PlayerBuilding
                     }
                 }
             }
-
-            //RpcSyncClientModular(identity);
         }
     }
 
@@ -2638,7 +2636,7 @@ public partial class PlayerBuilding
         Collider2D[] wallColliders = new Collider2D[0];
         if (modular)
         {
-            if(up == -5)
+            if (up == -5)
             {
                 if (modular.upComponent == 0)
                 {
@@ -2659,7 +2657,6 @@ public partial class PlayerBuilding
             if (modular.downComponent != -5) modular.downComponent = down;
             if (modular.leftComponent != -5) modular.leftComponent = left;
             if (modular.rightComponent != -5) modular.rightComponent = right;
-            //RpcSyncClientModular(identity);
         }
     }
 
@@ -2713,7 +2710,7 @@ public partial class PlayerBuilding
             }
 
             nextColliders = Physics2D.OverlapBoxAll(modular.leftFloorPointer.transform.position, new Vector2(((BoxCollider2D)modular.leftFloorPointer.GetComponent<BoxCollider2D>()).size.x, ((BoxCollider2D)modular.leftFloorPointer.GetComponent<BoxCollider2D>()).size.x), 0, GeneralManager.singleton.modularObjectLayerMask);
-            if(nextColliders.Length > 0)
+            if (nextColliders.Length > 0)
             {
                 nextColliders[0].GetComponent<ModularPiece>().occupiedRIGHT = false;
             }
@@ -2775,17 +2772,6 @@ public partial class PlayerBuilding
 
             NetworkServer.Destroy(modular.gameObject);
         }
-    }
-
-    [ClientRpc]
-    public void RpcSyncClientModular(NetworkIdentity identity)
-    {
-        ModularPiece piece = identity.GetComponent<ModularPiece>();
-        piece.clientdownComponent = piece.downComponent;
-        piece.clientleftComponent = piece.leftComponent;
-        piece.clientrightComponent = piece.rightComponent;
-        piece.clientupComponent = piece.upComponent;
-        piece.CheckWall();
     }
 
 
@@ -3067,8 +3053,6 @@ public partial class PlayerBuilding
                 }
             }
         }
-        Debug.Log("Craft 26");
-
     }
 
 }
@@ -3104,11 +3088,11 @@ public partial class PlayerFired
     {
         if (player.isServer)
         {
-            InvokeRepeating("DecreaseFire", GeneralManager.singleton.firePlayerInvoke, GeneralManager.singleton.firePlayerInvoke);
+            InvokeRepeating(nameof(DecreaseFire), GeneralManager.singleton.firePlayerInvoke, GeneralManager.singleton.firePlayerInvoke);
         }
         else
         {
-            InvokeRepeating("DecreaseFireOnClient", GeneralManager.singleton.firePlayerInvoke, GeneralManager.singleton.firePlayerInvoke);
+            InvokeRepeating(nameof(DecreaseFireOnClient), GeneralManager.singleton.firePlayerInvoke, GeneralManager.singleton.firePlayerInvoke);
         }
     }
 
@@ -3154,11 +3138,11 @@ public partial class PlayerElectric
     {
         if (player.isServer)
         {
-            InvokeRepeating("DecreaseElectric", GeneralManager.singleton.electricPlayerInvoke, GeneralManager.singleton.electricPlayerInvoke);
+            InvokeRepeating(nameof(DecreaseElectric), GeneralManager.singleton.electricPlayerInvoke, GeneralManager.singleton.electricPlayerInvoke);
         }
         else
         {
-            InvokeRepeating("DecreaseElectricOnClient", GeneralManager.singleton.electricPlayerInvoke, GeneralManager.singleton.electricPlayerInvoke);
+            InvokeRepeating(nameof(DecreaseElectricOnClient), GeneralManager.singleton.electricPlayerInvoke, GeneralManager.singleton.electricPlayerInvoke);
         }
     }
 
@@ -3914,9 +3898,9 @@ public partial class PlayerMove
                     if (sortedForniture[index] == null) continue;
                     if (Vector2.Distance(transform.position, sortedForniture[index].transform.position) > distanceToCheckEntity) continue;
 
-                    if(player.playerMove.nearestModularPiece != null)
+                    if (player.playerMove.nearestModularPiece != null)
                     {
-                        if(Vector2.Distance(transform.position, sortedForniture[index].transform.position) > GeneralManager.singleton.GetClosestDistance(player.playerMove.nearestModularPiece.floorDoor.ToArray()))
+                        if (Vector2.Distance(transform.position, sortedForniture[index].transform.position) > GeneralManager.singleton.GetClosestDistance(player.playerMove.nearestModularPiece.floorDoor.ToArray()))
                         {
                             player.CmdManageDoor(player.playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(player.playerMove.nearestModularPiece.floorDoor.ToArray()));
                             return false;
@@ -3925,16 +3909,16 @@ public partial class PlayerMove
                         {
                             fornitureClient = sortedForniture[index].GetComponent<ModularObject>();
                             player.CmdSetForniture(sortedForniture[index].identity);
-                            return false;
+                            return true;
                         }
                     }
                     else
                     {
                         fornitureClient = sortedForniture[index].GetComponent<ModularObject>();
                         player.CmdSetForniture(sortedForniture[index].identity);
-                        return false;
+                        return true;
 
-                    }                    
+                    }
                 }
                 return false;
             }
@@ -3951,10 +3935,12 @@ public partial class PlayerMove
         {
             if (player.playerMove.nearestModularPiece != null)
             {
-                if(player.target)
+                if (player.target)
                 {
                     if (Vector2.Distance(transform.position, player.target.transform.position) < GeneralManager.singleton.GetClosestDistance(player.playerMove.nearestModularPiece.floorDoor.ToArray()))
+                    {
                         return true;
+                    }
                     else
                     {
                         player.CmdManageDoor(player.playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(player.playerMove.nearestModularPiece.floorDoor.ToArray()));
@@ -3971,24 +3957,6 @@ public partial class PlayerMove
         }
         return true;
     }
-
-    //void OnDrawGizmos()
-    //{
-    //    for (int i = 0; i < sorted.Count; i++)
-    //    {
-    //        int index = i;
-    //        if (index == 0)
-    //        {
-    //            Gizmos.color = Color.red;
-    //            Gizmos.DrawLine(player.transform.position, sorted[index].transform.position);
-    //        }
-    //        else
-    //        {
-    //            Gizmos.color = Color.magenta;
-    //            Gizmos.DrawLine(player.transform.position, sorted[index].transform.position);
-    //        }
-    //    }
-    //}
 
     public void Drink()
     {
@@ -4159,19 +4127,17 @@ public partial class PlayerOptions
 
     public AudioSource audioSource;
 
-    // Start is called before the first frame update
     void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
     {
         if (player.isLocalPlayer && !audioSource)
         {
             audioSource = GameObject.FindObjectOfType<AudioSource>();
         }
+
+    }
+
+    void Update()
+    {
 
         if (player && player.isLocalPlayer)
         {
@@ -4280,7 +4246,6 @@ public partial class PlayerBlood
     [SyncVar]
     public int currentBlood;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (player.isServer)
@@ -4327,55 +4292,55 @@ public partial class PlayerCar
         get { return _car != null ? _car.GetComponent<Car>() : null; }
         set { _car = value != null ? value.gameObject : null; }
     }
-    // Start is called before the first frame update
+
     void Start()
     {
         //InvokeRepeating("CheckSpriteRenderer", 1.0f, 1.0f);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        if (player.nameOverlay) player.nameOverlay.gameObject.SetActive((Player.localPlayer && !car));
+        //if (player.nameOverlay) player.nameOverlay.gameObject.SetActive((Player.localPlayer && !car));
 
-        if (car)
-        {
-            player.GetComponent<SpriteRenderer>().enabled =
-            player.collider.enabled = false;
-        }
-        else
-        {
-            player.GetComponent<SpriteRenderer>().enabled =
-            player.collider.enabled = true;
-        }
+        //if (car)
+        //{
+        //    player.GetComponent<SpriteRenderer>().enabled =
+        //    player.collider.enabled = false;
+        //}
+        //else
+        //{
+        //    player.GetComponent<SpriteRenderer>().enabled =
+        //    player.collider.enabled = true;
+        //}
 
 
-        if (car && car._pilot != string.Empty) Player.onlinePlayers.TryGetValue(car._pilot, out pilotPlayerClient);
+        //if (car && car._pilot != string.Empty) Player.onlinePlayers.TryGetValue(car._pilot, out pilotPlayerClient);
 
-        if (car)
-        {
-            if (pilotPlayerClient && car._pilot != string.Empty)
-            {
-                if (pilotPlayerClient)
-                    car.lookDirection = pilotPlayerClient.lookDirection;
+        //if (car)
+        //{
+        //    if (pilotPlayerClient && car._pilot != string.Empty)
+        //    {
+        //        if (pilotPlayerClient)
+        //            car.lookDirection = pilotPlayerClient.lookDirection;
 
-                if (car._pilot != string.Empty && pilotPlayerClient.name == player.name)
-                {
-                    car.agent.Warp(pilotPlayerClient.transform.position);
-                }
-            }
-            if (car._coPilot != string.Empty && car._coPilot == player.name ||
-                car._rearSxPassenger != string.Empty && car._rearSxPassenger == player.name ||
-                car._rearCenterPassenger != string.Empty && car._rearCenterPassenger == player.name ||
-                car._rearDxPassenger != string.Empty && car._rearDxPassenger == player.name)
-            {
-                if (pilotPlayerClient)
-                {
-                    car.lookDirection = pilotPlayerClient.lookDirection;
-                }
-                player.agent.Warp(car.transform.position);
-            }
-        }
+        //        if (car._pilot != string.Empty && pilotPlayerClient.name == player.name)
+        //        {
+        //            car.agent.Warp(pilotPlayerClient.transform.position);
+        //        }
+        //    }
+        //    if (car._coPilot != string.Empty && car._coPilot == player.name ||
+        //        car._rearSxPassenger != string.Empty && car._rearSxPassenger == player.name ||
+        //        car._rearCenterPassenger != string.Empty && car._rearCenterPassenger == player.name ||
+        //        car._rearDxPassenger != string.Empty && car._rearDxPassenger == player.name)
+        //    {
+        //        if (pilotPlayerClient)
+        //        {
+        //            car.lookDirection = pilotPlayerClient.lookDirection;
+        //        }
+        //        player.agent.Warp(car.transform.position);
+        //    }
+        //}
     }
     public void PetUnsummon()
     {
@@ -4387,18 +4352,6 @@ public partial class PlayerCar
             player.activePet = null;
         }
     }
-
-    //public void CheckSpriteRenderer()
-    //{
-    //    childRenderer = player.GetComponentsInChildren<SpriteRenderer>();
-    //    for (int i = 0; i < childRenderer.Length; i++)
-    //    {
-    //        if (car)
-    //            childRenderer[i].enabled = false;
-    //        else
-    //            childRenderer[i].enabled = true;
-    //    }
-    //}
 
     [Command]
     public void CmdCarMode()
@@ -4901,7 +4854,7 @@ public partial class PlayerPlant
         if (player.InventoryCanAdd(new Item(item), abilityLevel))
         {
             player.InventoryAdd(new Item(item), abilityLevel);
-            TargetDamage(itemName, obj,abilityLevel);
+            TargetDamage(itemName, obj, abilityLevel);
         }
     }
 
@@ -5190,9 +5143,6 @@ public partial class PlayerCreation
     public string eyesColor;
     [SyncVar]
     public string skinColor;
-    //[SyncVar]
-    //public int eyesType;
-
 
 
     [SyncVar]
@@ -6164,66 +6114,61 @@ public partial class PlayerFootPrint
 
         if (!player.playerOptions.blockFootstep)
         {
-            //if (DetectColorToActivate() == false) return;
             if (player.isLocalPlayer || (player.isClient || player.isServer) || (!Player.localPlayer && player.netIdentity.observers.Count > 0))
             {
-                if (player.equipment[8].amount == 0)
+                if (ModularBuildingManager.singleton.inThisCollider)
                 {
-                    InstantiateObject = Instantiate(footToSpawn);
-                    instantiateObjectRenderer = InstantiateObject.GetComponent<SpriteRenderer>();
-                    instantiateObjectRenderer.sortingOrder = spriteRenderer.sortingOrder - 1;
-                    InstantiateObject.transform.position = player.transform.position;
-                    if (LeftRight == 1) instantiateObjectRenderer.sprite = rightNakedFoot;
-                    if (LeftRight == 0) instantiateObjectRenderer.sprite = LeftNakedFoot;
-                }
-                else
-                {
-                    InstantiateObject = Instantiate(footToSpawn);
-                    instantiateObjectRenderer = InstantiateObject.GetComponent<SpriteRenderer>();
-                    instantiateObjectRenderer.sortingOrder = spriteRenderer.sortingOrder - 1;
-                    InstantiateObject.transform.position = player.transform.position;
-                    if (LeftRight == 1) instantiateObjectRenderer.sprite = rightShoesFoot;
-                    if (LeftRight == 0) instantiateObjectRenderer.sprite = leftShoesFoot;
-                }
+                    if (player.equipment[8].amount == 0)
+                    {
+                        InstantiateObject = Instantiate(footToSpawn);
+                        instantiateObjectRenderer = InstantiateObject.GetComponent<SpriteRenderer>();
+                        instantiateObjectRenderer.sortingOrder = spriteRenderer.sortingOrder - 1;
+                        InstantiateObject.transform.position = player.transform.position;
+                        if (LeftRight == 1) instantiateObjectRenderer.sprite = rightNakedFoot;
+                        if (LeftRight == 0) instantiateObjectRenderer.sprite = LeftNakedFoot;
+                    }
+                    else
+                    {
+                        InstantiateObject = Instantiate(footToSpawn);
+                        instantiateObjectRenderer = InstantiateObject.GetComponent<SpriteRenderer>();
+                        instantiateObjectRenderer.sortingOrder = spriteRenderer.sortingOrder - 1;
+                        InstantiateObject.transform.position = player.transform.position;
+                        if (LeftRight == 1) instantiateObjectRenderer.sprite = rightShoesFoot;
+                        if (LeftRight == 0) instantiateObjectRenderer.sprite = leftShoesFoot;
+                    }
 
-                if (player.lookDirection == up)
-                {
-                    InstantiateObject.transform.rotation = upRotation;
-                    if (LeftRight == 1) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x + difference, InstantiateObject.transform.position.y, InstantiateObject.transform.position.z);
-                    if (LeftRight == 0) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x + (-difference), InstantiateObject.transform.position.y, InstantiateObject.transform.position.z);
-                    if (!player.playerOptions.blockFootstep) InstantiateObject.GetComponent<AudioSource>().Play();
-                }
-                if (player.lookDirection == down)
-                {
-                    InstantiateObject.transform.rotation = downRotation;
-                    if (LeftRight == 1) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x + (-difference), InstantiateObject.transform.position.y, InstantiateObject.transform.position.z);
-                    if (LeftRight == 0) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x + difference, InstantiateObject.transform.position.y, InstantiateObject.transform.position.z);
-                    if (!player.playerOptions.blockFootstep) InstantiateObject.GetComponent<AudioSource>().Play();
-                }
-                if (player.lookDirection == left)
-                {
-                    InstantiateObject.transform.rotation = leftRotation;
-                    if (LeftRight == 1) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x, InstantiateObject.transform.position.y + difference, InstantiateObject.transform.position.z);
-                    if (LeftRight == 0) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x, InstantiateObject.transform.position.y + (-difference), InstantiateObject.transform.position.z);
-                    if (!player.playerOptions.blockFootstep) InstantiateObject.GetComponent<AudioSource>().Play();
-                }
-                if (player.lookDirection == right)
-                {
-                    InstantiateObject.transform.rotation = rightRotation;
-                    if (LeftRight == 1) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x, InstantiateObject.transform.position.y + -(difference), InstantiateObject.transform.position.z);
-                    if (LeftRight == 0) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x, InstantiateObject.transform.position.y + difference, InstantiateObject.transform.position.z);
-                    if (!player.playerOptions.blockFootstep) InstantiateObject.GetComponent<AudioSource>().Play();
+                    if (player.lookDirection == up)
+                    {
+                        InstantiateObject.transform.rotation = upRotation;
+                        if (LeftRight == 1) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x + difference, InstantiateObject.transform.position.y, InstantiateObject.transform.position.z);
+                        if (LeftRight == 0) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x + (-difference), InstantiateObject.transform.position.y, InstantiateObject.transform.position.z);
+                        if (!player.playerOptions.blockFootstep) InstantiateObject.GetComponent<AudioSource>().Play();
+                    }
+                    if (player.lookDirection == down)
+                    {
+                        InstantiateObject.transform.rotation = downRotation;
+                        if (LeftRight == 1) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x + (-difference), InstantiateObject.transform.position.y, InstantiateObject.transform.position.z);
+                        if (LeftRight == 0) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x + difference, InstantiateObject.transform.position.y, InstantiateObject.transform.position.z);
+                        if (!player.playerOptions.blockFootstep) InstantiateObject.GetComponent<AudioSource>().Play();
+                    }
+                    if (player.lookDirection == left)
+                    {
+                        InstantiateObject.transform.rotation = leftRotation;
+                        if (LeftRight == 1) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x, InstantiateObject.transform.position.y + difference, InstantiateObject.transform.position.z);
+                        if (LeftRight == 0) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x, InstantiateObject.transform.position.y + (-difference), InstantiateObject.transform.position.z);
+                        if (!player.playerOptions.blockFootstep) InstantiateObject.GetComponent<AudioSource>().Play();
+                    }
+                    if (player.lookDirection == right)
+                    {
+                        InstantiateObject.transform.rotation = rightRotation;
+                        if (LeftRight == 1) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x, InstantiateObject.transform.position.y + -(difference), InstantiateObject.transform.position.z);
+                        if (LeftRight == 0) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x, InstantiateObject.transform.position.y + difference, InstantiateObject.transform.position.z);
+                        if (!player.playerOptions.blockFootstep) InstantiateObject.GetComponent<AudioSource>().Play();
+                    }
                 }
             }
         }
     }
-
-    //public bool DetectColorToActivate()
-    //{
-    //    return snowManager.snowSprite.color.a > snowManager.desiredColorToActivateFootPrint;
-    //}
-
-
 }
 
 public partial class PlayerQuest
@@ -6598,7 +6543,6 @@ public partial class PlayerDance
         {
             if (prevDanceIndex != danceIndex)
             {
-                //if (player.prevAnimator == null) player.prevAnimator = player.animators[0].runtimeAnimatorController;
                 if (danceIndex > -1 && player.animators[0].runtimeAnimatorController != GeneralManager.singleton.listCompleteOfDance[danceIndex])
                 {
                     if (!playerPlaceholderWeapon) playerPlaceholderWeapon = Player.localPlayer.playerMove.bodyPlayer.GetComponent<PlayerPlaceholderWeapon>();
@@ -6750,69 +6694,69 @@ public partial class PlayerRaycast
 
     public float distance = 2.5f;
 
-    public void Update()
-    {
-        if (player.agent.velocity != Vector2.zero)
-        {
-            RaycastHit2D[] leftHit = Physics2D.RaycastAll(player.transform.position, Vector2.left, distance);
-            RaycastHit2D[] rightHit = Physics2D.RaycastAll(player.transform.position, Vector2.right, distance);
-            RaycastHit2D[] upHit = Physics2D.RaycastAll(player.transform.position, Vector2.up, distance);
-            RaycastHit2D[] downHit = Physics2D.RaycastAll(player.transform.position, Vector2.down, distance);
+    //public void Update()
+    //{
+    //    if (player.agent.velocity != Vector2.zero)
+    //    {
+    //        RaycastHit2D[] leftHit = Physics2D.RaycastAll(player.transform.position, Vector2.left, distance);
+    //        RaycastHit2D[] rightHit = Physics2D.RaycastAll(player.transform.position, Vector2.right, distance);
+    //        RaycastHit2D[] upHit = Physics2D.RaycastAll(player.transform.position, Vector2.up, distance);
+    //        RaycastHit2D[] downHit = Physics2D.RaycastAll(player.transform.position, Vector2.down, distance);
 
-            for (int i = 0; i < leftHit.Length; i++)
-            {
-                if (leftHit[i].collider.CompareTag("WallMine"))
-                {
-                    hitMain = leftHit[i].point;
-                    return;
-                }
-            }
-            for (int i = 0; i < rightHit.Length; i++)
-            {
-                if (rightHit[i].collider.CompareTag("WallMine"))
-                {
-                    hitMain = rightHit[i].point;
-                    return;
-                }
-            }
-            for (int i = 0; i < upHit.Length; i++)
-            {
-                if (upHit[i].collider.CompareTag("WallMine"))
-                {
-                    hitMain = upHit[i].point;
-                    return;
-                }
-            }
-            for (int i = 0; i < downHit.Length; i++)
-            {
-                if (downHit[i].collider.CompareTag("WallMine"))
-                {
-                    hitMain = downHit[i].point;
-                    return;
-                }
-            }
+    //        for (int i = 0; i < leftHit.Length; i++)
+    //        {
+    //            if (leftHit[i].collider.CompareTag("WallMine"))
+    //            {
+    //                hitMain = leftHit[i].point;
+    //                return;
+    //            }
+    //        }
+    //        for (int i = 0; i < rightHit.Length; i++)
+    //        {
+    //            if (rightHit[i].collider.CompareTag("WallMine"))
+    //            {
+    //                hitMain = rightHit[i].point;
+    //                return;
+    //            }
+    //        }
+    //        for (int i = 0; i < upHit.Length; i++)
+    //        {
+    //            if (upHit[i].collider.CompareTag("WallMine"))
+    //            {
+    //                hitMain = upHit[i].point;
+    //                return;
+    //            }
+    //        }
+    //        for (int i = 0; i < downHit.Length; i++)
+    //        {
+    //            if (downHit[i].collider.CompareTag("WallMine"))
+    //            {
+    //                hitMain = downHit[i].point;
+    //                return;
+    //            }
+    //        }
 
-            hitMain = Vector3.zero;
+    //        hitMain = Vector3.zero;
 
-        }
-    }
+    //    }
+    //}
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Vector3 directionUp = player.transform.TransformDirection(Vector2.up) * distance;
-        Gizmos.DrawRay(player.transform.position, directionUp);
+    //void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.blue;
+    //    Vector3 directionUp = player.transform.TransformDirection(Vector2.up) * distance;
+    //    Gizmos.DrawRay(player.transform.position, directionUp);
 
-        Gizmos.color = Color.red;
-        Vector3 directionBc = player.transform.TransformDirection(Vector2.down) * distance;
-        Gizmos.DrawRay(player.transform.position, directionBc);
+    //    Gizmos.color = Color.red;
+    //    Vector3 directionBc = player.transform.TransformDirection(Vector2.down) * distance;
+    //    Gizmos.DrawRay(player.transform.position, directionBc);
 
-        Gizmos.color = Color.black;
-        Vector3 directionSx = player.transform.TransformDirection(Vector2.left) * distance;
-        Gizmos.DrawRay(player.transform.position, directionSx);
+    //    Gizmos.color = Color.black;
+    //    Vector3 directionSx = player.transform.TransformDirection(Vector2.left) * distance;
+    //    Gizmos.DrawRay(player.transform.position, directionSx);
 
-        Gizmos.color = Color.white;
-        Vector3 directionDx = player.transform.TransformDirection(Vector2.right) * distance;
-        Gizmos.DrawRay(player.transform.position, directionDx);
-    }
+    //    Gizmos.color = Color.white;
+    //    Vector3 directionDx = player.transform.TransformDirection(Vector2.right) * distance;
+    //    Gizmos.DrawRay(player.transform.position, directionDx);
+    //}
 }

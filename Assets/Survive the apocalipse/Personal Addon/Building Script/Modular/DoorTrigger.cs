@@ -5,7 +5,7 @@ using UnityEngine;
 public class DoorTrigger : MonoBehaviour
 {
     public Animator animator;
-
+    public AudioSource audioSource;
     public ModularPiece modularPiece;
 
     public bool up, down, left, right;

@@ -925,7 +925,6 @@ public class GeneralManager : MonoBehaviour
             for (int i = 0; i < player.playerAbility.networkAbilities.Count; i++)
             {
                 int index = i;
-                Debug.Log("Ability name : " + player.playerAbility.networkAbilities[index].name);
                 if (player.playerAbility.networkAbilities[index].name == abilityName)
                 {
                     return player.playerAbility.networkAbilities[index].level;

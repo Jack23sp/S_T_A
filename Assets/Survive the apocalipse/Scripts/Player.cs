@@ -597,10 +597,8 @@ public partial class Player : Entity
 
         base.Start();
 
-        playerMove.nearestModularPiece = ManageDoorModular("IDLE");
-
-        if (isClient)
-            InvokeRepeating(nameof(AssignModularPiece), 0.5f, 0.5f);
+        if (isClient && isLocalPlayer)
+            InvokeRepeating(nameof(AssignModularPiece), 0.0f, 0.2f);
 
         onlinePlayers[name] = this;
 
@@ -636,7 +634,7 @@ public partial class Player : Entity
 
     public void AssignModularPiece()
     {
-        playerMove.nearestModularPiece = ManageDoorModular("MOVING");
+        playerMove.nearestModularPiece = ManageDoorModular();
     }
 
     public void CheckJoystick()
@@ -4756,19 +4754,16 @@ public partial class Player : Entity
                     if (!sorted[1].GetComponent<Building>().isHide)
                     {
                         CmdSetTarget(sorted[1].netIdentity);
-                        //SetIndicatorViaParent(sorted[1].transform);
                     }
                 }
                 else
                 {
                     CmdSetTarget(sorted[1].netIdentity);
-                    //SetIndicatorViaParent(sorted[1].transform);
                 }
             }
         }
         else
         {
-            // target nearest one
             if (sorted.Count > 0)
             {
 
@@ -4777,13 +4772,11 @@ public partial class Player : Entity
                     if (!sorted[1].GetComponent<Building>().isHide)
                     {
                         CmdSetTarget(sorted[1].netIdentity);
-                        //SetIndicatorViaParent(sorted[1].transform);
                     }
                 }
                 else
                 {
                     CmdSetTarget(sorted[1].netIdentity);
-                    //SetIndicatorViaParent(sorted[1].transform);
                 }
             }
         }
@@ -4823,25 +4816,38 @@ public partial class Player : Entity
     {
         if (ModularBuildingManager.singleton.inThisCollider)
         {
-            playerMove.SmartTargetingForniture();
-            if (ModularBuildingManager.singleton.instantiatedUI == null && playerMove.forniture)
+            if (playerMove.SmartTargetingForniture() == false)
             {
-                ModularBuildingManager.singleton.instantiatedUI = Instantiate(Player.localPlayer.SearchUiToSpawnInManager(playerMove.forniture.GetComponent<ModularObject>().scriptableBuilding), GeneralManager.singleton.canvas);
                 return;
+            }
+            else
+            {
+                if (ModularBuildingManager.singleton.instantiatedUI == null && playerMove.forniture)
+                {
+                    ModularBuildingManager.singleton.instantiatedUI = Instantiate(Player.localPlayer.SearchUiToSpawnInManager(playerMove.forniture.GetComponent<ModularObject>().scriptableBuilding), GeneralManager.singleton.canvas);
+                    return;
+                }
             }
         }
 
 
         useSkillWhenCloser = -1;
         Entity entity = null;
-        if (target) entity = target;
-        else return;
-
-        if (playerMove.nearestModularPiece != null && Vector2.Distance(target.transform.position, transform.position) > GeneralManager.singleton.GetClosestDistanceIndex(playerMove.nearestModularPiece.floorDoor.ToArray()))
+        entity = target;
+        if (target)
+        {
+            if (playerMove.nearestModularPiece != null && Vector2.Distance(target.transform.position, transform.position) > GeneralManager.singleton.GetClosestDistance(playerMove.nearestModularPiece.floorDoor.ToArray()))
+            {
+                CmdManageDoor(playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(playerMove.nearestModularPiece.floorDoor.ToArray()));
+                return;
+            }
+        }
+        else
         {
             CmdManageDoor(playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(playerMove.nearestModularPiece.floorDoor.ToArray()));
             return;
         }
+
 
 
         if (CanAttack(entity) && skills.Count > 0)
@@ -4928,14 +4934,12 @@ public partial class Player : Entity
             {
                 //  simply accept and wait for the other guy to accept too
                 tradeStatus = TradeStatus.Accepted;
-                print("first accept by " + name);
             }
             // other has accepted already? then both accepted now, start trade.
             else if (other.tradeStatus == TradeStatus.Accepted)
             {
                 // accept
                 tradeStatus = TradeStatus.Accepted;
-                print("second accept by " + name);
 
                 // both offers still valid?
                 if (IsTradeOfferStillValid() && other.IsTradeOfferStillValid())
@@ -5007,7 +5011,6 @@ public partial class Player : Entity
                         quests[i] = quest;
                     }
                 }
-                else print("trade canceled (invalid offer)");
 
                 // clear trade request for both guys. the FSM event will do the
                 // rest
@@ -5027,7 +5030,6 @@ public partial class Player : Entity
             {
                 // also send a trade request to the person that invited us
                 sender.tradeRequestFrom = name;
-                print(name + " accepted " + sender.name + "'s trade request");
             }
         }
     }
@@ -5289,7 +5291,6 @@ public partial class Player : Entity
             int index = i;
             if (skills[index].name == skill.name)
             {
-                //Debug.Log("Trovata la skill");
                 return index;
             }
         }
@@ -5663,8 +5664,6 @@ public partial class Player : Entity
                             SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualMonster.Remove(SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualMonster[index]);
                         }
                     }
-                    //if (SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualMonster.Contains(entity.gameObject)) SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualMonster.Remove(entity.gameObject);
-                    //SpawnManagerList.singleton.spawnManagers[entity.spawnManager].spawnedAlready--;
                     playerLeaderPoints.bossKill += GeneralManager.singleton.monsterPoint;
                     if (playerBoost.networkBoost.Count > 0 && !string.IsNullOrEmpty(playerBoost.networkBoost[0].doubleGold) && difference.TotalSeconds > 0)
                     {
@@ -5684,7 +5683,6 @@ public partial class Player : Entity
                             SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualMonster.Remove(SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualMonster[index]);
                         }
                     }
-                    //if (SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualBoss.Contains(entity.gameObject)) SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualBoss.Remove(entity.gameObject);
                     playerLeaderPoints.monsterKill += GeneralManager.singleton.bossKill;
                     SpawnManagerList.singleton.spawnManagers[entity.spawnManager].spawnedAlready--;
                 }
@@ -5716,8 +5714,6 @@ public partial class Player : Entity
         {
             if (((Plant)entity).health == 0)
             {
-                //if (SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualPlant.Contains(entity.gameObject)) SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualPlant.Remove(entity.gameObject);
-                //SpawnManagerList.singleton.spawnManagers[entity.spawnManager].spawnedAlready--;
                 RpgEffectOnEntityDeath(new Vector3(entity.gameObject.transform.position.x, entity.transform.position.y + 1.34f, entity.transform.position.z));
                 playerLeaderPoints.plantPoint += GeneralManager.singleton.plantPoint;
                 entity.Invoke("DestroyObject", 0.5f);
@@ -5740,8 +5736,6 @@ public partial class Player : Entity
                         SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualRock.Remove(SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualRock[index]);
                     }
                 }
-                //if (SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualRock.Contains(entity.gameObject)) SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualRock.Remove(entity.gameObject);
-                //SpawnManagerList.singleton.spawnManagers[entity.spawnManager].spawnedAlready--;
                 RpgEffectOnEntityDeath(new Vector3(entity.gameObject.transform.position.x, entity.transform.position.y + 1.34f, entity.transform.position.z));
                 playerLeaderPoints.rockPoint += GeneralManager.singleton.rockPoint;
                 entity.Invoke("DestroyObject", 0.5f);
@@ -5772,8 +5766,6 @@ public partial class Player : Entity
                         SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualTrees.Remove(SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualTrees[index]);
                     }
                 }
-                //if (SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualTrees.Contains(entity.gameObject)) SpawnManagerList.singleton.spawnManagers[entity.spawnManager].actualTrees.Remove(entity.gameObject);
-                //SpawnManagerList.singleton.spawnManagers[entity.spawnManager].spawnedAlready--;
                 RpgEffectOnEntityDeath(new Vector3(entity.gameObject.transform.position.x, entity.transform.position.y + 1.34f, entity.transform.position.z));
                 playerLeaderPoints.treePoint += GeneralManager.singleton.treePoint;
                 entity.Invoke("DestroyObject", 0.5f);
@@ -6095,8 +6087,6 @@ public partial class Player : Entity
 
             ItemSlot slot = buildingUpgradeRepair.upgradeItem[index].item;
 
-            //Debug.Log("Type : " + buildingUpgradeRepair.upgradeItem[index].type);
-
             if (buildingUpgradeRepair.upgradeItem[index].type == "accuracy" || buildingUpgradeRepair.upgradeItem[index].type == "accuratezza")
             {
                 slot.item.accuracyLevel++;
@@ -6303,7 +6293,6 @@ public partial class Player : Entity
     {
         if (playerMove.forniture && playerMove.forniture.GetComponent<BuildingUpgradeRepair>())
         {
-            Debug.Log("inside repair item");
             BuildingUpgradeRepair buildingUpgradeRepair = playerMove.forniture.GetComponent<BuildingUpgradeRepair>();
             upgrade.timeBegin = DateTime.Parse(dateBegin).ToString();
             upgrade.timeEnd = DateTime.Parse(dateEnd).ToString();
@@ -6334,7 +6323,6 @@ public partial class Player : Entity
                     gold -= itemData.goldsToUpgrade;
                 if (currencyType == 1)
                     coins -= itemData.coinsToUpgrade;
-                Debug.Log("Inside item repair : adding item... ");
 
                 Item itm = new Item(itemData);
                 ItemSlot toRemove = inventory[upgrade.index];
@@ -6342,7 +6330,6 @@ public partial class Player : Entity
                 inventory[upgrade.index] = toRemove;
 
                 buildingUpgradeRepair.repairItem.Add(upgrade);
-                Debug.Log("Repair item count : " + buildingUpgradeRepair.repairItem.Count);
             }
         }
     }
@@ -6809,7 +6796,6 @@ public partial class Player : Entity
         playerLeaderPoints.buildinPoint += GeneralManager.singleton.buildingUpgradePoint;
         experience += GeneralManager.singleton.buildingExperience;
         gold -= building.building.goldToUpgrade * ((Building)target).level;
-        //if (building.building.coinToUpgrade >= (building.building.coinToUpgrade * ((Building)target).level)) coins -= building.building.coinToUpgrade * ((Building)target).level;
 
         for (int i = 0; i < quests.Count; i++)
         {
@@ -6864,11 +6850,6 @@ public partial class Player : Entity
         {
             building = ((Building)target);
         }
-        //Debug.Log("Building : " + building);
-        //Debug.Log("Building countdown: " + building.countdown);
-        //Debug.Log("Can Interact: " + CanInteractBuildingTarget(building, this));
-        //Debug.Log("Networkability : " + (playerAbility.networkAbilities[GeneralManager.singleton.FindNetworkAbility(building.building.abilityToClaim.name, this.name)].level < ((Building)target).level));
-        //Debug.Log("Is premium zone : " + (building.owner != string.Empty && building.guild != string.Empty));
         if (!building || building.countdown > 0 || CanInteractBuildingTarget(building, this) == true || playerAbility.networkAbilities[GeneralManager.singleton.FindNetworkAbility(building.building.abilityToClaim.name, this.name)].level < ((Building)target).level ||
             (building.owner == string.Empty && building.guild == string.Empty) == true) return;
 
@@ -7131,7 +7112,6 @@ public partial class Player : Entity
                     warehouse.one[warehouseSlotFree[0]] = slot;
                     slot = new ItemSlot();
                     inventory[inventoryL[i]] = slot;
-                    //inventoryL.RemoveAt(0);
                     warehouseSlotFree.RemoveAt(0);
                 }
                 if (warehouseContainer == 2)
@@ -7141,7 +7121,6 @@ public partial class Player : Entity
                     warehouse.two[warehouseSlotFree[0]] = slot;
                     slot = new ItemSlot();
                     inventory[inventoryL[i]] = slot;
-                    //inventoryL.RemoveAt(0);
                     warehouseSlotFree.RemoveAt(0);
                 }
                 if (warehouseContainer == 3)
@@ -7151,7 +7130,6 @@ public partial class Player : Entity
                     warehouse.three[warehouseSlotFree[0]] = slot;
                     slot = new ItemSlot();
                     inventory[inventoryL[i]] = slot;
-                    //inventoryL.RemoveAt(0);
                     warehouseSlotFree.RemoveAt(0);
                 }
                 if (warehouseContainer == 4)
@@ -7161,7 +7139,6 @@ public partial class Player : Entity
                     warehouse.four[warehouseSlotFree[0]] = slot;
                     slot = new ItemSlot();
                     inventory[inventoryL[i]] = slot;
-                    //inventoryL.RemoveAt(0);
                     warehouseSlotFree.RemoveAt(0);
                 }
                 if (warehouseContainer == 5)
@@ -7171,7 +7148,6 @@ public partial class Player : Entity
                     warehouse.five[warehouseSlotFree[0]] = slot;
                     slot = new ItemSlot();
                     inventory[inventoryL[i]] = slot;
-                    //inventoryL.RemoveAt(0);
                     warehouseSlotFree.RemoveAt(0);
                 }
                 if (warehouseContainer == 6)
@@ -7181,7 +7157,6 @@ public partial class Player : Entity
                     warehouse.six[warehouseSlotFree[0]] = slot;
                     slot = new ItemSlot();
                     inventory[inventoryL[i]] = slot;
-                    //inventoryL.RemoveAt(0);
                     warehouseSlotFree.RemoveAt(0);
                 }
             }
@@ -7199,7 +7174,6 @@ public partial class Player : Entity
                     slot = new ItemSlot();
                     warehouse.one[warehouseL[i]] = slot;
                     inventorySlotFree.RemoveAt(0);
-                    //warehouseSlotFree.RemoveAt(0);
                 }
                 if (warehouseContainer == 2)
                 {
@@ -7209,7 +7183,6 @@ public partial class Player : Entity
                     slot = new ItemSlot();
                     warehouse.two[warehouseL[i]] = slot;
                     inventorySlotFree.RemoveAt(0);
-                    //warehouseSlotFree.RemoveAt(0);
                 }
                 if (warehouseContainer == 3)
                 {
@@ -7219,7 +7192,6 @@ public partial class Player : Entity
                     slot = new ItemSlot();
                     warehouse.three[warehouseL[i]] = slot;
                     inventorySlotFree.RemoveAt(0);
-                    //warehouseSlotFree.RemoveAt(0);
                 }
                 if (warehouseContainer == 4)
                 {
@@ -7229,7 +7201,6 @@ public partial class Player : Entity
                     slot = new ItemSlot();
                     warehouse.four[warehouseL[i]] = slot;
                     inventorySlotFree.RemoveAt(0);
-                    //warehouseSlotFree.RemoveAt(0);
                 }
                 if (warehouseContainer == 5)
                 {
@@ -7239,7 +7210,6 @@ public partial class Player : Entity
                     slot = new ItemSlot();
                     warehouse.five[warehouseL[i]] = slot;
                     inventorySlotFree.RemoveAt(0);
-                    //warehouseSlotFree.RemoveAt(0);
                 }
                 if (warehouseContainer == 6)
                 {
@@ -7249,7 +7219,6 @@ public partial class Player : Entity
                     slot = new ItemSlot();
                     warehouse.six[warehouseL[i]] = slot;
                     inventorySlotFree.RemoveAt(0);
-                    //warehouseSlotFree.RemoveAt(0);
                 }
             }
         }
@@ -7782,7 +7751,6 @@ public partial class Player : Entity
                     campfire.items.Add(cookedSlot);
                     slot.amount--;
                     inventory[index] = slot;
-                    //TargetInventoryIndex(index);
                 }
             }
         }
@@ -7818,7 +7786,6 @@ public partial class Player : Entity
         //    difference = DateTime.Parse(playerBoost.networkBoost[0].hiddenIslandTimer.ToString()) - TimeZoneInfo.ConvertTime(System.DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById(GeneralManager.singleton.timeZone));
 
         petExp.timeEndServer = DateTime.Now.AddSeconds(GeneralManager.singleton.timeToUpgradeOfOneLevel * petExp.selectedFood).ToString();
-        Debug.Log("Pet time end server " + petExp.timeEndServer);
         if (health == 0 || !target || !target.GetComponent<PetTrainer>() || InventoryCount(new Item(GeneralManager.singleton.foodToUpgradeLevelOfItem)) < petExp.selectedFood) return;
         if (inventory[inventoryIndex].amount > 0 && inventory[inventoryIndex].item.data is PetItem && inventory[inventoryIndex].item.name == petName)
         {
@@ -7835,7 +7802,6 @@ public partial class Player : Entity
     public void CmdAddToInventoryPetTrainer(string itenName, int amount, int finishedIndex, string playerName)
     {
         PetExp petExp = target.GetComponent<PetTrainer>().petTraining[finishedIndex];
-        Debug.Log("Pet end server" + petExp.timeEndServer);
         if (DateTime.Now >= DateTime.Parse(petExp.timeEndServer) && petExp.owner == playerName)
         {
             if (ScriptableItem.dict.TryGetValue(itenName.GetStableHashCode(), out ScriptableItem item))
@@ -7863,35 +7829,24 @@ public partial class Player : Entity
     #region Modular
 
     [Client]
-    public ModularPiece ManageDoorModular(string moving)
+    public ModularPiece ManageDoorModular()
     {
-        if (state == moving)
+        playerMove.sortedPieces = ModularBuildingManager.singleton.allModularPiece.OrderBy(m => Vector3.Distance(transform.position, m.transform.position)).ToList();
+        for (int i = 0; i < playerMove.sortedPieces.Count; i++)
         {
-            playerMove.sortedPieces = ModularBuildingManager.singleton.allModularPiece.OrderBy(m => Vector3.Distance(transform.position, m.transform.position)).ToList();
-            for (int i = 0; i < playerMove.sortedPieces.Count; i++)
+            int index = i;
+            if (index == 0)
             {
-                int index = i;
-                if (index == 0)
+                if (GeneralManager.singleton.CanEnterHome(playerMove.sortedPieces[index], this))
                 {
-                    if (GeneralManager.singleton.CanEnterHome(playerMove.sortedPieces[index], this))
-                    {
-                        playerMove.sortedPieces[index].upDoorKey.color = playerMove.sortedPieces[index].upComponent == 1 ? playerMove.sortedPieces[index].doorUpOpen == true ? ModularBuildingManager.singleton.openDoorColor : ModularBuildingManager.singleton.closeDoorColor : ModularBuildingManager.singleton.closeDoorColor;
-                        playerMove.sortedPieces[index].upDoorKey.enabled = playerMove.sortedPieces[index].upComponent == 1 ? true : false;
-                        playerMove.sortedPieces[index].downDoorKey.color = playerMove.sortedPieces[index].downComponent == 1 ? playerMove.sortedPieces[index].doorDownOpen == true ? ModularBuildingManager.singleton.openDoorColor : ModularBuildingManager.singleton.closeDoorColor : ModularBuildingManager.singleton.closeDoorColor;
-                        playerMove.sortedPieces[index].downDoorKey.enabled = playerMove.sortedPieces[index].downComponent == 1 ? true : false;
-                        playerMove.sortedPieces[index].leftDoorKey.color = playerMove.sortedPieces[index].leftComponent == 1 ? playerMove.sortedPieces[index].doorLeftOpen == true ? ModularBuildingManager.singleton.openDoorColor : ModularBuildingManager.singleton.closeDoorColor : ModularBuildingManager.singleton.closeDoorColor;
-                        playerMove.sortedPieces[index].leftDoorKey.enabled = playerMove.sortedPieces[index].leftComponent == 1 ? true : false;
-                        playerMove.sortedPieces[index].rightDoorKey.color = playerMove.sortedPieces[index].rightComponent == 1 ? playerMove.sortedPieces[index].doorRightOpen == true ? ModularBuildingManager.singleton.openDoorColor : ModularBuildingManager.singleton.closeDoorColor : ModularBuildingManager.singleton.closeDoorColor;
-                        playerMove.sortedPieces[index].rightDoorKey.enabled = playerMove.sortedPieces[index].rightComponent == 1 ? true : false;
-                    }
-                    else
-                    {
-                        playerMove.sortedPieces[index].upDoorKey.enabled = false;
-                        playerMove.sortedPieces[index].downDoorKey.enabled = false;
-                        playerMove.sortedPieces[index].leftDoorKey.enabled = false;
-                        playerMove.sortedPieces[index].rightDoorKey.enabled = false;
-
-                    }
+                    playerMove.sortedPieces[index].upDoorKey.color = playerMove.sortedPieces[index].upComponent == 1 ? playerMove.sortedPieces[index].doorUpOpen == true ? ModularBuildingManager.singleton.openDoorColor : ModularBuildingManager.singleton.closeDoorColor : ModularBuildingManager.singleton.closeDoorColor;
+                    playerMove.sortedPieces[index].upDoorKey.enabled = playerMove.sortedPieces[index].upComponent == 1 ? true : false;
+                    playerMove.sortedPieces[index].downDoorKey.color = playerMove.sortedPieces[index].downComponent == 1 ? playerMove.sortedPieces[index].doorDownOpen == true ? ModularBuildingManager.singleton.openDoorColor : ModularBuildingManager.singleton.closeDoorColor : ModularBuildingManager.singleton.closeDoorColor;
+                    playerMove.sortedPieces[index].downDoorKey.enabled = playerMove.sortedPieces[index].downComponent == 1 ? true : false;
+                    playerMove.sortedPieces[index].leftDoorKey.color = playerMove.sortedPieces[index].leftComponent == 1 ? playerMove.sortedPieces[index].doorLeftOpen == true ? ModularBuildingManager.singleton.openDoorColor : ModularBuildingManager.singleton.closeDoorColor : ModularBuildingManager.singleton.closeDoorColor;
+                    playerMove.sortedPieces[index].leftDoorKey.enabled = playerMove.sortedPieces[index].leftComponent == 1 ? true : false;
+                    playerMove.sortedPieces[index].rightDoorKey.color = playerMove.sortedPieces[index].rightComponent == 1 ? playerMove.sortedPieces[index].doorRightOpen == true ? ModularBuildingManager.singleton.openDoorColor : ModularBuildingManager.singleton.closeDoorColor : ModularBuildingManager.singleton.closeDoorColor;
+                    playerMove.sortedPieces[index].rightDoorKey.enabled = playerMove.sortedPieces[index].rightComponent == 1 ? true : false;
                 }
                 else
                 {
@@ -7899,19 +7854,27 @@ public partial class Player : Entity
                     playerMove.sortedPieces[index].downDoorKey.enabled = false;
                     playerMove.sortedPieces[index].leftDoorKey.enabled = false;
                     playerMove.sortedPieces[index].rightDoorKey.enabled = false;
+
                 }
             }
-            return playerMove.sortedPieces.Count == 0 ? null : playerMove.sortedPieces[0];
+            else
+            {
+                playerMove.sortedPieces[index].upDoorKey.enabled = false;
+                playerMove.sortedPieces[index].downDoorKey.enabled = false;
+                playerMove.sortedPieces[index].leftDoorKey.enabled = false;
+                playerMove.sortedPieces[index].rightDoorKey.enabled = false;
+            }
         }
-        return null;
+        return playerMove.sortedPieces.Count == 0 ? null : playerMove.sortedPieces[0];
     }
 
     [Command]
     public void CmdManageDoor(NetworkIdentity identity, int indexOfDoor)
     {
         ModularPiece piece = identity.GetComponent<ModularPiece>();
+        piece.CheckFloorDoor();
         DoorTrigger doorTrigger = piece.floorDoor[indexOfDoor].GetComponent<DoorTrigger>();
-        if (GeneralManager.singleton.CanEnterHome(piece, this))
+        if (GeneralManager.singleton.CanEnterHome(piece, this) && Vector2.Distance(doorTrigger.transform.position, transform.position) < 3)
         {
             if (doorTrigger.up)
             {

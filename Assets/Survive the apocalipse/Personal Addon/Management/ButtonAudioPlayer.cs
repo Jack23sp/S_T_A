@@ -12,11 +12,17 @@ public class ButtonAudioPlayer : MonoBehaviour
 
     public bool manualCalled = false;
 
+    public void Start()
+    {
+        if (!button) button = GetComponent<Button>();
+        if (!audioSource) audioSource = GetComponent<AudioSource>();;
+    }
+
+
     public void Update()
     {
         if (!manualCalled)
         {
-            if (!button) button = GetComponent<Button>();
             button.onClick.AddListener(() =>
             {
                 if (!audioSource) audioSource = GetComponent<AudioSource>();

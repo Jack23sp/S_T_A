@@ -119,13 +119,13 @@ public class ModularPiece : NetworkBehaviour
     public SpriteRenderer leftDoorKey;
     public SpriteRenderer rightDoorKey;
 
-    [SyncVar]
+    [SyncVar (hook = "PlayDoorSoundUp")]
     public bool doorUpOpen;
-    [SyncVar]
+    [SyncVar(hook = "PlayDoorSoundDown")]
     public bool doorDownOpen;
-    [SyncVar]
+    [SyncVar(hook = "PlayDoorSoundLeft")]
     public bool doorLeftOpen;
-    [SyncVar]
+    [SyncVar(hook = "PlayDoorSoundRight")]
     public bool doorRightOpen;
 
     public void OnDestroy()
@@ -444,6 +444,58 @@ public class ModularPiece : NetworkBehaviour
 
     }
 
+    public void CheckFloorDoor()
+    {
+        floorDoor.Clear();
+        if (leftComponent != -5)
+        {
+            if (leftComponent == 0)
+            {
+                if (floorDoor.Contains(leftTransfomrDoor)) floorDoor.Remove(leftTransfomrDoor);
+            }
+            else if (leftComponent == 1)
+            {
+                if (!floorDoor.Contains(leftTransfomrDoor)) floorDoor.Add(leftTransfomrDoor);
+            }
+        }
+
+        if (rightComponent != -5)
+        {
+            if (rightComponent == 0)
+            {
+                if (floorDoor.Contains(rightTransfomrDoor)) floorDoor.Remove(rightTransfomrDoor);
+            }
+            else if (rightComponent == 1)
+            {
+                if (!floorDoor.Contains(rightTransfomrDoor)) floorDoor.Add(rightTransfomrDoor);
+            }
+        }
+
+        if (upComponent != -5)
+        {
+            if (upComponent == 0)
+            {
+                if (floorDoor.Contains(upTransfomrDoor)) floorDoor.Remove(upTransfomrDoor);
+            }
+            else if (upComponent == 1)
+            {
+                if (!floorDoor.Contains(upTransfomrDoor)) floorDoor.Add(upTransfomrDoor);
+            }
+        }
+
+        if (downComponent != -5)
+        {
+            if (downComponent == 0)
+            {
+                if (floorDoor.Contains(downTransfomrDoor)) floorDoor.Remove(downTransfomrDoor);
+            }
+            else if (downComponent == 1)
+            {
+                if (!floorDoor.Contains(downTransfomrDoor)) floorDoor.Add(downTransfomrDoor);
+            }
+        }
+    }
+
     public bool CanSpawn()
     {
         return floorPlacement.colliders.Count <= 0;
@@ -548,6 +600,90 @@ public class ModularPiece : NetworkBehaviour
                 {
                     player.playerBuilding.CmdSyncWallDoor(player.playerBuilding.actualBuilding.GetComponent<NetworkIdentity>(), modularPiece.clientupComponent, modularPiece.clientdownComponent, modularPiece.clientleftComponent, modularPiece.clientrightComponent, player.playerBuilding.invBelt, player.playerBuilding.inventoryIndex);
                     DestroyBuilding();
+                }
+            }
+        }
+    }
+
+    public void PlayDoorSoundUp(bool oldState, bool newState)
+    {
+        if (!Player.localPlayer.playerOptions.blockSound)
+        {
+            if (newState == true)
+            {
+                if (Vector2.Distance(Player.localPlayer.transform.position, upTransfomrDoor.position) < 5)
+                {
+                    upTransfomrDoor.GetComponent<DoorTrigger>().audioSource.PlayOneShot(ModularBuildingManager.singleton.openDoorSound);
+                }
+            }
+            else
+            {
+                if (Vector2.Distance(Player.localPlayer.transform.position, upTransfomrDoor.position) < 5)
+                {
+                    upTransfomrDoor.GetComponent<DoorTrigger>().audioSource.PlayOneShot(ModularBuildingManager.singleton.closeDoorSound);
+                }
+            }
+        }
+    }
+
+    public void PlayDoorSoundDown(bool oldState, bool newState)
+    {
+        if (!Player.localPlayer.playerOptions.blockSound)
+        {
+            if (newState == true)
+            {
+                if (Vector2.Distance(Player.localPlayer.transform.position, downTransfomrDoor.position) < 5)
+                {
+                    downTransfomrDoor.GetComponent<DoorTrigger>().audioSource.PlayOneShot(ModularBuildingManager.singleton.openDoorSound);
+                }
+            }
+            else
+            {
+                if (Vector2.Distance(Player.localPlayer.transform.position, downTransfomrDoor.position) < 5)
+                {
+                    downTransfomrDoor.GetComponent<DoorTrigger>().audioSource.PlayOneShot(ModularBuildingManager.singleton.closeDoorSound);
+                }
+            }
+        }
+    }
+
+    public void PlayDoorSoundLeft(bool oldState, bool newState)
+    {
+        if (!Player.localPlayer.playerOptions.blockSound)
+        {
+            if (newState == true)
+            {
+                if (Vector2.Distance(Player.localPlayer.transform.position, leftTransfomrDoor.position) < 5)
+                {
+                    leftTransfomrDoor.GetComponent<DoorTrigger>().audioSource.PlayOneShot(ModularBuildingManager.singleton.openDoorSound);
+                }
+            }
+            else
+            {
+                if (Vector2.Distance(Player.localPlayer.transform.position, leftTransfomrDoor.position) < 5)
+                {
+                    leftTransfomrDoor.GetComponent<DoorTrigger>().audioSource.PlayOneShot(ModularBuildingManager.singleton.closeDoorSound);
+                }
+            }
+        }
+    }
+
+    public void PlayDoorSoundRight(bool oldState, bool newState)
+    {
+        if (!Player.localPlayer.playerOptions.blockSound)
+        {
+            if (newState == true)
+            {
+                if (Vector2.Distance(Player.localPlayer.transform.position, rightTransfomrDoor.position) < 5)
+                {
+                    rightTransfomrDoor.GetComponent<DoorTrigger>().audioSource.PlayOneShot(ModularBuildingManager.singleton.openDoorSound);
+                }
+            }
+            else
+            {
+                if (Vector2.Distance(Player.localPlayer.transform.position, rightTransfomrDoor.position) < 5)
+                {
+                    rightTransfomrDoor.GetComponent<DoorTrigger>().audioSource.PlayOneShot(ModularBuildingManager.singleton.closeDoorSound);
                 }
             }
         }

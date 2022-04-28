@@ -42,7 +42,10 @@ public class ModularBuildingManager : NetworkBehaviour
     public int insideIndex = -1;
 
     public Color openDoorColor;
+    public AudioClip openDoorSound;
+
     public Color closeDoorColor;
+    public AudioClip closeDoorSound;
 
     void Start()
     {
