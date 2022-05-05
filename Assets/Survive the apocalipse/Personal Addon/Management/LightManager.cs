@@ -22,24 +22,12 @@ public class LightManager : MonoBehaviour
         
         if(player)
         {
-            if(player.playerPremiumZoneManager.inPremiumZone)
+            Color c = globalLight.color;
+            if (ColorUtility.TryParseHtmlString("#" + TemperatureManager.singleton.colorSync, out color))
             {
-                Color c = globalLight.color;
-                if (ColorUtility.TryParseHtmlString("#FFFFFF", out color))
-                {
-                    c = color;
-                    globalLight.color = c;
-                }
-            }
-            else
-            {
-                Color c = globalLight.color;
-                if (ColorUtility.TryParseHtmlString("#" + TemperatureManager.singleton.colorSync, out color))
-                {
-                    c = color;
-                    globalLight.color = c;
-                }
-            }           
+                c = color;
+                globalLight.color = c;
+            }     
         }
         else
         {

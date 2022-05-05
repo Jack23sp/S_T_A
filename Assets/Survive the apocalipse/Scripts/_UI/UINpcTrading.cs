@@ -94,7 +94,7 @@ public partial class UINpcTrading : MonoBehaviour
                 if (buySlot.GetComponent<UIShowToolTip>().IsVisible())
                     buySlot.GetComponent<UIShowToolTip>().text = new ItemSlot(new Item(itemData)).ToolTip(); // with slot for {AMOUNT}
                 buySlot.dragable = true;
-                if (player.playerPremiumZoneManager.inPremiumZone && player.playerBoost.networkBoost.Count > 0 && !string.IsNullOrEmpty(player.playerBoost.networkBoost[0].hiddenIslandTimer) && Convert.ToInt32(difference.TotalSeconds) > 0)
+                if (player.playerBoost.networkBoost.Count > 0 && !string.IsNullOrEmpty(player.playerBoost.networkBoost[0].hiddenIslandTimer) && Convert.ToInt32(difference.TotalSeconds) > 0)
                 {
                     buyButton.interactable = amount > 0 && price / 2 <= player.gold &&
                                              player.InventoryCanAdd(new Item(itemData), amount);

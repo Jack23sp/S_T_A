@@ -24,8 +24,20 @@ public class SoundManager : MonoBehaviour
     public AudioClip drinkSound;
     public AudioClip eatSound;
 
- // Start is called before the first frame update
- void Start()
+    [Header("Sound walk")]
+    public AudioClip sneakSound;
+    public AudioClip walkSound;
+    public AudioClip runSound;
+    public AudioClip sneakSoundHome;
+    public AudioClip walkSoundHome;
+    public AudioClip runSoundHome;
+
+    public float clipVolumeSneak;
+    public float clipVolumeWalk;
+    public float clipVolumeRun;
+
+    // Start is called before the first frame update
+    void Start()
     {
         if (!singleton) singleton = this;
         InvokeRepeating(nameof(SetMusic), 0.0f, 1.5f);

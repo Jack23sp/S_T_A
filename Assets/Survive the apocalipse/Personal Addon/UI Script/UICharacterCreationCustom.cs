@@ -6,7 +6,7 @@ using Michsky.UI.ModernUIPack;
 using TMPro;
 using Mirror;
 using System.Linq;
-using AdvancedCustomizableSystem;
+using AdvancedPeopleSystem;
 
 public class UICharacterCreationCustom : MonoBehaviour
 {
@@ -140,12 +140,7 @@ public class UICharacterCreationCustom : MonoBehaviour
         manager = FindObjectOfType<NetworkManagerMMO>();
 
         SetMaleCharacter();
-    }
 
-
-    void Update()
-    {
-        //if (Player.localPlayer) return;
         createButton.onClick.SetListener(() =>
         {
 
@@ -317,8 +312,11 @@ public class UICharacterCreationCustom : MonoBehaviour
         {
             ChangeBread();
         });
+    }
 
 
+    void Update()
+    {
         ChangeColor();
         createButton.interactable = manager.IsAllowedCharacterName(nameInput.text) && selectedSex != -1;
     }
@@ -419,13 +417,15 @@ public class UICharacterCreationCustom : MonoBehaviour
     {
         if (selectedSex == 0)
         {
-            manHairIndex = Random.Range(0, desiredCharacterCustomization.hairPresets.Count - 1);
-            desiredCharacterCustomization.SetHairByIndex(manHairIndex);
+            manHairIndex++;
+            if (manHairIndex > desiredCharacterCustomization.Settings.hairPresets.Count - 1) manHairIndex = -1;
+            desiredCharacterCustomization.SetElementByIndex(CharacterElementType.Hair, manHairIndex);
         }
         else
         {
-            femaleHairIndex = Random.Range(0, desiredCharacterCustomization.hairPresets.Count - 1);
-            desiredCharacterCustomization.SetHairByIndex(femaleHairIndex);
+            femaleHairIndex++;
+            if (femaleHairIndex > desiredCharacterCustomization.Settings.hairPresets.Count - 1) femaleHairIndex = -1;
+            desiredCharacterCustomization.SetElementByIndex(CharacterElementType.Hair, femaleHairIndex);
         }
     }
 
@@ -461,13 +461,9 @@ public class UICharacterCreationCustom : MonoBehaviour
     {
         if (selectedSex == 0)
         {
-            manBeardIndex = Random.Range(0, desiredCharacterCustomization.beardPresets.Count - 1);
-            desiredCharacterCustomization.SetBeardByIndex(manBeardIndex);
-        }
-        else
-        {
-            femaleBeardIndex = Random.Range(0, desiredCharacterCustomization.beardPresets.Count - 1);
-            desiredCharacterCustomization.SetBeardByIndex(femaleBeardIndex);
+            manBeardIndex++;
+            if (manBeardIndex > desiredCharacterCustomization.Settings.beardPresets.Count - 1) manBeardIndex = -1;
+            desiredCharacterCustomization.SetElementByIndex(CharacterElementType.Beard, manBeardIndex);
         }
     }
 
@@ -477,18 +473,18 @@ public class UICharacterCreationCustom : MonoBehaviour
         if (selectedSex == 0)
         {
             manFatAmount = sliderFat.value;
-            desiredCharacterCustomization.SetBodyShape(BodyShapeType.Fat, sliderFat.value);
+            desiredCharacterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Fat, sliderFat.value);
         }
         else
         {
             femaleFatAmount = sliderFat.value;
-            desiredCharacterCustomization.SetBodyShape(BodyShapeType.Fat, sliderFat.value);
+            desiredCharacterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Fat, sliderFat.value);
         }
 
         if (selectedSex == 0)
         {
             manThinAmount = sliderThin.value;
-            desiredCharacterCustomization.SetBodyShape(BodyShapeType.Thin, sliderThin.value);
+            desiredCharacterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Thin, sliderThin.value);
         }
         else
         {
@@ -498,7 +494,7 @@ public class UICharacterCreationCustom : MonoBehaviour
         if (selectedSex == 0)
         {
             manMuscleAmount = sliderMuscle.value;
-            desiredCharacterCustomization.SetBodyShape(BodyShapeType.Muscles, sliderMuscle.value);
+            desiredCharacterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Muscles, sliderMuscle.value);
         }
         else
         {
@@ -523,7 +519,7 @@ public class UICharacterCreationCustom : MonoBehaviour
         else
         {
             femaleBreastAmount = sliderBreast.value;
-            desiredCharacterCustomization.SetBodyShape(BodyShapeType.BreastSize, sliderBreast.value);
+            desiredCharacterCustomization.SetBlendshapeValue(CharacterBlendShapeType.BreastSize, sliderBreast.value);
         }
     }
 

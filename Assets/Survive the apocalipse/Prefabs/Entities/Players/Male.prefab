@@ -1377,7 +1377,6 @@ MonoBehaviour:
   playerQuest: {fileID: 7567491817285214507}
   playerDance: {fileID: 4172649297743808757}
   playerInjury: {fileID: 0}
-  playerRaycast: {fileID: 0}
   playerPlant: {fileID: 5158090797181382635}
   joystick: {fileID: 0}
   useJoystick: 1
@@ -1956,13 +1955,9 @@ MonoBehaviour:
   inviter: 
   partnerName: 
   _partner: {fileID: 0}
-  healthBonus: 0
-  defenseBonus: 0
-  manaBonus: 0
   defaultHealth: 0
   defaultDefense: 0
   defaultMana: 0
-  addBonus: 0
 --- !u!114 &6074729006443944294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2043,6 +2038,8 @@ MonoBehaviour:
   fornitureSorted: []
   fornitureClient: {fileID: 0}
   positioningVector: {x: 7.960999, y: -1.264, z: 7.457145}
+  sortedPieces: []
+  nearestModularPiece: {fileID: 0}
   drink: 0
   eat: 0
   _forniture: {fileID: 0}
@@ -2121,7 +2118,8 @@ MonoBehaviour:
   blockSound: 0
   blockButtonSounds: 0
   uiRestoreCredential: {fileID: 0}
-  audioSource: {fileID: 0}
+  audioSource:
+  - {fileID: 0}
 --- !u!114 &1500900099154978825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2157,8 +2155,6 @@ MonoBehaviour:
   syncMode: 1
   syncInterval: 0.1
   player: {fileID: 114732280623991920}
-  inPremiumZone: 0
-  initialPositionPremiumZone: {x: 0, y: 0}
   settedNormal: 0
   settedSpecial: 0
   nameNormal: {fileID: 9060159836687786108}
@@ -2368,7 +2364,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   player: {fileID: 114732280623991920}
-  tooWeight: 0
+  currentWeight: 0
+  maxWeight: 0
 --- !u!114 &-9165121227548820931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2402,7 +2399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 1.82
+  syncInterval: 0.1
   player: {fileID: 114732280623991920}
   sex: 0
   fat: -1
@@ -2485,22 +2482,6 @@ MonoBehaviour:
       summonedLevel: 0
       summonedExperience: 0
     amount: 0
-  pFat: -1
-  pThin: -1
-  pMuscle: -1
-  pHeight: -1
-  pBreast: -1
-  pHair: -1
-  pBeard: -1
-  pHaircolor: 
-  pUnderwear: 
-  pEyes: 
-  pSkincolor: 
-  pHats: -1
-  pAccessory: -1
-  pUpper: -1
-  pDown: -1
-  pShoes: -1
   characterCustomization: {fileID: 0}
 --- !u!114 &-3760432177326335541
 MonoBehaviour:
@@ -2565,26 +2546,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  footToSpawn: {fileID: 1309108990017163188, guid: 4abbb9bcc9497e24b847a4295456712c,
-    type: 3}
-  rightNakedFoot: {fileID: 21300000, guid: c375e50eebc11754ab587fa9c0ae2320, type: 3}
-  LeftNakedFoot: {fileID: 21300000, guid: 3893e0d6eb4767c4eaea06b0fd9e83c7, type: 3}
-  rightShoesFoot: {fileID: 21300000, guid: ac84e65f88b2ecf4f988d45cb7274aca, type: 3}
-  leftShoesFoot: {fileID: 21300000, guid: 191355957316d4343800a15d4fd7b557, type: 3}
-  player: {fileID: 114732280623991920}
-  pixelColorMouse: {r: 0, g: 0, b: 0, a: 0}
-  up: {x: 0, y: 1}
-  upRotation: {x: 0, y: 0, z: 0, w: 0}
-  down: {x: 0, y: -1}
-  downRotation: {x: 0, y: 0, z: -1, w: -0.00000004371139}
-  left: {x: -1, y: 0}
-  leftRotation: {x: 0, y: 0, z: 0.70710677, w: 0.70710677}
-  right: {x: 1, y: 0}
-  rightRotation: {x: 0, y: 0, z: -0.70710677, w: 0.70710677}
-  InstantiateObject: {fileID: 0}
-  instantiateObjectRenderer: {fileID: 0}
-  difference: 0.1
-  spriteRenderer: {fileID: 0}
 --- !u!114 &7567491817285214507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3168,7 +3129,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.18
+  orthographic size: 1.08
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2

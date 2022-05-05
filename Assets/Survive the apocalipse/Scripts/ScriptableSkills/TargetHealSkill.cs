@@ -70,7 +70,7 @@ public class TargetHealSkill : HealSkill
         {
             caster.target.health += healsHealth.Get(skillLevel);
             caster.target.mana += healsMana.Get(skillLevel);
-
+            if(caster is Player) ((Player)caster).playerInjury.injured = caster.HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc;
             // show effect on target
             SpawnEffect(caster, caster.target);
         }

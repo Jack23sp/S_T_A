@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using System.Linq;
 using TMPro;
 using SpriteShadersURP;
-using AdvancedCustomizableSystem;
+using AdvancedPeopleSystem;
 
 public partial class PlayerAbility
 {
@@ -126,7 +126,7 @@ public partial class PlayerAlliance
     public Player player;
     public ScriptableAbility abilityToLead;
 
-    public SyncListString guildAlly = new SyncListString();
+    public SyncList<string> guildAlly = new SyncList<string>();
 
     public void Start()
     {
@@ -312,14 +312,12 @@ public partial class PlayerBoost
     public SyncListBoost networkBoost = new SyncListBoost();
 
     public float cycleAmount;
-    private PlayerPremiumZoneManager playerPremiumZoneManager;
 
     public void Start()
     {
         if (isServer && player)
         {
             cycleAmount = GeneralManager.singleton.boostInvoke;
-            playerPremiumZoneManager = player.GetComponent<PlayerPremiumZoneManager>();
             InvokeRepeating(nameof(DecreaseTimer), cycleAmount, cycleAmount);
         }
     }
@@ -491,6 +489,7 @@ public partial class PlayerBoost
         }
     }
 
+    // Inserire direttamente nella firma della variabile
     public void DecreaseTimer()
     {
         if (networkBoost.Count == 0) return;
@@ -515,17 +514,6 @@ public partial class PlayerBoost
             premiumDifference = DateTime.Parse(networkBoost[0].hiddenIslandTimerServer.ToString()) - DateTime.Now;
 
         player.playerBoost.networkBoost[0] = generalBoost;
-
-
-        if (premiumDifference.TotalSeconds <= 0)
-        {
-            if (player.playerPremiumZoneManager.inPremiumZone && playerPremiumZoneManager.initialPositionPremiumZone != Vector2.zero)
-            {
-                player.agent.Warp(playerPremiumZoneManager.initialPositionPremiumZone);
-                playerPremiumZoneManager.initialPositionPremiumZone = Vector2.zero;
-            }
-            playerPremiumZoneManager.inPremiumZone = false;
-        }
     }
 
 }
@@ -599,21 +587,51 @@ public partial class PlayerConservative
 
 }
 
-public partial class PlayerDungeonManager
-{
-    [SyncVar]
-    public bool inDungeon;
-    public Vector2 initialPoint;
-
-}
-
 public partial class PlayerEmoji
 {
     public Player player;
 
-    public SyncListString networkEmoji = new SyncListString();
+    public SyncList<string> networkEmoji = new SyncList<string>();
 
+    public override void OnStartClient()
+    {
+        networkEmoji.Callback += OnEmojiListUpdated;
+    }
 
+    void OnEmojiListUpdated(SyncList<string>.Operation op, int index, string oldItem, string newItem)
+    {
+        switch (op)
+        {
+            case SyncList<string>.Operation.OP_ADD:
+                // index is where it was added into the list
+                // newItem is the new item
+                if (player.isLocalPlayer)
+                {
+                    UIEmoji.singleton.ManageOpenPanel();
+                }
+                break;
+            case SyncList<string>.Operation.OP_INSERT:
+                // index is where it was inserted into the list
+                // newItem is the new item
+                if (player.isLocalPlayer)
+                {
+                    UIEmoji.singleton.ManageOpenPanel();
+                }
+                break;
+            case SyncList<string>.Operation.OP_REMOVEAT:
+                // index is where it was removed from the list
+                // oldItem is the item that was removed
+                break;
+            case SyncList<string>.Operation.OP_SET:
+                // index is of the item that was changed
+                // oldItem is the previous value for the item at the index
+                // newItem is the new value for the item at the index
+                break;
+            case SyncList<string>.Operation.OP_CLEAR:
+                // list got cleared
+                break;
+        }
+    }
     [Command]
     public void CmdSpawnEmoji(string emojiName, string playerName)
     {
@@ -1081,10 +1099,6 @@ public partial class PlayerPremiumZoneManager
 {
     public Player player;
 
-    [SyncVar]
-    public bool inPremiumZone;
-    public Vector2 initialPositionPremiumZone;
-
     public bool settedNormal;
     public bool settedSpecial;
 
@@ -1153,79 +1167,36 @@ public partial class PlayerPremiumZoneManager
             }
         }
     }
-
-    [Command]
-    public void CmdMoveToPremiumZone(Vector2 newDestination)
-    {
-        if (player.playerCar._car != null) return;
-
-        if (!player.playerPremiumZoneManager.inPremiumZone)
-        {
-            SpawnManagerList.singleton.CheckPlayerInsideNormalMapZone(player);
-
-            TimeSpan difference = DateTime.Parse(player.playerBoost.networkBoost[0].hiddenIslandTimerServer.ToString()) - DateTime.Now;
-
-
-            if (difference.TotalSeconds > 0)
-            {
-                player.playerPremiumZoneManager.initialPositionPremiumZone = new Vector2(transform.position.x, transform.position.y);
-                player.agent.Warp(newDestination);
-
-                player.playerPremiumZoneManager.inPremiumZone = true;
-                for (int i = 0; i < player.quests.Count; i++)
-                {
-                    if (player.quests[i].data.enterPremium == true)
-                    {
-                        Quest quest = player.quests[i];
-                        quest.checkEnterPremium = true;
-                        player.quests[i] = quest;
-                    }
-                }
-            }
-        }
-        else
-        {
-            player.agent.Warp(player.playerPremiumZoneManager.initialPositionPremiumZone);
-            player.playerPremiumZoneManager.inPremiumZone = false;
-            for (int i = 0; i < player.quests.Count; i++)
-            {
-                if (player.quests[i].data.enterPremium == true)
-                {
-                    Quest quest = player.quests[i];
-                    quest.checkEnterPremium = true;
-                    player.quests[i] = quest;
-                }
-            }
-        }
-    }
 }
 
 public partial class PlayerMonsterGrab
 {
     public Player player;
     public List<Monster> nearMonster = new List<Monster>();
-    [SyncVar]
+    [SyncVar(hook = nameof(ManageShakeCamera))]
     public bool shakeCamera;
-    [SyncVar]
+    [SyncVar(hook = nameof(ManageShakeCameraResource))]
     public bool shakeCameraResource;
     public CustomCameraShake customCameraShake;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (!customCameraShake) FindObjectOfType<CustomCameraShake>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void ManageShakeCamera(bool oldBool, bool newBool)
     {
-        if (shakeCamera)
+        if (newBool)
         {
             customCameraShake.animator.SetBool("SHAKE", true);
             if (!isServer) CmdDisableShake();
             shakeCamera = false;
         }
-        if (shakeCameraResource)
+    }
+
+    void ManageShakeCameraResource(bool oldBool, bool newBool)
+    {
+        if (newBool)
         {
             customCameraShake.animator.SetBool("SHAKERESOURCE", true);
             if (!isServer) CmdDisableShake();
@@ -1237,6 +1208,7 @@ public partial class PlayerMonsterGrab
     public void CmdDisableShake()
     {
         shakeCamera = false;
+        shakeCameraResource = false;
     }
 
 
@@ -1269,7 +1241,6 @@ public partial class PlayerMonsterGrab
 
 }
 
-// Da modificare per performance
 public partial class PlayerRadio
 {
     public Player player;
@@ -1280,7 +1251,7 @@ public partial class PlayerRadio
     public float cycleAmount;
 
     [SyncVar, HideInInspector] public double nextRiskyActionTime = 0;
-    // Start is called before the first frame update
+
     void Start()
     {
         if (isServer)
@@ -1292,7 +1263,7 @@ public partial class PlayerRadio
         {
             if (player.isLocalPlayer)
             {
-                InvokeRepeating(nameof(SpawnMessageRoutine), 90.0f, 90.0f);
+                InvokeRepeating(nameof(SpawnMessageRoutine), 300.0f, 300.0f);
             }
         }
     }
@@ -1308,7 +1279,6 @@ public partial class PlayerRadio
         }
     }
 
-    // Da far chiamare a Refresh Location di player cosi si può eliminare l'update
     public void CheckRadio()
     {
         if (player.equipment.FindIndex(slot => slot.amount > 0 && ((EquipmentItem)slot.item.data).category.StartsWith("Radio")) != -1)
@@ -1348,7 +1318,6 @@ public partial class PlayerRadio
 
 }
 
-//
 public partial class PlayerSpawnpoint
 {
     public Player player;
@@ -1447,7 +1416,6 @@ public partial class PlayerSpawnpoint
         player.Revive(1.0f);
         AdditionRevive();
         SetState("IDLE");
-        player.playerPremiumZoneManager.inPremiumZone = false;
         player.agent.Warp(start.position); // recommended over transform.position
     }
 
@@ -1462,7 +1430,7 @@ public partial class PlayerSpawnpoint
         int spawnpointAbility = Convert.ToInt32(GeneralManager.singleton.FindNetworkAbilityLevel(player.playerSpawnpoint.ability.name, playerName) / 10);
         int possibleSpawnpoint = spawnpointAbility - player.playerSpawnpoint.spawnpoint.Count;
 
-        if (possibleSpawnpoint > 0 && !player.playerPremiumZoneManager.inPremiumZone)
+        if (possibleSpawnpoint > 0)
         {
             Spawnpoint sp = new Spawnpoint(name, x, y, prefered);
             player.playerSpawnpoint.spawnpoint.Add(sp);
@@ -1552,7 +1520,7 @@ public partial class PlayerTorch
 {
     public Player player;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(ManageTorch))]
     public bool isOn;
     public ItemSlot torchItem;
     public GameObject torch;
@@ -1562,19 +1530,20 @@ public partial class PlayerTorch
     private bool instantiate;
 
     [SyncVar, HideInInspector] public double nextRiskyActionTime = 0;
-    // Start is called before the first frame update
+
     void Start()
     {
         if (isServer)
         {
             cycleAmount = GeneralManager.singleton.torchInvoke;
             InvokeRepeating(nameof(DecreaseTorch), cycleAmount, cycleAmount);
+            ManageTorch(true, isOn);
         }
         else
         {
             if (player.isLocalPlayer)
             {
-                InvokeRepeating(nameof(SpawnMessageRoutine), 90.0f, 90.0f);
+                InvokeRepeating(nameof(SpawnMessageRoutine), 300.0f, 300.0f);
             }
         }
     }
@@ -1602,24 +1571,10 @@ public partial class PlayerTorch
         }
     }
 
-    void Update()
+    void ManageTorch(bool oldBool, bool newBool)
     {
 
-        if (player.playerCar && player.playerCar._car == null)
-        {
-            if (torchItem.amount > 0 && isOn == true)
-            {
-                torch.SetActive(true);
-            }
-            else
-            {
-                torch.SetActive(false);
-            }
-        }
-        else
-        {
-            torch.SetActive(false);
-        }
+        torch.SetActive(newBool);
     }
 
 
@@ -1652,56 +1607,12 @@ public partial class PlayerTorch
 public partial class PlayerWeight
 {
     public Player player;
-
     [SyncVar]
-    public bool tooWeight;
-
-    public float currentWeight
-    {
-        get
-        {
-            float equipmentBonus = 0;
-            foreach (ItemSlot slot in player.inventory)
-                if (slot.amount > 0)
-                    equipmentBonus += slot.item.weight;
-
-            return equipmentBonus;
-        }
-    }
-
-    public float maxWeight
-    {
-        get
-        {
-            float equipmentBonus = 0;
-            foreach (ItemSlot slot in player.equipment)
-                if (slot.amount > 0)
-                {
-                    equipmentBonus += slot.item.data.possibleBagWeight.Get(slot.item.bagLevel);
-                }
-
-            return equipmentBonus;
-        }
-    }
-
-    void Update()
-    {
-        if (player.isServer && player.state == "MOVING")
-        {
-            if (currentWeight >= maxWeight && !player.playerCar.car && (currentWeight != 0 || maxWeight != 0))
-            {
-                player.agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.sneakMultiplier;
-            }
-        }
-    }
-}
-//
-public partial class PlayerWood
-{
-    public Player player;
+    public float currentWeight;
     [SyncVar]
-    public bool inWood;
+    public float maxWeight;
 }
+
 
 public partial class PlayerMunitionManager
 {
@@ -2220,7 +2131,7 @@ public partial class PlayerChat
     }
 
 }
-// verificato
+
 public partial class PlayerBuilding
 {
     public Player player;
@@ -2253,7 +2164,6 @@ public partial class PlayerBuilding
                 Building buildingObject = selectedGameObject.GetComponent<Building>();
                 buildingObject.owner = name;
                 buildingObject.guild = player.InGuild() ? player.guild.name : string.Empty;
-                buildingObject.buildingName = ((ScriptableBuilding)player.inventory[selectedInventoryIndex].item.data).name;
                 buildingObject.obstacle = ((ScriptableBuilding)player.inventory[selectedInventoryIndex].item.data).isObstacle;
                 if (buildingObject.GetComponent<WoodWall>())
                 {
@@ -2301,7 +2211,6 @@ public partial class PlayerBuilding
                 Building buildingObject = selectedGameObject.GetComponent<Building>();
                 buildingObject.owner = name;
                 buildingObject.guild = player.InGuild() ? player.guild.name : string.Empty;
-                buildingObject.buildingName = ((ScriptableBuilding)player.playerBelt.belt[selectedInventoryIndex].item.data).name;
                 buildingObject.obstacle = ((ScriptableBuilding)player.playerBelt.belt[selectedInventoryIndex].item.data).isObstacle;
                 if (buildingObject.GetComponent<WoodWall>())
                 {
@@ -2435,7 +2344,6 @@ public partial class PlayerBuilding
     {
         if (!inventory)
         {
-            if (player.playerPremiumZoneManager.inPremiumZone) return;
             if (player.inventory[inventoryIndex].amount > 0 && player.inventory[inventoryIndex].item.name == itemName && player.inventory[inventoryIndex].item.data is ScriptableBuilding)
             {
                 GameObject g = Instantiate(((ScriptableBuilding)player.inventory[inventoryIndex].item.data).buildingList[buildingRotation].buildingObject, buildingTransform, Quaternion.identity);
@@ -2449,7 +2357,6 @@ public partial class PlayerBuilding
         }
         else
         {
-            if (player.playerPremiumZoneManager.inPremiumZone) return;
             if (player.playerBelt.belt[inventoryIndex].amount > 0 && player.playerBelt.belt[inventoryIndex].item.name == itemName && player.playerBelt.belt[inventoryIndex].item.data is ScriptableBuilding)
             {
                 GameObject g = Instantiate(((ScriptableBuilding)player.playerBelt.belt[inventoryIndex].item.data).buildingList[buildingRotation].buildingObject, buildingTransform, Quaternion.identity);
@@ -2470,7 +2377,6 @@ public partial class PlayerBuilding
 
         if (!inventory)
         {
-            if (player.playerPremiumZoneManager.inPremiumZone) return;
             if (player.inventory[inventoryIndex].amount > 0 && player.inventory[inventoryIndex].item.name == itemName && player.inventory[inventoryIndex].item.data is ScriptableBuilding)
             {
                 g = Instantiate(((ScriptableBuilding)player.inventory[inventoryIndex].item.data).buildingList[buildingType].buildingObject, buildingTransform, ((ScriptableBuilding)player.inventory[inventoryIndex].item.data).buildingList[buildingType].buildingObject.transform.rotation);
@@ -2528,7 +2434,6 @@ public partial class PlayerBuilding
         }
         else
         {
-            if (player.playerPremiumZoneManager.inPremiumZone) return;
             if (player.playerBelt.belt[inventoryIndex].amount > 0 && player.playerBelt.belt[inventoryIndex].item.name == itemName && player.playerBelt.belt[inventoryIndex].item.data is ScriptableBuilding)
             {
                 g = Instantiate(((ScriptableBuilding)player.playerBelt.belt[inventoryIndex].item.data).buildingList[buildingType].buildingObject, buildingTransform, Quaternion.identity);
@@ -2766,10 +2671,6 @@ public partial class PlayerBuilding
                 NetworkServer.Destroy(modular.fornitureColliders[index].gameObject);
             }
 
-            //verify occupied part and reset
-            //......
-
-
             NetworkServer.Destroy(modular.gameObject);
         }
     }
@@ -2785,8 +2686,6 @@ public partial class PlayerBuilding
         List<CraftItem> progressItem = new List<CraftItem>();
         List<CraftItem> finishedItem = new List<CraftItem>();
         TimeSpan difference;
-
-        //Debug.Log("System date : " + System.DateTime.Now);
 
         for (int i = 0; i < buildingCraft.craftItem.Count; i++)
         {
@@ -3057,17 +2956,6 @@ public partial class PlayerBuilding
 
 }
 
-// Da eliminare
-public partial class PlayerTrading
-{
-    public Player player;
-
-    public void Start()
-    {
-
-    }
-
-}
 
 // Da eliminare
 public partial class PlayerItemBuilding
@@ -3189,12 +3077,6 @@ public partial class PlayerMarriage
     [Header("Partner")]
     [SyncVar]
     public GameObject _partner;
-    [SyncVar]
-    public int healthBonus;
-    [SyncVar]
-    public int defenseBonus;
-    [SyncVar]
-    public int manaBonus;
 
     public int defaultHealth;
     public float defaultDefense;
@@ -3205,93 +3087,39 @@ public partial class PlayerMarriage
         get { return _partner != null ? _partner.GetComponent<Entity>() : null; }
         set { _partner = value != null ? value.gameObject : null; }
     }
-    private Player onlinePlayer;
 
-    public bool addBonus = false;
-    // Start is called before the first frame update
     void Start()
     {
-        defaultHealth = player._healthMax.baseValue;
-        defaultDefense = player._defense.baseValue;
-        defaultMana = player._manaMax.baseValue;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (partnerName != string.Empty)
+        if (player.isServer)
         {
-            if (_partner == null)
+            if (partnerName != string.Empty)
             {
-                if (Player.onlinePlayers.ContainsKey(partnerName))
+                if (_partner == null)
                 {
-                    if (Player.onlinePlayers.TryGetValue(partnerName, out onlinePlayer))
+                    if (Player.onlinePlayers.ContainsKey(partnerName))
                     {
-                        if (player.isServer)
-                        {
-                            _partner = onlinePlayer.gameObject;
-
-                            if (onlinePlayer.playerMarriage.partnerName != player.name)
-                            {
-                                partnerName = string.Empty;
-                                _partner = null;
-                            }
-
-                        }
+                        partner = Player.onlinePlayers[partnerName];
+                        Player.onlinePlayers[partnerName].playerMarriage.partner = player;
                     }
                 }
             }
-
-            if (_partner && _partner.name == partnerName && partner.health > 0 && partner.HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc && player.isServer)
-            {
-                healthBonus = Convert.ToInt32(((((float)player._healthMax.baseValue) + ((float)(player._healthMax.bonusPerLevel * player.level))) / 100.0f) * (float)GeneralManager.singleton.marriageHealth);
-                defenseBonus = Convert.ToInt32(((((float)player._defense.baseValue) + ((float)(player._defense.bonusPerLevel * player.level))) / 100.0f) * (float)GeneralManager.singleton.marriageDefense);
-                manaBonus = Convert.ToInt32(((((float)player._manaMax.baseValue) + ((float)(player._manaMax.bonusPerLevel * player.level))) / 100.0f) * (float)GeneralManager.singleton.marriageMana);
-
-                player._healthMax.baseValue = defaultHealth + healthBonus;
-                player._defense.baseValue = defaultDefense + (float)defenseBonus;
-                player._manaMax.baseValue = defaultMana + manaBonus;
-
-                if (!addBonus)
-                {
-                    player.health += healthBonus;
-                    player.mana += manaBonus;
-
-                    addBonus = true;
-                }
-            }
-            else if (_partner == null || _partner.name != partnerName || (partner.health > 0 && partner.HealthPercent() > GeneralManager.singleton.activeMarriageBonusPerc) && player.isServer)
-            {
-                addBonus = false;
-                healthBonus = 0;
-                defenseBonus = 0;
-                manaBonus = 0;
-
-                player._healthMax.baseValue = defaultHealth;
-                player._defense.baseValue = defaultDefense;
-                player._manaMax.baseValue = defaultMana;
-            }
-
-        }
-        else
-        {
-            if (player.isServer)
-            {
-                addBonus = false;
-                healthBonus = 0;
-                defenseBonus = 0;
-                manaBonus = 0;
-            }
-        }
-
-        if (player.isClient)
-        {
-            player._healthMax.baseValue = defaultHealth + healthBonus;
-            player._defense.baseValue = defaultDefense + (float)defenseBonus;
-            player._manaMax.baseValue = defaultMana + manaBonus;
         }
     }
 
+
+    public void OnDisconnect()
+    {
+        if (partnerName != string.Empty)
+        {
+            if (_partner != null)
+            {
+                if (Player.onlinePlayers.ContainsKey(partnerName))
+                {
+                    Player.onlinePlayers[partnerName].playerMarriage.partner = null;
+                }
+            }
+        }
+    }
 
     [Command]
     public void CmdInvitePartner()
@@ -3573,7 +3401,7 @@ public partial class PlayerMove
             {
                 if (player.animators.Count == 0)
                 {
-                    player.animators = bodyPlayer.transform.GetChild(0).GetComponentsInChildren<Animator>().ToList();
+                    player.animators = bodyPlayer.GetComponents<Animator>().ToList();
                 }
                 bodyPlayer.transform.localPosition = positioningVector;
             }
@@ -3674,38 +3502,24 @@ public partial class PlayerMove
 
         if (player.playerCar.car)
         {
-            //player.playerMove.run = true;
-            //player.playerMove.sneak = false;
-            //if (run)
-            //{
             player.agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.carMultiplier;
-            //}
         }
         else
         {
             player.JoystickManager(player);
             if (player.playerInjury.injured)
             {
-                if (!run)
-                {
-                    player.JoystickMultiplierSneak(player);
-                    player.agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.sneakMultiplier;
-                }
-                else
-                {
-                    player.JoystickMultiplierNormal(player);
-                    player.agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.normalMultiplier;
-                }
+                player.JoystickMultiplierSneak(player);
+                player.agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.sneakMultiplier;
                 return;
-            }
-            if (player.playerWeight.currentWeight > player.playerWeight.maxWeight)
-            {
-                player.playerMove.run = false;
             }
             if (!sneak && !run)
             {
                 player.JoystickMultiplierNormal(player);
-                player.agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.normalMultiplier;
+                if ((player.playerWeight.currentWeight <= player.playerWeight.maxWeight && player.playerWeight.maxWeight != 0) || player.playerWeight.currentWeight == 0 && player.playerWeight.maxWeight == 0)
+                    player.agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.normalMultiplier;
+                else
+                    player.agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.sneakMultiplier;
             }
             if (!sneak && run)
             {
@@ -3761,81 +3575,52 @@ public partial class PlayerMove
     [Command]
     public void CmdRun()
     {
-        if (player.playerCar.car)
+        if ((player.playerWeight.currentWeight == 0 && player.playerWeight.maxWeight == 0) || (player.playerWeight.currentWeight < player.playerWeight.maxWeight))
         {
-            run = true;
-            sneak = false;
-            return;
-        }
-        sneak = false;
-        for (int i = 0; i < player.quests.Count; i++)
-        {
-            Quest quest = player.quests[i];
-            if (quest.data.run == true)
+            if (player.playerCar.car)
             {
-                quest.checkRun = true;
+                run = true;
+                sneak = false;
+                return;
             }
-            player.quests[i] = quest;
-        }
-        run = !run;
-    }
 
-    public void Run()
-    {
-        if (player.playerCar.car)
-        {
-            run = true;
             sneak = false;
-            return;
+            for (int i = 0; i < player.quests.Count; i++)
+            {
+                Quest quest = player.quests[i];
+                if (quest.data.run == true)
+                {
+                    quest.checkRun = true;
+                }
+                player.quests[i] = quest;
+            }
+            run = !run;
         }
-        sneak = false;
-        run = !run;
     }
 
     [Command]
     public void CmdSneak()
     {
-        if (player.playerCar.car)
+        if ((player.playerWeight.currentWeight == 0 && player.playerWeight.maxWeight == 0) || (player.playerWeight.currentWeight < player.playerWeight.maxWeight))
         {
-            run = true;
-            sneak = false;
-            return;
-        }
-        sneak = !sneak;
-        for (int i = 0; i < player.quests.Count; i++)
-        {
-            Quest quest = player.quests[i];
-            if (quest.data.sneak == true)
+            if (player.playerCar.car)
             {
-                quest.checkSneak = true;
+                run = true;
+                sneak = false;
+                return;
             }
-            player.quests[i] = quest;
+            sneak = !sneak;
+            for (int i = 0; i < player.quests.Count; i++)
+            {
+                Quest quest = player.quests[i];
+                if (quest.data.sneak == true)
+                {
+                    quest.checkSneak = true;
+                }
+                player.quests[i] = quest;
+            }
+            run = false;
         }
-        run = false;
-    }
-
-    public void Sneak()
-    {
-        if (player.playerCar.car)
-        {
-            run = true;
-            sneak = false;
-            return;
-        }
-        sneak = !sneak;
-        run = false;
-    }
-
-    public void Walk()
-    {
-        if (player.playerCar.car)
-        {
-            run = true;
-            sneak = false;
-            return;
-        }
-        sneak = false;
-        run = false;
     }
 
     [Client]
@@ -4013,8 +3798,8 @@ public partial class PlayerFriend
 {
     public Player player;
 
-    public SyncListString playerRequest = new SyncListString();
-    public SyncListString playerFriends = new SyncListString();
+    public SyncList<string> playerRequest = new SyncList<string>();
+    public SyncList<string> playerFriends = new SyncList<string>();
 
 
     [Command]
@@ -4118,36 +3903,28 @@ public partial class PlayerOptions
     public bool blockFriend;
     [SyncVar]
     public bool blockFootstep;
-    [SyncVar]
+    [SyncVar(hook = nameof(ManageSound))]
     public bool blockSound;
     [SyncVar]
     public bool blockButtonSounds;
 
     public GameObject uiRestoreCredential;
 
-    public AudioSource audioSource;
+    public AudioSource[] audioSource;
 
-    void Start()
+
+    public void ManageSound(bool oldBool, bool newBool)
     {
-        if (player.isLocalPlayer && !audioSource)
+        if (isClient)
         {
-            audioSource = GameObject.FindObjectOfType<AudioSource>();
-        }
-
-    }
-
-    void Update()
-    {
-
-        if (player && player.isLocalPlayer)
-        {
-            if (blockSound)
+            if (isLocalPlayer)
             {
-                audioSource.enabled = false;
-            }
-            else
-            {
-                audioSource.enabled = true;
+                audioSource = FindObjectOfType<SoundManager>().GetComponents<AudioSource>();
+                for (int i = 0; i < audioSource.Length; i++)
+                {
+                    int index = i;
+                    audioSource[index].enabled = !newBool;
+                }
             }
         }
     }
@@ -4259,17 +4036,16 @@ public partial class PlayerBlood
     public void DecreaseBlood()
     {
         if (currentBlood > 0) currentBlood--;
-        if (player.isServer)
+
+        if (player.playerBlood.currentBlood > GeneralManager.singleton.maxBlood)
         {
-            if (player.playerBlood.currentBlood > GeneralManager.singleton.maxBlood)
-            {
-                player.playerBlood.currentBlood = GeneralManager.singleton.maxBlood;
-            }
-            if (player.playerBlood.currentBlood < 0)
-            {
-                player.playerBlood.currentBlood = 0;
-            }
+            player.playerBlood.currentBlood = GeneralManager.singleton.maxBlood;
         }
+        if (player.playerBlood.currentBlood < 0)
+        {
+            player.playerBlood.currentBlood = 0;
+        }
+
     }
 
 }
@@ -4816,7 +4592,7 @@ public partial class PlayerPlant
 
     public void Update()
     {
-        if (player.isClient)
+        if (player.isClient && player.isLocalPlayer)
         {
             plantObject = plantObject.Where(item => item != null).ToList();
 
@@ -5120,40 +4896,40 @@ public partial class PlayerCreation
 
     [SyncVar]
     public int sex;
-    [SyncVar]
+    [SyncVar(hook = nameof(ChangeWeigth))]
     public float fat;
-    [SyncVar]
+    [SyncVar(hook = nameof(ChangeThin))]
     public float thin;
-    [SyncVar]
+    [SyncVar(hook = nameof(ChangeMuscle))]
     public float muscle;
-    [SyncVar]
+    [SyncVar(hook = nameof(ChangeHeight))]
     public float height;
-    [SyncVar]
+    [SyncVar(hook = nameof(ChangeBreastSize))]
     public float breast;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(ChangeHairType))]
     public int hairType;
-    [SyncVar]
+    [SyncVar(hook = nameof(ChangeBeardType))]
     public int beard;
-    [SyncVar]
+    [SyncVar(hook = nameof(ChangeHairColor))]
     public string hairColor;
-    [SyncVar]
+    [SyncVar(hook = nameof(ChangeUnderpantsColor))]
     public string underwearColor;
-    [SyncVar]
+    [SyncVar(hook = nameof(ChangeEyesColor))]
     public string eyesColor;
-    [SyncVar]
+    [SyncVar(hook = nameof(ChangeSkinColor))]
     public string skinColor;
 
 
-    [SyncVar]
+    [SyncVar(hook = nameof(ChangeHats))]
     public int hats;
-    [SyncVar]
+    [SyncVar(hook = nameof(ChangeAccessory))]
     public int accessory;
-    [SyncVar]
+    [SyncVar(hook = nameof(ChangeUpper))]
     public int upper;
-    [SyncVar]
+    [SyncVar(hook = nameof(ChangeDown))]
     public int down;
-    [SyncVar]
+    [SyncVar(hook = nameof(ChangeShoes))]
     public int shoes;
 
     public GameObject dummyPresentation;
@@ -5163,13 +4939,11 @@ public partial class PlayerCreation
     public ItemSlot accessorySlot;
     public ItemSlot hatsSlot;
 
-    public float pFat, pThin, pMuscle, pHeight, pBreast;
-    public int pHair, pBeard;
-    public string pHaircolor, pUnderwear, pEyes, pSkincolor;
-
-    public int pHats, pAccessory, pUpper, pDown, pShoes;
-
     public CharacterCustomization characterCustomization;
+
+    Color newCol;
+
+    bool isThisIsLocalPlayer = false;
 
     void Start()
     {
@@ -5183,284 +4957,212 @@ public partial class PlayerCreation
             player.nameOverlay.gameObject.SetActive(true);
         }
 
+        NewSetup();
     }
 
     public void ChangeHairType(int oldHair, int newHair)
     {
-        if (oldHair != newHair)
+        if (player.prefabPreview)
         {
-            if (player.prefabPreview)
-            {
-                characterCustomization.SetHairByIndex(newHair);
-                if (player.isLocalPlayer) characterCustomization.ChangeTag(player, player.avatarCamera);
-            }
-            pHair = newHair;
+            characterCustomization.SetElementByIndex(CharacterElementType.Hair, newHair);
         }
     }
 
     public void ChangeHairColor(string oldHairColor, string newHairColor)
     {
-        if (oldHairColor != newHairColor)
+        if (player.prefabPreview)
         {
-            if (player.prefabPreview)
-            {
-                Color newCol;
-                if (ColorUtility.TryParseHtmlString(newHairColor, out newCol))
-                    characterCustomization.SetBodyColor(BodyColorPart.Hair, newCol);
-                if (player.isLocalPlayer) characterCustomization.ChangeTag(player, player.avatarCamera);
-            }
-            pHaircolor = newHairColor;
+            if (ColorUtility.TryParseHtmlString(newHairColor, out newCol))
+                characterCustomization.SetBodyColor(BodyColorPart.Hair, newCol);
         }
     }
 
     public void ChangeUnderpantsColor(string oldUnderpantsColor, string newUnderpantsColor)
     {
-        if (oldUnderpantsColor != newUnderpantsColor)
+        if (player.prefabPreview)
         {
-            if (player.prefabPreview)
-            {
-                Color newCol;
-                if (ColorUtility.TryParseHtmlString(newUnderpantsColor, out newCol))
-                    characterCustomization.SetBodyColor(BodyColorPart.Underpants, newCol);
-                if (player.isLocalPlayer) characterCustomization.ChangeTag(player, player.avatarCamera);
-            }
-            pUnderwear = newUnderpantsColor;
+            if (ColorUtility.TryParseHtmlString(newUnderpantsColor, out newCol))
+                characterCustomization.SetBodyColor(BodyColorPart.Underpants, newCol);
         }
     }
 
     public void ChangeEyesColor(string oldEyesColor, string newEyesColor)
     {
-        if (oldEyesColor != newEyesColor)
+        if (player.prefabPreview)
         {
-            if (player.prefabPreview)
-            {
-                Color newCol;
-                if (ColorUtility.TryParseHtmlString(newEyesColor, out newCol))
-                    characterCustomization.SetBodyColor(BodyColorPart.Eye, newCol);
-                if (player.isLocalPlayer) characterCustomization.ChangeTag(player, player.avatarCamera);
-            }
-            pEyes = newEyesColor;
+            if (ColorUtility.TryParseHtmlString(newEyesColor, out newCol))
+                characterCustomization.SetBodyColor(BodyColorPart.Eye, newCol);
         }
     }
 
     public void ChangeSkinColor(string oldSkinColor, string newSkinColor)
     {
-        if (oldSkinColor != newSkinColor)
+        if (player.prefabPreview)
         {
-            if (player.prefabPreview)
-            {
-                Color newCol;
-                if (ColorUtility.TryParseHtmlString(newSkinColor, out newCol))
-                    characterCustomization.SetBodyColor(BodyColorPart.Skin, newCol);
-                if (player.isLocalPlayer) characterCustomization.ChangeTag(player, player.avatarCamera);
-            }
-            pSkincolor = newSkinColor;
+            if (ColorUtility.TryParseHtmlString(newSkinColor, out newCol))
+                characterCustomization.SetBodyColor(BodyColorPart.Skin, newCol);
         }
     }
 
     public void ChangeBeardType(int oldHair, int newHair)
     {
-        if (oldHair != newHair)
+        if (player.prefabPreview)
         {
-            if (player.prefabPreview)
-            {
-                characterCustomization.SetBeardByIndex(newHair);
-                if (player.isLocalPlayer) characterCustomization.ChangeTag(player, player.avatarCamera);
-            }
-            pBeard = newHair;
+            characterCustomization.SetElementByIndex(CharacterElementType.Beard, newHair);
         }
     }
 
     public void ChangeWeigth(float oldWeigth, float newWeigth)
     {
-        if (oldWeigth != newWeigth)
+        if (player.prefabPreview)
         {
-            if (player.prefabPreview)
-            {
-                characterCustomization.SetBodyShape(BodyShapeType.Fat, newWeigth);
-                if (player.isLocalPlayer) characterCustomization.ChangeTag(player, player.avatarCamera);
-            }
-            pFat = newWeigth;
+            characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Fat, newWeigth);
         }
     }
 
     public void ChangeThin(float oldThin, float newThin)
     {
-        if (oldThin != newThin)
+        if (sex == 0)
         {
             if (player.prefabPreview)
             {
-                characterCustomization.SetBodyShape(BodyShapeType.Thin, newThin);
-                if (player.isLocalPlayer) characterCustomization.ChangeTag(player, player.avatarCamera);
+                characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Thin, newThin);
             }
-            pThin = newThin;
         }
     }
 
     public void ChangeMuscle(float oldMuscle, float newMuscle)
     {
-        if (oldMuscle != newMuscle)
+        if (sex == 0)
         {
+
             if (player.prefabPreview)
             {
-                characterCustomization.SetBodyShape(BodyShapeType.Muscles, newMuscle);
-                if (player.isLocalPlayer) characterCustomization.ChangeTag(player, player.avatarCamera);
+                characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Muscles, newMuscle);
             }
-            pMuscle = newMuscle;
         }
     }
 
     public void ChangeHeight(float oldHeight, float newHeight)
     {
-        if (oldHeight != newHeight)
+        if (player.prefabPreview)
         {
-            if (player.prefabPreview)
-            {
-                characterCustomization.SetHeight(newHeight);
-                if (player.isLocalPlayer) characterCustomization.ChangeTag(player, player.avatarCamera);
-            }
-            pHeight = newHeight;
+            characterCustomization.SetHeight(newHeight);
         }
     }
 
     public void ChangeBreastSize(float oldBrestSize, float newBrestSize)
     {
-        if (oldBrestSize != newBrestSize)
+        if (sex == 1)
         {
             if (player.prefabPreview)
             {
-                characterCustomization.SetBodyShape(BodyShapeType.BreastSize, newBrestSize);
-                if (player.isLocalPlayer) characterCustomization.ChangeTag(player, player.avatarCamera);
+                characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.BreastSize, newBrestSize);
             }
-            pBreast = newBrestSize;
         }
     }
 
     public void ChangeHats(int oldHats, int newHats)
     {
-        if (oldHats != newHats)
+        if (player.prefabPreview)
         {
-            if (player.prefabPreview)
+            if (newHats != -1)
             {
-                if (newHats != -1)
-                {
-                    characterCustomization.SetElementByIndex(ClothesPartType.Hat, newHats);
-                }
-                else
-                {
-                    characterCustomization.SetElementByIndex(ClothesPartType.Hat, -1);
-                }
-                if (player.isLocalPlayer) characterCustomization.ChangeTag(player, player.avatarCamera);
+                characterCustomization.SetElementByIndex(CharacterElementType.Hat, newHats);
             }
-            pHats = newHats;
+            else
+            {
+                characterCustomization.SetElementByIndex(CharacterElementType.Hat, -1);
+            }
         }
     }
 
     public void ChangeAccessory(int oldAccessory, int newAccessory)
     {
-        if (oldAccessory != newAccessory)
+        if (player.prefabPreview)
         {
-            if (player.prefabPreview)
+            if (newAccessory != -1)
             {
-                if (newAccessory != -1)
-                {
-                    characterCustomization.SetElementByIndex(ClothesPartType.Accessory, newAccessory);
-                }
-                else
-                {
-                    characterCustomization.SetElementByIndex(ClothesPartType.Accessory, -1);
-                }
-                if (player.isLocalPlayer) characterCustomization.ChangeTag(player, player.avatarCamera);
+                characterCustomization.SetElementByIndex(CharacterElementType.Accessory, newAccessory);
             }
-            pAccessory = newAccessory;
+            else
+            {
+                characterCustomization.SetElementByIndex(CharacterElementType.Accessory, -1);
+            }
         }
     }
 
     public void ChangeUpper(int oldUpper, int newUpper)
     {
-        if (oldUpper != newUpper)
+        if (player.prefabPreview)
         {
-            if (player.prefabPreview)
+            if (newUpper != -1)
             {
-                if (newUpper != -1)
-                {
-                    characterCustomization.SetElementByIndex(ClothesPartType.Shirt, newUpper);
-                }
-                else
-                {
-                    characterCustomization.SetElementByIndex(ClothesPartType.Shirt, -1);
-                }
-                if (player.isLocalPlayer) characterCustomization.ChangeTag(player, player.avatarCamera);
+                characterCustomization.SetElementByIndex(CharacterElementType.Shirt, newUpper);
             }
-            pUpper = newUpper;
+            else
+            {
+                characterCustomization.SetElementByIndex(CharacterElementType.Shirt, -1);
+            }
         }
     }
 
     public void ChangeDown(int oldDown, int newDown)
     {
-        if (oldDown != newDown)
+        if (player.prefabPreview)
         {
-            if (player.prefabPreview)
+            if (newDown != -1)
             {
-                if (newDown != -1)
-                {
-                    characterCustomization.SetElementByIndex(ClothesPartType.Pants, newDown);
-                }
-                else
-                {
-                    characterCustomization.SetElementByIndex(ClothesPartType.Pants, -1);
-                }
-                if (player.isLocalPlayer) characterCustomization.ChangeTag(player, player.avatarCamera);
+                characterCustomization.SetElementByIndex(CharacterElementType.Pants, newDown);
             }
-            pDown = newDown;
+            else
+            {
+                characterCustomization.SetElementByIndex(CharacterElementType.Pants, -1);
+            }
         }
     }
 
     public void ChangeShoes(int oldShoes, int newShoes)
     {
-        if (oldShoes != newShoes)
+        if (player.prefabPreview)
         {
-            if (player.prefabPreview)
+            if (newShoes != -1)
             {
-                if (newShoes != -1)
-                {
-                    characterCustomization.SetElementByIndex(ClothesPartType.Shoes, newShoes);
-                }
-                else
-                {
-                    characterCustomization.SetElementByIndex(ClothesPartType.Shoes, -1);
-                }
-                if (player.isLocalPlayer) characterCustomization.ChangeTag(player, player.avatarCamera);
+                characterCustomization.SetElementByIndex(CharacterElementType.Shoes, newShoes);
             }
-            pShoes = newShoes;
+            else
+            {
+                characterCustomization.SetElementByIndex(CharacterElementType.Shoes, -1);
+            }
         }
+
     }
 
     public void NewSetup()
     {
-        ChangeHairColor(pHaircolor, hairColor);
-        ChangeHairType(pHair, hairType);
-        ChangeUnderpantsColor(pUnderwear, underwearColor);
-        ChangeEyesColor(pEyes, eyesColor);
-        ChangeSkinColor(pSkincolor, skinColor);
-        ChangeBeardType(pBeard, beard);
-        ChangeWeigth(pFat, fat);
-        ChangeThin(pThin, thin);
-        ChangeMuscle(pMuscle, muscle);
-        ChangeHeight(pHeight, height);
-        ChangeBreastSize(pBreast, breast);
-        ChangeHats(pHats, hats);
-        ChangeAccessory(pAccessory, accessory);
-        ChangeUpper(pUpper, upper);
-        ChangeDown(pDown, down);
-        ChangeShoes(pShoes, shoes);
+        ChangeHairColor(hairColor, hairColor);
+        ChangeHairType(hairType, hairType);
+        ChangeUnderpantsColor(underwearColor, underwearColor);
+        ChangeEyesColor(eyesColor, eyesColor);
+        ChangeSkinColor(skinColor, skinColor);
+        ChangeBeardType(beard, beard);
+        ChangeWeigth(fat, fat);
+        ChangeThin(thin, thin);
+        ChangeMuscle(muscle, muscle);
+        ChangeHeight(height, height);
+        ChangeBreastSize(breast, breast);
+        ChangeHats(hats, hats);
+        ChangeAccessory(accessory, accessory);
+        ChangeUpper(upper, upper);
+        ChangeDown(down, down);
+        ChangeShoes(shoes, shoes);
 
     }
 
-    void Update()
-    {
-        NewSetup();
-    }
+    //void Update()
+    //{
+    //    NewSetup();
+    //}
 
     public void CheckAccessory()
     {
@@ -5516,9 +5218,9 @@ public partial class PlayerTeleport : NetworkBehaviour
 {
     public Player player;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(ItemInUse))]
     public int itemInUse = -1;
-    [SyncVar]
+    [SyncVar(hook = nameof(Inviter))]
     public string inviterName;
     [SyncVar]
     public int countdown;
@@ -5529,28 +5231,67 @@ public partial class PlayerTeleport : NetworkBehaviour
             InvokeRepeating(nameof(DecreaseCountdown), 1.0f, 1.0f);
     }
 
-    void Update()
-    {
-        if (inviterName != string.Empty && player.isLocalPlayer)
-        {
-            if (GeneralManager.singleton.spawnedTeleport == null)
-            {
-                GeneralManager.singleton.spawnedTeleport = Instantiate(GeneralManager.singleton.teleportInviteSlot, GeneralManager.singleton.canvas);
+    //void Update()
+    //{
+    //    if (player.isLocalPlayer)
+    //    {
+    //        if (inviterName != string.Empty)
+    //        {
+    //            if (GeneralManager.singleton.spawnedTeleport == null)
+    //            {
+    //                GeneralManager.singleton.spawnedTeleport = Instantiate(GeneralManager.singleton.teleportInviteSlot, GeneralManager.singleton.canvas);
 
+    //            }
+    //        }
+    //        if (itemInUse > -1)
+    //        {
+    //            if (GeneralManager.singleton.spawnedteleportInviter == null)
+    //            {
+    //                GeneralManager.singleton.spawnedteleportInviter = Instantiate(GeneralManager.singleton.teleportInviter, GeneralManager.singleton.canvas);
+    //            }
+    //        }
+    //        if (itemInUse == -1)
+    //        {
+    //            if (GeneralManager.singleton.spawnedteleportInviter != null)
+    //            {
+    //                Destroy(GeneralManager.singleton.spawnedteleportInviter);
+    //            }
+    //        }
+    //    }
+    //}
+
+    public void Inviter(string oldString, string newString)
+    {
+        if (player.isLocalPlayer)
+        {
+            if (newString != string.Empty)
+            {
+                if (GeneralManager.singleton.spawnedTeleport == null)
+                {
+                    GeneralManager.singleton.spawnedTeleport = Instantiate(GeneralManager.singleton.teleportInviteSlot, GeneralManager.singleton.canvas);
+
+                }
             }
         }
-        if (itemInUse > -1 && player.isLocalPlayer)
+    }
+
+    public void ItemInUse(int oldInt, int newInt)
+    {
+        if (player.isLocalPlayer)
         {
-            if (GeneralManager.singleton.spawnedteleportInviter == null)
+            if (newInt > -1)
             {
-                GeneralManager.singleton.spawnedteleportInviter = Instantiate(GeneralManager.singleton.teleportInviter, GeneralManager.singleton.canvas);
+                if (GeneralManager.singleton.spawnedteleportInviter == null)
+                {
+                    GeneralManager.singleton.spawnedteleportInviter = Instantiate(GeneralManager.singleton.teleportInviter, GeneralManager.singleton.canvas);
+                }
             }
-        }
-        if (itemInUse == -1 && isLocalPlayer)
-        {
-            if (GeneralManager.singleton.spawnedteleportInviter != null)
+            if (newInt == -1)
             {
-                Destroy(GeneralManager.singleton.spawnedteleportInviter);
+                if (GeneralManager.singleton.spawnedteleportInviter != null)
+                {
+                    Destroy(GeneralManager.singleton.spawnedteleportInviter);
+                }
             }
         }
     }
@@ -5570,16 +5311,10 @@ public partial class PlayerTeleport : NetworkBehaviour
     [Command]
     public void CmdTeleportToFriends()
     {
-        bool inPremium = player.playerPremiumZoneManager.inPremiumZone;
         bool playerTeleport = false;
         Player.onlinePlayers.TryGetValue(inviterName, out Player inviter);
         if (inviter)
         {
-            playerTeleport = inviter.playerPremiumZoneManager.inPremiumZone;
-            if (inPremium && !playerTeleport)
-            {
-                return;
-            }
             player.agent.Warp(inviter.transform.position);
             inviterName = string.Empty;
             countdown = 0;
@@ -6070,107 +5805,6 @@ public partial class PlayerBelt
 
 }
 
-public partial class PlayerFootPrint
-{
-    public GameObject footToSpawn;
-
-    public Sprite rightNakedFoot;
-    public Sprite LeftNakedFoot;
-    public Sprite rightShoesFoot;
-    public Sprite leftShoesFoot;
-
-    public Player player;
-
-    public Color pixelColorMouse;
-
-    public Vector2 up;
-    public Quaternion upRotation;
-
-    public Vector2 down;
-    public Quaternion downRotation;
-
-    public Vector2 left;
-    public Quaternion leftRotation;
-
-    public Vector2 right;
-    public Quaternion rightRotation;
-
-    public GameObject InstantiateObject;
-    public SpriteRenderer instantiateObjectRenderer;
-
-    private SnowManager snowManager;
-
-    public float difference;
-    [HideInInspector] public SpriteRenderer spriteRenderer;
-
-    public void Start()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    public void SpawnFootprint(int LeftRight)
-    {
-        if (!snowManager) snowManager = FindObjectOfType<SnowManager>();
-
-        if (!player.playerOptions.blockFootstep)
-        {
-            if (player.isLocalPlayer || (player.isClient || player.isServer) || (!Player.localPlayer && player.netIdentity.observers.Count > 0))
-            {
-                if (ModularBuildingManager.singleton.inThisCollider)
-                {
-                    if (player.equipment[8].amount == 0)
-                    {
-                        InstantiateObject = Instantiate(footToSpawn);
-                        instantiateObjectRenderer = InstantiateObject.GetComponent<SpriteRenderer>();
-                        instantiateObjectRenderer.sortingOrder = spriteRenderer.sortingOrder - 1;
-                        InstantiateObject.transform.position = player.transform.position;
-                        if (LeftRight == 1) instantiateObjectRenderer.sprite = rightNakedFoot;
-                        if (LeftRight == 0) instantiateObjectRenderer.sprite = LeftNakedFoot;
-                    }
-                    else
-                    {
-                        InstantiateObject = Instantiate(footToSpawn);
-                        instantiateObjectRenderer = InstantiateObject.GetComponent<SpriteRenderer>();
-                        instantiateObjectRenderer.sortingOrder = spriteRenderer.sortingOrder - 1;
-                        InstantiateObject.transform.position = player.transform.position;
-                        if (LeftRight == 1) instantiateObjectRenderer.sprite = rightShoesFoot;
-                        if (LeftRight == 0) instantiateObjectRenderer.sprite = leftShoesFoot;
-                    }
-
-                    if (player.lookDirection == up)
-                    {
-                        InstantiateObject.transform.rotation = upRotation;
-                        if (LeftRight == 1) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x + difference, InstantiateObject.transform.position.y, InstantiateObject.transform.position.z);
-                        if (LeftRight == 0) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x + (-difference), InstantiateObject.transform.position.y, InstantiateObject.transform.position.z);
-                        if (!player.playerOptions.blockFootstep) InstantiateObject.GetComponent<AudioSource>().Play();
-                    }
-                    if (player.lookDirection == down)
-                    {
-                        InstantiateObject.transform.rotation = downRotation;
-                        if (LeftRight == 1) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x + (-difference), InstantiateObject.transform.position.y, InstantiateObject.transform.position.z);
-                        if (LeftRight == 0) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x + difference, InstantiateObject.transform.position.y, InstantiateObject.transform.position.z);
-                        if (!player.playerOptions.blockFootstep) InstantiateObject.GetComponent<AudioSource>().Play();
-                    }
-                    if (player.lookDirection == left)
-                    {
-                        InstantiateObject.transform.rotation = leftRotation;
-                        if (LeftRight == 1) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x, InstantiateObject.transform.position.y + difference, InstantiateObject.transform.position.z);
-                        if (LeftRight == 0) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x, InstantiateObject.transform.position.y + (-difference), InstantiateObject.transform.position.z);
-                        if (!player.playerOptions.blockFootstep) InstantiateObject.GetComponent<AudioSource>().Play();
-                    }
-                    if (player.lookDirection == right)
-                    {
-                        InstantiateObject.transform.rotation = rightRotation;
-                        if (LeftRight == 1) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x, InstantiateObject.transform.position.y + -(difference), InstantiateObject.transform.position.z);
-                        if (LeftRight == 0) InstantiateObject.transform.position = new Vector3(InstantiateObject.transform.position.x, InstantiateObject.transform.position.y + difference, InstantiateObject.transform.position.z);
-                        if (!player.playerOptions.blockFootstep) InstantiateObject.GetComponent<AudioSource>().Play();
-                    }
-                }
-            }
-        }
-    }
-}
-
 public partial class PlayerQuest
 {
     public Player player;
@@ -6529,57 +6163,94 @@ public partial class PlayerItemPoint
 public partial class PlayerDance
 {
     public Player player;
-    [SyncVar]
+    [SyncVar(hook = nameof(ManageDance))]
     public int danceIndex;
     public int prevDanceIndex;
 
-    public SyncListString networkDance = new SyncListString();
+    public SyncList<string> networkDance = new SyncList<string>();
 
     private PlayerPlaceholderWeapon playerPlaceholderWeapon;
 
+    public override void OnStartClient()
+    {
+        networkDance.Callback += OnDanceListUpdated;
+    }
+
+    void OnDanceListUpdated(SyncList<string>.Operation op, int index, string oldItem, string newItem)
+    {
+        switch (op)
+        {
+            case SyncList<string>.Operation.OP_ADD:
+                // index is where it was added into the list
+                // newItem is the new item
+                if (player.isLocalPlayer)
+                {
+                    UIEmoji.singleton.ManageOpenPanelDance();
+                }
+                break;
+            case SyncList<string>.Operation.OP_INSERT:
+                // index is where it was inserted into the list
+                // newItem is the new item
+                if (player.isLocalPlayer)
+                {
+                    UIEmoji.singleton.ManageOpenPanelDance();
+                }
+                break;
+            case SyncList<string>.Operation.OP_REMOVEAT:
+                // index is where it was removed from the list
+                // oldItem is the item that was removed
+                break;
+            case SyncList<string>.Operation.OP_SET:
+                // index is of the item that was changed
+                // oldItem is the previous value for the item at the index
+                // newItem is the new value for the item at the index
+                break;
+            case SyncList<string>.Operation.OP_CLEAR:
+                // list got cleared
+                break;
+        }
+    }
+
+
+    public void ManageDance(int oldInt, int newInt)
+    {
+        if (newInt > -1 && player.animators[0].runtimeAnimatorController != GeneralManager.singleton.listCompleteOfDance[newInt])
+        {
+            if (!playerPlaceholderWeapon) playerPlaceholderWeapon = Player.localPlayer.playerMove.bodyPlayer.GetComponent<PlayerPlaceholderWeapon>();
+
+            if (player.playerItemEquipment.weapon) player.playerItemEquipment.weapon.SetActive(false);
+
+            if (player.prevAnimator == null) player.prevAnimator = player.animators[0].runtimeAnimatorController;
+            for (int i = 0; i < player.animators.Count; i++)
+            {
+                if (player.animators[i].runtimeAnimatorController != GeneralManager.singleton.listCompleteOfDance[newInt].animator)
+                    player.animators[i].runtimeAnimatorController = GeneralManager.singleton.listCompleteOfDance[newInt].animator;
+            }
+        }
+        else if (newInt == -1)
+        {
+            if (player.playerItemEquipment.weapon) player.playerItemEquipment.weapon.SetActive(true);
+
+            if (player.playerItemEquipment.firstWeapon.amount > 0)
+            {
+                for (int i = 0; i < player.animators.Count; i++)
+                {
+                    player.animators[i].runtimeAnimatorController = ((EquipmentItem)player.playerItemEquipment.firstWeapon.item.data).animatorToSet;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < player.animators.Count; i++)
+                {
+                    player.animators[i].runtimeAnimatorController = GeneralManager.singleton.defaultAnimatorController;
+                }
+
+            }
+        }
+    }
+
     public void Update()
     {
-        if (isClient)
-        {
-            if (prevDanceIndex != danceIndex)
-            {
-                if (danceIndex > -1 && player.animators[0].runtimeAnimatorController != GeneralManager.singleton.listCompleteOfDance[danceIndex])
-                {
-                    if (!playerPlaceholderWeapon) playerPlaceholderWeapon = Player.localPlayer.playerMove.bodyPlayer.GetComponent<PlayerPlaceholderWeapon>();
-
-                    if (player.playerItemEquipment.weapon) player.playerItemEquipment.weapon.SetActive(false);
-
-                    if (player.prevAnimator == null) player.prevAnimator = player.animators[0].runtimeAnimatorController;
-                    for (int i = 0; i < player.animators.Count; i++)
-                    {
-                        if (player.animators[i].runtimeAnimatorController != GeneralManager.singleton.listCompleteOfDance[danceIndex].animator)
-                            player.animators[i].runtimeAnimatorController = GeneralManager.singleton.listCompleteOfDance[danceIndex].animator;
-                    }
-                }
-                else if (danceIndex == -1)
-                {
-                    if (player.playerItemEquipment.weapon) player.playerItemEquipment.weapon.SetActive(true);
-
-                    if (player.playerItemEquipment.firstWeapon.amount > 0)
-                    {
-                        for (int i = 0; i < player.animators.Count; i++)
-                        {
-                            player.animators[i].runtimeAnimatorController = ((EquipmentItem)player.playerItemEquipment.firstWeapon.item.data).animatorToSet;
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 0; i < player.animators.Count; i++)
-                        {
-                            player.animators[i].runtimeAnimatorController = GeneralManager.singleton.defaultAnimatorController;
-                        }
-
-                    }
-                }
-                prevDanceIndex = danceIndex;
-            }
-
-        }
         if (isServer)
         {
             if (player.state != "IDLE")
@@ -6637,126 +6308,23 @@ public partial class PlayerInjury : NetworkBehaviour
 {
     public Player player;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(SetInjuredState))]
     public bool injured;
-
-    public bool prevInjuredState;
 
     public void Start()
     {
         if (player.isServer)
         {
-            if (player.HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc)
-            {
-                injured = true;
-            }
-            else
-            {
-                injured = false;
-            }
+            injured = player.HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc;
         }
-        if (player.isClient)
-            InvokeRepeating(nameof(SetInjuredState), 1.0f, 1.0f);
-        else
-            InvokeRepeating(nameof(CheckInjuredState), 0.6f, 0.6f);
     }
 
-    public void CheckInjuredState()
+    public void SetInjuredState(bool oldInjured, bool newInjured)
     {
-        if (player.HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc)
+        foreach (Animator anim in player.animators)
         {
-            injured = true;
+            anim.SetBool("INJURED", newInjured);
         }
-        else
-        {
-            injured = false;
-        }
+
     }
-
-    public void SetInjuredState()
-    {
-        if (prevInjuredState != injured)
-        {
-            foreach (Animator anim in player.animators)
-            {
-                anim.SetBool("INJURED", injured);
-                prevInjuredState = injured;
-            }
-        }
-    }
-}
-
-public partial class PlayerRaycast
-{
-    public Player player;
-
-    public Vector3 hitMain;
-
-    public float distance = 2.5f;
-
-    //public void Update()
-    //{
-    //    if (player.agent.velocity != Vector2.zero)
-    //    {
-    //        RaycastHit2D[] leftHit = Physics2D.RaycastAll(player.transform.position, Vector2.left, distance);
-    //        RaycastHit2D[] rightHit = Physics2D.RaycastAll(player.transform.position, Vector2.right, distance);
-    //        RaycastHit2D[] upHit = Physics2D.RaycastAll(player.transform.position, Vector2.up, distance);
-    //        RaycastHit2D[] downHit = Physics2D.RaycastAll(player.transform.position, Vector2.down, distance);
-
-    //        for (int i = 0; i < leftHit.Length; i++)
-    //        {
-    //            if (leftHit[i].collider.CompareTag("WallMine"))
-    //            {
-    //                hitMain = leftHit[i].point;
-    //                return;
-    //            }
-    //        }
-    //        for (int i = 0; i < rightHit.Length; i++)
-    //        {
-    //            if (rightHit[i].collider.CompareTag("WallMine"))
-    //            {
-    //                hitMain = rightHit[i].point;
-    //                return;
-    //            }
-    //        }
-    //        for (int i = 0; i < upHit.Length; i++)
-    //        {
-    //            if (upHit[i].collider.CompareTag("WallMine"))
-    //            {
-    //                hitMain = upHit[i].point;
-    //                return;
-    //            }
-    //        }
-    //        for (int i = 0; i < downHit.Length; i++)
-    //        {
-    //            if (downHit[i].collider.CompareTag("WallMine"))
-    //            {
-    //                hitMain = downHit[i].point;
-    //                return;
-    //            }
-    //        }
-
-    //        hitMain = Vector3.zero;
-
-    //    }
-    //}
-
-    //void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.blue;
-    //    Vector3 directionUp = player.transform.TransformDirection(Vector2.up) * distance;
-    //    Gizmos.DrawRay(player.transform.position, directionUp);
-
-    //    Gizmos.color = Color.red;
-    //    Vector3 directionBc = player.transform.TransformDirection(Vector2.down) * distance;
-    //    Gizmos.DrawRay(player.transform.position, directionBc);
-
-    //    Gizmos.color = Color.black;
-    //    Vector3 directionSx = player.transform.TransformDirection(Vector2.left) * distance;
-    //    Gizmos.DrawRay(player.transform.position, directionSx);
-
-    //    Gizmos.color = Color.white;
-    //    Vector3 directionDx = player.transform.TransformDirection(Vector2.right) * distance;
-    //    Gizmos.DrawRay(player.transform.position, directionDx);
-    //}
 }

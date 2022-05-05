@@ -258,30 +258,14 @@ public partial class Database : MonoBehaviour
         public string hiddenIslandTimerServer { get; set; }
         public string doubleEXP { get; set; }
         public string doubleEXPServer { get; set; }
-        //public int petDoubleEXP { get; set; }
-        //public int partyDoubleEXP { get; set; }
-        //public int guildDoubleEXP { get; set; }
         public string doubleGold { get; set; }
         public string doubleGoldServer { get; set; }
-        //public int partyDoubleGold { get; set; }
-        //public int guildDoubleGold { get; set; }
         public string doubleLeaderPoints { get; set; }
         public string doubleLeaderPointsServer { get; set; }
         public string doubleDamageToMonster { get; set; }
         public string doubleDamageToMonsterServer { get; set; }
         public string doubleDamageToPlayer { get; set; }
         public string doubleDamageToPlayerServer { get; set; }
-        //public DateTime doubleDamageToBuilding { get; set; }
-    }
-
-    class dungeonManager
-    {
-        //[PrimaryKey] // important for performance: O(log n) instead of O(n)
-        //[Collation("NOCASE")] // [COLLATE NOCASE for case insensitive compare. this way we can't both create 'Archer' and 'archer' as characters]
-        public string characterName { get; set; }
-        public int inDungeon { get; set; }
-        public float posX { get; set; }
-        public float posY { get; set; }
     }
 
     class blood
@@ -357,16 +341,6 @@ public partial class Database : MonoBehaviour
         public int currentPoisoning { get; set; }
     }
 
-    class premiumZone
-    {
-        //[PrimaryKey] // important for performance: O(log n) instead of O(n)
-        //[Collation("NOCASE")] // [COLLATE NOCASE for case insensitive compare. this way we can't both create 'Archer' and 'archer' as characters]
-        public string characterName { get; set; }
-        public int inPremiumZone { get; set; }
-        public int hasPremiumZone { get; set; }
-        public float posX { get; set; }
-        public float posY { get; set; }
-    }
     class radio
     {
         //[PrimaryKey] // important for performance: O(log n) instead of O(n)
@@ -451,7 +425,6 @@ public partial class Database : MonoBehaviour
         public string underwearColor { get; set; }
         public string eyesColor { get; set; }
         public string skinColor { get; set; }
-        public int eyesType { get; set; }
         public float fat { get; set; }
         public float thin { get; set; }
         public float muscle { get; set; }
@@ -488,7 +461,6 @@ public partial class Database : MonoBehaviour
         public string sceneName { get; set; }
         public string craftBuildingType { get; set; }
         public int myIndex { get; set; }
-        public string actualName { get; set; }
         public int health { get; set; }
         public string guild { get; set; }
         public string owner { get; set; }
@@ -518,7 +490,6 @@ public partial class Database : MonoBehaviour
     {
         public string sceneName { get; set; }
         public int myIndex { get; set; }
-        public string actualName { get; set; }
         public int health { get; set; }
         public string guild { get; set; }
         public string owner { get; set; }
@@ -577,26 +548,10 @@ public partial class Database : MonoBehaviour
         public int isPremium { get; set; }
     }
 
-    class gasStation
-    {
-        public string sceneName { get; set; }
-        public int myIndex { get; set; }
-        public string actualName { get; set; }
-        public int health { get; set; }
-        public string guild { get; set; }
-        public string owner { get; set; }
-        public float positionX { get; set; }
-        public float positionY { get; set; }
-        public int level { get; set; }
-        public int currentGasoline { get; set; }
-        public int isPremium { get; set; }
-    }
-
     class warehouseGroup
     {
         public string sceneName { get; set; }
         public int myIndex { get; set; }
-        public string actualName { get; set; }
         public int health { get; set; }
         public string guild { get; set; }
         public string owner { get; set; }
@@ -644,7 +599,6 @@ public partial class Database : MonoBehaviour
     {
         public string sceneName { get; set; }
         public int myIndex { get; set; }
-        public string actualName { get; set; }
         public int health { get; set; }
         public string guild { get; set; }
         public string owner { get; set; }
@@ -693,21 +647,6 @@ public partial class Database : MonoBehaviour
     {
         public string sceneName { get; set; }
         public int myIndex { get; set; }
-        public string actualName { get; set; }
-        public int health { get; set; }
-        public string guild { get; set; }
-        public string owner { get; set; }
-        public float positionX { get; set; }
-        public float positionY { get; set; }
-        public int level { get; set; }
-        public int isPremium { get; set; }
-    }
-
-    class stellWall
-    {
-        public string sceneName { get; set; }
-        public int myIndex { get; set; }
-        public string actualName { get; set; }
         public int health { get; set; }
         public string guild { get; set; }
         public string owner { get; set; }
@@ -721,7 +660,6 @@ public partial class Database : MonoBehaviour
     {
         public string sceneName { get; set; }
         public int myIndex { get; set; }
-        public string actualName { get; set; }
         public int health { get; set; }
         public string guild { get; set; }
         public string owner { get; set; }
@@ -737,7 +675,6 @@ public partial class Database : MonoBehaviour
     {
         public string sceneName { get; set; }
         public int myIndex { get; set; }
-        public string actualName { get; set; }
         public int health { get; set; }
         public string guild { get; set; }
         public string owner { get; set; }
@@ -749,25 +686,11 @@ public partial class Database : MonoBehaviour
         public int side { get; set; }
     }
 
-    class tesla
-    {
-        public string sceneName { get; set; }
-        public int myIndex { get; set; }
-        public string actualName { get; set; }
-        public int health { get; set; }
-        public string guild { get; set; }
-        public string owner { get; set; }
-        public float positionX { get; set; }
-        public float positionY { get; set; }
-        public int level { get; set; }
-        public int isPremium { get; set; }
-    }
 
     class totem
     {
         public string sceneName { get; set; }
         public int myIndex { get; set; }
-        public string actualName { get; set; }
         public int health { get; set; }
         public string guild { get; set; }
         public string owner { get; set; }
@@ -782,7 +705,6 @@ public partial class Database : MonoBehaviour
     {
         public string sceneName { get; set; }
         public int myIndex { get; set; }
-        public string actualName { get; set; }
         public int health { get; set; }
         public string guild { get; set; }
         public string owner { get; set; }
@@ -872,87 +794,10 @@ public partial class Database : MonoBehaviour
         public string timeEnd { get; set; }
     }
 
-    class upgradeItemsFinished
-    {
-        public int myIndex { get; set; }
-        public int containerNumber { get; set; }
-        public int amount { get; set; }
-        public int slot { get; set; }
-        public int summonHealth { get; set; }
-        public int summonedLevel { get; set; }
-        public long summonedExperience { get; set; }
-        public string name { get; set; }
-        public int currentArmor { get; set; }
-        public int currentUnsanity { get; set; }
-        public int alreadyShooted { get; set; }
-        public int totalAlreadyShooted { get; set; }
-        public int radioCurrentBattery { get; set; }
-        public int torchCurrentBattery { get; set; }
-        public int durability { get; set; }
-        public int weight { get; set; }
-        public int accuracyLevel { get; set; }
-        public int missLevel { get; set; }
-        public int armorLevel { get; set; }
-        public int chargeLevel { get; set; }
-        public int batteryLevel { get; set; }
-        public int weightLevel { get; set; }
-        public int durabilityLevel { get; set; }
-        public int unsanityLevel { get; set; }
-        public int bagLevel { get; set; }
-        public int gasolineContainer { get; set; }
-        public int honeyContainer { get; set; }
-        public int waterContainer { get; set; }
-        public int cookCountdown { get; set; }
-        public float wet { get; set; }
-        public string playerName { get; set; }
-        public string type { get; set; }
-        public int remainingTime { get; set; }
-        public int totalTime { get; set; }
-    }
-
-    class repairItemsFinished
-    {
-        public int myIndex { get; set; }
-        public int containerNumber { get; set; }
-        public int amount { get; set; }
-        public int slot { get; set; }
-        public int summonHealth { get; set; }
-        public int summonedLevel { get; set; }
-        public long summonedExperience { get; set; }
-        public string name { get; set; }
-        public int currentArmor { get; set; }
-        public int currentUnsanity { get; set; }
-        public int alreadyShooted { get; set; }
-        public int totalAlreadyShooted { get; set; }
-        public int radioCurrentBattery { get; set; }
-        public int torchCurrentBattery { get; set; }
-        public int durability { get; set; }
-        public int weight { get; set; }
-        public int accuracyLevel { get; set; }
-        public int missLevel { get; set; }
-        public int armorLevel { get; set; }
-        public int chargeLevel { get; set; }
-        public int batteryLevel { get; set; }
-        public int weightLevel { get; set; }
-        public int durabilityLevel { get; set; }
-        public int unsanityLevel { get; set; }
-        public int bagLevel { get; set; }
-        public int gasolineContainer { get; set; }
-        public int honeyContainer { get; set; }
-        public int waterContainer { get; set; }
-        public int cookCountdown { get; set; }
-        public float wet { get; set; }
-        public string playerName { get; set; }
-        public string type { get; set; }
-        public int remainingTime { get; set; }
-        public int totalTime { get; set; }
-    }
-
     class buildingWaterWell
     {
         public string sceneName { get; set; }
         public int myIndex { get; set; }
-        public string actualName { get; set; }
         public int health { get; set; }
         public string guild { get; set; }
         public string owner { get; set; }
@@ -973,7 +818,6 @@ public partial class Database : MonoBehaviour
     {
         public string sceneName { get; set; }
         public int myIndex { get; set; }
-        public string actualName { get; set; }
         public int health { get; set; }
         public string guild { get; set; }
         public string owner { get; set; }
@@ -996,19 +840,6 @@ public partial class Database : MonoBehaviour
         public string timeEnd { get; set; }
     }
 
-    //class petTrainerFinished
-    //{
-    //    public int myIndex { get; set; }
-    //    public string petName { get; set; }
-    //    public int level { get; set; }
-    //    public int health { get; set; }
-    //    public long experience { get; set; }
-    //    public string owner { get; set; }
-    //    public int remainingTime { get; set; }
-    //    public string timeBegin { get; set; }
-    //    public string timeEnd { get; set; }
-
-    //}
 
     class character_belt
     {
@@ -1053,7 +884,6 @@ public partial class Database : MonoBehaviour
     {
         public string sceneName { get; set; }
         public int myIndex { get; set; }
-        public string actualName { get; set; }
         public int health { get; set; }
         public string guild { get; set; }
         public string owner { get; set; }
@@ -1083,7 +913,6 @@ public partial class Database : MonoBehaviour
     {
         public string sceneName { get; set; }
         public int myIndex { get; set; }
-        public string actualName { get; set; }
         public int health { get; set; }
         public string guild { get; set; }
         public string owner { get; set; }
@@ -1098,7 +927,6 @@ public partial class Database : MonoBehaviour
     {
         public string sceneName { get; set; }
         public int myIndex { get; set; }
-        public string actualName { get; set; }
         public int health { get; set; }
         public string guild { get; set; }
         public string owner { get; set; }
@@ -1113,7 +941,6 @@ public partial class Database : MonoBehaviour
     {
         public string sceneName { get; set; }
         public int myIndex { get; set; }
-        public string actualName { get; set; }
         public int health { get; set; }
         public string guild { get; set; }
         public string owner { get; set; }
@@ -1330,14 +1157,12 @@ public partial class Database : MonoBehaviour
         connection.CreateTable<ability>();
         connection.CreateTable<boost>();
         connection.CreateTable<blood>();
-        connection.CreateTable<dungeonManager>();
         connection.CreateTable<emoji>();
         connection.CreateTable<hungry>();
         connection.CreateTable<leaderPoint>();
         connection.CreateTable<partner>();
         connection.CreateTable<options>();
         connection.CreateTable<poisoning>();
-        connection.CreateTable<premiumZone>();
         connection.CreateTable<radio>();
         connection.CreateTable<torch>();
         connection.CreateTable<spawnpoint>();
@@ -1353,7 +1178,6 @@ public partial class Database : MonoBehaviour
         connection.CreateTable<campfire>();
         connection.CreateTable<campfireItems>();
         connection.CreateTable<dynamite>();
-        connection.CreateTable<gasStation>();
         connection.CreateTable<warehouseGroup>();
         connection.CreateTable<warehouseItemsGroup>();
         connection.CreateTable<warehousePersonal>();
@@ -1361,17 +1185,13 @@ public partial class Database : MonoBehaviour
         connection.CreateTable<mine>();
         connection.CreateTable<woodWall>();
         connection.CreateTable<barbwire>();
-        connection.CreateTable<tesla>();
         connection.CreateTable<totem>();
         connection.CreateTable<upgradeRepair>();
         connection.CreateTable<upgradeItems>();
         connection.CreateTable<repairItems>();
-        connection.CreateTable<upgradeItemsFinished>();
-        connection.CreateTable<repairItemsFinished>();
         connection.CreateTable<buildingWaterWell>();
         connection.CreateTable<petTrainer>();
         connection.CreateTable<petTrainerInProgress>();
-        //connection.CreateTable<petTrainerFinished>();
         connection.CreateTable<cultivableField>();
         connection.CreateTable<cuiltivableFieldItem>();
         connection.CreateTable<streetLamps>();
@@ -2120,7 +1940,6 @@ public partial class Database : MonoBehaviour
         foreach (boost row in connection.Query<boost>("SELECT * FROM boost WHERE characterName=?", player.name))
         {
             CustomType.Boost boost = new CustomType.Boost();
-            //boost.name = row.boostName;
             boost.velocityTimer = row.velocityTimer;
             boost.velocityTimerServer = row.velocityTimerServer;
             boost.velocityPerc = row.velocityPerc;
@@ -2134,20 +1953,14 @@ public partial class Database : MonoBehaviour
             boost.hiddenIslandTimerServer = row.hiddenIslandTimerServer;
             boost.doubleEXP = row.doubleEXP;
             boost.doubleEXPServer = row.doubleEXPServer;
-            //boost.petDoubleEXP = row.petDoubleEXP;
-            //boost.partyDoubleEXP = row.partyDoubleEXP;
-            //boost.guildDoubleEXP = row.guildDoubleEXP;
             boost.doubleGold = row.doubleGold;
             boost.doubleGoldServer = row.doubleGoldServer;
-            //boost.partyDoubleGold = row.partyDoubleGold;
-            //boost.guildDoubleGold = row.guildDoubleGold;
             boost.doubleLeaderPoints = row.doubleLeaderPoints;
             boost.doubleLeaderPointsServer = row.doubleLeaderPointsServer;
             boost.doubleDamageToMonster = row.doubleDamageToMonster;
             boost.doubleDamageToMonsterServer = row.doubleDamageToMonsterServer;
             boost.doubleDamageToPlayer = row.doubleDamageToPlayer;
             boost.doubleDamageToPlayerServer = row.doubleDamageToPlayerServer;
-            //boost.doubleDamageToBuilding = row.doubleDamageToBuilding;
             player.playerBoost.networkBoost.Clear();
             boosts.networkBoost.Add(boost);
         }
@@ -2179,37 +1992,6 @@ public partial class Database : MonoBehaviour
         if (row != null)
         {
             bloods.currentBlood = row.currentBlood;
-        }
-    }
-    #endregion
-
-    #region Dungeon
-    public void SaveDungeon(Player player)
-    {
-        PlayerPremiumZoneManager playerPremiumZoneManager = player.GetComponent<PlayerPremiumZoneManager>();
-        // inventory: remove old entries first, then add all new ones
-        // (we could use UPDATE where slot=... but deleting everything makes
-        //  sure that there are never any ghosts)
-        connection.Execute("DELETE FROM dungeonManager WHERE characterName=?", player.name);
-        // note: .Insert causes a 'Constraint' exception. use Replace.
-        connection.InsertOrReplace(new dungeonManager
-        {
-            characterName = player.name,
-            inDungeon = Convert.ToInt32(playerPremiumZoneManager.inPremiumZone),
-            posX = playerPremiumZoneManager.initialPositionPremiumZone.x,
-            posY = playerPremiumZoneManager.initialPositionPremiumZone.y
-        });
-    }
-    public void LoadDungeon(Player player)
-    {
-        PlayerPremiumZoneManager playerPremiumZoneManager = player.GetComponent<PlayerPremiumZoneManager>();
-
-        dungeonManager row = connection.FindWithQuery<dungeonManager>("SELECT * FROM dungeonManager WHERE characterName=?", player.name);
-
-        if (row != null)
-        {
-            playerPremiumZoneManager.inPremiumZone = Convert.ToBoolean(row.inDungeon);
-            playerPremiumZoneManager.initialPositionPremiumZone = new Vector2(row.posX, row.posY);
         }
     }
     #endregion
@@ -2715,56 +2497,6 @@ public partial class Database : MonoBehaviour
     }
     #endregion
 
-    #region PremiumZone
-    public void SavePremiumZone(Player player)
-    {
-        TimeSpan difference;
-        PlayerPremiumZoneManager premiumZoneManager = player.GetComponent<PlayerPremiumZoneManager>();
-        PlayerBoost boost = player.GetComponent<PlayerBoost>();
-        double seconds = 0;
-        // inventory: remove old entries first, then add all new ones
-        // (we could use UPDATE where slot=... but deleting everything makes
-        //  sure that there are never any ghosts)
-        connection.Execute("DELETE FROM premiumZone WHERE characterName=?", player.name);
-        // note: .Insert causes a 'Constraint' exception. use Replace.
-
-        if (boost.networkBoost.Count > 0)
-        {
-            if (!string.IsNullOrEmpty(player.playerBoost.networkBoost[0].hiddenIslandTimerServer))
-            {
-                difference = DateTime.Parse(player.playerBoost.networkBoost[0].hiddenIslandTimerServer.ToString()) - System.DateTime.Now;
-                seconds = difference.TotalSeconds;
-            }
-            else
-            {
-                seconds = 0;
-            }
-        }
-
-        connection.InsertOrReplace(new premiumZone
-        {
-            characterName = player.name,
-            inPremiumZone = Convert.ToInt32(premiumZoneManager.inPremiumZone),
-            posX = premiumZoneManager.initialPositionPremiumZone.x,
-            posY = premiumZoneManager.initialPositionPremiumZone.y,
-            hasPremiumZone = Convert.ToInt32(boost.networkBoost.Count > 0 && !string.IsNullOrEmpty(player.playerBoost.networkBoost[0].hiddenIslandTimer) && seconds > 0)
-        });
-
-    }
-    public void LoadPremiumZone(Player player)
-    {
-        PlayerPremiumZoneManager premiumZoneManager = player.GetComponent<PlayerPremiumZoneManager>();
-
-        foreach (premiumZone row in connection.Query<premiumZone>("SELECT * FROM premiumZone WHERE characterName=?", player.name))
-        {
-            premiumZoneManager.inPremiumZone = Convert.ToBoolean(row.inPremiumZone);
-            premiumZoneManager.initialPositionPremiumZone.x = row.posX;
-            premiumZoneManager.initialPositionPremiumZone.y = row.posY;
-        }
-
-    }
-    #endregion
-
     #region Guild & Ally
     public void SaveGuildAlly(Player player)
     {
@@ -3208,12 +2940,6 @@ public partial class Database : MonoBehaviour
                 player.playerCreation.height = row.height;
                 player.playerCreation.breast = row.breast;
             }        
-
-        foreach (premiumZone row2 in connection.Query<premiumZone>("SELECT hasPremiumZone FROM premiumZone WHERE characterName=?", player.name))
-        {
-            player.GetComponent<NotOnlinePlayerPremiumManager>().inPremiumZone = Convert.ToBoolean(row2.hasPremiumZone);
-        }
-
     }
 
     #endregion
@@ -3231,7 +2957,6 @@ public partial class Database : MonoBehaviour
             {
                 myIndex = e,
                 sceneName = scene,
-                actualName = building.buildingName,
                 guild = building.guild,
                 owner = building.owner,
                 positionX = building.transform.position.x,
@@ -3262,7 +2987,6 @@ public partial class Database : MonoBehaviour
             Building building = g.GetComponent<Building>();
             BeeKeeper beeKeeper = g.GetComponent<BeeKeeper>();
             g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-            building.buildingName = row.actualName;
             building.guild = row.guild;
             building.owner = row.owner;
             building.health = row.health;
@@ -3385,7 +3109,6 @@ public partial class Database : MonoBehaviour
                 sceneName = scene,
                 craftBuildingType = building.building.name,
                 myIndex = mainIndex,
-                actualName = building.buildingName,
                 guild = building.guild,
                 owner = building.owner,
                 positionX = building.transform.position.x,
@@ -3410,22 +3133,6 @@ public partial class Database : MonoBehaviour
                     guildName = buildingCraft[mainIndex].craftItem[index].guildName
                 });
             }
-            //for (int e = 0; e < buildingCraft[mainIndex].allFinishedItem.Count; e++)
-            //{
-            //    int index = e;
-            //    connection.InsertOrReplace(new buildingCraftItem
-            //    {
-            //        myIndex = mainIndex,
-            //        itemName = buildingCraft[mainIndex].allFinishedItem[index].itemName,
-            //        amount = buildingCraft[mainIndex].allFinishedItem[index].amount,
-            //        remainingTime = buildingCraft[mainIndex].allFinishedItem[index].remainingTime,
-            //        totalTime = buildingCraft[mainIndex].allFinishedItem[index].totalTime,
-            //        timeBegin = buildingCraft[mainIndex].craftItem[index].timeBegin.ToString(),
-            //        timeEnd = buildingCraft[mainIndex].craftItem[index].timeEnd.ToString(),
-            //        owner = buildingCraft[mainIndex].allFinishedItem[index].owner,
-            //        guildName = buildingCraft[mainIndex].allFinishedItem[index].guildName
-            //    });
-            //}
         }
     }
 
@@ -3442,7 +3149,6 @@ public partial class Database : MonoBehaviour
                     Building building = g.GetComponent<Building>();
                     BuildingCraft buildingCraft = g.GetComponent<BuildingCraft>();
                     g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-                    building.buildingName = row.actualName;
                     building.health = row.health;
                     building.guild = row.guild;
                     building.owner = row.owner;
@@ -3520,7 +3226,6 @@ public partial class Database : MonoBehaviour
             {
                 sceneName = scene,
                 myIndex = i,
-                actualName = building.buildingName,
                 guild = building.guild,
                 owner = building.owner,
                 positionX = building.transform.position.x,
@@ -3580,7 +3285,6 @@ public partial class Database : MonoBehaviour
             BuildingCraft buildingCraft = g.GetComponent<BuildingCraft>();
             Campfire campfire = g.GetComponent<Campfire>();
             g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-            building.buildingName = row.actualName;
             building.health = row.health;
             building.guild = row.guild;
             building.owner = row.owner;
@@ -3690,7 +3394,6 @@ public partial class Database : MonoBehaviour
             connection.InsertOrReplace(new dynamite
             {
                 sceneName = scene,
-                actualName = building.buildingName,
                 health = building.health,
                 guild = building.guild,
                 owner = building.owner,
@@ -3711,7 +3414,6 @@ public partial class Database : MonoBehaviour
             //Npc npc = g.GetComponent<Npc>();
             Dynamite dynamite = g.GetComponent<Dynamite>();
             g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-            building.buildingName = row.actualName;
             building.health = row.health;
             building.guild = row.guild;
             building.owner = row.owner;
@@ -3737,767 +3439,6 @@ public partial class Database : MonoBehaviour
 
     #endregion
 
-    #region GasStation
-    public void SaveGasStation(string scene, List<GasStation> gasStation)
-    {
-        connection.Execute("DELETE FROM gasStation");
-        // note: .Insert causes a 'Constraint' exception. use Replace.
-        for (int i = 0; i < gasStation.Count; i++)
-        {
-            Building building = gasStation[i].GetComponent<Building>();
-            //Npc npc = gasStation[i].GetComponent<Npc>();
-            connection.InsertOrReplace(new gasStation
-            {
-                sceneName = scene,
-                actualName = building.buildingName,
-                health = building.health,
-                guild = building.guild,
-                owner = building.owner,
-                positionX = building.transform.position.x,
-                positionY = building.transform.position.y,
-                level = building.level,
-                currentGasoline = building.GetComponent<GasStation>().currentGasoline,
-                isPremium = Convert.ToInt32(building.isPremiumZone)
-
-            });
-        }
-    }
-
-    public void LoadGasStation(GameObject prefab, string scene)
-    {
-        foreach (gasStation row in connection.Query<gasStation>("SELECT * FROM gasStation WHERE sceneName=?", scene))
-        {
-
-            if (row.isPremium == 1)
-            {
-                buildingManager.gasStations[row.myIndex].currentGasoline = row.currentGasoline;
-            }
-            else
-            {
-                GameObject g = Instantiate(prefab);
-                Building building = g.GetComponent<Building>();
-                //Npc npc = g.GetComponent<Npc>();
-                GasStation gasStation = building.GetComponent<GasStation>();
-                g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-                building.buildingName = row.actualName;
-                building.health = row.health;
-                building.guild = row.guild;
-                building.owner = row.owner;
-                building.level = row.level;
-                building.isPremiumZone = Convert.ToBoolean(row.isPremium);
-                gasStation.currentGasoline = row.currentGasoline;
-
-                if (!building.isPremiumZone) buildingManager.AddToList(g);
-
-                NetworkServer.Spawn(g);
-            }
-        }
-
-    }
-
-    #endregion
-
-    #region WarehousePersonal
-    public void SaveWarehousePersonal(string scene, List<Warehouse> warehouse)
-    {
-        connection.Execute("DELETE FROM warehousePersonal");
-        connection.Execute("DELETE FROM warehouseItemsPersonal");
-        // note: .Insert causes a 'Constraint' exception. use Replace.
-        for (int i = 0; i < warehouse.Count; i++)
-        {
-            Building building = warehouse[i].GetComponent<Building>();
-            //Npc npc = building.GetComponent<Npc>();
-            connection.InsertOrReplace(new warehousePersonal
-            {
-                sceneName = scene,
-                myIndex = i,
-                actualName = building.buildingName,
-                guild = building.guild,
-                owner = building.owner,
-                positionX = building.transform.position.x,
-                positionY = building.transform.position.y,
-                level = building.level,
-                totalSlot = GeneralManager.singleton.personalWarehouseSlot,
-                isPremium = Convert.ToInt32(building.isPremiumZone)
-            });
-
-            for (int e = 0; e < warehouse[i].one.Count; e++)
-            {
-                if (warehouse[i].one[e].amount == 0) continue;
-                // note: .Insert causes a 'Constraint' exception. use Replace.
-                connection.InsertOrReplace(new warehouseItemsPersonal
-                {
-                    myIndex = i,
-                    containerNumber = 0,
-                    amount = warehouse[i].one[e].amount,
-                    slot = e,
-                    name = warehouse[i].one[e].item.name,
-                    summonHealth = warehouse[i].one[e].item.summonedHealth,
-                    summonedLevel = warehouse[i].one[e].item.summonedLevel,
-                    summonedExperience = warehouse[i].one[e].item.summonedExperience,
-                    currentArmor = warehouse[i].one[e].item.currentArmor,
-                    currentUnsanity = warehouse[i].one[e].item.currentUnsanity,
-                    alreadyShooted = warehouse[i].one[e].item.alreadyShooted,
-                    totalAlreadyShooted = warehouse[i].one[e].item.totalAlreadyShooted,
-                    radioCurrentBattery = warehouse[i].one[e].item.radioCurrentBattery,
-                    torchCurrentBattery = warehouse[i].one[e].item.torchCurrentBattery,
-                    durability = warehouse[i].one[e].item.durability,
-                    weight = warehouse[i].one[e].item.weight,
-                    accuracyLevel = warehouse[i].one[e].item.accuracyLevel,
-                    missLevel = warehouse[i].one[e].item.missLevel,
-                    armorLevel = warehouse[i].one[e].item.armorLevel,
-                    chargeLevel = warehouse[i].one[e].item.chargeLevel,
-                    batteryLevel = warehouse[i].one[e].item.batteryLevel,
-                    weightLevel = warehouse[i].one[e].item.weightLevel,
-                    durabilityLevel = warehouse[i].one[e].item.durabilityLevel,
-                    unsanityLevel = warehouse[i].one[e].item.unsanityLevel,
-                    bagLevel = warehouse[i].one[e].item.bagLevel,
-                    gasolineContainer = warehouse[i].one[e].item.gasolineContainer,
-                    honeyContainer = warehouse[i].one[e].item.honeyContainer,
-                    waterContainer = warehouse[i].one[e].item.waterContainer,
-                    cookCountdown = warehouse[i].one[e].item.cookCountdown,
-                    wet = warehouse[i].one[e].item.wet
-                });
-            }
-            for (int e = 0; e < warehouse[i].two.Count; e++)
-            {
-                if (warehouse[i].two[e].amount == 0) continue;
-                // note: .Insert causes a 'Constraint' exception. use Replace.
-                connection.InsertOrReplace(new warehouseItemsPersonal
-                {
-                    myIndex = i,
-                    containerNumber = 1,
-                    amount = warehouse[i].two[e].amount,
-                    slot = e,
-                    name = warehouse[i].two[e].item.name,
-                    summonHealth = warehouse[i].two[e].item.summonedHealth,
-                    summonedLevel = warehouse[i].two[e].item.summonedLevel,
-                    summonedExperience = warehouse[i].two[e].item.summonedExperience,
-                    currentArmor = warehouse[i].two[e].item.currentArmor,
-                    currentUnsanity = warehouse[i].two[e].item.currentUnsanity,
-                    alreadyShooted = warehouse[i].two[e].item.alreadyShooted,
-                    totalAlreadyShooted = warehouse[i].two[e].item.totalAlreadyShooted,
-                    radioCurrentBattery = warehouse[i].two[e].item.radioCurrentBattery,
-                    torchCurrentBattery = warehouse[i].two[e].item.torchCurrentBattery,
-                    durability = warehouse[i].two[e].item.durability,
-                    weight = warehouse[i].two[e].item.weight,
-                    accuracyLevel = warehouse[i].two[e].item.accuracyLevel,
-                    missLevel = warehouse[i].two[e].item.missLevel,
-                    armorLevel = warehouse[i].two[e].item.armorLevel,
-                    chargeLevel = warehouse[i].two[e].item.chargeLevel,
-                    batteryLevel = warehouse[i].two[e].item.batteryLevel,
-                    weightLevel = warehouse[i].two[e].item.weightLevel,
-                    durabilityLevel = warehouse[i].two[e].item.durabilityLevel,
-                    unsanityLevel = warehouse[i].two[e].item.unsanityLevel,
-                    bagLevel = warehouse[i].two[e].item.bagLevel,
-                    gasolineContainer = warehouse[i].two[e].item.gasolineContainer,
-                    honeyContainer = warehouse[i].two[e].item.honeyContainer,
-                    waterContainer = warehouse[i].two[e].item.waterContainer,
-                    cookCountdown = warehouse[i].two[e].item.cookCountdown,
-                    wet = warehouse[i].two[e].item.wet
-                });
-            }
-            for (int e = 0; e < warehouse[i].three.Count; e++)
-            {
-                if (warehouse[i].three[e].amount == 0) continue;
-
-                // note: .Insert causes a 'Constraint' exception. use Replace.
-                connection.InsertOrReplace(new warehouseItemsPersonal
-                {
-                    myIndex = i,
-                    containerNumber = 2,
-                    amount = warehouse[i].three[e].amount,
-                    slot = e,
-                    name = warehouse[i].three[e].item.name,
-                    summonHealth = warehouse[i].three[e].item.summonedHealth,
-                    summonedLevel = warehouse[i].three[e].item.summonedLevel,
-                    summonedExperience = warehouse[i].three[e].item.summonedExperience,
-                    currentArmor = warehouse[i].three[e].item.currentArmor,
-                    currentUnsanity = warehouse[i].three[e].item.currentUnsanity,
-                    alreadyShooted = warehouse[i].three[e].item.alreadyShooted,
-                    totalAlreadyShooted = warehouse[i].three[e].item.totalAlreadyShooted,
-                    radioCurrentBattery = warehouse[i].three[e].item.radioCurrentBattery,
-                    torchCurrentBattery = warehouse[i].three[e].item.torchCurrentBattery,
-                    durability = warehouse[i].three[e].item.durability,
-                    weight = warehouse[i].three[e].item.weight,
-                    accuracyLevel = warehouse[i].three[e].item.accuracyLevel,
-                    missLevel = warehouse[i].three[e].item.missLevel,
-                    armorLevel = warehouse[i].three[e].item.armorLevel,
-                    chargeLevel = warehouse[i].three[e].item.chargeLevel,
-                    batteryLevel = warehouse[i].three[e].item.batteryLevel,
-                    weightLevel = warehouse[i].three[e].item.weightLevel,
-                    durabilityLevel = warehouse[i].three[e].item.durabilityLevel,
-                    unsanityLevel = warehouse[i].three[e].item.unsanityLevel,
-                    bagLevel = warehouse[i].three[e].item.bagLevel,
-                    gasolineContainer = warehouse[i].three[e].item.gasolineContainer,
-                    honeyContainer = warehouse[i].three[e].item.honeyContainer,
-                    waterContainer = warehouse[i].three[e].item.waterContainer,
-                    cookCountdown = warehouse[i].three[e].item.cookCountdown,
-                    wet = warehouse[i].three[e].item.wet
-                });
-            }
-            for (int e = 0; e < warehouse[i].four.Count; e++)
-            {
-                if (warehouse[i].four[e].amount == 0) continue;
-
-                // note: .Insert causes a 'Constraint' exception. use Replace.
-                connection.InsertOrReplace(new warehouseItemsPersonal
-                {
-                    myIndex = i,
-                    containerNumber = 3,
-                    amount = warehouse[i].four[e].amount,
-                    slot = e,
-                    name = warehouse[i].four[e].item.name,
-                    summonHealth = warehouse[i].four[e].item.summonedHealth,
-                    summonedLevel = warehouse[i].four[e].item.summonedLevel,
-                    summonedExperience = warehouse[i].four[e].item.summonedExperience,
-                    currentArmor = warehouse[i].four[e].item.currentArmor,
-                    currentUnsanity = warehouse[i].four[e].item.currentUnsanity,
-                    alreadyShooted = warehouse[i].four[e].item.alreadyShooted,
-                    totalAlreadyShooted = warehouse[i].four[e].item.totalAlreadyShooted,
-                    radioCurrentBattery = warehouse[i].four[e].item.radioCurrentBattery,
-                    torchCurrentBattery = warehouse[i].four[e].item.torchCurrentBattery,
-                    durability = warehouse[i].four[e].item.durability,
-                    weight = warehouse[i].four[e].item.weight,
-                    accuracyLevel = warehouse[i].four[e].item.accuracyLevel,
-                    missLevel = warehouse[i].four[e].item.missLevel,
-                    armorLevel = warehouse[i].four[e].item.armorLevel,
-                    chargeLevel = warehouse[i].four[e].item.chargeLevel,
-                    batteryLevel = warehouse[i].four[e].item.batteryLevel,
-                    weightLevel = warehouse[i].four[e].item.weightLevel,
-                    durabilityLevel = warehouse[i].four[e].item.durabilityLevel,
-                    unsanityLevel = warehouse[i].four[e].item.unsanityLevel,
-                    bagLevel = warehouse[i].four[e].item.bagLevel,
-                    gasolineContainer = warehouse[i].four[e].item.gasolineContainer,
-                    honeyContainer = warehouse[i].four[e].item.honeyContainer,
-                    waterContainer = warehouse[i].four[e].item.waterContainer,
-                    cookCountdown = warehouse[i].four[e].item.cookCountdown,
-                    wet = warehouse[i].four[e].item.wet
-                });
-            }
-            for (int e = 0; e < warehouse[i].five.Count; e++)
-            {
-                if (warehouse[i].five[e].amount == 0) continue;
-
-                // note: .Insert causes a 'Constraint' exception. use Replace.
-                connection.InsertOrReplace(new warehouseItemsPersonal
-                {
-                    myIndex = i,
-                    containerNumber = 4,
-                    amount = warehouse[i].five[e].amount,
-                    slot = e,
-                    name = warehouse[i].five[e].item.name,
-                    summonHealth = warehouse[i].five[e].item.summonedHealth,
-                    summonedLevel = warehouse[i].five[e].item.summonedLevel,
-                    summonedExperience = warehouse[i].five[e].item.summonedExperience,
-                    currentArmor = warehouse[i].five[e].item.currentArmor,
-                    currentUnsanity = warehouse[i].five[e].item.currentUnsanity,
-                    alreadyShooted = warehouse[i].five[e].item.alreadyShooted,
-                    totalAlreadyShooted = warehouse[i].five[e].item.totalAlreadyShooted,
-                    radioCurrentBattery = warehouse[i].five[e].item.radioCurrentBattery,
-                    torchCurrentBattery = warehouse[i].five[e].item.torchCurrentBattery,
-                    durability = warehouse[i].five[e].item.durability,
-                    weight = warehouse[i].five[e].item.weight,
-                    accuracyLevel = warehouse[i].five[e].item.accuracyLevel,
-                    missLevel = warehouse[i].five[e].item.missLevel,
-                    armorLevel = warehouse[i].five[e].item.armorLevel,
-                    chargeLevel = warehouse[i].five[e].item.chargeLevel,
-                    batteryLevel = warehouse[i].five[e].item.batteryLevel,
-                    weightLevel = warehouse[i].five[e].item.weightLevel,
-                    durabilityLevel = warehouse[i].five[e].item.durabilityLevel,
-                    unsanityLevel = warehouse[i].five[e].item.unsanityLevel,
-                    bagLevel = warehouse[i].five[e].item.bagLevel,
-                    gasolineContainer = warehouse[i].five[e].item.gasolineContainer,
-                    honeyContainer = warehouse[i].five[e].item.honeyContainer,
-                    waterContainer = warehouse[i].five[e].item.waterContainer,
-                    cookCountdown = warehouse[i].five[e].item.cookCountdown,
-                    wet = warehouse[i].five[e].item.wet
-                });
-            }
-            for (int e = 0; e < warehouse[i].six.Count; e++)
-            {
-                if (warehouse[i].six[e].amount == 0) continue;
-
-                // note: .Insert causes a 'Constraint' exception. use Replace.
-                connection.InsertOrReplace(new warehouseItemsPersonal
-                {
-                    myIndex = i,
-                    containerNumber = 5,
-                    amount = warehouse[i].six[e].amount,
-                    slot = e,
-                    name = warehouse[i].six[e].item.name,
-                    summonHealth = warehouse[i].six[e].item.summonedHealth,
-                    summonedLevel = warehouse[i].six[e].item.summonedLevel,
-                    summonedExperience = warehouse[i].six[e].item.summonedExperience,
-                    currentArmor = warehouse[i].six[e].item.currentArmor,
-                    currentUnsanity = warehouse[i].six[e].item.currentUnsanity,
-                    alreadyShooted = warehouse[i].six[e].item.alreadyShooted,
-                    totalAlreadyShooted = warehouse[i].six[e].item.totalAlreadyShooted,
-                    radioCurrentBattery = warehouse[i].six[e].item.radioCurrentBattery,
-                    torchCurrentBattery = warehouse[i].six[e].item.torchCurrentBattery,
-                    durability = warehouse[i].six[e].item.durability,
-                    weight = warehouse[i].six[e].item.weight,
-                    accuracyLevel = warehouse[i].six[e].item.accuracyLevel,
-                    missLevel = warehouse[i].six[e].item.missLevel,
-                    armorLevel = warehouse[i].six[e].item.armorLevel,
-                    chargeLevel = warehouse[i].six[e].item.chargeLevel,
-                    batteryLevel = warehouse[i].six[e].item.batteryLevel,
-                    weightLevel = warehouse[i].six[e].item.weightLevel,
-                    durabilityLevel = warehouse[i].six[e].item.durabilityLevel,
-                    unsanityLevel = warehouse[i].six[e].item.unsanityLevel,
-                    bagLevel = warehouse[i].six[e].item.bagLevel,
-                    gasolineContainer = warehouse[i].six[e].item.gasolineContainer,
-                    honeyContainer = warehouse[i].six[e].item.honeyContainer,
-                    waterContainer = warehouse[i].six[e].item.waterContainer,
-                    cookCountdown = warehouse[i].six[e].item.cookCountdown,
-                    wet = warehouse[i].six[e].item.wet
-                });
-            }
-        }
-    }
-
-    public void LoadWarehouse(GameObject prefab, string scene)
-    {
-        foreach (warehousePersonal row in connection.Query<warehousePersonal>("SELECT * FROM warehousePersonal WHERE sceneName=?", scene))
-        {
-            GameObject g = Instantiate(prefab);
-            Building building = g.GetComponent<Building>();
-            Warehouse warehouse = g.GetComponent<Warehouse>();
-            g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-            building.buildingName = row.actualName;
-            building.health = row.health;
-            building.guild = row.guild;
-            building.owner = row.owner;
-            building.level = row.level;
-            building.isPremiumZone = Convert.ToBoolean(row.isPremium);
-
-            for (int i = 0; i < row.totalSlot; i++)
-            {
-                warehouse.one.Add(new ItemSlot());
-                warehouse.two.Add(new ItemSlot());
-                warehouse.three.Add(new ItemSlot());
-                warehouse.four.Add(new ItemSlot());
-                warehouse.five.Add(new ItemSlot());
-                warehouse.six.Add(new ItemSlot());
-            }
-
-            if (!building.isPremiumZone) buildingManager.AddToList(g);
-
-            foreach (warehouseItemsPersonal row2 in connection.Query<warehouseItemsPersonal>("SELECT * FROM warehouseItemsPersonal WHERE myIndex=?", row.myIndex))
-            {
-                if (ScriptableItem.dict.TryGetValue(row2.name.GetStableHashCode(), out ScriptableItem itemData))
-                {
-                    Item item = new Item(itemData);
-
-                    item.summonedHealth = row2.summonHealth;
-                    item.summonedLevel = row2.summonedLevel;
-                    item.summonedExperience = row2.summonedExperience;
-                    item.accuracyLevel = row2.accuracyLevel;
-                    item.missLevel = row2.missLevel;
-                    item.armorLevel = row2.armorLevel;
-                    item.chargeLevel = row2.chargeLevel;
-                    item.batteryLevel = row2.batteryLevel;
-                    item.weightLevel = row2.weightLevel;
-                    item.durabilityLevel = row2.durabilityLevel;
-                    item.unsanityLevel = row2.unsanityLevel;
-                    item.bagLevel = row2.bagLevel;
-                    item.currentArmor = row2.currentArmor;
-                    item.alreadyShooted = row2.alreadyShooted;
-                    item.totalAlreadyShooted = row2.totalAlreadyShooted;
-                    item.durability = row2.durability;
-                    item.currentUnsanity = row2.currentUnsanity;
-                    item.radioCurrentBattery = row2.radioCurrentBattery;
-                    item.torchCurrentBattery = row2.torchCurrentBattery;
-                    item.weight = row2.weight;
-                    item.gasolineContainer = row2.gasolineContainer;
-                    item.honeyContainer = row2.honeyContainer;
-                    item.waterContainer = row2.waterContainer;
-                    item.cookCountdown = row2.cookCountdown;
-                    item.wet = row2.wet;
-
-                    if (row2.containerNumber == 0)
-                    {
-                        warehouse.one[row2.slot] = new ItemSlot(item, row2.amount);
-                    }
-                    if (row2.containerNumber == 1)
-                    {
-                        warehouse.two[row2.slot] = new ItemSlot(item, row2.amount);
-                    }
-                    if (row2.containerNumber == 2)
-                    {
-                        warehouse.three[row2.slot] = new ItemSlot(item, row2.amount);
-                    }
-                    if (row2.containerNumber == 3)
-                    {
-                        warehouse.four[row2.slot] = new ItemSlot(item, row2.amount);
-                    }
-                    if (row2.containerNumber == 4)
-                    {
-                        warehouse.five[row2.slot] = new ItemSlot(item, row2.amount);
-                    }
-                    if (row2.containerNumber == 5)
-                    {
-                        warehouse.six[row2.slot] = new ItemSlot(item, row2.amount);
-                    }
-                }
-            }
-            //g.SetActive(false);
-            NetworkServer.Spawn(g);
-        }
-    }
-    #endregion
-
-    #region WarehouseGroup
-    public void SaveWarehouseGroup(string scene, List<Warehouse> warehouse)
-    {
-        connection.Execute("DELETE FROM warehouseGroup");
-        connection.Execute("DELETE FROM warehouseItemsGroup");
-        // note: .Insert causes a 'Constraint' exception. use Replace.
-        for (int i = 0; i < warehouse.Count; i++)
-        {
-            Building building = warehouse[i].GetComponent<Building>();
-            //Npc npc = building.GetComponent<Npc>();
-            connection.InsertOrReplace(new warehouseGroup
-            {
-                sceneName = scene,
-                myIndex = i,
-                actualName = building.buildingName,
-                guild = building.guild,
-                owner = building.owner,
-                positionX = building.transform.position.x,
-                positionY = building.transform.position.y,
-                level = building.level,
-                totalSlot = GeneralManager.singleton.groupWarehouseSlot,
-                isPremium = Convert.ToInt32(building.isPremiumZone)
-            });
-
-            for (int e = 0; e < warehouse[i].one.Count; e++)
-            {
-                if (warehouse[i].one[e].amount == 0) continue;
-                // note: .Insert causes a 'Constraint' exception. use Replace.
-                connection.InsertOrReplace(new warehouseItemsGroup
-                {
-                    myIndex = i,
-                    containerNumber = 0,
-                    amount = warehouse[i].one[e].amount,
-                    slot = e,
-                    name = warehouse[i].one[e].item.name,
-                    summonHealth = warehouse[i].one[e].item.summonedHealth,
-                    summonedLevel = warehouse[i].one[e].item.summonedLevel,
-                    summonedExperience = warehouse[i].one[e].item.summonedExperience,
-                    currentArmor = warehouse[i].one[e].item.currentArmor,
-                    currentUnsanity = warehouse[i].one[e].item.currentUnsanity,
-                    alreadyShooted = warehouse[i].one[e].item.alreadyShooted,
-                    totalAlreadyShooted = warehouse[i].one[e].item.totalAlreadyShooted,
-                    radioCurrentBattery = warehouse[i].one[e].item.radioCurrentBattery,
-                    torchCurrentBattery = warehouse[i].one[e].item.torchCurrentBattery,
-                    durability = warehouse[i].one[e].item.durability,
-                    weight = warehouse[i].one[e].item.weight,
-                    accuracyLevel = warehouse[i].one[e].item.accuracyLevel,
-                    missLevel = warehouse[i].one[e].item.missLevel,
-                    armorLevel = warehouse[i].one[e].item.armorLevel,
-                    chargeLevel = warehouse[i].one[e].item.chargeLevel,
-                    batteryLevel = warehouse[i].one[e].item.batteryLevel,
-                    weightLevel = warehouse[i].one[e].item.weightLevel,
-                    durabilityLevel = warehouse[i].one[e].item.durabilityLevel,
-                    unsanityLevel = warehouse[i].one[e].item.unsanityLevel,
-                    bagLevel = warehouse[i].one[e].item.bagLevel,
-                    gasolineContainer = warehouse[i].one[e].item.gasolineContainer,
-                    honeyContainer = warehouse[i].one[e].item.honeyContainer,
-                    waterContainer = warehouse[i].one[e].item.waterContainer,
-                    cookCountdown = warehouse[i].one[e].item.cookCountdown,
-                    wet = warehouse[i].one[e].item.wet
-                });
-            }
-            for (int e = 0; e < warehouse[i].two.Count; e++)
-            {
-                if (warehouse[i].two[e].amount == 0) continue;
-                // note: .Insert causes a 'Constraint' exception. use Replace.
-                connection.InsertOrReplace(new warehouseItemsGroup
-                {
-                    myIndex = i,
-                    containerNumber = 1,
-                    amount = warehouse[i].two[e].amount,
-                    slot = e,
-                    name = warehouse[i].two[e].item.name,
-                    summonHealth = warehouse[i].two[e].item.summonedHealth,
-                    summonedLevel = warehouse[i].two[e].item.summonedLevel,
-                    summonedExperience = warehouse[i].two[e].item.summonedExperience,
-                    currentArmor = warehouse[i].two[e].item.currentArmor,
-                    currentUnsanity = warehouse[i].two[e].item.currentUnsanity,
-                    alreadyShooted = warehouse[i].two[e].item.alreadyShooted,
-                    totalAlreadyShooted = warehouse[i].two[e].item.totalAlreadyShooted,
-                    radioCurrentBattery = warehouse[i].two[e].item.radioCurrentBattery,
-                    torchCurrentBattery = warehouse[i].two[e].item.torchCurrentBattery,
-                    durability = warehouse[i].two[e].item.durability,
-                    weight = warehouse[i].two[e].item.weight,
-                    accuracyLevel = warehouse[i].two[e].item.accuracyLevel,
-                    missLevel = warehouse[i].two[e].item.missLevel,
-                    armorLevel = warehouse[i].two[e].item.armorLevel,
-                    chargeLevel = warehouse[i].two[e].item.chargeLevel,
-                    batteryLevel = warehouse[i].two[e].item.batteryLevel,
-                    weightLevel = warehouse[i].two[e].item.weightLevel,
-                    durabilityLevel = warehouse[i].two[e].item.durabilityLevel,
-                    unsanityLevel = warehouse[i].two[e].item.unsanityLevel,
-                    bagLevel = warehouse[i].two[e].item.bagLevel,
-                    gasolineContainer = warehouse[i].two[e].item.gasolineContainer,
-                    honeyContainer = warehouse[i].two[e].item.honeyContainer,
-                    waterContainer = warehouse[i].two[e].item.waterContainer,
-                    cookCountdown = warehouse[i].two[e].item.cookCountdown,
-                    wet = warehouse[i].two[e].item.wet
-                });
-            }
-            for (int e = 0; e < warehouse[i].three.Count; e++)
-            {
-                if (warehouse[i].three[e].amount == 0) continue;
-
-                // note: .Insert causes a 'Constraint' exception. use Replace.
-                connection.InsertOrReplace(new warehouseItemsGroup
-                {
-                    myIndex = i,
-                    containerNumber = 2,
-                    amount = warehouse[i].three[e].amount,
-                    slot = e,
-                    name = warehouse[i].three[e].item.name,
-                    summonHealth = warehouse[i].three[e].item.summonedHealth,
-                    summonedLevel = warehouse[i].three[e].item.summonedLevel,
-                    summonedExperience = warehouse[i].three[e].item.summonedExperience,
-                    currentArmor = warehouse[i].three[e].item.currentArmor,
-                    currentUnsanity = warehouse[i].three[e].item.currentUnsanity,
-                    alreadyShooted = warehouse[i].three[e].item.alreadyShooted,
-                    totalAlreadyShooted = warehouse[i].three[e].item.totalAlreadyShooted,
-                    radioCurrentBattery = warehouse[i].three[e].item.radioCurrentBattery,
-                    torchCurrentBattery = warehouse[i].three[e].item.torchCurrentBattery,
-                    durability = warehouse[i].three[e].item.durability,
-                    weight = warehouse[i].three[e].item.weight,
-                    accuracyLevel = warehouse[i].three[e].item.accuracyLevel,
-                    missLevel = warehouse[i].three[e].item.missLevel,
-                    armorLevel = warehouse[i].three[e].item.armorLevel,
-                    chargeLevel = warehouse[i].three[e].item.chargeLevel,
-                    batteryLevel = warehouse[i].three[e].item.batteryLevel,
-                    weightLevel = warehouse[i].three[e].item.weightLevel,
-                    durabilityLevel = warehouse[i].three[e].item.durabilityLevel,
-                    unsanityLevel = warehouse[i].three[e].item.unsanityLevel,
-                    bagLevel = warehouse[i].three[e].item.bagLevel,
-                    gasolineContainer = warehouse[i].three[e].item.gasolineContainer,
-                    honeyContainer = warehouse[i].three[e].item.honeyContainer,
-                    waterContainer = warehouse[i].three[e].item.waterContainer,
-                    cookCountdown = warehouse[i].three[e].item.cookCountdown,
-                    wet = warehouse[i].three[e].item.wet
-                });
-            }
-            for (int e = 0; e < warehouse[i].four.Count; e++)
-            {
-                if (warehouse[i].four[e].amount == 0) continue;
-
-                // note: .Insert causes a 'Constraint' exception. use Replace.
-                connection.InsertOrReplace(new warehouseItemsGroup
-                {
-                    myIndex = i,
-                    containerNumber = 3,
-                    amount = warehouse[i].four[e].amount,
-                    slot = e,
-                    name = warehouse[i].four[e].item.name,
-                    summonHealth = warehouse[i].four[e].item.summonedHealth,
-                    summonedLevel = warehouse[i].four[e].item.summonedLevel,
-                    summonedExperience = warehouse[i].four[e].item.summonedExperience,
-                    currentArmor = warehouse[i].four[e].item.currentArmor,
-                    currentUnsanity = warehouse[i].four[e].item.currentUnsanity,
-                    alreadyShooted = warehouse[i].four[e].item.alreadyShooted,
-                    totalAlreadyShooted = warehouse[i].four[e].item.totalAlreadyShooted,
-                    radioCurrentBattery = warehouse[i].four[e].item.radioCurrentBattery,
-                    torchCurrentBattery = warehouse[i].four[e].item.torchCurrentBattery,
-                    durability = warehouse[i].four[e].item.durability,
-                    weight = warehouse[i].four[e].item.weight,
-                    accuracyLevel = warehouse[i].four[e].item.accuracyLevel,
-                    missLevel = warehouse[i].four[e].item.missLevel,
-                    armorLevel = warehouse[i].four[e].item.armorLevel,
-                    chargeLevel = warehouse[i].four[e].item.chargeLevel,
-                    batteryLevel = warehouse[i].four[e].item.batteryLevel,
-                    weightLevel = warehouse[i].four[e].item.weightLevel,
-                    durabilityLevel = warehouse[i].four[e].item.durabilityLevel,
-                    unsanityLevel = warehouse[i].four[e].item.unsanityLevel,
-                    bagLevel = warehouse[i].four[e].item.bagLevel,
-                    gasolineContainer = warehouse[i].four[e].item.gasolineContainer,
-                    honeyContainer = warehouse[i].four[e].item.honeyContainer,
-                    waterContainer = warehouse[i].four[e].item.waterContainer,
-                    cookCountdown = warehouse[i].four[e].item.cookCountdown,
-                    wet = warehouse[i].four[e].item.wet
-                });
-            }
-            for (int e = 0; e < warehouse[i].five.Count; e++)
-            {
-                if (warehouse[i].five[e].amount == 0) continue;
-
-                // note: .Insert causes a 'Constraint' exception. use Replace.
-                connection.InsertOrReplace(new warehouseItemsGroup
-                {
-                    myIndex = i,
-                    containerNumber = 4,
-                    amount = warehouse[i].five[e].amount,
-                    slot = e,
-                    name = warehouse[i].five[e].item.name,
-                    summonHealth = warehouse[i].five[e].item.summonedHealth,
-                    summonedLevel = warehouse[i].five[e].item.summonedLevel,
-                    summonedExperience = warehouse[i].five[e].item.summonedExperience,
-                    currentArmor = warehouse[i].five[e].item.currentArmor,
-                    currentUnsanity = warehouse[i].five[e].item.currentUnsanity,
-                    alreadyShooted = warehouse[i].five[e].item.alreadyShooted,
-                    totalAlreadyShooted = warehouse[i].five[e].item.totalAlreadyShooted,
-                    radioCurrentBattery = warehouse[i].five[e].item.radioCurrentBattery,
-                    torchCurrentBattery = warehouse[i].five[e].item.torchCurrentBattery,
-                    durability = warehouse[i].five[e].item.durability,
-                    weight = warehouse[i].five[e].item.weight,
-                    accuracyLevel = warehouse[i].five[e].item.accuracyLevel,
-                    missLevel = warehouse[i].five[e].item.missLevel,
-                    armorLevel = warehouse[i].five[e].item.armorLevel,
-                    chargeLevel = warehouse[i].five[e].item.chargeLevel,
-                    batteryLevel = warehouse[i].five[e].item.batteryLevel,
-                    weightLevel = warehouse[i].five[e].item.weightLevel,
-                    durabilityLevel = warehouse[i].five[e].item.durabilityLevel,
-                    unsanityLevel = warehouse[i].five[e].item.unsanityLevel,
-                    bagLevel = warehouse[i].five[e].item.bagLevel,
-                    gasolineContainer = warehouse[i].five[e].item.gasolineContainer,
-                    honeyContainer = warehouse[i].five[e].item.honeyContainer,
-                    waterContainer = warehouse[i].five[e].item.waterContainer,
-                    cookCountdown = warehouse[i].five[e].item.cookCountdown,
-                    wet = warehouse[i].five[e].item.wet
-                });
-            }
-            for (int e = 0; e < warehouse[i].six.Count; e++)
-            {
-                if (warehouse[i].six[e].amount == 0) continue;
-
-                // note: .Insert causes a 'Constraint' exception. use Replace.
-                connection.InsertOrReplace(new warehouseItemsGroup
-                {
-                    myIndex = i,
-                    containerNumber = 5,
-                    amount = warehouse[i].six[e].amount,
-                    slot = e,
-                    name = warehouse[i].six[e].item.name,
-                    summonHealth = warehouse[i].six[e].item.summonedHealth,
-                    summonedLevel = warehouse[i].six[e].item.summonedLevel,
-                    summonedExperience = warehouse[i].six[e].item.summonedExperience,
-                    currentArmor = warehouse[i].six[e].item.currentArmor,
-                    currentUnsanity = warehouse[i].six[e].item.currentUnsanity,
-                    alreadyShooted = warehouse[i].six[e].item.alreadyShooted,
-                    totalAlreadyShooted = warehouse[i].six[e].item.totalAlreadyShooted,
-                    radioCurrentBattery = warehouse[i].six[e].item.radioCurrentBattery,
-                    torchCurrentBattery = warehouse[i].six[e].item.torchCurrentBattery,
-                    durability = warehouse[i].six[e].item.durability,
-                    weight = warehouse[i].six[e].item.weight,
-                    accuracyLevel = warehouse[i].six[e].item.accuracyLevel,
-                    missLevel = warehouse[i].six[e].item.missLevel,
-                    armorLevel = warehouse[i].six[e].item.armorLevel,
-                    chargeLevel = warehouse[i].six[e].item.chargeLevel,
-                    batteryLevel = warehouse[i].six[e].item.batteryLevel,
-                    weightLevel = warehouse[i].six[e].item.weightLevel,
-                    durabilityLevel = warehouse[i].six[e].item.durabilityLevel,
-                    unsanityLevel = warehouse[i].six[e].item.unsanityLevel,
-                    bagLevel = warehouse[i].six[e].item.bagLevel,
-                    gasolineContainer = warehouse[i].six[e].item.gasolineContainer,
-                    honeyContainer = warehouse[i].six[e].item.honeyContainer,
-                    waterContainer = warehouse[i].six[e].item.waterContainer,
-                    cookCountdown = warehouse[i].six[e].item.cookCountdown,
-                    wet = warehouse[i].six[e].item.wet
-                });
-            }
-
-        }
-    }
-
-    public void LoadWarehouseGroup(GameObject prefab, string scene)
-    {
-        foreach (warehouseGroup row in connection.Query<warehouseGroup>("SELECT * FROM warehouseGroup WHERE sceneName=?", scene))
-        {
-            GameObject g = Instantiate(prefab);
-            Building building = g.GetComponent<Building>();
-            Warehouse warehouse = g.GetComponent<Warehouse>();
-            g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-            building.buildingName = row.actualName;
-            building.health = row.health;
-            building.guild = row.guild;
-            building.owner = row.owner;
-            building.level = row.level;
-            building.isPremiumZone = Convert.ToBoolean(row.isPremium);
-
-
-            for (int i = 0; i < row.totalSlot; i++)
-            {
-                warehouse.one.Add(new ItemSlot());
-                warehouse.two.Add(new ItemSlot());
-                warehouse.three.Add(new ItemSlot());
-                warehouse.four.Add(new ItemSlot());
-                warehouse.five.Add(new ItemSlot());
-                warehouse.six.Add(new ItemSlot());
-            }
-
-            if (!building.isPremiumZone) buildingManager.AddToList(g);
-
-            foreach (warehouseItemsGroup row2 in connection.Query<warehouseItemsGroup>("SELECT * FROM warehouseItemsGroup WHERE myIndex=?", row.myIndex))
-            {
-                if (ScriptableItem.dict.TryGetValue(row2.name.GetStableHashCode(), out ScriptableItem itemData))
-                {
-                    Item item = new Item(itemData);
-
-                    item.summonedHealth = row2.summonHealth;
-                    item.summonedLevel = row2.summonedLevel;
-                    item.summonedExperience = row2.summonedExperience;
-                    item.accuracyLevel = row2.accuracyLevel;
-                    item.missLevel = row2.missLevel;
-                    item.armorLevel = row2.armorLevel;
-                    item.chargeLevel = row2.chargeLevel;
-                    item.batteryLevel = row2.batteryLevel;
-                    item.weightLevel = row2.weightLevel;
-                    item.durabilityLevel = row2.durabilityLevel;
-                    item.unsanityLevel = row2.unsanityLevel;
-                    item.bagLevel = row2.bagLevel;
-                    item.currentArmor = row2.currentArmor;
-                    item.alreadyShooted = row2.alreadyShooted;
-                    item.totalAlreadyShooted = row2.totalAlreadyShooted;
-                    item.durability = row2.durability;
-                    item.currentUnsanity = row2.currentUnsanity;
-                    item.radioCurrentBattery = row2.radioCurrentBattery;
-                    item.torchCurrentBattery = row2.torchCurrentBattery;
-                    item.weight = row2.weight;
-                    item.gasolineContainer = row2.gasolineContainer;
-                    item.honeyContainer = row2.honeyContainer;
-                    item.waterContainer = row2.waterContainer;
-                    item.cookCountdown = row2.cookCountdown;
-                    item.wet = row2.wet;
-
-                    if (row2.containerNumber == 0)
-                    {
-                        warehouse.one[row2.slot] = new ItemSlot(item, row2.amount);
-                    }
-                    if (row2.containerNumber == 1)
-                    {
-                        warehouse.two[row2.slot] = new ItemSlot(item, row2.amount);
-                    }
-                    if (row2.containerNumber == 2)
-                    {
-                        warehouse.three[row2.slot] = new ItemSlot(item, row2.amount);
-                    }
-                    if (row2.containerNumber == 3)
-                    {
-                        warehouse.four[row2.slot] = new ItemSlot(item, row2.amount);
-                    }
-                    if (row2.containerNumber == 4)
-                    {
-                        warehouse.five[row2.slot] = new ItemSlot(item, row2.amount);
-                    }
-                    if (row2.containerNumber == 5)
-                    {
-                        warehouse.six[row2.slot] = new ItemSlot(item, row2.amount);
-                    }
-                }
-            }
-            NetworkServer.Spawn(g);
-        }
-    }
-    #endregion
-
     #region Mine
     public void SaveMine(string scene, List<Mine> mine)
     {
@@ -4510,7 +3451,6 @@ public partial class Database : MonoBehaviour
             connection.InsertOrReplace(new mine
             {
                 sceneName = scene,
-                actualName = building.buildingName,
                 health = building.health,
                 guild = building.guild,
                 owner = building.owner,
@@ -4531,7 +3471,6 @@ public partial class Database : MonoBehaviour
             //Npc npc = g.GetComponent<Npc>();
             Mine mine = building.GetComponent<Mine>();
             g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-            building.buildingName = row.actualName;
             building.health = row.health;
             building.guild = row.guild;
             building.owner = row.owner;
@@ -4568,7 +3507,6 @@ public partial class Database : MonoBehaviour
             connection.InsertOrReplace(new woodWall
             {
                 sceneName = scene,
-                actualName = building.buildingName,
                 health = building.health,
                 guild = building.guild,
                 owner = building.owner,
@@ -4591,7 +3529,6 @@ public partial class Database : MonoBehaviour
             //Npc npc = g.GetComponent<Npc>();
             WoodWall woodWall = building.GetComponent<WoodWall>();
             g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-            building.buildingName = row.actualName;
             building.health = row.health;
             building.guild = row.guild;
             building.owner = row.owner;
@@ -4628,7 +3565,6 @@ public partial class Database : MonoBehaviour
             connection.InsertOrReplace(new barbwire
             {
                 sceneName = scene,
-                actualName = building.buildingName,
                 health = building.health,
                 guild = building.guild,
                 owner = building.owner,
@@ -4651,7 +3587,6 @@ public partial class Database : MonoBehaviour
             //Npc npc = g.GetComponent<Npc>();
             Barbwire woodWall = building.GetComponent<Barbwire>();
             g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-            building.buildingName = row.actualName;
             building.health = row.health;
             building.guild = row.guild;
             building.owner = row.owner;
@@ -4676,64 +3611,6 @@ public partial class Database : MonoBehaviour
 
     #endregion
 
-
-    #region Tesla
-    public void SaveTesla(string scene, List<Tesla> tesla)
-    {
-        connection.Execute("DELETE FROM tesla");
-        // note: .Insert causes a 'Constraint' exception. use Replace.
-        for (int i = 0; i < tesla.Count; i++)
-        {
-            Building building = tesla[i].GetComponent<Building>();
-            //Npc npc = tesla[i].GetComponent<Npc>();
-            connection.InsertOrReplace(new tesla
-            {
-                sceneName = scene,
-                actualName = building.buildingName,
-                health = building.health,
-                guild = building.guild,
-                owner = building.owner,
-                positionX = building.transform.position.x,
-                positionY = building.transform.position.y,
-                level = building.level,
-                isPremium = Convert.ToInt32(building.isPremiumZone)
-
-            });
-        }
-    }
-    public void LoadTesla(GameObject prefab, string scene)
-    {
-        foreach (tesla row in connection.Query<tesla>("SELECT * FROM tesla WHERE sceneName=?", scene))
-        {
-            GameObject g = Instantiate(prefab);
-            Building building = g.GetComponent<Building>();
-            //Npc npc = g.GetComponent<Npc>();
-            Tesla tesla = building.GetComponent<Tesla>();
-            g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-            building.buildingName = row.actualName;
-            building.health = row.health;
-            building.guild = row.guild;
-            building.owner = row.owner;
-            building.level = row.level;
-            building.isPremiumZone = Convert.ToBoolean(row.isPremium);
-
-            if (!building.isPremiumZone) buildingManager.AddToList(g);
-
-            if (building.isPremiumZone)
-            {
-                buildingManager.teslas[row.myIndex] = tesla;
-                Destroy(g);
-            }
-            else
-            {
-                //g.SetActive(false);
-                NetworkServer.Spawn(g);
-            }
-        }
-    }
-
-    #endregion
-
     #region Totem
     public void SaveTotem(string scene, List<Totem> totem)
     {
@@ -4746,7 +3623,6 @@ public partial class Database : MonoBehaviour
             connection.InsertOrReplace(new totem
             {
                 sceneName = scene,
-                actualName = building.buildingName,
                 health = building.health,
                 guild = building.guild,
                 owner = building.owner,
@@ -4768,7 +3644,6 @@ public partial class Database : MonoBehaviour
             //Npc npc = g.GetComponent<Npc>();
             Totem totem = building.GetComponent<Totem>();
             g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-            building.buildingName = row.actualName;
             building.health = row.health;
             building.guild = row.guild;
             building.owner = row.owner;
@@ -4812,7 +3687,6 @@ public partial class Database : MonoBehaviour
             {
                 sceneName = scene,
                 myIndex = i,
-                actualName = building.buildingName,
                 guild = building.guild,
                 owner = building.owner,
                 positionX = building.transform.position.x,
@@ -4905,90 +3779,6 @@ public partial class Database : MonoBehaviour
                     type = upgradeRepair[i].repairItem[e].type
                 });
             }
-            //for (int e = 0; e < upgradeRepair[i].finishUpgradeItem.Count; e++)
-            //{
-            //    // note: .Insert causes a 'Constraint' exception. use Replace.
-            //    connection.InsertOrReplace(new upgradeItemsFinished
-            //    {
-            //        myIndex = i,
-            //        amount = upgradeRepair[i].finishUpgradeItem[e].item.amount,
-            //        slot = e,
-            //        name = upgradeRepair[i].finishUpgradeItem[e].item.item.name,
-            //        summonHealth = upgradeRepair[i].finishUpgradeItem[e].item.item.summonedHealth,
-            //        summonedLevel = upgradeRepair[i].finishUpgradeItem[e].item.item.summonedLevel,
-            //        summonedExperience = upgradeRepair[i].finishUpgradeItem[e].item.item.summonedExperience,
-            //        currentArmor = upgradeRepair[i].finishUpgradeItem[e].item.item.currentArmor,
-            //        currentUnsanity = upgradeRepair[i].finishUpgradeItem[e].item.item.currentUnsanity,
-            //        alreadyShooted = upgradeRepair[i].finishUpgradeItem[e].item.item.alreadyShooted,
-            //        totalAlreadyShooted = upgradeRepair[i].finishUpgradeItem[e].item.item.totalAlreadyShooted,
-            //        radioCurrentBattery = upgradeRepair[i].finishUpgradeItem[e].item.item.radioCurrentBattery,
-            //        torchCurrentBattery = upgradeRepair[i].finishUpgradeItem[e].item.item.torchCurrentBattery,
-            //        durability = upgradeRepair[i].finishUpgradeItem[e].item.item.durability,
-            //        weight = upgradeRepair[i].finishUpgradeItem[e].item.item.weight,
-            //        accuracyLevel = upgradeRepair[i].finishUpgradeItem[e].item.item.accuracyLevel,
-            //        missLevel = upgradeRepair[i].finishUpgradeItem[e].item.item.missLevel,
-            //        armorLevel = upgradeRepair[i].finishUpgradeItem[e].item.item.armorLevel,
-            //        chargeLevel = upgradeRepair[i].finishUpgradeItem[e].item.item.chargeLevel,
-            //        batteryLevel = upgradeRepair[i].finishUpgradeItem[e].item.item.batteryLevel,
-            //        weightLevel = upgradeRepair[i].finishUpgradeItem[e].item.item.weightLevel,
-            //        durabilityLevel = upgradeRepair[i].finishUpgradeItem[e].item.item.durabilityLevel,
-            //        unsanityLevel = upgradeRepair[i].finishUpgradeItem[e].item.item.unsanityLevel,
-            //        bagLevel = upgradeRepair[i].finishUpgradeItem[e].item.item.bagLevel,
-            //        gasolineContainer = upgradeRepair[i].finishUpgradeItem[e].item.item.gasolineContainer,
-            //        honeyContainer = upgradeRepair[i].finishUpgradeItem[e].item.item.honeyContainer,
-            //        waterContainer = upgradeRepair[i].finishUpgradeItem[e].item.item.waterContainer,
-            //        cookCountdown = upgradeRepair[i].finishUpgradeItem[e].item.item.cookCountdown,
-            //        wet = upgradeRepair[i].finishUpgradeItem[e].item.item.wet,
-            //        playerName = upgradeRepair[i].finishUpgradeItem[e].playerName,
-            //        remainingTime = upgradeRepair[i].finishUpgradeItem[e].remainingTime,
-            //        totalTime = upgradeRepair[i].finishUpgradeItem[e].totalTime,
-            //        type = upgradeRepair[i].finishUpgradeItem[e].type
-
-            //    });
-            //}
-            //for (int e = 0; e < upgradeRepair[i].finishRepairItem.Count; e++)
-            //{
-            //    // note: .Insert causes a 'Constraint' exception. use Replace.
-            //    connection.InsertOrReplace(new repairItemsFinished
-            //    {
-            //        myIndex = i,
-            //        amount = upgradeRepair[i].finishRepairItem[e].item.amount,
-            //        slot = e,
-            //        name = upgradeRepair[i].finishRepairItem[e].item.item.name,
-            //        summonHealth = upgradeRepair[i].finishRepairItem[e].item.item.summonedHealth,
-            //        summonedLevel = upgradeRepair[i].finishRepairItem[e].item.item.summonedLevel,
-            //        summonedExperience = upgradeRepair[i].finishRepairItem[e].item.item.summonedExperience,
-            //        currentArmor = upgradeRepair[i].finishRepairItem[e].item.item.currentArmor,
-            //        currentUnsanity = upgradeRepair[i].finishRepairItem[e].item.item.currentUnsanity,
-            //        alreadyShooted = upgradeRepair[i].finishRepairItem[e].item.item.alreadyShooted,
-            //        totalAlreadyShooted = upgradeRepair[i].finishRepairItem[e].item.item.totalAlreadyShooted,
-            //        radioCurrentBattery = upgradeRepair[i].finishRepairItem[e].item.item.radioCurrentBattery,
-            //        torchCurrentBattery = upgradeRepair[i].finishRepairItem[e].item.item.torchCurrentBattery,
-            //        durability = upgradeRepair[i].finishRepairItem[e].item.item.durability,
-            //        weight = upgradeRepair[i].finishRepairItem[e].item.item.weight,
-            //        accuracyLevel = upgradeRepair[i].finishRepairItem[e].item.item.accuracyLevel,
-            //        missLevel = upgradeRepair[i].finishRepairItem[e].item.item.missLevel,
-            //        armorLevel = upgradeRepair[i].finishRepairItem[e].item.item.armorLevel,
-            //        chargeLevel = upgradeRepair[i].finishRepairItem[e].item.item.chargeLevel,
-            //        batteryLevel = upgradeRepair[i].finishRepairItem[e].item.item.batteryLevel,
-            //        weightLevel = upgradeRepair[i].finishRepairItem[e].item.item.weightLevel,
-            //        durabilityLevel = upgradeRepair[i].finishRepairItem[e].item.item.durabilityLevel,
-            //        unsanityLevel = upgradeRepair[i].finishRepairItem[e].item.item.unsanityLevel,
-            //        bagLevel = upgradeRepair[i].finishRepairItem[e].item.item.bagLevel,
-            //        gasolineContainer = upgradeRepair[i].finishRepairItem[e].item.item.gasolineContainer,
-            //        honeyContainer = upgradeRepair[i].finishRepairItem[e].item.item.honeyContainer,
-            //        waterContainer = upgradeRepair[i].finishRepairItem[e].item.item.waterContainer,
-            //        cookCountdown = upgradeRepair[i].finishRepairItem[e].item.item.cookCountdown,
-            //        wet = upgradeRepair[i].finishRepairItem[e].item.item.wet,
-            //        playerName = upgradeRepair[i].finishRepairItem[e].playerName,
-            //        remainingTime = upgradeRepair[i].finishRepairItem[e].remainingTime,
-            //        totalTime = upgradeRepair[i].finishRepairItem[e].totalTime,
-            //        type = upgradeRepair[i].finishRepairItem[e].type
-            //    });
-            //}
-
-
-
         }
     }
 
@@ -5000,7 +3790,6 @@ public partial class Database : MonoBehaviour
             Building building = g.GetComponent<Building>();
             BuildingUpgradeRepair buildingUpgradeRepair = g.GetComponent<BuildingUpgradeRepair>();
             g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-            building.buildingName = row.actualName;
             building.health = row.health;
             building.guild = row.guild;
             building.owner = row.owner;
@@ -5182,179 +3971,10 @@ public partial class Database : MonoBehaviour
                     }
                 }
             }
-            //foreach (upgradeItemsFinished row4 in connection.Query<upgradeItemsFinished>("SELECT * FROM upgradeItemsFinished WHERE myIndex=?", row.myIndex))
-            //{
-            //    if (building.isPremiumZone)
-            //    {
-            //        if (ScriptableItem.dict.TryGetValue(row4.name.GetStableHashCode(), out ScriptableItem itemData))
-            //        {
-            //            CustomType.UpgradeRepairItem upgradeItem = new CustomType.UpgradeRepairItem();
-            //            upgradeItem.item = new ItemSlot();
-            //            upgradeItem.item.item = new Item(itemData);
-
-            //            upgradeItem.item.item.summonedHealth = row4.summonHealth;
-            //            upgradeItem.item.item.summonedLevel = row4.summonedLevel;
-            //            upgradeItem.item.item.summonedExperience = row4.summonedExperience;
-            //            upgradeItem.item.item.accuracyLevel = row4.accuracyLevel;
-            //            upgradeItem.item.item.missLevel = row4.missLevel;
-            //            upgradeItem.item.item.armorLevel = row4.armorLevel;
-            //            upgradeItem.item.item.chargeLevel = row4.chargeLevel;
-            //            upgradeItem.item.item.batteryLevel = row4.batteryLevel;
-            //            upgradeItem.item.item.weightLevel = row4.weightLevel;
-            //            upgradeItem.item.item.durabilityLevel = row4.durabilityLevel;
-            //            upgradeItem.item.item.unsanityLevel = row4.unsanityLevel;
-            //            upgradeItem.item.item.bagLevel = row4.bagLevel;
-            //            upgradeItem.item.item.currentArmor = row4.currentArmor;
-            //            upgradeItem.item.item.alreadyShooted = row4.alreadyShooted;
-            //            upgradeItem.item.item.totalAlreadyShooted = row4.totalAlreadyShooted;
-            //            upgradeItem.item.item.durability = row4.durability;
-            //            upgradeItem.item.item.currentUnsanity = row4.currentUnsanity;
-            //            upgradeItem.item.item.radioCurrentBattery = row4.radioCurrentBattery;
-            //            upgradeItem.item.item.torchCurrentBattery = row4.torchCurrentBattery;
-            //            upgradeItem.item.item.weight = row4.weight;
-            //            upgradeItem.item.item.gasolineContainer = row4.gasolineContainer;
-            //            upgradeItem.item.item.honeyContainer = row4.honeyContainer;
-            //            upgradeItem.item.item.waterContainer = row4.waterContainer;
-            //            upgradeItem.item.item.cookCountdown = row4.cookCountdown;
-            //            upgradeItem.item.item.wet = row4.wet;
-            //            upgradeItem.playerName = row4.playerName;
-            //            upgradeItem.remainingTime = row4.remainingTime;
-            //            upgradeItem.totalTime = row4.totalTime;
-            //            upgradeItem.type = row4.type;
-            //            buildingManager.upgradeRepair[row.myIndex].finishUpgradeItem.Add(upgradeItem);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (ScriptableItem.dict.TryGetValue(row4.name.GetStableHashCode(), out ScriptableItem itemData))
-            //        {
-            //            CustomType.UpgradeRepairItem upgradeItem = new CustomType.UpgradeRepairItem();
-            //            upgradeItem.item = new ItemSlot();
-            //            upgradeItem.item.item = new Item(itemData);
-
-            //            upgradeItem.item.item.summonedHealth = row4.summonHealth;
-            //            upgradeItem.item.item.summonedLevel = row4.summonedLevel;
-            //            upgradeItem.item.item.summonedExperience = row4.summonedExperience;
-            //            upgradeItem.item.item.accuracyLevel = row4.accuracyLevel;
-            //            upgradeItem.item.item.missLevel = row4.missLevel;
-            //            upgradeItem.item.item.armorLevel = row4.armorLevel;
-            //            upgradeItem.item.item.chargeLevel = row4.chargeLevel;
-            //            upgradeItem.item.item.batteryLevel = row4.batteryLevel;
-            //            upgradeItem.item.item.weightLevel = row4.weightLevel;
-            //            upgradeItem.item.item.durabilityLevel = row4.durabilityLevel;
-            //            upgradeItem.item.item.unsanityLevel = row4.unsanityLevel;
-            //            upgradeItem.item.item.bagLevel = row4.bagLevel;
-            //            upgradeItem.item.item.currentArmor = row4.currentArmor;
-            //            upgradeItem.item.item.alreadyShooted = row4.alreadyShooted;
-            //            upgradeItem.item.item.totalAlreadyShooted = row4.totalAlreadyShooted;
-            //            upgradeItem.item.item.durability = row4.durability;
-            //            upgradeItem.item.item.currentUnsanity = row4.currentUnsanity;
-            //            upgradeItem.item.item.radioCurrentBattery = row4.radioCurrentBattery;
-            //            upgradeItem.item.item.torchCurrentBattery = row4.torchCurrentBattery;
-            //            upgradeItem.item.item.weight = row4.weight;
-            //            upgradeItem.item.item.gasolineContainer = row4.gasolineContainer;
-            //            upgradeItem.item.item.honeyContainer = row4.honeyContainer;
-            //            upgradeItem.item.item.waterContainer = row4.waterContainer;
-            //            upgradeItem.item.item.cookCountdown = row4.cookCountdown;
-            //            upgradeItem.item.item.wet = row4.wet;
-            //            upgradeItem.playerName = row4.playerName;
-            //            upgradeItem.remainingTime = row4.remainingTime;
-            //            upgradeItem.totalTime = row4.totalTime;
-            //            upgradeItem.type = row4.type;
-            //            buildingUpgradeRepair.finishUpgradeItem.Add(upgradeItem);
-            //        }
-            //    }
-            //}
-            //foreach (repairItemsFinished row5 in connection.Query<repairItemsFinished>("SELECT * FROM repairItemsFinished WHERE myIndex=?", row.myIndex))
-            //{
-            //    if (building.isPremiumZone)
-            //    {
-            //        if (ScriptableItem.dict.TryGetValue(row5.name.GetStableHashCode(), out ScriptableItem itemData))
-            //        {
-            //            CustomType.UpgradeRepairItem upgradeItem = new CustomType.UpgradeRepairItem();
-            //            upgradeItem.item = new ItemSlot();
-            //            upgradeItem.item.item = new Item(itemData);
-
-            //            upgradeItem.item.item.summonedHealth = row5.summonHealth;
-            //            upgradeItem.item.item.summonedLevel = row5.summonedLevel;
-            //            upgradeItem.item.item.summonedExperience = row5.summonedExperience;
-            //            upgradeItem.item.item.accuracyLevel = row5.accuracyLevel;
-            //            upgradeItem.item.item.missLevel = row5.missLevel;
-            //            upgradeItem.item.item.armorLevel = row5.armorLevel;
-            //            upgradeItem.item.item.chargeLevel = row5.chargeLevel;
-            //            upgradeItem.item.item.batteryLevel = row5.batteryLevel;
-            //            upgradeItem.item.item.weightLevel = row5.weightLevel;
-            //            upgradeItem.item.item.durabilityLevel = row5.durabilityLevel;
-            //            upgradeItem.item.item.unsanityLevel = row5.unsanityLevel;
-            //            upgradeItem.item.item.bagLevel = row5.bagLevel;
-            //            upgradeItem.item.item.currentArmor = row5.currentArmor;
-            //            upgradeItem.item.item.alreadyShooted = row5.alreadyShooted;
-            //            upgradeItem.item.item.totalAlreadyShooted = row5.totalAlreadyShooted;
-            //            upgradeItem.item.item.durability = row5.durability;
-            //            upgradeItem.item.item.currentUnsanity = row5.currentUnsanity;
-            //            upgradeItem.item.item.radioCurrentBattery = row5.radioCurrentBattery;
-            //            upgradeItem.item.item.torchCurrentBattery = row5.torchCurrentBattery;
-            //            upgradeItem.item.item.weight = row5.weight;
-            //            upgradeItem.item.item.gasolineContainer = row5.gasolineContainer;
-            //            upgradeItem.item.item.honeyContainer = row5.honeyContainer;
-            //            upgradeItem.item.item.waterContainer = row5.waterContainer;
-            //            upgradeItem.item.item.cookCountdown = row5.cookCountdown;
-            //            upgradeItem.item.item.wet = row5.wet;
-            //            upgradeItem.playerName = row5.playerName;
-            //            upgradeItem.remainingTime = row5.remainingTime;
-            //            upgradeItem.totalTime = row5.totalTime;
-            //            upgradeItem.type = row5.type;
-            //            buildingManager.upgradeRepair[row.myIndex].finishRepairItem.Add(upgradeItem);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (ScriptableItem.dict.TryGetValue(row5.name.GetStableHashCode(), out ScriptableItem itemData))
-            //        {
-            //            CustomType.UpgradeRepairItem upgradeItem = new CustomType.UpgradeRepairItem();
-            //            upgradeItem.item = new ItemSlot();
-            //            upgradeItem.item.item = new Item(itemData);
-
-            //            upgradeItem.item.item.summonedHealth = row5.summonHealth;
-            //            upgradeItem.item.item.summonedLevel = row5.summonedLevel;
-            //            upgradeItem.item.item.summonedExperience = row5.summonedExperience;
-            //            upgradeItem.item.item.accuracyLevel = row5.accuracyLevel;
-            //            upgradeItem.item.item.missLevel = row5.missLevel;
-            //            upgradeItem.item.item.armorLevel = row5.armorLevel;
-            //            upgradeItem.item.item.chargeLevel = row5.chargeLevel;
-            //            upgradeItem.item.item.batteryLevel = row5.batteryLevel;
-            //            upgradeItem.item.item.weightLevel = row5.weightLevel;
-            //            upgradeItem.item.item.durabilityLevel = row5.durabilityLevel;
-            //            upgradeItem.item.item.unsanityLevel = row5.unsanityLevel;
-            //            upgradeItem.item.item.bagLevel = row5.bagLevel;
-            //            upgradeItem.item.item.currentArmor = row5.currentArmor;
-            //            upgradeItem.item.item.alreadyShooted = row5.alreadyShooted;
-            //            upgradeItem.item.item.totalAlreadyShooted = row5.totalAlreadyShooted;
-            //            upgradeItem.item.item.durability = row5.durability;
-            //            upgradeItem.item.item.currentUnsanity = row5.currentUnsanity;
-            //            upgradeItem.item.item.radioCurrentBattery = row5.radioCurrentBattery;
-            //            upgradeItem.item.item.torchCurrentBattery = row5.torchCurrentBattery;
-            //            upgradeItem.item.item.weight = row5.weight;
-            //            upgradeItem.item.item.gasolineContainer = row5.gasolineContainer;
-            //            upgradeItem.item.item.honeyContainer = row5.honeyContainer;
-            //            upgradeItem.item.item.waterContainer = row5.waterContainer;
-            //            upgradeItem.item.item.cookCountdown = row5.cookCountdown;
-            //            upgradeItem.item.item.wet = row5.wet;
-            //            upgradeItem.playerName = row5.playerName;
-            //            upgradeItem.remainingTime = row5.remainingTime;
-            //            upgradeItem.totalTime = row5.totalTime;
-            //            upgradeItem.type = row5.type;
-            //            buildingUpgradeRepair.finishRepairItem.Add(upgradeItem);
-            //        }
-            //    }
-            //}
-
             if (!building.isPremiumZone) buildingManager.AddToList(g);
 
             if (!building.isPremiumZone)
             {
-                //if (buildingManager.upgradeRepair[row.myIndex].upgradeItem.Count == 0 && buildingManager.upgradeRepair[row.myIndex].repairItem.Count == 0)
-                //    g.SetActive(false);
                 NetworkServer.Spawn(g);
             }
             else
@@ -5380,7 +4000,6 @@ public partial class Database : MonoBehaviour
             {
                 sceneName = scene,
                 myIndex = i,
-                actualName = building.buildingName,
                 guild = building.guild,
                 owner = building.owner,
                 positionX = building.transform.position.x,
@@ -5418,7 +4037,6 @@ public partial class Database : MonoBehaviour
             Building building = g.GetComponent<Building>();
             PetTrainer buildingUpgradeRepair = g.GetComponent<PetTrainer>();
             g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-            building.buildingName = row.actualName;
             building.health = row.health;
             building.guild = row.guild;
             building.owner = row.owner;
@@ -5473,7 +4091,6 @@ public partial class Database : MonoBehaviour
             {
                 myIndex = i,
                 sceneName = scene,
-                actualName = building.buildingName,
                 health = building.health,
                 guild = building.guild,
                 owner = building.owner,
@@ -5496,7 +4113,6 @@ public partial class Database : MonoBehaviour
             //Npc npc = g.GetComponent<Npc>();
             BuildingWaterWell buildingWaterWell = building.GetComponent<BuildingWaterWell>();
             g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-            building.buildingName = row.actualName;
             building.health = row.health;
             building.guild = row.guild;
             building.owner = row.owner;
@@ -5535,7 +4151,6 @@ public partial class Database : MonoBehaviour
             {
                 myIndex = e,
                 sceneName = scene,
-                actualName = building.buildingName,
                 guild = building.guild,
                 owner = building.owner,
                 positionX = building.transform.position.x,
@@ -5575,7 +4190,6 @@ public partial class Database : MonoBehaviour
             Building building = g.GetComponent<Building>();
             CultivableField cultivableField = g.GetComponent<CultivableField>();
             g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-            building.buildingName = row.actualName;
             building.guild = row.guild;
             building.owner = row.owner;
             building.health = row.health;
@@ -5645,7 +4259,6 @@ public partial class Database : MonoBehaviour
             {
                 myIndex = i,
                 sceneName = scene,
-                actualName = building.buildingName,
                 health = building.health,
                 guild = building.guild,
                 owner = building.owner,
@@ -5667,7 +4280,6 @@ public partial class Database : MonoBehaviour
             //Npc npc = g.GetComponent<Npc>();
             StreetLamp streetLamps = building.GetComponent<StreetLamp>();
             g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-            building.buildingName = row.actualName;
             building.health = row.health;
             building.guild = row.guild;
             building.owner = row.owner;
@@ -5704,7 +4316,6 @@ public partial class Database : MonoBehaviour
             {
                 myIndex = i,
                 sceneName = scene,
-                actualName = building.buildingName,
                 health = building.health,
                 guild = building.guild,
                 owner = building.owner,
@@ -5725,7 +4336,6 @@ public partial class Database : MonoBehaviour
             //Npc npc = g.GetComponent<Npc>();
             Flag flag = building.GetComponent<Flag>();
             g.transform.position = new Vector3(row.positionX, row.positionY, 0.0f);
-            building.buildingName = row.actualName;
             building.health = row.health;
             building.guild = row.guild;
             building.owner = row.owner;
@@ -6697,19 +5307,12 @@ public partial class Database : MonoBehaviour
             buildingManager.RemoveToList();
             connection.BeginTransaction();
             SaveBeeKeeper(sceneName, buildingManager.beeKeeper); 
-            //SaveBuildingCraft(sceneName, buildingManager.buildingCrafts); 
             SaveCampfire(sceneName, buildingManager.campfires);
             SaveDynamite(sceneName, buildingManager.dynamites);
-            SaveGasStation(sceneName, buildingManager.gasStations);
-            //SaveWarehouseGroup(sceneName, buildingManager.groupWarehouses);
-            //SaveWarehousePersonal(sceneName, buildingManager.personalWarehouses);
             SaveMine(sceneName, buildingManager.mines);
             SaveWoodWall(sceneName, buildingManager.woodWalls);
             SaveBarbwire(sceneName, buildingManager.barbWires);
-            SaveTesla(sceneName, buildingManager.teslas);
             SaveTotem(sceneName, buildingManager.totems);
-            //SaveUpgradeRepair(sceneName, buildingManager.upgradeRepair);
-            //SaveWaterWell(sceneName, buildingManager.waterWells);
             SavePetTrainer(sceneName, buildingManager.petTrainers);
             SaveCultivableField(sceneName, buildingManager.cultivableFields);
             SaveStreetLamps(sceneName, buildingManager.streetLamps);
@@ -6723,19 +5326,12 @@ public partial class Database : MonoBehaviour
     public void LoadBuilding(string sceneName)
     {
         LoadBeeKeeper(buildingManager.beeKeeperObject, sceneName);
-        //LoadBuildingCraft(buildingManager.buildingCraftsObject, sceneName);
         LoadCampfire(buildingManager.campfiresObject, sceneName);
         LoadDynamite(buildingManager.dynamitesObject, sceneName);
-        LoadGasStation(buildingManager.gasStationsObject, sceneName);
-        //LoadWarehouse(buildingManager.personalWarehousesObject, sceneName);
-        //LoadWarehouse(buildingManager.groupWarehousesObject, sceneName);
         LoadMine(buildingManager.minesObject, sceneName);
         LoadWoodWall(buildingManager.woodWallsObject[0], sceneName);
         LoadBarbwire(buildingManager.barbwiresObject[0], sceneName);
-        LoadTesla(buildingManager.teslasObject, sceneName);
         LoadTotem(buildingManager.totemsObject, sceneName);
-        //LoadUpgradeRepair(buildingManager.upgradeRepairObject, sceneName);
-        //LoadWaterWell(buildingManager.waterWellsObject, sceneName);
         LoadPetTrainer(buildingManager.petTrainersObject, sceneName);
         LoadCultivableField(buildingManager.cultivableFieldsObject, sceneName);
         LoadStreetLamps(buildingManager.streetLampsObject, sceneName);
@@ -6751,7 +5347,6 @@ public partial class Database : MonoBehaviour
         SaveAbilities(player);
         SaveBoost(player);
         SaveBlood(player);
-        SaveDungeon(player);
         SaveFriends(player);
         SaveFriendsRequest(player);
         SaveHungry(player);
@@ -6764,12 +5359,10 @@ public partial class Database : MonoBehaviour
         SaveRadio(player);
         SaveTorch(player);
         SaveSpawnpoint(player);
-        SavePremiumZone(player);
         SaveGuildAlly(player);
         SaveFriends(player);
         SaveOptions(player);
         SaveThirsty(player);
-        //SaveWood(player);
         SaveAdditionalEquipment(player);
         SaveAdditionalInventory(player);
         SaveBelt(player);
@@ -6782,7 +5375,6 @@ public partial class Database : MonoBehaviour
         LoadAbilities(player);
         LoadBoost(player);
         LoadBlood(player);
-        LoadDungeon(player);
         LoadFriends(player);
         LoadFriendsRequest(player);
         LoadHungry(player);
@@ -6795,15 +5387,12 @@ public partial class Database : MonoBehaviour
         LoadRadio(player);
         LoadTorch(player);
         LoadSpawnpoint(player);
-        LoadPremiumZone(player);
         LoadGuilAlly(player);
         LoadFriends(player);
         LoadOptions(player);
         LoadThirsty(player);
-        //LoadWood(player);
         LoadAdditionalEquipment(player);
         LoadAdditionalInventory(player);
-        //LoadBelt(player);
         LoadCharacterCreation(player);
         LoadQuestCustom(player);
     }

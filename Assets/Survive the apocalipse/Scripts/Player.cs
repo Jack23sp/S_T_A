@@ -26,7 +26,7 @@ using System.Linq;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
-using AdvancedCustomizableSystem;
+using AdvancedPeopleSystem;
 using CustomType;
 
 public enum TradeStatus : byte { Free, Locked, Accepted }
@@ -100,7 +100,6 @@ public class SyncDictionaryIntDouble : SyncDictionary<int, double> { }
 [RequireComponent(typeof(PlayerQuest))]
 [RequireComponent(typeof(PlayerDance))]
 [RequireComponent(typeof(PlayerInjury))]
-[RequireComponent(typeof(PlayerRaycast))]
 public partial class Player : Entity
 {
     [Header("Scriptable Player")]
@@ -142,6 +141,8 @@ public partial class Player : Entity
         {
             // calculate equipment bonus
             // sum up manually. Linq.Sum() is HEAVY(!) on GC and performance (190 KB/call!)
+            bool addMarriageBonus = playerMarriage && playerMarriage.partnerName != string.Empty && playerMarriage._partner && playerMarriage._partner.name == playerMarriage.partnerName && playerMarriage.partner.health > 0 && playerMarriage.partner.HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc;
+
             int equipmentBonus = 0;
             foreach (ItemSlot slot in equipment)
                 if (slot.amount > 0)
@@ -151,7 +152,7 @@ public partial class Player : Entity
             int attributeBonus = Convert.ToInt32(_healthMax.Get(level));
 
             // base (health + buff) + equip + attributes
-            return attributeBonus + equipmentBonus;
+            return attributeBonus + equipmentBonus + (addMarriageBonus == true ? (Convert.ToInt32((float)(_healthMax.Get(level) / 100.0f) * (float)GeneralManager.singleton.marriageHealth)) : 0);
         }
     }
 
@@ -162,6 +163,8 @@ public partial class Player : Entity
         {
             // calculate equipment bonus
             // sum up manually. Linq.Sum() is HEAVY(!) on GC and performance (190 KB/call!)
+            bool addMarriageBonus = playerMarriage && playerMarriage.partnerName != string.Empty && playerMarriage._partner && playerMarriage._partner.name == playerMarriage.partnerName && playerMarriage.partner.health > 0 && playerMarriage.partner.HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc;
+
             int equipmentBonus = 0;
             foreach (ItemSlot slot in equipment)
                 if (slot.amount > 0)
@@ -171,7 +174,7 @@ public partial class Player : Entity
             int attributeBonus = Convert.ToInt32(_manaMax.Get(level));
 
             // base (mana + buff) + equip + attributes
-            return base.manaMax + equipmentBonus;
+            return base.manaMax + equipmentBonus + (addMarriageBonus == true ? (Convert.ToInt32((float)(_manaMax.Get(level) / 100.0f) * (float)GeneralManager.singleton.marriageMana)) : 0);
         }
     }
 
@@ -199,13 +202,15 @@ public partial class Player : Entity
         {
             // calculate equipment bonus
             // sum up manually. Linq.Sum() is HEAVY(!) on GC and performance (190 KB/call!)
+            bool addMarriageBonus = playerMarriage && playerMarriage.partnerName != string.Empty && playerMarriage._partner && playerMarriage._partner.name == playerMarriage.partnerName && playerMarriage.partner.health > 0 && playerMarriage.partner.HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc;
             float equipmentBonus = 0;
             foreach (ItemSlot slot in equipment)
                 if (slot.amount > 0)
                     equipmentBonus += ((EquipmentItem)slot.item.data).defenseBonus;
 
             // return base (defense + buff) + equip
-            return base.defense + equipmentBonus;
+
+            return base.defense + equipmentBonus + (addMarriageBonus == true ? (Convert.ToInt32((float)(_defense.Get(level) / 100.0f) * (float)GeneralManager.singleton.marriageDefense)) : 0);
         }
     }
 
@@ -563,6 +568,128 @@ public partial class Player : Entity
             RefreshLocation(i);
 
         playerItemEquipment.CheckFirstWeapon();
+
+    }
+
+    void OnInventoryChangedOnServer(SyncListItemSlot.Operation op, int index, ItemSlot oldSlot, ItemSlot newSlot)
+    {
+        int weight = 0;
+
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            int indexInv = i;
+            if (inventory[indexInv].amount > 0)
+            {
+                weight += inventory[indexInv].item.weight * inventory[indexInv].amount;
+            }
+        }
+        playerWeight.currentWeight = weight;
+
+        if (equipment[7].amount > 0)
+        {
+            playerWeight.maxWeight = equipment[7].item.data.possibleBagWeight.Get(equipment[7].item.bagLevel);
+        }
+        else
+        {
+            playerWeight.maxWeight = 0;
+        }
+
+        if (playerWeight.currentWeight >= playerWeight.maxWeight && (playerWeight.currentWeight != 0 || playerWeight.maxWeight != 0))
+        {
+            agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.sneakMultiplier;
+        }
+        else
+        {
+            if (playerMove.run)
+            {
+                agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.runMultiplier;
+            }
+            else
+            {
+                agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.normalMultiplier;
+            }
+        }
+
+    }
+
+    [Command]
+    public void CmdSetWeight()
+    {
+        int weight = 0;
+
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            int indexInv = i;
+            if (inventory[indexInv].amount > 0)
+            {
+                weight += inventory[indexInv].item.weight * inventory[indexInv].amount;
+            }
+        }
+        playerWeight.currentWeight = weight;
+
+        if (equipment[7].amount > 0)
+        {
+            playerWeight.maxWeight = equipment[7].item.data.possibleBagWeight.Get(equipment[7].item.bagLevel);
+        }
+        else
+        {
+            playerWeight.maxWeight = 0;
+        }
+
+        if (playerWeight.currentWeight >= playerWeight.maxWeight && (playerWeight.currentWeight != 0 || playerWeight.maxWeight != 0))
+        {
+            agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.sneakMultiplier;
+        }
+        else
+        {
+            if (playerMove.run)
+            {
+                agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.runMultiplier;
+            }
+            else
+            {
+                agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.normalMultiplier;
+            }
+        }
+    }
+    public void SetWeight()
+    {
+        int weight = 0;
+
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            int indexInv = i;
+            if (inventory[indexInv].amount > 0)
+            {
+                weight += inventory[indexInv].item.weight * inventory[indexInv].amount;
+            }
+        }
+        playerWeight.currentWeight = weight;
+
+        if(equipment[7].amount > 0)
+        {
+            playerWeight.maxWeight = equipment[7].item.data.possibleBagWeight.Get(equipment[7].item.bagLevel);
+        }
+        else
+        {
+            playerWeight.maxWeight = 0;
+        }
+
+        if (playerWeight.currentWeight >= playerWeight.maxWeight && (playerWeight.currentWeight != 0 || playerWeight.maxWeight != 0))
+        {
+            agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.sneakMultiplier;
+        }
+        else
+        {
+            if (playerMove.run)
+            {
+                agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.runMultiplier;
+            }
+            else
+            {
+                agent._speed = GeneralManager.singleton.initialSpeed * GeneralManager.singleton.normalMultiplier;
+            }
+        }
     }
 
     public override void OnStartServer()
@@ -572,7 +699,7 @@ public partial class Player : Entity
         // initialize trade item indices
         for (int i = 0; i < 6; ++i) tradeOfferItems.Add(-1);
 
-        //InvokeRepeating(nameof(ProcessCoinOrders), 5, 5);
+        inventory.Callback += OnInventoryChangedOnServer;
 
         // addon system hooks
         Utils.InvokeMany(typeof(Player), this, "OnStartServer_");
@@ -593,7 +720,11 @@ public partial class Player : Entity
             faceCamera.targetTexture = tex;
         }
         // do nothing if not spawned (=for character selection previews)
-        if (!isServer && !isClient) return;
+        if (!isServer && !isClient)
+        {
+            if (!playerCreation.characterCustomization) playerCreation.characterCustomization = GetComponentInChildren<CharacterCustomization>();
+            return;
+        }
 
         base.Start();
 
@@ -1832,7 +1963,7 @@ public partial class Player : Entity
             inventory[index].item.data is UsableItem)
         {
             if (inventory[index].item.data is ScriptableBuilding)
-                if (playerCar.car || playerPremiumZoneManager.inPremiumZone)
+                if (playerCar.car)
                     return;
 
             // use item
@@ -2016,6 +2147,7 @@ public partial class Player : Entity
             if (slot.amount > 0)
             {
                 playerCreation.upper = ((WeaponItem)slot.item.data).indexShirt;
+                if (isLocalPlayer) playerCreation.characterCustomization.ChangeTag(this, avatarCamera);
             }
             else
             {
@@ -2034,6 +2166,7 @@ public partial class Player : Entity
                 {
 
                     playerCreation.down = ((WeaponItem)slot.item.data).indexPants;
+                    if (isLocalPlayer) playerCreation.characterCustomization.ChangeTag(this, avatarCamera);
                 }
                 else
                 {
@@ -2059,6 +2192,7 @@ public partial class Player : Entity
             if (slot.amount > 0)
             {
                 playerCreation.hats = ((WeaponItem)slot.item.data).indexHat;
+                if (isLocalPlayer) playerCreation.characterCustomization.ChangeTag(this, avatarCamera);
             }
             else
             {
@@ -2091,6 +2225,7 @@ public partial class Player : Entity
                         }
                     }
                 }
+                SetWeight();
             }
         }
         if (index == 8)
@@ -2098,6 +2233,7 @@ public partial class Player : Entity
             if (slot.amount > 0)
             {
                 playerCreation.shoes = ((WeaponItem)slot.item.data).indexShoes;
+                if (isLocalPlayer) playerCreation.characterCustomization.ChangeTag(this, avatarCamera);
             }
             else
             {
@@ -2725,9 +2861,6 @@ public partial class Player : Entity
             if (1 <= amount && amount <= npcItem.maxStack)
             {
                 long price = npcItem.buyPrice * amount;
-
-                if (playerPremiumZoneManager.inPremiumZone)
-                    price = price / 2;
 
                 // enough gold and enough space in inventory?
                 if (gold >= price && InventoryCanAdd(npcItem, amount))
@@ -4175,7 +4308,6 @@ public partial class Player : Entity
     public PlayerQuest playerQuest;
     public PlayerDance playerDance;
     public PlayerInjury playerInjury;
-    public PlayerRaycast playerRaycast;
     public PlayerPlant playerPlant;
 
     // joystick
@@ -4590,7 +4722,7 @@ public partial class Player : Entity
             {
                 target.inventory.Remove(slot);
             }
-            if (target.inventory.Count == 0) Destroy(target.gameObject);
+            if (target.inventory.Count == 0) NetworkServer.Destroy(target.gameObject);
         }
     }
 
@@ -4635,7 +4767,7 @@ public partial class Player : Entity
             if (entity)
             {
                 // set indicator
-                SetIndicatorViaParent(hit.transform);
+                //SetIndicatorViaParent(hit.transform);
 
                 // clicked last target again? and is not self or pet?
                 if (entity == target && entity != this && entity != activePet)
@@ -4657,29 +4789,8 @@ public partial class Player : Entity
 
                     if (this.CanAttack(entity))
                     {
-                        // then try to use that one
                         TryUseSkill(FindNetworkSkill(((WeaponItem)playerItemEquipment.firstWeapon.item.data).requiredSkill));
                     }
-                    // npc, alive, close enough? => talk
-                    // use collider point(s) to also work with big entities
-                    if (entity is Npc && entity.health > 0 &&
-                             Utils.ClosestDistance(collider, entity.collider) <= interactionRange)
-                    {
-                        UINpcDialogue.singleton.Show();
-                    }
-                    else if (entity is Car && entity.health > 0 &&
-                            Utils.ClosestDistance(collider, entity.collider) <= 2)
-                    {
-                        GameObject g = Instantiate(GeneralManager.singleton.carPanelToSpawn, GeneralManager.singleton.canvas);
-                        playerBuilding.building = null;
-                        Destroy(playerBuilding.actualBuilding);
-                        playerBuilding.inventoryIndex = -1;
-                        Destroy(GeneralManager.singleton.spawnedBuildingObject);
-                    }
-
-
-                    // monster, dead, has loot, close enough? => loot
-                    // use collider point(s) to also work with big entities
                     else if (entity is Monster && entity.health == 0 &&
                              Utils.ClosestDistance(collider, entity.collider) <= interactionRange &&
                              ((Monster)entity).HasLoot())
@@ -4692,102 +4803,23 @@ public partial class Player : Entity
                     {
                         GeneralManager.singleton.uiChestPanel.SetActive(true);
                     }
-                    // not attackable, lootable, talkable, etc., but it's
-                    // still an entity and double clicking it without doing
-                    // anything would be strange.
-                    // (e.g. if we are in a safe zone and click on a
-                    //  monster. it's not attackable, but we should at least
-                    //  move there, otherwise double click feels broken)
                     else
                     {
-                        // use collider point(s) to also work with big entities
-                        //agent.stoppingDistance = interactionRange;
-                        //agent.destination = entity.collider.ClosestPointOnBounds(transform.position);
+                        agent.destination = entity.collider.ClosestPointOnBounds(transform.position);
                     }
 
-                    // addon system hooks
-                    Utils.InvokeMany(typeof(Player), this, "OnSelect_", entity);
-                    // clicked a new target
                 }
                 else
                 {
-                    // target it
                     CmdSetTarget(entity.netIdentity);
                 }
             }
-            // if we hit nothing then we want to move somewhere
-            else
-            {
-                if (playerCar._car)
-                {
-                    if (!playerCar.car.On) return;
-
-                    if (playerCar.car._pilot != string.Empty && playerCar.car._pilot != name)
-                    {
-                        return;
-                    }
-                    if (playerCar.car.currentGasoline == 0) return;
-                }
-            }
         }
     }
 
-    // simple tab targeting
-    [Client]
-    public void TargetNearestButton()
-    {
-        // find all monsters that are alive, sort by distance
-        Entity[] objects = FindObjectsOfType<Entity>();
-        List<Entity> monsters = objects.Select(go => go.GetComponent<Entity>()).Where(m => m.health > 0).ToList();
-        List<Entity> sorted = monsters.OrderBy(m => Vector2.Distance(transform.position, m.transform.position)).ToList();
-
-        if (target)
-        {
-            if (target == sorted[1])
-            {
-                ButtonSelectionHandling();
-            }
-            else
-            {
-                if (sorted[1].GetComponent<Building>())
-                {
-                    if (!sorted[1].GetComponent<Building>().isHide)
-                    {
-                        CmdSetTarget(sorted[1].netIdentity);
-                    }
-                }
-                else
-                {
-                    CmdSetTarget(sorted[1].netIdentity);
-                }
-            }
-        }
-        else
-        {
-            if (sorted.Count > 0)
-            {
-
-                if (sorted[1].GetComponent<Building>())
-                {
-                    if (!sorted[1].GetComponent<Building>().isHide)
-                    {
-                        CmdSetTarget(sorted[1].netIdentity);
-                    }
-                }
-                else
-                {
-                    CmdSetTarget(sorted[1].netIdentity);
-                }
-            }
-        }
-    }
-
-
-    // simple tab targeting
     [Client]
     public void TargetNearestEntityButton()
     {
-        // find all monsters that are alive, sort by distance
         Entity[] objects = FindObjectsOfType<Entity>();
         List<Entity> monsters = objects.Select(go => go.GetComponent<Entity>()).Where(m => m.health > 0).ToList();
         List<Entity> sorted = monsters.OrderBy(m => Vector2.Distance(transform.position, m.transform.position)).ToList();
@@ -4841,67 +4873,41 @@ public partial class Player : Entity
                 CmdManageDoor(playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(playerMove.nearestModularPiece.floorDoor.ToArray()));
                 return;
             }
+            else
+            {
+                if (CanAttack(entity) && skills.Count > 0)
+                {
+                    if (entity.GetComponent<Building>() && entity.GetComponent<Totem>())
+                    {
+                        if (GeneralManager.singleton.uiTotem == null)
+                        {
+                            GeneralManager.singleton.uiTotem = Instantiate(GeneralManager.singleton.totemPrefab, GeneralManager.singleton.canvas);
+                        }
+                    }
+                    else
+                    {
+                        TryUseSkill(FindNetworkSkill(((WeaponItem)playerItemEquipment.firstWeapon.item.data).requiredSkill));
+                    }
+                }
+                else if (entity is Monster && entity.health == 0 &&
+                         Utils.ClosestDistance(collider, entity.collider) <= interactionRange &&
+                         ((Monster)entity).HasLoot())
+                {
+                    UILoot.singleton.Show();
+                }
+                else if (entity is Chest &&
+                         Utils.ClosestDistance(collider, entity.collider) <= interactionRange &&
+                         ((Chest)entity).HasLoot())
+                {
+                    GeneralManager.singleton.uiChestPanel.SetActive(true);
+                }
+
+            }
         }
         else
         {
             CmdManageDoor(playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(playerMove.nearestModularPiece.floorDoor.ToArray()));
             return;
-        }
-
-
-
-        if (CanAttack(entity) && skills.Count > 0)
-        {
-            if (entity.GetComponent<Building>() && entity.GetComponent<Totem>())
-            {
-                if (GeneralManager.singleton.uiTotem == null)
-                {
-                    GeneralManager.singleton.uiTotem = Instantiate(GeneralManager.singleton.totemPrefab, GeneralManager.singleton.canvas);
-                }
-            }
-            else
-            {
-                TryUseSkill(FindNetworkSkill(((WeaponItem)playerItemEquipment.firstWeapon.item.data).requiredSkill));
-            }
-        }
-        else if (entity is Npc && entity.health > 0 &&
-                 Utils.ClosestDistance(collider, entity.collider) <= interactionRange)
-        {
-            UINpcDialogue.singleton.Show();
-        }
-        else if (entity is Car && entity.health > 0 &&
-                Utils.ClosestDistance(collider, entity.collider) <= 2)
-        {
-            GameObject g = Instantiate(GeneralManager.singleton.carPanelToSpawn, GeneralManager.singleton.canvas);
-            playerBuilding.building = null;
-            Destroy(playerBuilding.actualBuilding);
-            playerBuilding.inventoryIndex = -1;
-            Destroy(GeneralManager.singleton.spawnedBuildingObject);
-        }
-        else if (entity is Monster && entity.health == 0 &&
-                 Utils.ClosestDistance(collider, entity.collider) <= interactionRange &&
-                 ((Monster)entity).HasLoot())
-        {
-            UILoot.singleton.Show();
-        }
-        else if (entity is Chest &&
-                 Utils.ClosestDistance(collider, entity.collider) <= interactionRange &&
-                 ((Chest)entity).HasLoot())
-        {
-            GeneralManager.singleton.uiChestPanel.SetActive(true);
-        }
-        else
-        {
-            if (playerCar._car)
-            {
-                if (!playerCar.car.On) return;
-
-                if (playerCar.car._pilot != string.Empty && playerCar.car._pilot != name)
-                {
-                    return;
-                }
-                if (playerCar.car.currentGasoline == 0) return;
-            }
         }
     }
 
@@ -4922,43 +4928,24 @@ public partial class Player : Entity
     [Command]
     public void CmdTradeOfferAccept()
     {
-        // validate
-        // note: distance check already done when starting the trade
         if (state == "TRADING" && tradeStatus == TradeStatus.Locked &&
             target != null && target is Player)
         {
             Player other = (Player)target;
 
-            // other has locked?
             if (other.tradeStatus == TradeStatus.Locked)
             {
-                //  simply accept and wait for the other guy to accept too
                 tradeStatus = TradeStatus.Accepted;
             }
-            // other has accepted already? then both accepted now, start trade.
             else if (other.tradeStatus == TradeStatus.Accepted)
             {
-                // accept
                 tradeStatus = TradeStatus.Accepted;
 
-                // both offers still valid?
                 if (IsTradeOfferStillValid() && other.IsTradeOfferStillValid())
                 {
-                    // both have enough inventory slots?
-                    // note: we don't use InventoryCanAdd here because:
-                    // - current solution works if both have full inventories
-                    // - InventoryCanAdd only checks one slot. here we have
-                    //   multiple slots though (it could happen that we can
-                    //   not add slot 2 after we did add slot 1's items etc)
                     if (InventorySlotsFree() >= InventorySlotsNeededForTrade() &&
                         other.InventorySlotsFree() >= other.InventorySlotsNeededForTrade())
                     {
-                        // exchange the items by first taking them out
-                        // into a temporary list and then putting them
-                        // in. this guarantees that exchanging even
-                        // works with full inventories
-
-                        // take them out
                         Queue<ItemSlot> tempMy = new Queue<ItemSlot>();
                         foreach (int index in tradeOfferItems)
                         {
@@ -4985,7 +4972,6 @@ public partial class Player : Entity
                             }
                         }
 
-                        // put them into the free slots
                         for (int i = 0; i < inventory.Count; ++i)
                             if (inventory[i].amount == 0 && tempOther.Count > 0)
                                 inventory[i] = tempOther.Dequeue();
@@ -4994,7 +4980,6 @@ public partial class Player : Entity
                             if (other.inventory[i].amount == 0 && tempMy.Count > 0)
                                 other.inventory[i] = tempMy.Dequeue();
 
-                        // exchange the gold
                         gold -= tradeOfferGold;
                         other.gold -= other.tradeOfferGold;
 
@@ -5012,8 +4997,6 @@ public partial class Player : Entity
                     }
                 }
 
-                // clear trade request for both guys. the FSM event will do the
-                // rest
                 tradeRequestFrom = "";
                 other.tradeRequestFrom = "";
             }
@@ -5028,7 +5011,6 @@ public partial class Player : Entity
         {
             if (CanStartTradeWith(sender))
             {
-                // also send a trade request to the person that invited us
                 sender.tradeRequestFrom = name;
             }
         }
@@ -5040,7 +5022,6 @@ public partial class Player : Entity
     public bool PlayerCanAttack(Player player)
     {
         if (!player.target) return false;
-        //if (player.playerCar._car != null) return false;
         if (player.target is Chest) return false;
         if (player.target.GetComponent<CultivableField>())
         {
@@ -5377,7 +5358,7 @@ public partial class Player : Entity
         {
             for (int i = 0; i < equipment.Count; i++)
             {
-                if (equipment[i].item.currentArmor > 0 && amount > 0)
+                if (equipment[i].amount > 0 && equipment[i].item.currentArmor > 0 && amount > 0)
                 {
                     int remainingArmor = equipment[i].item.currentArmor;
                     if (amount >= remainingArmor)
@@ -5406,6 +5387,7 @@ public partial class Player : Entity
         {
             health -= Mathf.Max(amount - Convert.ToInt32(defense), 1);
         }
+        playerInjury.injured = HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc;
     }
 
     public void ManageDamageArmorExplosionHealth(int amount)
@@ -5414,7 +5396,7 @@ public partial class Player : Entity
         {
             for (int i = 0; i < equipment.Count; i++)
             {
-                if (equipment[i].item.currentArmor > 0 && amount > 0)
+                if (equipment[i].amount > 0 && equipment[i].item.currentArmor > 0 && amount > 0)
                 {
                     int remainingArmor = equipment[i].item.currentArmor;
                     if (amount >= remainingArmor)
@@ -5443,6 +5425,7 @@ public partial class Player : Entity
         {
             health -= amount;
         }
+        playerInjury.injured = HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc;
     }
 
     [Command]
@@ -5479,17 +5462,8 @@ public partial class Player : Entity
             if (monster.name.Contains("Policeman"))
                 police = true;
 
-            // share kill rewards with party or only for self
             List<Player> closeMembers = InParty() ? GetPartyMembersInProximity() : new List<Player>();
 
-            // share experience & skill experience
-            // note: bonus only applies to exp. share parties, otherwise
-            //       there's an unnecessary pressure to always join a
-            //       party when leveling alone too.
-            // note: if monster.rewardExp is 10 then it's possible that
-            //       two members only receive 2 exp each (= 4 total).
-            //       this happens because of exp balancing by level and
-            //       is as intended.
             if (InParty() && party.shareExperience)
             {
 
@@ -5545,14 +5519,9 @@ public partial class Player : Entity
                     experience += BalanceExpReward(monster.rewardExperience, level, monster.level);
             }
 
-            // give pet the same exp without dividing it, but balance it
-            // => AFTER player exp reward! pet can only ever level up to player
-            //    level, so it's best if the player gets exp and level-ups
-            //    first, then afterwards we try to level up the pet.
             if (activePet != null)
                 activePet.experience += BalanceExpReward(monster.rewardExperience, activePet.level, monster.level);
 
-            // increase quest kill counter for all party members
             if (InParty())
             {
                 foreach (Player member in closeMembers)
@@ -5586,11 +5555,8 @@ public partial class Player : Entity
     [Server]
     public void OnDamageDealtToPlayer(Player player)
     {
-        // did we kill the player?
         if (player.health == 0)
         {
-            // increase quest kill counter for all party members
-            // (in case someone implements a kill-player quest type!)
             if (InParty())
             {
                 List<Player> closeMembers = GetPartyMembersInProximity();
@@ -5628,14 +5594,10 @@ public partial class Player : Entity
 
     }
 
-    // custom DealDamageAt function that also rewards experience if we killed
-    // the monster
     [Server]
     public override void DealDamageAt(Entity entity, int amount, float stunChance = 0, float stunTime = 0)
     {
-        // deal damage with the default function
         base.DealDamageAt(entity, amount, stunChance, stunTime);
-        playerMonsterGrab.TargetNearest();
         if (this is Player)
         {
             playerMove.lastHit = NetworkTime.time;
@@ -5716,12 +5678,9 @@ public partial class Player : Entity
             {
                 RpgEffectOnEntityDeath(new Vector3(entity.gameObject.transform.position.x, entity.transform.position.y + 1.34f, entity.transform.position.z));
                 playerLeaderPoints.plantPoint += GeneralManager.singleton.plantPoint;
-                entity.Invoke("DestroyObject", 0.5f);
+                entity.Invoke(nameof(DestroyObject), 0.5f);
             }
-            else
-            {
 
-            }
         }
         else if (entity is Rock)
         {
@@ -5738,7 +5697,7 @@ public partial class Player : Entity
                 }
                 RpgEffectOnEntityDeath(new Vector3(entity.gameObject.transform.position.x, entity.transform.position.y + 1.34f, entity.transform.position.z));
                 playerLeaderPoints.rockPoint += GeneralManager.singleton.rockPoint;
-                entity.Invoke("DestroyObject", 0.5f);
+                entity.Invoke(nameof(DestroyObject), 0.5f);
             }
             else
             {
@@ -5768,7 +5727,7 @@ public partial class Player : Entity
                 }
                 RpgEffectOnEntityDeath(new Vector3(entity.gameObject.transform.position.x, entity.transform.position.y + 1.34f, entity.transform.position.z));
                 playerLeaderPoints.treePoint += GeneralManager.singleton.treePoint;
-                entity.Invoke("DestroyObject", 0.5f);
+                entity.Invoke(nameof(DestroyObject), 0.5f);
             }
             else
             {
@@ -5788,11 +5747,7 @@ public partial class Player : Entity
             if (((Building)entity).health == 0)
             {
                 RpgEffectOnEntityDeath(new Vector3(entity.gameObject.transform.position.x, entity.transform.position.y + 1.34f, entity.transform.position.z));
-                entity.Invoke("DestroyObject", 0.5f);
-            }
-            else
-            {
-
+                entity.Invoke(nameof(DestroyObject), 0.5f);
             }
         }
 
@@ -5813,30 +5768,20 @@ public partial class Player : Entity
 
     #region Party
 
-    // party invite by name (not by target) so that chat commands are possible
-    // if needed
     [Command]
     public void CmdPartyInvite(string otherName)
     {
-        // validate: is there someone with that name, and not self?
         if (otherName != name &&
             onlinePlayers.TryGetValue(otherName, out Player other) &&
             NetworkTime.time >= nextRiskyActionTime && !((Player)target).playerOptions.blockParty)
         {
-            // can only send invite if no party yet or party isn't full and
-            // have invite rights and other guy isn't in party yet
             if ((!InParty() || !party.IsFull()) && !other.InParty())
             {
-                // send a invite
                 other.partyInviteFrom = name;
 
                 print(name + " invited " + other.name + " to party");
             }
         }
-
-        // reset risky time no matter what. even if invite failed, we don't want
-        // players to be able to spam the invite button and mass invite random
-        // players.
         nextRiskyActionTime = NetworkTime.time + partyInviteWaitSeconds;
     }
 
@@ -5850,29 +5795,17 @@ public partial class Player : Entity
         Player onlinePlayer;
         if (Player.onlinePlayers.TryGetValue(otherPlayer, out onlinePlayer))
         {
-        }
-        // validate
-        if (onlinePlayer != null && onlinePlayer is Player &&
-            InGuild() && !((Player)onlinePlayer).InGuild() &&
-            guild.CanInvite(name, onlinePlayer.name) &&
-            NetworkTime.time >= nextRiskyActionTime)
-        {
-            // send an invite
-            ((Player)onlinePlayer).guildInviteFrom = name;
-
-            print(name + " invited " + target.name + " to guild");
+            if (InGuild() && !onlinePlayer.InGuild() &&
+                guild.CanInvite(name, onlinePlayer.name) &&
+                NetworkTime.time >= nextRiskyActionTime)
+            {
+                ((Player)onlinePlayer).guildInviteFrom = name;
+                nextRiskyActionTime = NetworkTime.time + guildInviteWaitSeconds;
+            }
         }
 
-        // reset risky time no matter what. even if invite failed, we don't want
-        // players to be able to spam the invite button and mass invite random
-        // players.
-        nextRiskyActionTime = NetworkTime.time + guildInviteWaitSeconds;
     }
     #endregion
-
-
-    // BUILDING
-
 
     #region Craft add to Inventory
     [Command]
@@ -6150,12 +6083,6 @@ public partial class Player : Entity
                 }
             }
         }
-    }
-
-    [Command]
-    public void CmdRefreshPlayerBuildingOwner(string playerName)
-    {
-        BuildingManager.singleton.ChangeBuildingToNewPlayerOwner(playerName);
     }
 
     [Command]
@@ -6455,23 +6382,6 @@ public partial class Player : Entity
                     {
                         containerFree += inventory[index].item.data.generalLiquidContainer - inventory[index].item.waterContainer;
                     }
-                }
-            }
-        }
-        return containerFree;
-    }
-
-    public int GetWaterInInventory()
-    {
-        int containerFree = 0;
-        for (int i = 0; i < inventory.Count; i++)
-        {
-            int index = i;
-            if (inventory[index].amount > 0)
-            {
-                if (inventory[index].item.data.generalLiquidContainer > 0)
-                {
-                    containerFree += inventory[index].item.waterContainer;
                 }
             }
         }
@@ -6860,49 +6770,6 @@ public partial class Player : Entity
     }
 
     [Command]
-    public void CmdRenameBuilding(string buildngName)
-    {
-        Building building = null;
-        if (target is Building)
-        {
-            building = ((Building)target);
-        }
-        if (!building || building.countdown > 0 || !CanInteractBuildingTarget(building, this)) return;
-
-        building.buildingName = buildngName;
-    }
-
-    [Command]
-    public void CmdHalveBuilding(int currencyType)
-    {
-        Building building = null;
-        if (target is Building)
-        {
-            building = ((Building)target);
-        }
-        if (!building || building.countdown == 0 || !CanInteractBuildingTarget(building, this)) return;
-
-        if (currencyType == 0)
-        {
-            if (building.building.coinToHalve <= coins)
-            {
-                coins -= building.building.coinToHalve;
-                building.countdown = Convert.ToInt32(building.countdown / 2);
-                return;
-            }
-        }
-        else
-        {
-            if (building.building.goldToHalve <= gold)
-            {
-                gold -= building.building.goldToHalve;
-                building.countdown = Convert.ToInt32(building.countdown / 2);
-                return;
-            }
-        }
-    }
-
-    [Command]
     public void CmdDestroyBuilding()
     {
         if (target && target is Building && !target.GetComponent<Plant>() && !target.GetComponent<Tree>() && !target.GetComponent<Rock>() && GeneralManager.singleton.CanManageExplosiveBuilding(((Building)target), this))
@@ -6951,42 +6818,6 @@ public partial class Player : Entity
     }
 
     [Command]
-    public void CmdTakeSeeds(int plantSlot)
-    {
-        CultivableField cultivableField;
-        if (!target || !target.GetComponent<CultivableField>()) return;
-        else cultivableField = target.GetComponent<CultivableField>();
-        if (ScriptablePlant.dict.TryGetValue(cultivableField.currentPlant[plantSlot].plantName.GetStableHashCode(), out ScriptablePlant plant))
-        {
-            if (!cultivableField.currentPlant[plantSlot].releaseSeeds)
-            {
-                if (InventoryCanAdd(new Item(plant.harvestSeeds), 1))
-                {
-                    InventoryAdd(new Item(plant.harvestSeeds), 1);
-                    CultivableFood food = cultivableField.currentPlant[plantSlot];
-                    food = new CultivableFood();
-                    food.plantName = "Undefined";
-                    food.grownQuantityX = 0.0f;
-                    food.grownQuantityY = 0.0f;
-                    cultivableField.currentPlant[plantSlot] = food;
-                }
-            }
-            else
-            {
-                if (InventoryCanAdd(new Item(plant.harvestSeeds), cultivableField.currentPlant[plantSlot].seeds))
-                {
-                    InventoryAdd(new Item(plant.harvestSeeds), cultivableField.currentPlant[plantSlot].seeds);
-                    CultivableFood food = cultivableField.currentPlant[plantSlot];
-                    food = new CultivableFood();
-                    food.plantName = "Undefined";
-                    food.grownQuantityX = 0.0f;
-                    food.grownQuantityY = 0.0f;
-                    cultivableField.currentPlant[plantSlot] = food;
-                }
-            }
-        }
-    }
-    [Command]
     public void CmdTakePlant(int plantSlot)
     {
         CultivableField cultivableField;
@@ -7015,214 +6846,6 @@ public partial class Player : Entity
     #endregion
 
     #region Warehouse
-    [Command]
-    public void CmdSwitchInventoryWarehouse(int[] warehouseInventory, int[] playerInventory, int warehouseContainer)
-    {
-        Warehouse warehouse;
-        if (!target) return;
-        if (!target.GetComponent<Warehouse>()) return;
-        else warehouse = target.GetComponent<Warehouse>();
-
-        int index = 0;
-        List<int> inventoryL = playerInventory.ToList();
-        List<int> warehouseL = warehouseInventory.ToList();
-        List<int> warehouseSlotFree = new List<int>();
-        List<int> inventorySlotFree = new List<int>();
-
-        for (int i = 0; i < inventory.Count; i++)
-        {
-            if (inventory[i].amount == 0)
-            {
-                inventorySlotFree.Add(i);
-            }
-        }
-
-        if (warehouseContainer == 1)
-        {
-            for (int i = 0; i < warehouse.one.Count; i++)
-            {
-                if (warehouse.one[i].amount == 0)
-                {
-                    warehouseSlotFree.Add(i);
-                }
-            }
-        }
-        if (warehouseContainer == 2)
-        {
-            for (int i = 0; i < warehouse.two.Count; i++)
-            {
-                if (warehouse.two[i].amount == 0)
-                {
-                    warehouseSlotFree.Add(i);
-                }
-            }
-        }
-        if (warehouseContainer == 3)
-        {
-            for (int i = 0; i < warehouse.three.Count; i++)
-            {
-                if (warehouse.three[i].amount == 0)
-                {
-                    warehouseSlotFree.Add(i);
-                }
-            }
-        }
-        if (warehouseContainer == 4)
-        {
-            for (int i = 0; i < warehouse.four.Count; i++)
-            {
-                if (warehouse.four[i].amount == 0)
-                {
-                    warehouseSlotFree.Add(i);
-                }
-            }
-        }
-        if (warehouseContainer == 5)
-        {
-            for (int i = 0; i < warehouse.five.Count; i++)
-            {
-                if (warehouse.five[i].amount == 0)
-                {
-                    warehouseSlotFree.Add(i);
-                }
-            }
-        }
-        if (warehouseContainer == 6)
-        {
-            for (int i = 0; i < warehouse.six.Count; i++)
-            {
-                if (warehouse.six[i].amount == 0)
-                {
-                    warehouseSlotFree.Add(i);
-                }
-            }
-        }
-        if (InventorySlotsFree() < warehouseL.Count) return;
-        if (warehouseSlotFree.Count < inventoryL.Count) return;
-
-        if (inventoryL.Count > 0)
-        {
-            for (int i = 0; i < inventoryL.Count; i++)
-            {
-                index = i;
-                if (warehouseContainer == 1)
-                {
-                    ItemSlot slot = warehouse.one[warehouseSlotFree[0]];
-                    slot = inventory[inventoryL[i]];
-                    warehouse.one[warehouseSlotFree[0]] = slot;
-                    slot = new ItemSlot();
-                    inventory[inventoryL[i]] = slot;
-                    warehouseSlotFree.RemoveAt(0);
-                }
-                if (warehouseContainer == 2)
-                {
-                    ItemSlot slot = warehouse.two[warehouseSlotFree[0]];
-                    slot = inventory[inventoryL[i]];
-                    warehouse.two[warehouseSlotFree[0]] = slot;
-                    slot = new ItemSlot();
-                    inventory[inventoryL[i]] = slot;
-                    warehouseSlotFree.RemoveAt(0);
-                }
-                if (warehouseContainer == 3)
-                {
-                    ItemSlot slot = warehouse.three[warehouseSlotFree[0]];
-                    slot = inventory[inventoryL[i]];
-                    warehouse.three[warehouseSlotFree[0]] = slot;
-                    slot = new ItemSlot();
-                    inventory[inventoryL[i]] = slot;
-                    warehouseSlotFree.RemoveAt(0);
-                }
-                if (warehouseContainer == 4)
-                {
-                    ItemSlot slot = warehouse.four[warehouseSlotFree[0]];
-                    slot = inventory[inventoryL[i]];
-                    warehouse.four[warehouseSlotFree[0]] = slot;
-                    slot = new ItemSlot();
-                    inventory[inventoryL[i]] = slot;
-                    warehouseSlotFree.RemoveAt(0);
-                }
-                if (warehouseContainer == 5)
-                {
-                    ItemSlot slot = warehouse.five[warehouseSlotFree[0]];
-                    slot = inventory[inventoryL[i]];
-                    warehouse.five[warehouseSlotFree[0]] = slot;
-                    slot = new ItemSlot();
-                    inventory[inventoryL[i]] = slot;
-                    warehouseSlotFree.RemoveAt(0);
-                }
-                if (warehouseContainer == 6)
-                {
-                    ItemSlot slot = warehouse.six[warehouseSlotFree[0]];
-                    slot = inventory[inventoryL[i]];
-                    warehouse.six[warehouseSlotFree[0]] = slot;
-                    slot = new ItemSlot();
-                    inventory[inventoryL[i]] = slot;
-                    warehouseSlotFree.RemoveAt(0);
-                }
-            }
-        }
-        if (warehouseL.Count > 0)
-        {
-            for (int i = 0; i < warehouseL.Count; i++)
-            {
-                index = i;
-                if (warehouseContainer == 1)
-                {
-                    ItemSlot slot = inventory[inventorySlotFree[0]];
-                    slot = warehouse.one[warehouseL[i]];
-                    inventory[inventorySlotFree[0]] = slot;
-                    slot = new ItemSlot();
-                    warehouse.one[warehouseL[i]] = slot;
-                    inventorySlotFree.RemoveAt(0);
-                }
-                if (warehouseContainer == 2)
-                {
-                    ItemSlot slot = inventory[inventorySlotFree[0]];
-                    slot = warehouse.two[warehouseL[i]];
-                    inventory[inventorySlotFree[0]] = slot;
-                    slot = new ItemSlot();
-                    warehouse.two[warehouseL[i]] = slot;
-                    inventorySlotFree.RemoveAt(0);
-                }
-                if (warehouseContainer == 3)
-                {
-                    ItemSlot slot = inventory[inventorySlotFree[0]];
-                    slot = warehouse.three[warehouseL[i]];
-                    inventory[inventorySlotFree[0]] = slot;
-                    slot = new ItemSlot();
-                    warehouse.three[warehouseL[i]] = slot;
-                    inventorySlotFree.RemoveAt(0);
-                }
-                if (warehouseContainer == 4)
-                {
-                    ItemSlot slot = inventory[inventorySlotFree[0]];
-                    slot = warehouse.four[warehouseL[i]];
-                    inventory[inventorySlotFree[0]] = slot;
-                    slot = new ItemSlot();
-                    warehouse.four[warehouseL[i]] = slot;
-                    inventorySlotFree.RemoveAt(0);
-                }
-                if (warehouseContainer == 5)
-                {
-                    ItemSlot slot = inventory[inventorySlotFree[0]];
-                    slot = warehouse.five[warehouseL[i]];
-                    inventory[inventorySlotFree[0]] = slot;
-                    slot = new ItemSlot();
-                    warehouse.five[warehouseL[i]] = slot;
-                    inventorySlotFree.RemoveAt(0);
-                }
-                if (warehouseContainer == 6)
-                {
-                    ItemSlot slot = inventory[inventorySlotFree[0]];
-                    slot = warehouse.six[warehouseL[i]];
-                    inventory[inventorySlotFree[0]] = slot;
-                    slot = new ItemSlot();
-                    warehouse.six[warehouseL[i]] = slot;
-                    inventorySlotFree.RemoveAt(0);
-                }
-            }
-        }
-    }
 
     [Command]
     public void CmdSwapInventoryModularWarehouse(int[] warehouseInventory, int[] playerInventory)
@@ -7597,57 +7220,6 @@ public partial class Player : Entity
     }
     #endregion
 
-    #region Gas Station 
-    [Command]
-    public void CmdGetGasolineFromStation(int getGasoline)
-    {
-        if (!target || !target.GetComponent<GasStation>()) return;
-
-        GasStation gasStation = target.GetComponent<GasStation>();
-
-        if (playerCar.GetEmptyGasolineBootle() < getGasoline) return;
-
-        for (int i = 0; i < inventory.Count; i++)
-        {
-            int index = i;
-            if (inventory[index].amount > 0)
-            {
-                if (inventory[index].item.data.generalLiquidContainer > 0)
-                {
-                    if (inventory[index].item.honeyContainer > 0)
-                        continue;
-                    if (inventory[index].item.waterContainer > 0)
-                        continue;
-
-                    if (inventory[index].item.gasolineContainer >= 0)
-                    {
-                        ItemSlot slot = inventory[index];
-                        int emptyGasoline = slot.item.data.generalLiquidContainer - slot.item.gasolineContainer;
-                        if (getGasoline >= emptyGasoline)
-                        {
-                            slot.item.gasolineContainer += emptyGasoline;
-                            gasStation.currentGasoline -= emptyGasoline;
-                            getGasoline -= emptyGasoline;
-                            inventory[index] = slot;
-                            continue;
-                        }
-                        else
-                        {
-                            slot.item.gasolineContainer += getGasoline;
-                            gasStation.currentGasoline -= getGasoline;
-                            getGasoline = 0;
-                            inventory[index] = slot;
-                            continue;
-                        }
-                    }
-                }
-            }
-        }
-        if (gasStation.currentGasoline > GeneralManager.singleton.maxGasStationGasoline) gasStation.currentGasoline = GeneralManager.singleton.maxGasStationGasoline;
-    }
-
-    #endregion
-
     #region Totem
     [Command]
     public void CmdSetMessage(string meassage)
@@ -7756,12 +7328,6 @@ public partial class Player : Entity
         }
     }
 
-    [TargetRpc]
-    public void TargetInventoryIndex(int index)
-    {
-        GetComponent<UICampfireInventory>().inventoryWoodIndex.Remove(index);
-    }
-
     [Command]
     public void CmdActiveCampfire()
     {
@@ -7781,10 +7347,6 @@ public partial class Player : Entity
     [Command]
     public void CmdAddPetToExpList(PetExp petExp, int inventoryIndex, string petName)
     {
-        //TimeSpan difference;
-        //if (!string.IsNullOrEmpty(playerBoost.networkBoost[0].hiddenIslandTimer))
-        //    difference = DateTime.Parse(playerBoost.networkBoost[0].hiddenIslandTimer.ToString()) - TimeZoneInfo.ConvertTime(System.DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById(GeneralManager.singleton.timeZone));
-
         petExp.timeEndServer = DateTime.Now.AddSeconds(GeneralManager.singleton.timeToUpgradeOfOneLevel * petExp.selectedFood).ToString();
         if (health == 0 || !target || !target.GetComponent<PetTrainer>() || InventoryCount(new Item(GeneralManager.singleton.foodToUpgradeLevelOfItem)) < petExp.selectedFood) return;
         if (inventory[inventoryIndex].amount > 0 && inventory[inventoryIndex].item.data is PetItem && inventory[inventoryIndex].item.name == petName)
@@ -7897,188 +7459,6 @@ public partial class Player : Entity
 
     #endregion
 
-    [Command]
-    public void CmdChangeCoinGold(int coin)
-    {
-        if (coins >= coin)
-        {
-            coins -= coin;
-            gold += coin * 5;
-        }
-    }
-
-    [Command]
-    public void CmdTakeClaimedItem(int index, string itemName, int itemAmount, string user, string seller)
-    {
-        AuctionHouse auctionHouse = target.GetComponent<AuctionHouse>();
-        if (!auctionHouse) return;
-        if (index > auctionHouse.FinshedBid.Count) return;
-        if (auctionHouse.FinshedBid[index].itemSlot.item.name != itemName) return;
-        if (auctionHouse.FinshedBid[index].itemSlot.amount != itemAmount) return;
-        if (auctionHouse.FinshedBid[index].sellerName != seller) return;
-
-        List<GoldToReturn> goldL = auctionHouse.FinshedBid[index].userThatBidThisObject.ToList();
-
-        if (goldL.Count > 1)
-        {
-            for (int i = 0; i < goldL.Count - 1; i++)
-            {
-                Player.onlinePlayers.TryGetValue(goldL[i].userToReturn, out Player sellerPlayer);
-                if (sellerPlayer)
-                {
-                    sellerPlayer.gold += goldL[i].goldToReturn;
-                    goldL.RemoveAt(i);
-                }
-            }
-        }
-
-        if (InventoryCanAdd(auctionHouse.FinshedBid[index].itemSlot.item, auctionHouse.FinshedBid[index].itemSlot.amount))
-        {
-            InventoryAdd(auctionHouse.FinshedBid[index].itemSlot.item, auctionHouse.FinshedBid[index].itemSlot.amount);
-            auctionHouse.FinshedBid.RemoveAt(index);
-        }
-
-        AuctionItem item = auctionHouse.FinshedBid[index];
-        item.userThatBidThisObject = goldL.ToArray();
-        auctionHouse.FinshedBid[index] = item;
-
-        if (auctionHouse.FinshedBid[index].userThatBidThisObject.Length > 0)
-            auctionHouse.itemToRestituite.Add(auctionHouse.FinshedBid[index]);
-    }
-
-    [Command]
-    public void CmdBidActualItem(int index, int amount)
-    {
-        AuctionHouse auctionHouse = target.GetComponent<AuctionHouse>();
-        if (!auctionHouse) return;
-        if (index > auctionHouse.actualInBid.Count) return;
-
-        if (auctionHouse.actualInBid[index].alreadyBidded) return;
-
-        if (auctionHouse.actualInBid[index].remainingEstimateTime == 0) return;
-
-        if ((auctionHouse.actualInBid[index].userThatBidThisObject.Length > 0 && auctionHouse.actualInBid[index].userThatBidThisObject.Last().goldToReturn >= amount) || amount == 0) return;
-
-        if (amount <= auctionHouse.actualInBid[index].startBidPrice) return;
-
-        AuctionItem item = auctionHouse.actualInBid[index];
-
-        List<GoldToReturn> goldL = item.userThatBidThisObject.ToList();
-
-        if (item.remainingEstimateTime > 0)
-        {
-            for (int i = 0; i < goldL.Count; i++)
-            {
-                Player.onlinePlayers.TryGetValue(goldL[i].userToReturn, out Player seller);
-                if (seller)
-                {
-                    seller.gold += goldL[i].goldToReturn;
-                    goldL.RemoveAt(i);
-                }
-            }
-            GoldToReturn goldReturn = new GoldToReturn();
-            goldReturn.goldToReturn = amount;
-            goldReturn.userToReturn = name;
-            goldL.Add(goldReturn);
-
-            item.userThatBidThisObject = goldL.ToArray();
-            auctionHouse.actualInBid[index] = item;
-            gold -= amount;
-        }
-        else
-        {
-            AuctionItem item2 = auctionHouse.actualInBid[index];
-
-            List<GoldToReturn> goldL2 = item.userThatBidThisObject.ToList();
-
-            for (int i = 0; i < goldL2.Count; i++)
-            {
-                Player.onlinePlayers.TryGetValue(goldL2[i].userToReturn, out Player seller);
-                if (seller)
-                {
-                    seller.gold += goldL2[i].goldToReturn;
-                    goldL2.RemoveAt(i);
-                }
-            }
-            auctionHouse.itemToRestituite.Add(auctionHouse.actualInBid[index]);
-            auctionHouse.actualInBid.Remove(auctionHouse.actualInBid[index]);
-        }
-    }
-
-    [Command]
-    public void CmdBidoutItem(int index)
-    {
-        AuctionHouse auctionHouse = target.GetComponent<AuctionHouse>();
-        if (!auctionHouse) return;
-        if (index > auctionHouse.actualInBid.Count) return;
-
-        if (auctionHouse.actualInBid[index].alreadyBidded) return;
-
-        AuctionItem item = auctionHouse.actualInBid[index];
-
-        List<GoldToReturn> goldL = item.userThatBidThisObject.ToList();
-
-
-        for (int i = 0; i < goldL.Count; i++)
-        {
-            Player.onlinePlayers.TryGetValue(goldL[i].userToReturn, out Player seller);
-            if (seller)
-            {
-                seller.gold += goldL[i].goldToReturn;
-                goldL.RemoveAt(i);
-            }
-        }
-        GoldToReturn itemGold = new GoldToReturn();
-        itemGold.goldToReturn = auctionHouse.actualInBid[index].buyNowBid;
-        itemGold.userToReturn = name;
-
-        goldL.Add(itemGold);
-        item.remainingEstimateTime = 0;
-        item.alreadyBidded = true;
-        item.userThatBidThisObject = goldL.ToArray();
-        auctionHouse.actualInBid[index] = item;
-    }
-
-    #endregion
-
-    #region Level up Player
-
-    private bool justInstantiate = true;
-
-    public void Start_LevelUp()
-    {
-        Invoke("ActiveLeveling", 5.0f);
-    }
-
-    public void ActiveLeveling()
-    {
-        justInstantiate = false;
-        CancelInvoke("ActiveLeveling");
-    }
-
-    public void OnLevelUp_Player()
-    {
-        if ((isServer || isClient) && !justInstantiate)
-        {
-            levelUp.GetComponent<ParticleSystem>().Play();
-            ParticleSystem[] particleSystems;
-            particleSystems = GetComponentsInChildren<ParticleSystem>();
-            foreach (ParticleSystem particleSystem in particleSystems)
-            {
-                particleSystem.Play();
-            }
-            UIPortrait.singleton.RefreshLevel();
-        }
-    }
-
-
-    #endregion
-
-    [Command]
-    public void CmdAddCoin(int desiredCoins)
-    {
-        coins += desiredCoins;
-    }
 
     public void SpawnFriendObject(string message)
     {
@@ -8142,7 +7522,6 @@ public partial class Player : Entity
             }
         }
     }
-
-
+    #endregion
     #endregion
 }

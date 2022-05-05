@@ -32,6 +32,7 @@ public class PotionItem : UsableItem
         ItemSlot slot = player.inventory[inventoryIndex];
         slot.DecreaseAmount(1);
         player.inventory[inventoryIndex] = slot;
+        player.playerInjury.injured = player.HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc;
     }
 
     public override void UseBelt(Player player, int inventoryIndex)
@@ -52,6 +53,7 @@ public class PotionItem : UsableItem
         ItemSlot slot = player.playerBelt.belt[inventoryIndex];
         slot.DecreaseAmount(1);
         player.playerBelt.belt[inventoryIndex] = slot;
+        player.playerInjury.injured = player.HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc;
     }
 
 
