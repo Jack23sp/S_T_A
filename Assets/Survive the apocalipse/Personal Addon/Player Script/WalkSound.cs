@@ -7,12 +7,7 @@ public class WalkSound : MonoBehaviour
 {
     public Player player;
     public AudioSource audioSource;
-    public AudioClip sneakSound;
-    public AudioClip walkSound;
-    public AudioClip runSound;
-    public AudioClip sneakSoundHome;
-    public AudioClip walkSoundHome;
-    public AudioClip runSoundHome;
+
 
     public void Awake()
     {
@@ -31,20 +26,20 @@ public class WalkSound : MonoBehaviour
                 {
                     if (player.playerMove.sneak)
                     {
-                        audioSource.volume = 0.05f;
-                        audioSource.clip = sneakSound;
+                        audioSource.volume = SoundManager.singleton.clipVolumeSneak;
+                        audioSource.clip = SoundManager.singleton.sneakSound;
                         audioSource.PlayOneShot(audioSource.clip);
                     }
                     else if (!player.playerMove.sneak && !player.playerMove.run)
                     {
-                        audioSource.volume = 0.05f;
-                        audioSource.clip = walkSound;
+                        audioSource.volume = SoundManager.singleton.clipVolumeWalk;
+                        audioSource.clip = SoundManager.singleton.walkSound;
                         audioSource.PlayOneShot(audioSource.clip);
                     }
                     else if (player.playerMove.run)
                     {
-                        audioSource.volume = 0.05f;
-                        audioSource.clip = runSound;
+                        audioSource.volume = SoundManager.singleton.clipVolumeRun;
+                        audioSource.clip = SoundManager.singleton.runSound;
                         audioSource.PlayOneShot(audioSource.clip);
                     }
                 }
@@ -52,20 +47,20 @@ public class WalkSound : MonoBehaviour
                 {
                     if (player.playerMove.sneak)
                     {
-                        audioSource.volume = 0.05f;
-                        audioSource.clip = sneakSoundHome;
+                        audioSource.volume = SoundManager.singleton.clipVolumeSneak;
+                        audioSource.clip = SoundManager.singleton.sneakSoundHome;
                         audioSource.PlayOneShot(audioSource.clip);
                     }
                     else if (!player.playerMove.sneak && !player.playerMove.run)
                     {
-                        audioSource.volume = 0.05f;
-                        audioSource.clip = walkSoundHome;
+                        audioSource.volume = SoundManager.singleton.clipVolumeWalk;
+                        audioSource.clip = SoundManager.singleton.walkSoundHome;
                         audioSource.PlayOneShot(audioSource.clip);
                     }
                     else if (player.playerMove.run)
                     {
-                        audioSource.volume = 0.05f;
-                        audioSource.clip = runSoundHome;
+                        audioSource.volume = SoundManager.singleton.clipVolumeRun;
+                        audioSource.clip = SoundManager.singleton.runSoundHome;
                         audioSource.PlayOneShot(audioSource.clip);
                     }
                 }

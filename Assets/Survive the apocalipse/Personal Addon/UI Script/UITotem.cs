@@ -7,7 +7,6 @@ using TMPro;
 
 public class UITotem : MonoBehaviour
 {
-    public TextMeshProUGUI titleText;
     public TextMeshProUGUI bodyMessage;
     public TMP_InputField inputFieldMessage;
     public Button setMessageButton;
@@ -39,15 +38,6 @@ public class UITotem : MonoBehaviour
             player.CmdSetMessage(inputFieldMessage.text);
             inputFieldMessage.text = string.Empty;
         });
-
-        if (totem.GetComponent<Building>().buildingName != string.Empty)
-        {
-            titleText.text = totem.GetComponent<Building>().buildingName;
-        }
-        else
-        {
-            titleText.text = totem.GetComponent<Building>().building.name;
-        }
 
         if (totem.GetComponent<Building>().isPremiumZone)
         {

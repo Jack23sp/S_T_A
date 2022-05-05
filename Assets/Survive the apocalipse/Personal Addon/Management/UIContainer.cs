@@ -8,7 +8,7 @@ using System;
 using System.Linq;
 using Michsky.UI.ModernUIPack;
 using TMPro;
-using AdvancedCustomizableSystem;
+using AdvancedPeopleSystem;
 
 public partial class UITarget
 {
@@ -175,40 +175,6 @@ public partial class UIChatManager : MonoBehaviour
     {
         chat = GetComponent<UIChat>();
         if (!singleton) singleton = this;
-    }
-
-    public void CheckActivation()
-    {
-        infoChatMain.transform.GetChild(1).gameObject.SetActive(player.chat.infoMessage > 0);
-        localChatMain.transform.GetChild(1).gameObject.SetActive(player.chat.localMessage > 0);
-        whisperChatMain.transform.GetChild(1).gameObject.SetActive(player.chat.whisperMessage > 0);
-        partyChatMain.transform.GetChild(1).gameObject.SetActive(player.chat.partyMessage > 0);
-        groupChatMain.transform.GetChild(1).gameObject.SetActive(player.chat.guildMessage > 0);
-        allianceChatMain.transform.GetChild(1).gameObject.SetActive(player.chat.allyMessage > 0);
-
-        infoChatText.text = player.chat.infoMessage.ToString();
-        localChatText.text = player.chat.localMessage.ToString();
-        whisperChatText.text = player.chat.whisperMessage.ToString();
-        partyChatText.text = player.chat.partyMessage.ToString();
-        groupChatText.text = player.chat.guildMessage.ToString();
-        allianceChatText.text = player.chat.allyMessage.ToString();
-
-        infoBubbleText.text = player.chat.infoMessage.ToString();
-        localBubbleText.text = player.chat.localMessage.ToString();
-        whisperBubbleText.text = player.chat.whisperMessage.ToString();
-        partyBubbleText.text = player.chat.partyMessage.ToString();
-        groupBubbleText.text = player.chat.guildMessage.ToString();
-        allianceBubbleText.text = player.chat.allyMessage.ToString();
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!player) player = Player.localPlayer;
-        if (!player) return;
-
-        CheckActivation();
 
         infoBubble.onClick.SetListener(() =>
         {
@@ -217,7 +183,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //infoChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "info";
             anim.SetBool("OPEN", !anim.GetBool("OPEN"));
             player.chat.infoMessage = 0;
@@ -230,7 +195,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //localChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "local";
             anim.SetBool("OPEN", !anim.GetBool("OPEN"));
             selectedCategory = "local";
@@ -244,7 +208,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //whisperChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "whisper";
             anim.SetBool("OPEN", !anim.GetBool("OPEN"));
             selectedCategory = "whisper";
@@ -258,7 +221,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //partyChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "party";
             anim.SetBool("OPEN", !anim.GetBool("OPEN"));
             selectedCategory = "party";
@@ -272,7 +234,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //groupChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "group";
             anim.SetBool("OPEN", !anim.GetBool("OPEN"));
             selectedCategory = "group";
@@ -285,7 +246,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //allianceChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "alliance";
             anim.SetBool("OPEN", !anim.GetBool("OPEN"));
             selectedCategory = "alliance";
@@ -301,7 +261,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //infoChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "info";
             player.chat.infoMessage = 0;
         });
@@ -312,7 +271,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //localChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "local";
             selectedCategory = "local";
             player.chat.localMessage = 0;
@@ -324,7 +282,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //whisperChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "whisper";
             selectedCategory = "whisper";
             player.chat.whisperMessage = 0;
@@ -336,7 +293,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //partyChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "party";
             selectedCategory = "party";
             player.chat.partyMessage = 0;
@@ -348,7 +304,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //groupChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "group";
             selectedCategory = "group";
             player.chat.guildMessage = 0;
@@ -360,7 +315,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //allianceChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "alliance";
             selectedCategory = "alliance";
             player.chat.allyMessage = 0;
@@ -374,6 +328,41 @@ public partial class UIChatManager : MonoBehaviour
             lastSelected = "";
         });
 
+        InvokeRepeating(nameof(CheckActivation), 1.0f, 1.0f);
+    }
+
+    public void CheckActivation()
+    {
+        if (Player.localPlayer)
+        {
+            infoChatMain.transform.GetChild(1).gameObject.SetActive(player.chat.infoMessage > 0);
+            localChatMain.transform.GetChild(1).gameObject.SetActive(player.chat.localMessage > 0);
+            whisperChatMain.transform.GetChild(1).gameObject.SetActive(player.chat.whisperMessage > 0);
+            partyChatMain.transform.GetChild(1).gameObject.SetActive(player.chat.partyMessage > 0);
+            groupChatMain.transform.GetChild(1).gameObject.SetActive(player.chat.guildMessage > 0);
+            allianceChatMain.transform.GetChild(1).gameObject.SetActive(player.chat.allyMessage > 0);
+
+            infoChatText.text = player.chat.infoMessage.ToString();
+            localChatText.text = player.chat.localMessage.ToString();
+            whisperChatText.text = player.chat.whisperMessage.ToString();
+            partyChatText.text = player.chat.partyMessage.ToString();
+            groupChatText.text = player.chat.guildMessage.ToString();
+            allianceChatText.text = player.chat.allyMessage.ToString();
+
+            infoBubbleText.text = player.chat.infoMessage.ToString();
+            localBubbleText.text = player.chat.localMessage.ToString();
+            whisperBubbleText.text = player.chat.whisperMessage.ToString();
+            partyBubbleText.text = player.chat.partyMessage.ToString();
+            groupBubbleText.text = player.chat.guildMessage.ToString();
+            allianceBubbleText.text = player.chat.allyMessage.ToString();
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!player) player = Player.localPlayer;
+        if (!player) return;
 
         if (lastSelected == "info")
         {
@@ -382,7 +371,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //infoChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "info";
             player.chat.infoMessage = 0;
         }
@@ -393,7 +381,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //localChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "local";
             selectedCategory = "local";
             player.chat.localMessage = 0;
@@ -405,7 +392,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //whisperChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "whisper";
             selectedCategory = "whisper";
             player.chat.whisperMessage = 0;
@@ -417,7 +403,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //partyChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "party";
             selectedCategory = "party";
             player.chat.partyMessage = 0;
@@ -429,7 +414,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //groupChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "group";
             selectedCategory = "group";
             player.chat.guildMessage = 0;
@@ -441,7 +425,6 @@ public partial class UIChatManager : MonoBehaviour
             {
                 chat.AddMessage(c);
             }
-            //allianceChatMain.transform.GetChild(1).gameObject.SetActive(false);
             lastSelected = "alliance";
             selectedCategory = "alliance";
             player.chat.allyMessage = 0;
@@ -1435,18 +1418,9 @@ public partial class UIAttackManager
     void Start()
     {
         if (!singleton) singleton = this;
-    }
 
-    void Update()
-    {
         if (!player) player = Player.localPlayer;
         if (!player) return;
-
-        badgeButton.transform.parent.gameObject.SetActive(player);
-
-        if (player.target != null) target = player.target;
-        else
-            target = null;
 
         runButton.onClick.SetListener(() =>
         {
@@ -1526,6 +1500,20 @@ public partial class UIAttackManager
             Instantiate(GeneralManager.singleton.modularBuildingManager, GeneralManager.singleton.canvas);
         });
 
+        InvokeRepeating(nameof(ManageButton), 0.0f, 1.0f);
+    }
+
+    void Update()
+    {
+        badgeButton.transform.parent.gameObject.SetActive(player);
+
+        if (player.target != null) target = player.target;
+        else
+            target = null;
+    }
+
+    public void ManageButton()
+    {
         badgeButton.interactable = NetworkTime.time >= player.nextRiskyActionTime;
         carManager.SetActive(player.playerCar._car != null);
         ammoPanel.SetActive(!player.playerBuilding.building && !player.playerCar.car);
@@ -1630,81 +1618,6 @@ public partial class UISelectedAmmo : MonoBehaviour
             UIAttackManager.singleton.ammoItem = null;
         }
 
-    }
-}
-
-public partial class UIPremiumZone
-{
-    private Player player;
-    public Button teleportToPremiumZone;
-    public Button ticketPremiumZone;
-
-    TimeSpan difference;
-    long seconds = 0;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        InvokeRepeating(nameof(CheckSeconds), 2.0f, 2.0f);
-    }
-
-    public void CheckSeconds()
-    {
-        if (!player) player = Player.localPlayer;
-        if (!player) return;
-
-        seconds = 0;
-        if (player.playerBoost.networkBoost.Count > 0)
-        {
-            if (!string.IsNullOrEmpty(player.playerBoost.networkBoost[0].hiddenIslandTimer))
-            {
-                difference = DateTime.Parse(player.playerBoost.networkBoost[0].hiddenIslandTimer.ToString()) - DateTime.Now;
-                seconds = Convert.ToInt64(difference.TotalSeconds);
-            }
-            else
-                seconds = 0;
-        }
-    }
-
-    void Update()
-    {
-        if (!player) player = Player.localPlayer;
-        if (!player) return;
-
-        teleportToPremiumZone.onClick.SetListener(() =>
-        {
-            if (LoadingScreen.singleton.canTeleport)
-            {
-                if (player.playerPremiumZoneManager.inPremiumZone && player.playerCar._car != null) return;
-
-                if (!player.playerPremiumZoneManager.inPremiumZone)
-                {
-                    if (Convert.ToInt32(difference.TotalSeconds) > 0)
-                    {
-                        LoadingScreen.singleton.animation.Play("LoadingPremium");
-                    }
-                }
-                else
-                {
-                    LoadingScreen.singleton.animation.Play("LoadingPremium");
-                }
-
-            }
-        });
-        ticketPremiumZone.onClick.SetListener(() =>
-        {
-            UINotificationManager.singleton.SpawnPremiumObject();
-        });
-
-
-        ticketPremiumZone.gameObject.SetActive(player && player.playerBoost.networkBoost.Count > 0 && seconds > 0);
-        ticketPremiumZone.image.sprite = GeneralManager.singleton.ticketImage;
-        teleportToPremiumZone.gameObject.SetActive(player && player.playerBoost.networkBoost.Count > 0 && seconds > 0);
-    }
-
-    public void CallTeleport()
-    {
-        player.playerPremiumZoneManager.CmdMoveToPremiumZone(GeneralManager.singleton.premiumZoneSpawn.position);
     }
 }
 
@@ -2669,8 +2582,8 @@ public partial class UIFriends
 
         if (player.playerCreation.sex == 0)
         {
-            characterCustomization.SetHairByIndex(player.playerCreation.hairType);
-            characterCustomization.SetBeardByIndex(player.playerCreation.beard);
+            characterCustomization.SetElementByIndex(CharacterElementType.Hair, player.playerCreation.hairType);
+            characterCustomization.SetElementByIndex(CharacterElementType.Beard, player.playerCreation.beard);
             Color newCol;
             if (ColorUtility.TryParseHtmlString(player.playerCreation.hairColor, out newCol))
                 characterCustomization.SetBodyColor(BodyColorPart.Hair, newCol);
@@ -2680,13 +2593,13 @@ public partial class UIFriends
                 characterCustomization.SetBodyColor(BodyColorPart.Eye, newCol);
             if (ColorUtility.TryParseHtmlString(player.playerCreation.skinColor, out newCol))
                 characterCustomization.SetBodyColor(BodyColorPart.Skin, newCol);
-            characterCustomization.SetBodyShape(BodyShapeType.Fat, player.playerCreation.fat);
-            characterCustomization.SetBodyShape(BodyShapeType.Thin, player.playerCreation.thin);
-            characterCustomization.SetBodyShape(BodyShapeType.Muscles, player.playerCreation.muscle);
+            characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Fat, player.playerCreation.fat);
+            characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Thin, player.playerCreation.thin);
+            characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Muscles, player.playerCreation.muscle);
 
             manager.DressSelectablePlayer(player, characterCustomization);
 
-            characterCustomization.SetBodyShape(BodyShapeType.BreastSize, player.playerCreation.breast);
+            characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.BreastSize, player.playerCreation.breast);
 
 
             characterCustomization.SetHeight(player.playerCreation.height);
@@ -2694,8 +2607,8 @@ public partial class UIFriends
         }
         else
         {
-            characterCustomization.SetHairByIndex(player.playerCreation.hairType);
-            characterCustomization.SetBeardByIndex(player.playerCreation.beard);
+            characterCustomization.SetElementByIndex(CharacterElementType.Hair, player.playerCreation.hairType);
+            characterCustomization.SetElementByIndex(CharacterElementType.Beard, player.playerCreation.beard);
             Color newCol;
             if (ColorUtility.TryParseHtmlString(player.playerCreation.hairColor, out newCol))
                 characterCustomization.SetBodyColor(BodyColorPart.Hair, newCol);
@@ -2705,14 +2618,13 @@ public partial class UIFriends
                 characterCustomization.SetBodyColor(BodyColorPart.Eye, newCol);
             if (ColorUtility.TryParseHtmlString(player.playerCreation.skinColor, out newCol))
                 characterCustomization.SetBodyColor(BodyColorPart.Skin, newCol);
-            characterCustomization.SetBodyShape(BodyShapeType.Fat, player.playerCreation.fat);
-            characterCustomization.SetBodyShape(BodyShapeType.Thin, player.playerCreation.thin);
-            characterCustomization.SetBodyShape(BodyShapeType.Muscles, player.playerCreation.muscle);
+            characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Fat, player.playerCreation.fat);
+            characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Thin, player.playerCreation.thin);
+            characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Muscles, player.playerCreation.muscle);
 
             manager.DressSelectablePlayer(player, characterCustomization);
 
-            characterCustomization.SetBodyShape(BodyShapeType.BreastSize, player.playerCreation.breast);
-
+            characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.BreastSize, player.playerCreation.breast);
 
             characterCustomization.SetHeight(player.playerCreation.height);
         }
@@ -3193,12 +3105,8 @@ public partial class UICraftInProgress
             runtimeItem.timeEndServer = buildingCraft.craftItem[index].timeEndServer;
             player.playerLeaderPoints.craftItemPoint += GeneralManager.singleton.craftItemPoint;
 
-            Debug.Log("Item name : " + runtimeItem.itemName + " difference seconds : " + difference.TotalSeconds);
-            Debug.Log("Time end : " + buildingCraft.craftItem[index].timeEnd);
-
             if (difference.TotalSeconds > 0)
             {
-
                 progressItem.Add(runtimeItem);
             }
             else
@@ -7787,7 +7695,6 @@ public partial class UITargetPanel : MonoBehaviour
     public Button RenameBuilding;
     public Button RepairBuilding;
     public Button ClaimBuilding;
-    public Button CutBuilding;
 
     public GameObject monsterHealthPanel;
     public Image monsterHealth;
@@ -7806,11 +7713,8 @@ public partial class UITargetPanel : MonoBehaviour
 
     public Entity target;
 
-    void Update()
+    public void Start()
     {
-        if (!player) player = Player.localPlayer;
-        if (!player) return;
-
         UpgradeBuilding.onClick.SetListener(() =>
         {
             GameObject g = Instantiate(GeneralManager.singleton.buildingManagerPanel, GeneralManager.singleton.canvas);
@@ -7839,12 +7743,6 @@ public partial class UITargetPanel : MonoBehaviour
             g.GetComponent<UIBuildingManager>().ClaimPanel.SetActive(true);
         });
 
-        CutBuilding.onClick.SetListener(() =>
-        {
-            GameObject g = Instantiate(GeneralManager.singleton.buildingManagerPanel, GeneralManager.singleton.canvas);
-            g.GetComponent<UIBuildingManager>().titleText.text = "Cut Wait Time";
-            g.GetComponent<UIBuildingManager>().CutPanel.SetActive(true);
-        });
 
         petAttack.onClick.SetListener(() =>
         {
@@ -7860,6 +7758,14 @@ public partial class UITargetPanel : MonoBehaviour
         {
             if (player.CanUnsummonPet()) player.CmdPetUnsummon();
         });
+
+        InvokeRepeating(nameof(ManageTargetPanel), 0.0f, 1.5f);
+    }
+
+    void ManageTargetPanel()
+    {
+        if (!player) player = Player.localPlayer;
+        if (!player) return;
 
 
         target = player.target;
@@ -8022,12 +7928,6 @@ public partial class UITargetPanel : MonoBehaviour
                                          ((Building)target).building.goldToClaim > 0) &&
                                          (((Building)target).owner != string.Empty || ((Building)target).guild != string.Empty);
 
-            CutBuilding.interactable = target && ((Building)target).level <= 50 &&
-                                       GeneralManager.singleton.CanDoOtherActionBuilding(((Building)target), player) &&
-                                       (((Building)target).building.coinToHalve > 0 ||
-                                       ((Building)target).building.goldToHalve > 0) &&
-                                       (((Building)target).owner != string.Empty || ((Building)target).guild != string.Empty);
-
             buildingHealth.fillAmount = target.HealthPercent();
         }
 
@@ -8057,7 +7957,6 @@ public partial class UIBuildingManager
     public GameObject RepairPanel;
     public GameObject ClaimPanel;
     public GameObject RenamePanel;
-    public GameObject CutPanel;
 
     [Header("Upgrade Stuff")]
     public TextMeshProUGUI upgradeText;
@@ -8074,17 +7973,11 @@ public partial class UIBuildingManager
     public Transform claimContent;
     public Button claimButton;
 
-    [Header("Rename Stuff")]
-    public TextMeshProUGUI renameText;
-    public InputField renameTextbox;
-    public Button renameButton;
-
     public Button closeButton;
 
     private List<string> upgradeMessage = new List<string>();
     private List<string> repairMessage = new List<string>();
     private List<string> claimMessage = new List<string>();
-    private List<string> cutMessage = new List<string>();
 
     private Player player;
 
@@ -8128,11 +8021,6 @@ public partial class UIBuildingManager
                                        player.CanInteractBuildingTarget(player.target.GetComponent<Building>(), player) == false &&
                                        player.playerAbility.networkAbilities[GeneralManager.singleton.FindNetworkAbility(player.target.GetComponent<Building>().building.abilityToClaim.name, player.name)].level >= player.target.level;
         }
-        if (RenamePanel.activeInHierarchy)
-        {
-            renameText.text = "Insert here the new name that you want to do at this building";
-            renameButton.interactable = renameTextbox.text != string.Empty && renameTextbox.text != player.target.GetComponent<Building>().building.name && renameTextbox.text != player.target.GetComponent<Building>().buildingName;
-        }
 
         closeButton.onClick.SetListener(() =>
         {
@@ -8152,11 +8040,6 @@ public partial class UIBuildingManager
         claimButton.onClick.SetListener(() =>
         {
             player.CmdClaimBuilding();
-        });
-
-        renameButton.onClick.SetListener(() =>
-        {
-            player.CmdRenameBuilding(renameTextbox.text);
         });
     }
 

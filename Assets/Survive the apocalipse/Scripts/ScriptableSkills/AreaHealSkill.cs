@@ -54,6 +54,7 @@ public class AreaHealSkill : HealSkill
         {
             candidate.health += healsHealth.Get(skillLevel);
             candidate.mana += healsMana.Get(skillLevel);
+            if(candidate is Player) ((Player)candidate).playerInjury.injured = candidate.HealthPercent() <= GeneralManager.singleton.activeMarriageBonusPerc;
 
             // show effect on candidate
             SpawnEffect(caster, candidate);

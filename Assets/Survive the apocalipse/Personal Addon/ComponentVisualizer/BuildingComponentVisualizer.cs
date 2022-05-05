@@ -15,7 +15,6 @@ public class BuildingComponentVisualizer : ComponentVisualizer
     public Building building;
     public Entity entity;
     public GameObject teslaDamageObject;
-    public Tesla tesla;
     public Flag flag;
     public NavMeshObstacle2D navMeshObstacle2D;
     public SnowShaderVisualizer snowShaderVisualizer;
@@ -36,7 +35,6 @@ public class BuildingComponentVisualizer : ComponentVisualizer
         if (!audioSource) audioSource = GetComponent<AudioSource>();
         if (!boxCollider) boxCollider = GetComponent<Collider2D>();
         if (!rigidbody2D) rigidbody2D = GetComponent<Rigidbody2D>();
-        //if (!snowShaderVisualizer) snowShaderVisualizer = GetComponent<SnowShaderVisualizer>();
         if (!animator) animator = GetComponent<Animator>();
         if (!navMeshObstacle2D) navMeshObstacle2D = GetComponent<NavMeshObstacle2D>();
         if (!flag) flag = GetComponent<Flag>();
@@ -54,7 +52,6 @@ public class BuildingComponentVisualizer : ComponentVisualizer
             if (audioSource && audioSource.enabled) audioSource.enabled = false;
             if (boxCollider && boxCollider.enabled) boxCollider.enabled = false;
             if (rigidbody2D) Destroy(rigidbody2D);
-            //if (snowShaderVisualizer && snowShaderVisualizer.enabled) snowShaderVisualizer.enabled = false;
             if (hasAnimator && animator && animator.enabled) animator.enabled = false;
             if (navMeshObstacle2D && navMeshObstacle2D.enabled)
             {
@@ -72,8 +69,6 @@ public class BuildingComponentVisualizer : ComponentVisualizer
         //if (!isServer) Destroy(this);
         if (identity.observers.Count > 0)
         {
-            if (((building.isServer && building.isClient)) && tesla) teslaDamageObject.SetActive(true);
-            else if (building.isServer && tesla) teslaDamageObject.SetActive(false);
             if (building && !building.enabled) building.enabled = true;
             if (sortByDepth && !sortByDepth.enabled) sortByDepth.enabled = true;
             if (audioSource && !audioSource.enabled) audioSource.enabled = true;
@@ -86,7 +81,6 @@ public class BuildingComponentVisualizer : ComponentVisualizer
                 rigid2D.simulated = true;
                 rigidbody2D = rigid2D;
             }
-            //if (snowShaderVisualizer && !snowShaderVisualizer.enabled) snowShaderVisualizer.enabled = true;
             if (navMeshObstacle2D && !navMeshObstacle2D.enabled)
             {
                 if (navMeshObstacle2D.go) navMeshObstacle2D.go.SetActive(true);

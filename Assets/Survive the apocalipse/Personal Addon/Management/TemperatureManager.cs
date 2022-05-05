@@ -156,10 +156,6 @@ public class TemperatureManager : NetworkBehaviour
 
     private Color color;
 
-    public SpriteRenderer groundSprite;
-    //public Tilemap grassTilemap;
-    //public Tilemap bushTilemap;
-
     public string weather;
 
     public float timeBetweenWeatherChange = 360.0f;
@@ -756,18 +752,6 @@ public class TemperatureManager : NetworkBehaviour
             colorSync = ColorUtility.ToHtmlStringRGBA(desiredColor);
             ambientColorSync = ColorUtility.ToHtmlStringRGBA(desiredDecorationColor);
         }
-
-        if (ColorUtility.TryParseHtmlString("#" + TemperatureManager.singleton.ambientColorSync, out color))
-        {
-            if (season != winter)
-            {
-                groundSprite.color = color;
-            }
-            //bushTilemap.color = color;
-            //grassTilemap.color = color;
-        }
-
-
     }
 
     public void SeasonColor()

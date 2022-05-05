@@ -15,13 +15,11 @@ public class BuildingManager : NetworkBehaviour
     public List<Campfire> campfires = new List<Campfire>();//
     public List<CultivableField> cultivableFields = new List<CultivableField>();
     public List<Dynamite> dynamites = new List<Dynamite>();//
-    public List<GasStation> gasStations = new List<GasStation>();//
     public List<Warehouse> personalWarehouses = new List<Warehouse>();//
     public List<Warehouse> groupWarehouses = new List<Warehouse>();//
     public List<Mine> mines = new List<Mine>();//
     public List<WoodWall> woodWalls = new List<WoodWall>();//
     public List<Barbwire> barbWires = new List<Barbwire>();//
-    public List<Tesla> teslas = new List<Tesla>();//
     public List<Totem> totems = new List<Totem>();//
     public List<BuildingUpgradeRepair> upgradeRepair = new List<BuildingUpgradeRepair>();//
     public List<BuildingWaterWell> waterWells = new List<BuildingWaterWell>();//
@@ -40,13 +38,11 @@ public class BuildingManager : NetworkBehaviour
     public GameObject campfiresObject;
     public GameObject cultivableFieldsObject;
     public GameObject dynamitesObject;
-    public GameObject gasStationsObject;
     public GameObject personalWarehousesObject;
     public GameObject groupWarehousesObject;
     public GameObject minesObject;
     public List<GameObject> woodWallsObject = new List<GameObject>();
     public List<GameObject> barbwiresObject = new List<GameObject>();
-    public GameObject teslasObject;
     public GameObject totemsObject;
     public GameObject upgradeRepairObject;
     public GameObject waterWellsObject;
@@ -226,13 +222,6 @@ public class BuildingManager : NetworkBehaviour
                 dynamites.Add(building.GetComponent<Dynamite>());
             }
         }
-        if (building.GetComponent<GasStation>())
-        {
-            if (!gasStations.Contains(building.GetComponent<GasStation>()))
-            {
-                gasStations.Add(building.GetComponent<GasStation>());
-            }
-        }
         if (building.GetComponent<Warehouse>())
         {
             if (!personalWarehouses.Contains(building.GetComponent<Warehouse>()) && building.GetComponent<Warehouse>().personal)
@@ -266,13 +255,6 @@ public class BuildingManager : NetworkBehaviour
             if (!barbWires.Contains(building.GetComponent<Barbwire>()))
             {
                 barbWires.Add(building.GetComponent<Barbwire>());
-            }
-        }
-        if (building.GetComponent<Tesla>())
-        {
-            if (!teslas.Contains(building.GetComponent<Tesla>()))
-            {
-                teslas.Add(building.GetComponent<Tesla>());
             }
         }
         if (building.GetComponent<Totem>())
@@ -392,13 +374,6 @@ public class BuildingManager : NetworkBehaviour
                 dynamites.Remove(building.GetComponent<Dynamite>());
             }
         }
-        if (building.GetComponent<GasStation>())
-        {
-            if (gasStations.Contains(building.GetComponent<GasStation>()))
-            {
-                gasStations.Remove(building.GetComponent<GasStation>());
-            }
-        }
         if (building.GetComponent<Warehouse>())
         {
             if (personalWarehouses.Contains(building.GetComponent<Warehouse>()) && building.GetComponent<Warehouse>().personal)
@@ -432,13 +407,6 @@ public class BuildingManager : NetworkBehaviour
             if (barbWires.Contains(building.GetComponent<Barbwire>()))
             {
                 barbWires.Remove(building.GetComponent<Barbwire>());
-            }
-        }
-        if (building.GetComponent<Tesla>())
-        {
-            if (teslas.Contains(building.GetComponent<Tesla>()))
-            {
-                teslas.Remove(building.GetComponent<Tesla>());
             }
         }
         if (building.GetComponent<Totem>())
@@ -525,8 +493,6 @@ public class BuildingManager : NetworkBehaviour
 
         dynamites = dynamites.Where(item => item != null).ToList();
 
-        gasStations = gasStations.Where(item => item != null).ToList();
-
         personalWarehouses = personalWarehouses.Where(item => item != null).ToList();
 
         groupWarehouses = groupWarehouses.Where(item => item != null).ToList();
@@ -536,8 +502,6 @@ public class BuildingManager : NetworkBehaviour
         woodWalls = woodWalls.Where(item => item != null).ToList();
 
         barbWires = barbWires.Where(item => item != null).ToList();
-
-        teslas = teslas.Where(item => item != null).ToList();
 
         totems = totems.Where(item => item != null).ToList();
 

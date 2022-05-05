@@ -112,6 +112,7 @@ public class ModularBuildingManager : NetworkBehaviour
             for (int i = 0; i < hit.Length; i++)
             {
                 int index = i;
+                Debug.Log("Hit collider : " + hit[index].collider.gameObject); 
 
                 if (hit[index].collider.CompareTag("Roof"))
                 {

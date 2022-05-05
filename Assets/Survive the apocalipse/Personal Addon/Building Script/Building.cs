@@ -11,7 +11,6 @@ public class Building : Entity
     private Transform buildingTransform;
     public ScriptableBuilding building;
 
-    [SyncVar] public string buildingName;
     [SyncVar] public int countdown;
 
     [Header("Appartain part")]
@@ -41,34 +40,6 @@ public class Building : Entity
 
     [SyncVar]
     public int floorIndex;
-
-    public void ManageObstacleObject()
-    {
-        List<GameObject> childObjects = new List<GameObject>();
-        childObjects.Add(transform.GetChild(1).gameObject);
-        childObjects.Add(transform.GetChild(2).gameObject);
-        childObjects.Add(transform.GetChild(3).gameObject);
-        childObjects.Add(transform.GetChild(4).gameObject);
-        for (int i = 0; i < childObjects.Count; i++)
-        {
-            int index = i;
-            NavMeshObstacle2D[] navMeshObstacle2Ds = childObjects[index].GetComponents<NavMeshObstacle2D>();
-            if (childObjects[index].activeInHierarchy == true)
-            {
-                for (int e = 0; e < navMeshObstacle2Ds.Length; e++)
-                {
-                    navMeshObstacle2Ds[e].OnEnable();
-                }
-            }
-            else
-            {
-                for (int e = 0; e < navMeshObstacle2Ds.Length; e++)
-                {
-                    navMeshObstacle2Ds[e].OnDisable();
-                }
-            }
-        }
-    }
 
     public override void Start()
     {
@@ -130,14 +101,6 @@ public class Building : Entity
         {
             SetColor();
             Invoke(nameof(ManageBuilding), 0.3f);
-        }
-    }
-
-    public void DecreaseCountdown()
-    {
-        if (countdown > 0)
-        {
-            countdown--;
         }
     }
 

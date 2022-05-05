@@ -775,7 +775,6 @@ GameObject:
   - component: {fileID: -1658948284500890199}
   - component: {fileID: 3426365113952666381}
   - component: {fileID: 5919658303879274}
-  - component: {fileID: 2263239549454305647}
   - component: {fileID: 6197787422808157012}
   m_Layer: 9
   m_Name: Female
@@ -991,7 +990,7 @@ MonoBehaviour:
   _angularSpeed: 120
   _acceleration: 1000
   _stoppingDistance: 0
-  _autoBraking: 1
+  _autoBraking: 0
   _radius: 0.15
   _quality: 0
   _priority: 50
@@ -1382,7 +1381,6 @@ MonoBehaviour:
   playerQuest: {fileID: 1106094989229453196}
   playerDance: {fileID: 3426365113952666381}
   playerInjury: {fileID: 5919658303879274}
-  playerRaycast: {fileID: 2263239549454305647}
   playerPlant: {fileID: 6197787422808157012}
   joystick: {fileID: 0}
   useJoystick: 1
@@ -1585,7 +1583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 2
   player: {fileID: 114732280623991920}
   abilities: []
 --- !u!114 &4483776457044975274
@@ -1620,7 +1618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 2
   player: {fileID: 114732280623991920}
   abilityToLead: {fileID: 11400000, guid: 3a2f1d40bdf4d5a4fa3aa31d3c772424, type: 2}
 --- !u!114 &3476865291179283437
@@ -1652,7 +1650,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 2
   player: {fileID: 114732280623991920}
   cycleAmount: 0
 --- !u!114 &8734232081262218951
@@ -1696,7 +1694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 2
   player: {fileID: 114732280623991920}
   decreaseBloodTimer: 0
   currentBlood: 0
@@ -1713,7 +1711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 2
   player: {fileID: 114732280623991920}
   pilotPlayerClient: {fileID: 0}
   _car: {fileID: 0}
@@ -1748,7 +1746,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 2
   player: {fileID: 114732280623991920}
 --- !u!114 &8353328346121199074
 MonoBehaviour:
@@ -1813,7 +1811,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 2
   player: {fileID: 114732280623991920}
 --- !u!114 &8537468523637903921
 MonoBehaviour:
@@ -1828,7 +1826,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 2
   player: {fileID: 114732280623991920}
   maxHungry: 100
   currentHungry: 10
@@ -1925,7 +1923,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 2
   player: {fileID: 114732280623991920}
   monsterKill: 1
   bossKill: 2
@@ -1956,18 +1954,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 2
   player: {fileID: 114732280623991920}
   inviter: 
   partnerName: 
   _partner: {fileID: 0}
-  healthBonus: 0
-  defenseBonus: 0
-  manaBonus: 0
   defaultHealth: 0
   defaultDefense: 0
   defaultMana: 0
-  addBonus: 0
 --- !u!114 &6074729006443944294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2019,7 +2013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.2
+  syncInterval: 0.05
   player: {fileID: 114732280623991920}
   sneak: 0
   run: 0
@@ -2048,6 +2042,8 @@ MonoBehaviour:
   fornitureSorted: []
   fornitureClient: {fileID: 0}
   positioningVector: {x: 7.960999, y: -1.264, z: 7.457145}
+  sortedPieces: []
+  nearestModularPiece: {fileID: 0}
   drink: 0
   eat: 0
   _forniture: {fileID: 0}
@@ -2114,7 +2110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 1
   player: {fileID: 114732280623991920}
   blockMarriage: 0
   blockParty: 0
@@ -2126,7 +2122,8 @@ MonoBehaviour:
   blockSound: 0
   blockButtonSounds: 0
   uiRestoreCredential: {fileID: 0}
-  audioSource: {fileID: 0}
+  audioSource:
+  - {fileID: 0}
 --- !u!114 &1500900099154978825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2140,7 +2137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 1
   player: {fileID: 114732280623991920}
   maxPoisoning: 100
   currentPoisoning: 0
@@ -2159,11 +2156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b096a9503b49954a9110951a4f24bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 1
+  syncMode: 0
   syncInterval: 0.1
   player: {fileID: 114732280623991920}
-  inPremiumZone: 0
-  initialPositionPremiumZone: {x: 0, y: 0}
   settedNormal: 0
   settedSpecial: 0
   nameNormal: {fileID: 8046506467312682045}
@@ -2184,7 +2179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 1
   player: {fileID: 114732280623991920}
   isOn: 0
   radioItem:
@@ -2284,7 +2279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 2
   player: {fileID: 114732280623991920}
   maxThirsty: 100
   currentThirsty: 10
@@ -2303,7 +2298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 1
   player: {fileID: 114732280623991920}
   isOn: 0
   torchItem:
@@ -2371,9 +2366,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 2
   player: {fileID: 114732280623991920}
-  tooWeight: 0
+  currentWeight: 0
+  maxWeight: 0
 --- !u!114 &-9165121227548820931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2387,7 +2383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 2
   player: {fileID: 114732280623991920}
   wetEquipment: 0
   wetEquipmentNaked: 0
@@ -2490,22 +2486,6 @@ MonoBehaviour:
       summonedLevel: 0
       summonedExperience: 0
     amount: 0
-  pFat: -1
-  pThin: -1
-  pMuscle: -1
-  pHeight: -1
-  pBreast: -1
-  pHair: -1
-  pBeard: -1
-  pHaircolor: 
-  pUnderwear: 
-  pEyes: 
-  pSkincolor: 
-  pHats: -1
-  pAccessory: -1
-  pUpper: -1
-  pDown: -1
-  pShoes: -1
   characterCustomization: {fileID: 0}
 --- !u!114 &-3760432177326335541
 MonoBehaviour:
@@ -2570,26 +2550,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  footToSpawn: {fileID: 1309108990017163188, guid: 4abbb9bcc9497e24b847a4295456712c,
-    type: 3}
-  rightNakedFoot: {fileID: 21300000, guid: c375e50eebc11754ab587fa9c0ae2320, type: 3}
-  LeftNakedFoot: {fileID: 21300000, guid: 3893e0d6eb4767c4eaea06b0fd9e83c7, type: 3}
-  rightShoesFoot: {fileID: 21300000, guid: ac84e65f88b2ecf4f988d45cb7274aca, type: 3}
-  leftShoesFoot: {fileID: 21300000, guid: 191355957316d4343800a15d4fd7b557, type: 3}
-  player: {fileID: 114732280623991920}
-  pixelColorMouse: {r: 0, g: 0, b: 0, a: 0}
-  up: {x: 0, y: 1}
-  upRotation: {x: 0, y: 0, z: 0, w: 0}
-  down: {x: 0, y: -1}
-  downRotation: {x: 0, y: 0, z: -1, w: -0.00000004371139}
-  left: {x: -1, y: 0}
-  leftRotation: {x: 0, y: 0, z: 0.70710677, w: 0.70710677}
-  right: {x: 1, y: 0}
-  rightRotation: {x: 0, y: 0, z: -0.70710677, w: 0.70710677}
-  InstantiateObject: {fileID: 0}
-  instantiateObjectRenderer: {fileID: 0}
-  difference: 0.1
-  spriteRenderer: {fileID: 0}
 --- !u!114 &1106094989229453196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2635,7 +2595,7 @@ MonoBehaviour:
   entity: {fileID: 114732280623991920}
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 234885376
   colliders: []
 --- !u!114 &-5012502899890908207
 MonoBehaviour:
@@ -2723,7 +2683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 1
   player: {fileID: 114732280623991920}
   danceIndex: -1
   prevDanceIndex: 0
@@ -2740,25 +2700,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 2
   player: {fileID: 114732280623991920}
   injured: 0
-  prevInjuredState: 0
---- !u!114 &2263239549454305647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1505016760143036}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a97c2cc46bf7fc4cb7b6b99951515de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 114732280623991920}
-  hitMain: {x: 0, y: 0, z: 0}
-  distance: 2.5
 --- !u!114 &6197787422808157012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3639,7 +3583,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.18
+  orthographic size: 1.08
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2

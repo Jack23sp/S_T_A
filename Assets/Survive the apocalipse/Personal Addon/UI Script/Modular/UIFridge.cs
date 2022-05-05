@@ -43,7 +43,7 @@ public class UIFridge : MonoBehaviour
 
         switchButton.onClick.SetListener(() =>
         {
-            player.CmdSwitchInventoryCloset(selectedFoodIndex.ToArray(), selectedInventoryIndex.ToArray());
+            player.CmdSwitchInventoryFridge(selectedFoodIndex.ToArray(), selectedInventoryIndex.ToArray());
             selectedFoodIndex.Clear();
             selectedInventoryIndex.Clear();
         });
