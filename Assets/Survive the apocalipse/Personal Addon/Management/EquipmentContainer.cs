@@ -58,6 +58,7 @@ public partial class EquipmentItem
     public int indexShirt = -1;
     public int indexPants = -1;
     public int indexShoes = -1;
+    public int indexBag = -1;
     public bool ignorePants = false;
 
 }

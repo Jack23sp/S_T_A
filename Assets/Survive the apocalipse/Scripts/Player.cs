@@ -2203,6 +2203,14 @@ public partial class Player : Entity
         {
             if (isServer)
             {
+                if (slot.amount > 0)
+                {
+                    playerCreation.bag = ((EquipmentItem)slot.item.data).indexBag;
+                }
+                else
+                {
+                    playerCreation.hats = -1;
+                }
                 //something inventory related was modified, do we need to add or remove slots
                 if (inventorySize > inventory.Count)
                 {
@@ -2227,6 +2235,7 @@ public partial class Player : Entity
                 }
                 SetWeight();
             }
+            if (isLocalPlayer) playerCreation.characterCustomization.ChangeTag(this, avatarCamera);
         }
         if (index == 8)
         {
@@ -2353,6 +2362,10 @@ public partial class Player : Entity
                         if (((WeaponItem)slot.item.data).indexShoes > -1)
                         {
                             playerCreation.shoes = ((WeaponItem)slot.item.data).indexShoes;
+                        }
+                        if (((EquipmentItem)slot.item.data).indexBag > -1)
+                        {
+                            playerCreation.bag = ((EquipmentItem)slot.item.data).indexBag;
                         }
                     }
 
@@ -7435,24 +7448,27 @@ public partial class Player : Entity
     {
         ModularPiece piece = identity.GetComponent<ModularPiece>();
         piece.CheckFloorDoor();
-        DoorTrigger doorTrigger = piece.floorDoor[indexOfDoor].GetComponent<DoorTrigger>();
-        if (GeneralManager.singleton.CanEnterHome(piece, this) && Vector2.Distance(doorTrigger.transform.position, transform.position) < 3)
+        if (piece.floorDoor.Count > 0)
         {
-            if (doorTrigger.up)
+            DoorTrigger doorTrigger = piece.floorDoor[indexOfDoor].GetComponent<DoorTrigger>();
+            if (GeneralManager.singleton.CanEnterHome(piece, this) && Vector2.Distance(doorTrigger.transform.position, transform.position) < 3)
             {
-                piece.doorUpOpen = !piece.doorUpOpen;
-            }
-            if (doorTrigger.down)
-            {
-                piece.doorDownOpen = !piece.doorDownOpen;
-            }
-            if (doorTrigger.left)
-            {
-                piece.doorLeftOpen = !piece.doorLeftOpen;
-            }
-            if (doorTrigger.right)
-            {
-                piece.doorRightOpen = !piece.doorRightOpen;
+                if (doorTrigger.up)
+                {
+                    piece.doorUpOpen = !piece.doorUpOpen;
+                }
+                if (doorTrigger.down)
+                {
+                    piece.doorDownOpen = !piece.doorDownOpen;
+                }
+                if (doorTrigger.left)
+                {
+                    piece.doorLeftOpen = !piece.doorLeftOpen;
+                }
+                if (doorTrigger.right)
+                {
+                    piece.doorRightOpen = !piece.doorRightOpen;
+                }
             }
         }
     }

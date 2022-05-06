@@ -3687,8 +3687,11 @@ public partial class PlayerMove
                     {
                         if (Vector2.Distance(transform.position, sortedForniture[index].transform.position) > GeneralManager.singleton.GetClosestDistance(player.playerMove.nearestModularPiece.floorDoor.ToArray()))
                         {
-                            player.CmdManageDoor(player.playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(player.playerMove.nearestModularPiece.floorDoor.ToArray()));
-                            return false;
+                            if (player.playerMove.nearestModularPiece.floorDoor.Count > 0)
+                            {
+                                player.CmdManageDoor(player.playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(player.playerMove.nearestModularPiece.floorDoor.ToArray()));
+                            }
+                                return false;
                         }
                         else
                         {
@@ -3711,7 +3714,10 @@ public partial class PlayerMove
             {
                 if (player.playerMove.nearestModularPiece != null)
                 {
-                    player.CmdManageDoor(player.playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(player.playerMove.nearestModularPiece.floorDoor.ToArray()));
+                    if (player.playerMove.nearestModularPiece.floorDoor.Count > 0)
+                    {
+                        player.CmdManageDoor(player.playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(player.playerMove.nearestModularPiece.floorDoor.ToArray()));
+                    }
                     return false;
                 }
             }
@@ -3728,13 +3734,19 @@ public partial class PlayerMove
                     }
                     else
                     {
-                        player.CmdManageDoor(player.playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(player.playerMove.nearestModularPiece.floorDoor.ToArray()));
+                        if (player.playerMove.nearestModularPiece.floorDoor.Count > 0)
+                        {
+                            player.CmdManageDoor(player.playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(player.playerMove.nearestModularPiece.floorDoor.ToArray()));
+                        }
                         return false;
                     }
                 }
                 else
                 {
-                    player.CmdManageDoor(player.playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(player.playerMove.nearestModularPiece.floorDoor.ToArray()));
+                    if (player.playerMove.nearestModularPiece.floorDoor.Count > 0)
+                    {
+                        player.CmdManageDoor(player.playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(player.playerMove.nearestModularPiece.floorDoor.ToArray()));
+                    }
                     return false;
                 }
             }
@@ -4931,6 +4943,8 @@ public partial class PlayerCreation
     public int down;
     [SyncVar(hook = nameof(ChangeShoes))]
     public int shoes;
+    [SyncVar(hook = nameof(ChangeBag))]
+    public int bag;
 
     public GameObject dummyPresentation;
 
@@ -5135,7 +5149,21 @@ public partial class PlayerCreation
                 characterCustomization.SetElementByIndex(CharacterElementType.Shoes, -1);
             }
         }
+    }
 
+    public void ChangeBag(int oldBag, int newBag)
+    {
+        if (player.prefabPreview)
+        {
+            if (newBag != -1)
+            {
+                characterCustomization.SetElementByIndex(CharacterElementType.Item1, newBag);
+            }
+            else
+            {
+                characterCustomization.SetElementByIndex(CharacterElementType.Item1, -1);
+            }
+        }
     }
 
     public void NewSetup()
@@ -5156,7 +5184,7 @@ public partial class PlayerCreation
         ChangeUpper(upper, upper);
         ChangeDown(down, down);
         ChangeShoes(shoes, shoes);
-
+        ChangeBag(bag, bag);
     }
 
     //void Update()
@@ -5574,6 +5602,10 @@ public partial class PlayerBelt
                 if (((EquipmentItem)slot.item.data).indexShoes > -1)
                 {
                     player.playerCreation.shoes = ((EquipmentItem)slot.item.data).indexShoes;
+                }
+                if (((EquipmentItem)slot.item.data).indexBag > -1)
+                {
+                    player.playerCreation.bag = ((EquipmentItem)slot.item.data).indexBag;
                 }
             }
         }

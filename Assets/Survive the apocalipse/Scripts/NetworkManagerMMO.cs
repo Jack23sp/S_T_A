@@ -312,6 +312,17 @@ public partial class NetworkManagerMMO : NetworkManager
                         player.playerCreation.hats = -1;
                     }
                 }
+                if (i == 7)
+                {
+                    if (slot.amount > 0)
+                    {
+                        player.playerCreation.bag = ((EquipmentItem)slot.item.data).indexBag;
+                    }
+                    else
+                    {
+                        player.playerCreation.bag = -1;
+                    }
+                }
                 if (i == 8)
                 {
                     if (slot.amount > 0)
@@ -348,12 +359,12 @@ public partial class NetworkManagerMMO : NetworkManager
         player.playerCreation.muscle = character.muscle;
         player.playerCreation.height = character.height;
         player.playerCreation.breast = character.breast;
+        player.playerCreation.bag = character.bag;
 
         if (player.playerCreation.sex == 0)
         {
             GameObject prefabPreview = Instantiate(GeneralManager.singleton.malePrefab.gameObject, player.playerCreation.dummyPresentation.transform.position, player.playerCreation.dummyPresentation.transform.rotation);
             characterCustomization = prefabPreview.GetComponent<CharacterCustomization>();
-            characterCustomization.InitializeMeshes(characterCustomization.Settings);
             PlayerSelectionCameraPositioning playerSelectionCameraPositioning = characterCustomization.GetComponent<PlayerSelectionCameraPositioning>();
             characterCustomization.SetElementByIndex(CharacterElementType.Hair, player.playerCreation.hairType);
             characterCustomization.SetElementByIndex(CharacterElementType.Beard, player.playerCreation.beard);
@@ -369,10 +380,9 @@ public partial class NetworkManagerMMO : NetworkManager
             characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Fat, player.playerCreation.fat);
             characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Thin, player.playerCreation.thin);
             characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Muscles, player.playerCreation.muscle);
+            characterCustomization.SetElementByIndex(CharacterElementType.Item1, player.playerCreation.bag);
 
             DressSelectablePlayer(player, characterCustomization);
-
-            //characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.BreastSize, player.playerCreation.breast);
 
             prefabPreview.transform.SetParent(player.transform);
             prefabPreview.GetComponentInParent<PlayerCreation>().percSlider = Mathf.InverseLerp(generalManager.minHeight, generalManager.maxHeight, player.playerCreation.height);
@@ -380,7 +390,6 @@ public partial class NetworkManagerMMO : NetworkManager
             float positioning = Convert.ToSingle((-0.3100281 / 100) * (prefabPreview.GetComponentInParent<PlayerCreation>().percSlider * 100));
 
             characterCustomization.SetHeight(player.playerCreation.height);
-            //playerSelectionCameraPositioning.player = player;
 
             prefabPreview.transform.localPosition = new Vector3(0.0f, positioning, 0.0f);
         }
@@ -388,7 +397,6 @@ public partial class NetworkManagerMMO : NetworkManager
         {
             GameObject prefabPreview = Instantiate(GeneralManager.singleton.femalePrefab.gameObject, player.playerCreation.dummyPresentation.transform.position, player.playerCreation.dummyPresentation.transform.rotation);
             characterCustomization = prefabPreview.GetComponent<CharacterCustomization>();
-            characterCustomization.InitializeMeshes(characterCustomization.Settings);
             PlayerSelectionCameraPositioning playerSelectionCameraPositioning = characterCustomization.GetComponent<PlayerSelectionCameraPositioning>();
             characterCustomization.SetElementByIndex(CharacterElementType.Hair, player.playerCreation.hairType);
             characterCustomization.SetElementByIndex(CharacterElementType.Beard, player.playerCreation.beard);
@@ -402,8 +410,7 @@ public partial class NetworkManagerMMO : NetworkManager
             if (ColorUtility.TryParseHtmlString(player.playerCreation.skinColor, out newCol))
                 characterCustomization.SetBodyColor(BodyColorPart.Skin, newCol);
             characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Fat, player.playerCreation.fat);
-            //characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Thin, player.playerCreation.thin);
-            //characterCustomization.SetBlendshapeValue(CharacterBlendShapeType.Muscles, player.playerCreation.muscle);
+            characterCustomization.SetElementByIndex(CharacterElementType.Item1, player.playerCreation.bag);
 
             DressSelectablePlayer(player, characterCustomization);
 
@@ -415,7 +422,6 @@ public partial class NetworkManagerMMO : NetworkManager
             float positioning = Convert.ToSingle((-0.3100281 / 100) * (prefabPreview.GetComponentInParent<PlayerCreation>().percSlider * 100));
 
             characterCustomization.SetHeight(player.playerCreation.height);
-            //playerSelectionCameraPositioning.player = player;
 
             prefabPreview.transform.localPosition = new Vector3(0.0f, positioning, 0.0f);
         }

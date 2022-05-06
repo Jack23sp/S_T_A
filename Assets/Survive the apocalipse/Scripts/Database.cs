@@ -430,6 +430,7 @@ public partial class Database : MonoBehaviour
         public float muscle { get; set; }
         public float height { get; set; }
         public float breast { get; set; }
+        public int bag { get; set; }
     }
 
     class containerBee
@@ -2919,7 +2920,8 @@ public partial class Database : MonoBehaviour
             fat = player.playerCreation.fat,
             thin = player.playerCreation.thin,
             height = player.playerCreation.height,
-            breast = player.playerCreation.breast
+            breast = player.playerCreation.breast,
+            bag = player.playerCreation.bag
         });
     }
 
@@ -2939,6 +2941,7 @@ public partial class Database : MonoBehaviour
                 player.playerCreation.muscle = row.muscle;
                 player.playerCreation.height = row.height;
                 player.playerCreation.breast = row.breast;
+                player.playerCreation.bag = row.bag;
             }        
     }
 

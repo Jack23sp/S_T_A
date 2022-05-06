@@ -70,6 +70,7 @@ public partial class CharactersAvailableMsg : NetworkMessage
         public int eyesType;
         public string eyesColor;
         public int beard;
+        public int bag;
         public string underwearColor;
 
         public float fat;
@@ -109,6 +110,7 @@ public partial class CharactersAvailableMsg : NetworkMessage
                 muscle = player.playerCreation.muscle,
                 height = player.playerCreation.height,
                 breast = player.playerCreation.breast,
+                bag = player.playerCreation.bag,
                 premiumZone = player.GetComponent<NotOnlinePlayerPremiumManager>().inPremiumZone
             };
         }

@@ -493,14 +493,14 @@ MonoBehaviour:
   marriageRemovePanel: {fileID: 1694, guid: 493f0dcca96844349bcb219a5df084b0, type: 3}
   alreadyRefresh: 0
   buildingSpawn:
-  - building: {fileID: 11400000, guid: 9dbb9e7e27e64934598651b32277caa1, type: 2}
-    uiToSpawn: {fileID: 8181955524529407568, guid: b23ecabcb1904ad4fa5cbf6d59dcee6c,
-      type: 3}
-  - building: {fileID: 11400000, guid: 02d6901c41f2e4542b90e1d18751f830, type: 2}
-    uiToSpawn: {fileID: 6475038616784378831, guid: 32077769ff9772044936c30d6189bdea,
-      type: 3}
   - building: {fileID: 11400000, guid: f2895a8e5a714b2428c181449eda82b9, type: 2}
     uiToSpawn: {fileID: 6475038616784378831, guid: f08ee411b20871e4e8a06040d454e627,
+      type: 3}
+  - building: {fileID: 11400000, guid: e041f1fb1c82ff642b2bc6ce70308b3a, type: 2}
+    uiToSpawn: {fileID: 6475038616784378831, guid: 8dd392cf3b5a32048bfdecc9fae8ad63,
+      type: 3}
+  - building: {fileID: 11400000, guid: a64b0ed5f5ff01a4d834baa2d6128b99, type: 2}
+    uiToSpawn: {fileID: 6475038616784378831, guid: 10c1ec66423c3904eaed29f6ca9cf670,
       type: 3}
   - building: {fileID: 11400000, guid: e041f1fb1c82ff642b2bc6ce70308b3a, type: 2}
     uiToSpawn: {fileID: 6475038616784378831, guid: 8dd392cf3b5a32048bfdecc9fae8ad63,
@@ -514,47 +514,17 @@ MonoBehaviour:
   - building: {fileID: 11400000, guid: 3167279e4dbfb6047940661d9a0a1311, type: 2}
     uiToSpawn: {fileID: 6475038616784378831, guid: 208209aafc008f54c875d8b71a494dc5,
       type: 3}
-  - building: {fileID: 11400000, guid: 40d10e005330b9444b26787b0ccaf6e4, type: 2}
-    uiToSpawn: {fileID: 6841937431231828959, guid: 26f817585381ad645b7dd80dcce9133c,
-      type: 3}
   - building: {fileID: 11400000, guid: 588f0918547c33f4ea1e358f5245480b, type: 2}
     uiToSpawn: {fileID: 6841937431231828959, guid: 852598034c66d2c4e811fa842114d5fa,
       type: 3}
-  - building: {fileID: 11400000, guid: 02d6901c41f2e4542b90e1d18751f830, type: 2}
-    uiToSpawn: {fileID: 6475038616784378831, guid: 32077769ff9772044936c30d6189bdea,
-      type: 3}
   - building: {fileID: 11400000, guid: 8b94bd72549b74740b50830ea04e0b86, type: 2}
     uiToSpawn: {fileID: 6475038616784378831, guid: 78b37686296ad7948b19af422883f345,
-      type: 3}
-  - building: {fileID: 11400000, guid: d06b0d292b4bf1e44823e1b6ca630e70, type: 2}
-    uiToSpawn: {fileID: 2945250111266371172, guid: 184ecfea6c0ea8849ab909a6e3da83d6,
-      type: 3}
-  - building: {fileID: 11400000, guid: 76df88dd7d67f95478205026d68f7299, type: 2}
-    uiToSpawn: {fileID: 8371108985228370418, guid: 039ca5fd3cd68bc44b228c412f8d1bb8,
-      type: 3}
-  - building: {fileID: 11400000, guid: 3167279e4dbfb6047940661d9a0a1311, type: 2}
-    uiToSpawn: {fileID: 6475038616784378831, guid: 208209aafc008f54c875d8b71a494dc5,
-      type: 3}
-  - building: {fileID: 11400000, guid: b1c65b9a306084c4a84865122db2dca9, type: 2}
-    uiToSpawn: {fileID: 8181955524529407568, guid: 297f352d0b0a3a9429636cf388046451,
-      type: 3}
-  - building: {fileID: 11400000, guid: 033b147202729bd43ba6e8f88cf3d554, type: 2}
-    uiToSpawn: {fileID: 8181955524529407568, guid: 59aa5237408b1dd4dbcf023556721b5f,
-      type: 3}
-  - building: {fileID: 11400000, guid: 623eadad7ba53b040949f78a71f14d3c, type: 2}
-    uiToSpawn: {fileID: 8181955524529407568, guid: 7a78bc996175cdb4ea686550ad806247,
       type: 3}
   - building: {fileID: 11400000, guid: cf75f4d880b165340a54bf330040b97f, type: 2}
     uiToSpawn: {fileID: 8181955524529407568, guid: 4e21b1c94dbf37942860afd5b41e0296,
       type: 3}
   - building: {fileID: 11400000, guid: 7db834cf496f5814f8a3bfa33794bf9e, type: 2}
     uiToSpawn: {fileID: 8181955524529407568, guid: bc487511b52421b4e9d5924e70837f34,
-      type: 3}
-  - building: {fileID: 11400000, guid: 9e72b6846e1ff1f479404b970c9ec2d2, type: 2}
-    uiToSpawn: {fileID: 8181955524529407568, guid: 89d735971b18655489f208a73b8dfa60,
-      type: 3}
-  - building: {fileID: 11400000, guid: 90945811a71ef974d8f65fb2bc640d56, type: 2}
-    uiToSpawn: {fileID: 8181955524529407568, guid: 136304fa9bb7b964e87466a5b78d77c3,
       type: 3}
   - building: {fileID: 11400000, guid: f2709e7af480ec54aa3b5d21c9587255, type: 2}
     uiToSpawn: {fileID: 2945250111266371172, guid: f5152ea313b300b4082051e8227a34b7,
@@ -579,6 +549,12 @@ MonoBehaviour:
       type: 3}
   - building: {fileID: 11400000, guid: 72e82596186f2be479f02c4dc13c442f, type: 2}
     uiToSpawn: {fileID: 8181955524529407568, guid: 5832275de7f73094a8eeb5138d2f4bf8,
+      type: 3}
+  - building: {fileID: 11400000, guid: a7f358f5e4e65ec45afd50dcf109b72a, type: 2}
+    uiToSpawn: {fileID: 2945250111266371172, guid: 1cef028791c07184c8fbf08bc90ec6a5,
+      type: 3}
+  - building: {fileID: 11400000, guid: 998ae6b99c2e23f4f9c7bc1bc8e97ae6, type: 2}
+    uiToSpawn: {fileID: 2945250111266371172, guid: 184ecfea6c0ea8849ab909a6e3da83d6,
       type: 3}
   runMultiplier: 1.3
   sneakMultiplier: 0.5
@@ -919,7 +895,7 @@ MonoBehaviour:
     gold: 3500
     coins: 0
   buildingItems:
-  - specificBuilding: {fileID: 11400000, guid: bd94a405a98103a4486f682e87db85a1, type: 2}
+  - specificBuilding: {fileID: 0}
     buildingItem:
     - itemToCraft:
         item: {fileID: 11400000, guid: f2895a8e5a714b2428c181449eda82b9, type: 2}
@@ -952,17 +928,17 @@ MonoBehaviour:
       buildingLevel: 0
       craftablengredient: []
     - itemToCraft:
-        item: {fileID: 11400000, guid: 76df88dd7d67f95478205026d68f7299, type: 2}
+        item: {fileID: 0}
         amount: 1
       buildingLevel: 0
       craftablengredient: []
     - itemToCraft:
-        item: {fileID: 11400000, guid: 033b147202729bd43ba6e8f88cf3d554, type: 2}
+        item: {fileID: 0}
         amount: 1
       buildingLevel: 0
       craftablengredient: []
     - itemToCraft:
-        item: {fileID: 11400000, guid: b1c65b9a306084c4a84865122db2dca9, type: 2}
+        item: {fileID: 0}
         amount: 1
       buildingLevel: 0
       craftablengredient: []
@@ -987,7 +963,7 @@ MonoBehaviour:
       buildingLevel: 0
       craftablengredient: []
     - itemToCraft:
-        item: {fileID: 11400000, guid: f57e99231d1ebb34aac9f5cdd8a47093, type: 2}
+        item: {fileID: 0}
         amount: 1
       buildingLevel: 0
       craftablengredient: []
@@ -997,12 +973,12 @@ MonoBehaviour:
       buildingLevel: 0
       craftablengredient: []
     - itemToCraft:
-        item: {fileID: 11400000, guid: 02d6901c41f2e4542b90e1d18751f830, type: 2}
+        item: {fileID: 0}
         amount: 1
       buildingLevel: 0
       craftablengredient: []
     - itemToCraft:
-        item: {fileID: 11400000, guid: d06b0d292b4bf1e44823e1b6ca630e70, type: 2}
+        item: {fileID: 0}
         amount: 1
       buildingLevel: 0
       craftablengredient: []
@@ -1674,7 +1650,7 @@ MonoBehaviour:
   plants:
   - resource: {fileID: 0}
     allowedWeapons:
-    - {fileID: 11400000, guid: 7d021443f7d35d2418ec93bf3676ef3d, type: 2}
+    - {fileID: 0}
     normalRewards: {fileID: 11400000, guid: a64b0ed5f5ff01a4d834baa2d6128b99, type: 2}
     specialRewards: {fileID: 11400000, guid: efcd52c07805b4550930638bb90d380c, type: 2}
     superSpecialRewards: {fileID: 11400000, guid: 38cf787e5075f420a94548551ce92f7f,
@@ -2244,7 +2220,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 9023905a03392a148b34bd747052680d, type: 2}
     - {fileID: 11400000, guid: 0015c944578f41e4cb387d752eec805d, type: 2}
     - {fileID: 11400000, guid: 5144ce8fe4ec07a42b17b895fecceae8, type: 2}
-    - {fileID: 11400000, guid: 0f8a814d35a4a4042a6ee5f28574fb8c, type: 2}
     - {fileID: 11400000, guid: 7c79c11de18f2441c88df3e38606ccda, type: 2}
     - {fileID: 11400000, guid: 65dd6280a60983c41ad5ac69c66758f7, type: 2}
     - {fileID: 11400000, guid: 85d49730d0ecca543b295d61ab82a43a, type: 2}
@@ -2256,10 +2231,11 @@ MonoBehaviour:
   - category: Equipments
     categoryIta: Equipaggiamenti
     items:
+    - {fileID: 11400000, guid: 49b7ece665485b3489b8e2c544754a66, type: 2}
+    - {fileID: 11400000, guid: b160c25eedf3ea04796372d0d865573b, type: 2}
     - {fileID: 11400000, guid: 8c3bd80b7ac42b4429174caff2e70af7, type: 2}
     - {fileID: 11400000, guid: 2be8539ea8f22aa47b68b1c28332da09, type: 2}
-    - {fileID: 11400000, guid: b160c25eedf3ea04796372d0d865573b, type: 2}
-    - {fileID: 11400000, guid: 49b7ece665485b3489b8e2c544754a66, type: 2}
+    - {fileID: 11400000, guid: 573c7680c19725e47b5fb9f3b885ae47, type: 2}
   - category: Munitions
     categoryIta: Munizioni
     items:
@@ -2302,6 +2278,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 95f2cd2b8ba3c28448560f545f711982, type: 2}
     - {fileID: 11400000, guid: 8b94bd72549b74740b50830ea04e0b86, type: 2}
     - {fileID: 11400000, guid: 206ec73c3adaec6418c7b88ba3218ecc, type: 2}
+    - {fileID: 11400000, guid: 998ae6b99c2e23f4f9c7bc1bc8e97ae6, type: 2}
   - category: Modules
     categoryIta: Moduli
     items:
@@ -2332,6 +2309,12 @@ MonoBehaviour:
     - {fileID: 11400000, guid: a3ad4d19b0febbd4196a82f50c3fb776, type: 2}
     - {fileID: 11400000, guid: 58de9f54f3014f84a83767e5175d5eae, type: 2}
     - {fileID: 11400000, guid: 72e82596186f2be479f02c4dc13c442f, type: 2}
+    - {fileID: 11400000, guid: a05edde3e4032fc46868a0221bb72c40, type: 2}
+    - {fileID: 11400000, guid: 27b78eb0b4c04e946b261dea2cb0164f, type: 2}
+    - {fileID: 11400000, guid: 79ecb8d64c846ad4c860287549d19cb4, type: 2}
+  - category: Rugs
+    categoryIta: Tappeti
+    items:
     - {fileID: 11400000, guid: c14fc037c32851f41a8bea8b8fe1a983, type: 2}
     - {fileID: 11400000, guid: 27bde659e53371f4787b37b8f67e1c28, type: 2}
     - {fileID: 11400000, guid: 1265055c0260d634bb9d74d2a401ec88, type: 2}
@@ -2345,9 +2328,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 2e99638563909e642931dc68212836ac, type: 2}
     - {fileID: 11400000, guid: 9965218d5706664498339dfdfc0eb37e, type: 2}
     - {fileID: 11400000, guid: 7151a14248067654184c9b52c636fbd5, type: 2}
-    - {fileID: 11400000, guid: 27b78eb0b4c04e946b261dea2cb0164f, type: 2}
-    - {fileID: 11400000, guid: 79ecb8d64c846ad4c860287549d19cb4, type: 2}
-    - {fileID: 11400000, guid: a05edde3e4032fc46868a0221bb72c40, type: 2}
   manClothes:
   - category: Hats
     categoryIta: Cappelli
@@ -2536,12 +2516,12 @@ MonoBehaviour:
   - Increase your  "Spawnpoint dealer" ability to place more point where respawn
     after death
   sampleTexture: {fileID: 8400000, guid: b9ef0f2af48ebab41aca8cdfba888999, type: 2}
-  malePrefab: {fileID: 7569330324763479486, guid: b51a98b12f2f4bb46973176b696bd211,
+  malePrefab: {fileID: 7209748716811229208, guid: 1f07de8c701f8f540afdf0bf1a349b47,
     type: 3}
-  male: {fileID: 1505016760143036, guid: ba422a474fc0a164e989feb807e196d1, type: 3}
-  femalePrefab: {fileID: 7569330324763479486, guid: 7ce636f1f098a1542adf690786f2b3eb,
+  male: {fileID: 7209748716811229208, guid: 1f07de8c701f8f540afdf0bf1a349b47, type: 3}
+  femalePrefab: {fileID: 4632542661639615054, guid: 13c5b8506552f704ba1dee2e40f546ba,
     type: 3}
-  female: {fileID: 1505016760143036, guid: ba422a474fc0a164e989feb807e196d1, type: 3}
+  female: {fileID: 4632542661639615054, guid: 13c5b8506552f704ba1dee2e40f546ba, type: 3}
   minHeight: -0.3
   maxHeight: 0.05
   defaultAnimatorController: {fileID: 9100000, guid: 5f887f214000b444ca0b36f4ec39648f,
