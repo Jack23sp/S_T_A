@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
+using TMPro;
 
 public partial class UICharacterSelection : MonoBehaviour
 {
@@ -37,6 +38,14 @@ public partial class UICharacterSelection : MonoBehaviour
     public int playerCount = 0;
     public int prevPlayerCount = 0;
 
+    [HideInInspector] public CharactersAvailableMsg.CharacterPreview[] characters;
+
+    public Player selectedGameObjectPlayer;
+
+    public UIStatisticStart statisticStart;
+    public GameObject statContent;
+    public TextMeshProUGUI playerName;
+    public TextMeshProUGUI guildName;
 
     public void Stert()
     {
@@ -59,7 +68,7 @@ public partial class UICharacterSelection : MonoBehaviour
             // characters available message received already?
             if (manager.charactersAvailableMsg != null)
             {
-                CharactersAvailableMsg.CharacterPreview[] characters = manager.charactersAvailableMsg.characters;
+                characters = manager.charactersAvailableMsg.characters;
 
                 playerCount = characters.Length;
                 if (playerCount != prevPlayerCount)
@@ -85,6 +94,11 @@ public partial class UICharacterSelection : MonoBehaviour
                     }
                     slot.selectionButton.onClick.SetListener(() => {
                         selectedCharacter = characters[previndex].name;
+                        selectedGameObjectPlayer = manager.selectionLocations[previndex].GetComponentInChildren<Player>();
+                        statContent.SetActive(true);
+                        statisticStart.SetStatistics();
+                        playerName.text = selectedGameObjectPlayer.name;
+                        guildName.text = selectedGameObjectPlayer.guild.name;
                         bodyRawImage.gameObject.SetActive(characters.Length > 0 && selectedCharacter != string.Empty);
                         if (prevSelectedCharacter == string.Empty) prevSelectedCharacter = "Dummy";
                         ((NetworkManagerMMO)NetworkManager.singleton).selection = previndex;

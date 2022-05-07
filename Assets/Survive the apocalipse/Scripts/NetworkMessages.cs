@@ -80,6 +80,27 @@ public partial class CharactersAvailableMsg : NetworkMessage
         public float breast;
         public bool premiumZone;
 
+        public int currentArmor;
+        public int maxArmor;
+        public int health;
+        public int maxHealth;
+        public int mana;
+        public int maxMana;
+        public int damage;
+        public float defense;
+        public float accuracy;
+        public float miss;
+        public float critPerc;
+        public float weight;
+        public float maxWeight;
+        public int poisoned;
+        public int hungry;
+        public int thirsty;
+        public int blood;
+        public string partner;
+        public string guildName;
+        public int loaded;
+
     }
     public CharacterPreview[] characters;
 
@@ -111,6 +132,26 @@ public partial class CharactersAvailableMsg : NetworkMessage
                 height = player.playerCreation.height,
                 breast = player.playerCreation.breast,
                 bag = player.playerCreation.bag,
+                currentArmor = player.playerPreviewData.currentArmor,
+                maxArmor = player.playerPreviewData.maxArmor,
+                health = player.playerPreviewData.health,
+                maxHealth = player.playerPreviewData.maxHealth,
+                mana = player.playerPreviewData.mana,
+                maxMana = player.playerPreviewData.maxMana,
+                damage = player.playerPreviewData.damage,
+                defense = player.playerPreviewData.defense,
+                accuracy = player.playerPreviewData.accuracy,
+                miss = player.playerPreviewData.miss,
+                critPerc = player.playerPreviewData.critPerc,
+                weight = player.playerPreviewData.weight,
+                maxWeight = player.playerPreviewData.maxWeight,
+                poisoned = player.playerPreviewData.poisoned,
+                hungry = player.playerPreviewData.hungry,
+                thirsty = player.playerPreviewData.thirsty,
+                blood = player.playerPreviewData.blood,
+                partner = player.playerPreviewData.partner,
+                guildName = player.playerPreviewData.guildName,
+                loaded = player.playerPreviewData.loaded,
                 premiumZone = player.GetComponent<NotOnlinePlayerPremiumManager>().inPremiumZone
             };
         }

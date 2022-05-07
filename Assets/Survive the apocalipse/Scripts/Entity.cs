@@ -101,7 +101,7 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
     }
 
     public bool healthRecovery = true; // can be disabled in combat etc.
-    [SerializeField] protected LinearInt _healthRecoveryRate = new LinearInt { baseValue = 1 };
+    [SerializeField] public LinearInt _healthRecoveryRate = new LinearInt { baseValue = 1 };
     public virtual int healthRecoveryRate
     {
         get
@@ -142,7 +142,7 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
             return _manaMax.Get(level);
         }
     }
-    [SyncVar] int _mana = 1;
+    [SyncVar] public int _mana = 1;
     public int mana
     {
         get { return Mathf.Min(_mana, manaMax); } // min in case hp>hpmax after buff ends etc.
@@ -150,7 +150,7 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
     }
 
     public bool manaRecovery = true; // can be disabled in combat etc.
-    [SerializeField] protected LinearInt _manaRecoveryRate = new LinearInt { baseValue = 1 };
+    [SerializeField] public LinearInt _manaRecoveryRate = new LinearInt { baseValue = 1 };
     public int manaRecoveryRate
     {
         get
@@ -213,7 +213,7 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
     }
 
     [Header("Block")]
-    [SerializeField] protected LinearFloat _blockChance;
+    [SerializeField] public LinearFloat _blockChance;
     public virtual float blockChance
     {
         get
@@ -234,7 +234,7 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
     }
 
     [Header("Critical")]
-    [SerializeField] protected LinearFloat _criticalChance;
+    [SerializeField] public LinearFloat _criticalChance;
     public virtual float criticalChance
     {
         get
@@ -255,7 +255,7 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
     }
 
     [Header("Speed")]
-    [SerializeField] protected LinearFloat _speed = new LinearFloat { baseValue = 3 };
+    [SerializeField] public LinearFloat _speed = new LinearFloat { baseValue = 3 };
     public virtual float speed
     {
         get

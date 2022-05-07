@@ -100,6 +100,7 @@ public class SyncDictionaryIntDouble : SyncDictionary<int, double> { }
 [RequireComponent(typeof(PlayerQuest))]
 [RequireComponent(typeof(PlayerDance))]
 [RequireComponent(typeof(PlayerInjury))]
+[RequireComponent(typeof(PlayerPreviewData))]
 public partial class Player : Entity
 {
     [Header("Scriptable Player")]
@@ -4322,6 +4323,7 @@ public partial class Player : Entity
     public PlayerDance playerDance;
     public PlayerInjury playerInjury;
     public PlayerPlant playerPlant;
+    public PlayerPreviewData playerPreviewData;
 
     // joystick
     public Joystick joystick;

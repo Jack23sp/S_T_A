@@ -1100,6 +1100,32 @@ public partial class Database : MonoBehaviour
         public string danceName { get; set; }
     }
 
+    class playerpreviewData
+    {
+        //[PrimaryKey] // important for performance: O(log n) instead of O(n)
+        //[Collation("NOCASE")] // [COLLATE NOCASE for case insensitive compare. this way we can't both create 'Archer' and 'archer' as characters]
+        public string characterName { get; set; }
+        public int currentArmor { get; set; }
+        public int maxArmor { get; set; }
+        public int health { get; set; }
+        public int maxHealth { get; set; }
+        public int mana { get; set; }
+        public int maxMana { get; set; }
+        public int damage { get; set; }
+        public float defense { get; set; }
+        public float accuracy { get; set; }
+        public float miss { get; set; }
+        public float critPerc { get; set; }
+        public float weight{ get; set; }
+        public float maxWeight{ get; set; }
+        public int poisoned{ get; set; }
+        public int hungry{ get; set; }
+        public int thirsty{ get; set; }
+        public int blood{ get; set; }
+        public string partner{ get; set; }
+        public string guildName{ get; set; }
+    }
+
     public BuildingManager buildingManager;
 
     public string path;
@@ -1209,6 +1235,7 @@ public partial class Database : MonoBehaviour
         connection.CreateTable<chicken>();
         connection.CreateTable<quest_additional>();
         connection.CreateTable<dance>();
+        connection.CreateTable<playerpreviewData>();
 
         // addon system hooks
         Utils.InvokeMany(typeof(Database), this, "Initialize_"); // TODO remove later. let's keep the old hook for a while to not break every single addon!
@@ -1449,7 +1476,7 @@ public partial class Database : MonoBehaviour
                 LoadGuildOnDemand(player);
                 LoadCustomFriendStat(player);
 
-                player.health = row.health;
+                player.health = row.health; 
                 player.mana = row.mana;
 
 
@@ -1557,7 +1584,6 @@ public partial class Database : MonoBehaviour
                 player.mana = row.mana;
 
 
-
                 // set 'online' directly. otherwise it would only be set during
                 // the next CharacterSave() call, which might take 5-10 minutes.
                 // => don't set it when loading previews though. only when
@@ -1574,6 +1600,80 @@ public partial class Database : MonoBehaviour
             else Debug.LogError("no prefab found for class: " + row.classname);
         }
         return null;
+    }
+
+    public void SavePlayerPreviewData(Player player)
+    {
+        // inventory: remove old entries first, then add all new ones
+        // (we could use UPDATE where slot=... but deleting everything makes
+        //  sure that there are never any ghosts)
+        connection.Execute("DELETE FROM playerpreviewData WHERE characterName=?", player.name);
+        // note: .Insert causes a 'Constraint' exception. use Replace.
+        int currentArmor = 0;
+        int maxArmor = 0;
+        for (int i = 0; i < player.equipment.Count; i++)
+        {
+            int indexInv = i;
+            if (player.equipment[indexInv].amount > 0)
+            {
+                currentArmor += player.equipment[indexInv].item.currentArmor;
+                maxArmor += ((EquipmentItem)player.equipment[indexInv].item.data).armor.Get(player.equipment[indexInv].item.armorLevel);
+            }
+        }
+        connection.InsertOrReplace(new playerpreviewData
+        {
+            characterName = player.name,
+            currentArmor = currentArmor,
+            maxArmor = maxArmor,
+            health = player.health,
+            maxHealth = player.healthMax,
+            mana = player.mana,
+            maxMana = player.manaMax,
+            damage = player.damage,
+            defense = player.defense,
+            accuracy = player.playerAccuracy.accuracy,
+            miss = player.playerMiss.maxMiss,
+            critPerc = player.criticalChance,
+            weight = player.playerWeight.currentWeight,
+            maxWeight = player.playerWeight.maxWeight,
+            poisoned = player.playerPoisoning.currentPoisoning,
+            hungry = player.playerHungry.currentHungry,
+            thirsty = player.playerThirsty.currentThirsty,
+            blood = player.playerBlood.currentBlood,
+            partner = player.playerMarriage.partnerName,
+            guildName = player.guild.name
+        });
+
+
+    }
+
+    public void LoadPlayerPreviewData(Player player)
+    {
+        Debug.Log("Called LoadPlayerPreviewData");
+        foreach (playerpreviewData row in connection.Query<playerpreviewData>("SELECT * FROM playerpreviewData WHERE characterName=?", player.name))
+        {
+            player.playerPreviewData.currentArmor = row.currentArmor;
+            player.playerPreviewData.maxArmor = row.maxArmor;
+            player.playerPreviewData.health = row.health;
+            player.playerPreviewData.maxHealth = row.maxHealth;
+            player.playerPreviewData.mana = row.mana;
+            player.playerPreviewData.maxMana = row.maxMana;
+            player.playerPreviewData.damage = row.damage;
+            player.playerPreviewData.defense = row.defense;
+            player.playerPreviewData.accuracy = row.accuracy;
+            player.playerPreviewData.miss = row.miss;
+            player.playerPreviewData.critPerc = row.critPerc;
+            player.playerPreviewData.weight = row.weight;
+            player.playerPreviewData.maxWeight = row.maxWeight;
+            player.playerPreviewData.poisoned = row.poisoned;
+            player.playerPreviewData.hungry = row.hungry;
+            player.playerPreviewData.thirsty = row.thirsty;
+            player.playerPreviewData.blood = row.blood;
+            player.playerPreviewData.partner = row.partner;
+            player.playerPreviewData.guildName = row.guildName;
+            player.playerPreviewData.loaded = 1;
+        }
+        Debug.Log("player.playerPreviewData of player name : " + player.name  + " -> " + player.playerPreviewData.loaded.ToString());
     }
 
     void SaveInventory(Player player)
@@ -5371,6 +5471,7 @@ public partial class Database : MonoBehaviour
         SaveBelt(player);
         SaveCharacterCreation(player);
         SaveQuestCustom(player);
+        SavePlayerPreviewData(player);
     }
 
     public void LoadCustom(Player player)
@@ -5398,6 +5499,7 @@ public partial class Database : MonoBehaviour
         LoadAdditionalInventory(player);
         LoadCharacterCreation(player);
         LoadQuestCustom(player);
+        LoadPlayerPreviewData(player);
     }
 
     public void LoadCustomFriendStat(Player player)

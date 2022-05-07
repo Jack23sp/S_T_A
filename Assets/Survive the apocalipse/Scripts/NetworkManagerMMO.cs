@@ -240,6 +240,7 @@ public partial class NetworkManagerMMO : NetworkManager
         foreach (string characterName in Database.singleton.CharactersForAccount(account))
         {
             GameObject player = Database.singleton.CharacterLoad(characterName, playerClasses, true);
+            Debug.Log("Player name : " + player.name + " player preview loaded ? " + player.GetComponent<PlayerPreviewData>().loaded);
             characters.Add(player.GetComponent<Player>());
         }
 
@@ -360,6 +361,27 @@ public partial class NetworkManagerMMO : NetworkManager
         player.playerCreation.height = character.height;
         player.playerCreation.breast = character.breast;
         player.playerCreation.bag = character.bag;
+        player.playerPreviewData.currentArmor = character.currentArmor;
+        player.playerPreviewData.maxArmor = character.maxArmor;
+        player.playerPreviewData.health = character.health;
+        player.playerPreviewData.maxHealth = character.maxHealth;
+        player.playerPreviewData.mana = character.mana;
+        player.playerPreviewData.maxMana = character.maxMana;
+        player.playerPreviewData.damage = character.damage;
+        player.playerPreviewData.defense = character.defense;
+        player.playerPreviewData.accuracy = character.accuracy;
+        player.playerPreviewData.miss = character.miss;
+        player.playerPreviewData.critPerc = character.critPerc;
+        player.playerPreviewData.weight = character.weight;
+        player.playerPreviewData.maxWeight = character.maxWeight;
+        player.playerPreviewData.poisoned = character.poisoned;
+        player.playerPreviewData.hungry = character.hungry;
+        player.playerPreviewData.thirsty = character.thirsty;
+        player.playerPreviewData.blood = character.blood;
+        player.playerPreviewData.partner = character.partner;
+        player.playerPreviewData.guildName = character.guildName;
+        player.playerPreviewData.loaded = character.loaded;
+
 
         if (player.playerCreation.sex == 0)
         {
@@ -425,8 +447,6 @@ public partial class NetworkManagerMMO : NetworkManager
 
             prefabPreview.transform.localPosition = new Vector3(0.0f, positioning, 0.0f);
         }
-
-
 
         if (player.GetComponent<NotOnlinePlayerPremiumManager>()) player.GetComponent<NotOnlinePlayerPremiumManager>().inPremiumZone = character.premiumZone;
 
@@ -628,6 +648,25 @@ public partial class NetworkManagerMMO : NetworkManager
         player.playerCreation.muscle = message.muscle;
         player.playerCreation.height = message.height;
         player.playerCreation.breast = message.breast;
+        player.playerPreviewData.currentArmor = 0;
+        player.playerPreviewData.maxArmor = 0;
+        player.playerPreviewData.health = 100;
+        player.playerPreviewData.maxHealth = 100;
+        player.playerPreviewData.mana = 30;
+        player.playerPreviewData.maxMana = 30;
+        player.playerPreviewData.damage = 0;
+        player.playerPreviewData.defense = 0.1f;
+        player.playerPreviewData.accuracy = 0.1f;
+        player.playerPreviewData.miss = 0.1f;
+        player.playerPreviewData.critPerc = 0.2f;
+        player.playerPreviewData.weight = 0;
+        player.playerPreviewData.maxWeight = 0;
+        player.playerPreviewData.poisoned = 0;
+        player.playerPreviewData.hungry = 100;
+        player.playerPreviewData.thirsty = 100;
+        player.playerPreviewData.blood = 0;
+        player.playerPreviewData.partner = string.Empty;
+        player.playerPreviewData.guildName = string.Empty;
         return player;
     }
 

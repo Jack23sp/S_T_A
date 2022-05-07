@@ -775,6 +775,8 @@ GameObject:
   - component: {fileID: -1658948284500890199}
   - component: {fileID: 4172649297743808757}
   - component: {fileID: 5158090797181382635}
+  - component: {fileID: 5333273893721623182}
+  - component: {fileID: 1552183419660895636}
   m_Layer: 9
   m_Name: Male
   m_TagString: Player
@@ -1044,6 +1046,7 @@ MonoBehaviour:
   _manaMax:
     baseValue: 30
     bonusPerLevel: 2
+  _mana: 1
   manaRecovery: 1
   _manaRecoveryRate:
     baseValue: 1
@@ -1376,8 +1379,9 @@ MonoBehaviour:
   playerCreation: {fileID: -947911685063235967}
   playerQuest: {fileID: 7567491817285214507}
   playerDance: {fileID: 4172649297743808757}
-  playerInjury: {fileID: 0}
+  playerInjury: {fileID: 1552183419660895636}
   playerPlant: {fileID: 5158090797181382635}
+  playerPreviewData: {fileID: 5333273893721623182}
   joystick: {fileID: 0}
   useJoystick: 1
 --- !u!114 &114342037026676708
@@ -2418,6 +2422,7 @@ MonoBehaviour:
   upper: -1
   down: -1
   shoes: -1
+  bag: -1
   dummyPresentation: {fileID: 8870096794509410442}
   percSlider: 0
   accessorySlot:
@@ -2702,6 +2707,54 @@ MonoBehaviour:
     type: 3}
   plantObject: []
   selectedMedicalPlant: {fileID: 0}
+--- !u!114 &5333273893721623182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505016760143036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1f984b698ec43647a02c7144af48336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loaded: 0
+  currentArmor: 0
+  maxArmor: 0
+  health: 0
+  maxHealth: 0
+  mana: 0
+  maxMana: 0
+  damage: 0
+  defense: 0
+  accuracy: 0
+  miss: 0
+  critPerc: 0
+  weight: 0
+  maxWeight: 0
+  poisoned: 0
+  hungry: 0
+  thirsty: 0
+  blood: 0
+  partner: 
+  guildName: 
+--- !u!114 &1552183419660895636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505016760143036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e2fd7288af32274da907dbec4325c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  player: {fileID: 114732280623991920}
+  injured: 0
 --- !u!1 &1568550255999872
 GameObject:
   m_ObjectHideFlags: 0
