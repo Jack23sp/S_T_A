@@ -101,6 +101,8 @@ public partial class UICharacterSelection : MonoBehaviour
                         guildName.text = selectedGameObjectPlayer.guild.name;
                         bodyRawImage.gameObject.SetActive(characters.Length > 0 && selectedCharacter != string.Empty);
                         if (prevSelectedCharacter == string.Empty) prevSelectedCharacter = "Dummy";
+                        if(((NetworkManagerMMO)NetworkManager.singleton).selection > -1)
+                            manager.selectionLocations[((NetworkManagerMMO)NetworkManager.singleton).selection].GetComponentInChildren<PlayerSelectionCameraPositioning>().ResetRotation();
                         ((NetworkManagerMMO)NetworkManager.singleton).selection = previndex;
                     });
                 }

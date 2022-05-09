@@ -777,6 +777,7 @@ GameObject:
   - component: {fileID: 5158090797181382635}
   - component: {fileID: 5333273893721623182}
   - component: {fileID: 1552183419660895636}
+  - component: {fileID: 7444569346455088356}
   m_Layer: 9
   m_Name: Male
   m_TagString: Player
@@ -1382,6 +1383,7 @@ MonoBehaviour:
   playerInjury: {fileID: 1552183419660895636}
   playerPlant: {fileID: 5158090797181382635}
   playerPreviewData: {fileID: 5333273893721623182}
+  playerUIManager: {fileID: 7444569346455088356}
   joystick: {fileID: 0}
   useJoystick: 1
 --- !u!114 &114342037026676708
@@ -2755,6 +2757,59 @@ MonoBehaviour:
   syncInterval: 0.1
   player: {fileID: 114732280623991920}
   injured: 0
+--- !u!114 &7444569346455088356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505016760143036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e6f826142314944a6b2ff1f7e8bf2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114732280623991920}
+  prevArmor: 0
+  armor: 0
+  prevMaxArmor: 0
+  maxArmor: 0
+  prevHealth: 0
+  health: 0
+  prevHealthMax: 0
+  healthMax: 0
+  prevMana: 0
+  mana: 0
+  prevManaMax: 0
+  manaMax: 0
+  prevPoisoned: 0
+  poisoned: 0
+  prevHungry: 0
+  hungry: 0
+  prevThirsty: 0
+  thirsty: 0
+  prevBlood: 0
+  blood: 0
+  prevDamage: 0
+  damage: 0
+  prevWeight: 0
+  weight: 0
+  prevMaxWeight: 0
+  maxWeight: 0
+  prevDefense: 0
+  defense: 0
+  prevMiss: 0
+  miss: 0
+  prevAccuracy: 0
+  accuracy: 0
+  prevBlockChange: 0
+  blockChange: 0
+  prevCritChace: 0
+  critChance: 0
+  prevSpeed: 0
+  speed: 0
+  prevPartner: 
+  partner: 
 --- !u!1 &1568550255999872
 GameObject:
   m_ObjectHideFlags: 0
@@ -4922,12 +4977,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b909f3cba68d98540845c7ef16b588e6, type: 3}
---- !u!224 &8704399040939991814 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7698982906431646488, guid: b909f3cba68d98540845c7ef16b588e6,
-    type: 3}
-  m_PrefabInstance: {fileID: 1302794726760712222}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1496220194365185428 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 493092139110241674, guid: b909f3cba68d98540845c7ef16b588e6,
@@ -4940,6 +4989,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 389ba3722d0d6ac4b8307105677f3cdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &8704399040939991814 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7698982906431646488, guid: b909f3cba68d98540845c7ef16b588e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1302794726760712222}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2778858845778406517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5752,15 +5807,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26248c08890376542bb105d149556e20, type: 3}
---- !u!1 &6142061255038716422 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1316844059534673459, guid: 26248c08890376542bb105d149556e20,
-    type: 3}
-  m_PrefabInstance: {fileID: 5150607908951559221}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5956970953274290241 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1572261082714340468, guid: 26248c08890376542bb105d149556e20,
+    type: 3}
+  m_PrefabInstance: {fileID: 5150607908951559221}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6142061255038716422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1316844059534673459, guid: 26248c08890376542bb105d149556e20,
     type: 3}
   m_PrefabInstance: {fileID: 5150607908951559221}
   m_PrefabAsset: {fileID: 0}

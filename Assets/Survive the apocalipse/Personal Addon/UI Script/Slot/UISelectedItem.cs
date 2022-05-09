@@ -26,15 +26,15 @@ public class UISelectedItem : MonoBehaviour
 
     private bool instantiate;
 
+    public void Update()
+    {
+        if (Player.localPlayer.health == 0) Destroy(this.gameObject);
+    }
+
     public void Start()
     {
         if (!singleton) singleton = this;
         itemImage.preserveAspect = true;
-    }
-
-    public void Update()
-    {
-        if (Player.localPlayer.health == 0) Destroy(this.gameObject);
 
         if (!Player.localPlayer.playerBuilding.invBelt)
         {
@@ -82,6 +82,7 @@ public class UISelectedItem : MonoBehaviour
 
             useLiquid.onClick.SetListener(() =>
             {
+                useLiquid.GetComponent<ButtonAudioPlayer>().PlaySound();
                 if (UIInventory.singleton.player.inventory[UIInventory.singleton.selectedItem].item.waterContainer > 0)
                 {
                     Player.localPlayer.CmdUseWaterItem(Convert.ToInt32(liquidSlider.value), UIInventory.singleton.selectedItem, false);
@@ -90,6 +91,7 @@ public class UISelectedItem : MonoBehaviour
                 {
                     Player.localPlayer.CmdUseHoneyItem(Convert.ToInt32(liquidSlider.value), UIInventory.singleton.selectedItem, false);
                 }
+                closeItemButton.onClick.Invoke();
             });
 
             closeItemButton.onClick.SetListener(() =>
@@ -100,6 +102,8 @@ public class UISelectedItem : MonoBehaviour
 
             useButton.onClick.SetListener(() =>
             {
+                useButton.GetComponent<ButtonAudioPlayer>().PlaySound();
+
                 if (UIInventory.singleton.player.inventory[UIInventory.singleton.selectedItem].item.data is ScriptableBuilding)
                 {
                     UIInventory.singleton.player.playerBuilding.building = ((ScriptableBuilding)UIInventory.singleton.player.inventory[UIInventory.singleton.selectedItem].item.data);
@@ -456,6 +460,8 @@ public class UISelectedItem : MonoBehaviour
             deleteButton.gameObject.SetActive(true);
             deleteButton.onClick.SetListener(() =>
             {
+                deleteButton.GetComponent<ButtonAudioPlayer>().PlaySound();
+
                 UIInventory.singleton.player.CmdDeleteItem(UIInventory.singleton.selectedItem);
                 closeItemButton.onClick.Invoke();
             });
@@ -506,6 +512,8 @@ public class UISelectedItem : MonoBehaviour
 
             useLiquid.onClick.SetListener(() =>
             {
+                useLiquid.GetComponent<ButtonAudioPlayer>().PlaySound();
+
                 if (Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.waterContainer > 0)
                 {
                     Player.localPlayer.CmdUseWaterItem(Convert.ToInt32(liquidSlider.value), Player.localPlayer.playerBuilding.inventoryIndex, true);
@@ -514,6 +522,8 @@ public class UISelectedItem : MonoBehaviour
                 {
                     Player.localPlayer.CmdUseHoneyItem(Convert.ToInt32(liquidSlider.value), Player.localPlayer.playerBuilding.inventoryIndex, true);
                 }
+                closeItemButton.onClick.Invoke();
+
             });
 
             closeItemButton.onClick.SetListener(() =>
@@ -525,6 +535,8 @@ public class UISelectedItem : MonoBehaviour
 
             useButton.onClick.SetListener(() =>
             {
+                useButton.GetComponent<ButtonAudioPlayer>().PlaySound();
+
                 if (Player.localPlayer.playerBuilding.invBelt)
                 {
                     if (Player.localPlayer.playerBelt.belt[Player.localPlayer.playerBuilding.inventoryIndex].item.data is ScriptableBuilding)

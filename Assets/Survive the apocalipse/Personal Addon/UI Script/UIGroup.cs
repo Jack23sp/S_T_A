@@ -31,10 +31,7 @@ public class UIGroup : MonoBehaviour
     void Start()
     {
         if (!singleton) singleton = this;
-    }
 
-    void Update()
-    {
         if (!player) player = Player.localPlayer;
         if (!player) return;
 
@@ -43,10 +40,11 @@ public class UIGroup : MonoBehaviour
             Instantiate(GeneralManager.singleton.createGroupPanel, GeneralManager.singleton.canvas);
         });
 
+        RefreshGuild();
+    }
 
-        if (player.health == 0) UIOrderManager.singleton.btnCloseLastPanel.onClick.Invoke();
-
-        groupButton.interactable = !player.InGuild();
+    public void RefreshGuild()
+    {
         UIUtils.BalancePrefabs(personalGroupToSpawn, player.InGuild() ? 1 : 0, personalGroupContent);
         for (int i = 0; i < personalGroupContent.childCount; i++)
         {
@@ -54,13 +52,12 @@ public class UIGroup : MonoBehaviour
             GroupSlot slot = personalGroupContent.GetChild(index).GetComponent<GroupSlot>();
             slot.statName.text = player.guild.name;
             slot.statAmount.text = player.guild.members.Length + " / " + GuildSystem.Capacity;
-            slot.statButton.onClick.SetListener(() =>
+            slot.statButton.onClick.AddListener(() =>
             {
                 selectedGuild = player.guild;
                 UIOrderManager.singleton.SingleInstantePanel(guildObject);
             });
         }
-
         UIUtils.BalancePrefabs(allyToSpawn, player.InParty() ? 1 : 0, partyContent);
         for (int i = 0; i < partyContent.childCount; i++)
         {
@@ -68,12 +65,11 @@ public class UIGroup : MonoBehaviour
             GroupSlot slot = partyContent.GetChild(index).GetComponent<GroupSlot>();
             slot.statAmount.text = player.party.members.Length + " / " + Party.Capacity;
             slot.statName.text = player.party.master + "'s party";
-            slot.statButton.onClick.SetListener(() =>
+            slot.statButton.onClick.AddListener(() =>
             {
                 UIOrderManager.singleton.SingleInstantePanel(partyObject);
             });
         }
-
         UIUtils.BalancePrefabs(allyToSpawn, player.playerAlliance.guildAlly.Count, groupContent);
         for (int i = 0; i < player.playerAlliance.guildAlly.Count; i++)
         {
@@ -81,7 +77,7 @@ public class UIGroup : MonoBehaviour
             GroupSlot slot = groupContent.GetChild(index).GetComponent<GroupSlot>();
             slot.statName.text = player.playerAlliance.guildAlly[index];
             slot.statAmount.text = "";
-            slot.statButton.onClick.SetListener(() =>
+            slot.statButton.onClick.AddListener(() =>
             {
                 player.playerAlliance.CmdLoadGuild(player.playerAlliance.guildAlly[index]);
                 selectedGroup = player.playerAlliance.guildAlly[index];
@@ -90,6 +86,15 @@ public class UIGroup : MonoBehaviour
                 //UIOrderManager.singleton.singleTimePanel[UIOrderManager.singleton.singleTimePanel.Count - 1].gameObject.GetComponent<UIGuild>().leaveButton.gameObject.SetActive(false);
             });
         }
+    }
+
+    void Update()
+    {
+
+
+        if (player.health == 0) UIOrderManager.singleton.btnCloseLastPanel.onClick.Invoke();
+
+        groupButton.interactable = !player.InGuild();
 
     }
 }

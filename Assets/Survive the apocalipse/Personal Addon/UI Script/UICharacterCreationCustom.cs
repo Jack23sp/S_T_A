@@ -317,6 +317,7 @@ public class UICharacterCreationCustom : MonoBehaviour
 
     void Update()
     {
+        if (Player.localPlayer) Destroy(this.gameObject);
         ChangeColor();
         createButton.interactable = manager.IsAllowedCharacterName(nameInput.text) && selectedSex != -1;
     }

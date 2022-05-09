@@ -40,11 +40,13 @@ public class StatisticSlot : MonoBehaviour
 
     public void Start()
     {
-        image.preserveAspect = true;
+        Refresh();
     }
 
-    public void Update()
+    public void Refresh()
     {
+        image.preserveAspect = true;
+
         if (Player.localPlayer)
         {
             if (!player) player = Player.localPlayer;

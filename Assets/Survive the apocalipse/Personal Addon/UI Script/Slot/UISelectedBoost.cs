@@ -20,16 +20,14 @@ public class UISelectedBoost : MonoBehaviour
         if (!singleton) singleton = this;
         description.text = string.Empty;
 
-
-    }
-
-
-    void Update()
-    {
         if (!player) player = Player.localPlayer;
         if (!player) return;
 
-        if (player.health == 0) Destroy(this.gameObject);
+        closeButton.onClick.AddListener(() =>
+        {
+            UIBoost.singleton.selectedBoost = null;
+            Destroy(this.gameObject);
+        });
 
         if (UIBoost.singleton && UIBoost.singleton.selectedBoost && description.text == string.Empty)
         {
@@ -38,29 +36,31 @@ public class UISelectedBoost : MonoBehaviour
 
             coin.GetComponentInChildren<TextMeshProUGUI>().text = boost.coin.ToString();
             coin.interactable = player.coins >= boost.coin;
-            coin.onClick.SetListener(() =>
+            coin.onClick.AddListener(() =>
             {
                 if (player.coins >= boost.coin)
                 {
                     player.playerBoost.CmdAddBoost(GeneralManager.singleton.listCompleteOfBoost.IndexOf(boost), 0, System.DateTime.Now.AddSeconds(GeneralManager.singleton.AddSecondsToBoost(boost)).ToString());
+                    closeButton.onClick.Invoke();
                 }
             });
 
             gold.GetComponentInChildren<TextMeshProUGUI>().text = boost.gold.ToString();
             gold.interactable = player.gold >= boost.gold;
-            gold.onClick.SetListener(() =>
+            gold.onClick.AddListener(() =>
             {
-                if (player.gold < boost.gold)
+                if (player.gold >= boost.gold)
                 {
                     player.playerBoost.CmdAddBoost(GeneralManager.singleton.listCompleteOfBoost.IndexOf(boost), 1, System.DateTime.Now.AddSeconds(GeneralManager.singleton.AddSecondsToBoost(boost)).ToString());
+                    closeButton.onClick.Invoke();
                 }
             });
         }
-        closeButton.onClick.SetListener(() =>
-        {
-            UIBoost.singleton.selectedBoost = null;
-            Destroy(this.gameObject);
-        });
+    }
 
+
+    void Update()
+    {
+        if (player.health == 0) Destroy(this.gameObject);
     }
 }

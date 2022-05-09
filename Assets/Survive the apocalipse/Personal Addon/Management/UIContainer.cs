@@ -443,6 +443,7 @@ public partial class UIChatManager : MonoBehaviour
 
 public partial class UIAbilities
 {
+    public static UIAbilities singleton;
     private Player player;
     public Transform content;
     public GameObject gameObjectToSpawn;
@@ -450,16 +451,19 @@ public partial class UIAbilities
     public TextMeshProUGUI description;
     public Button UpgradeButton;
 
-    void Update()
+    public void Start()
     {
-        if (!player) player = Player.localPlayer;
-        if (!player) return;
-
+        if(!singleton) singleton = this;
         UpgradeButton.onClick.SetListener(() =>
         {
             player.playerAbility.CmdIncreaseAbility(selectedAbilities);
             content.GetChild(selectedAbilities).GetComponent<AbilitySlot>().button.onClick.Invoke();
         });
+
+        if (!player) player = Player.localPlayer;
+        if (!player) return;
+
+
 
         UIUtils.BalancePrefabs(gameObjectToSpawn, player.playerAbility.networkAbilities.Count, content);
         for (int i = 0; i < player.playerAbility.networkAbilities.Count; i++)
@@ -473,41 +477,113 @@ public partial class UIAbilities
             slot.button.onClick.SetListener(() =>
             {
                 selectedAbilities = index;
-
+                SetAbilitiesDescription();
             });
 
-            if (selectedAbilities > -1)
-            {
-                if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
-                {
-                    description.text = player.playerAbility.abilities[selectedAbilities].DescriptionIta + "\n\n" + "Il livello attuale dell'abilita' e' : " + player.playerAbility.networkAbilities[selectedAbilities].level;
-                    if (selectedAbilities > -1 && player.playerAbility.CanUpgradeAbilities(selectedAbilities))
-                    {
-                        description.text += "\n\nPer effettuare l'upgrade al prossimo livello e' necessario : " + player.playerAbility.networkAbilities[selectedAbilities].baseValue * (player.playerAbility.networkAbilities[selectedAbilities].level + 1) + " oro!";
-                    }
-                    else if (selectedAbilities > -1 && !player.playerAbility.CanUpgradeAbilities(selectedAbilities))
-                    {
-                        description.text += "\n\nCongratulazioni, hai raggiunto il livello massimo per questa abilita'!";
-                    }
-                }
-                else
-                {
-                    description.text = player.playerAbility.abilities[selectedAbilities].Description + "\n\n" + "Current ability level is : " + player.playerAbility.networkAbilities[selectedAbilities].level;
-                    if (selectedAbilities > -1 && player.playerAbility.CanUpgradeAbilities(selectedAbilities))
-                    {
-                        description.text += "\n\nTo upgrade to the next level you need : " + player.playerAbility.networkAbilities[selectedAbilities].baseValue * (player.playerAbility.networkAbilities[selectedAbilities].level + 1) + " gold!";
-                    }
-                    else if (selectedAbilities > -1 && !player.playerAbility.CanUpgradeAbilities(selectedAbilities))
-                    {
-                        description.text += "\n\nCongratulations, you reach the maximum level for this ability!";
-                    }
-
-                }
-            }
 
         }
+    }
 
+    public void RefreshAbilities()
+    {
+        for (int i = 0; i < player.playerAbility.networkAbilities.Count; i++)
+        {
+            int index = i;
+            AbilitySlot slot = content.GetChild(index).GetComponent<AbilitySlot>();
+            slot.statName.text = player.playerAbility.networkAbilities[index].name;
+            slot.image.sprite = player.playerAbility.abilities[index].image;
+            slot.statAmount.text = player.playerAbility.networkAbilities[index].level + " / " + player.playerAbility.networkAbilities[index].maxLevel;
+            slot.button.gameObject.SetActive(true);
+        }
+    }
+
+    public void SetAbilitiesDescription()
+    {
+
+        if (selectedAbilities > -1)
+        {
+            if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+            {
+                description.text = player.playerAbility.abilities[selectedAbilities].DescriptionIta + "\n\n" + "Il livello attuale dell'abilita' e' : " + player.playerAbility.networkAbilities[selectedAbilities].level;
+                if (selectedAbilities > -1 && player.playerAbility.CanUpgradeAbilities(selectedAbilities))
+                {
+                    description.text += "\n\nPer effettuare l'upgrade al prossimo livello e' necessario : " + player.playerAbility.networkAbilities[selectedAbilities].baseValue * (player.playerAbility.networkAbilities[selectedAbilities].level + 1) + " oro!";
+                }
+                else if (selectedAbilities > -1 && !player.playerAbility.CanUpgradeAbilities(selectedAbilities))
+                {
+                    description.text += "\n\nCongratulazioni, hai raggiunto il livello massimo per questa abilita'!";
+                }
+            }
+            else
+            {
+                description.text = player.playerAbility.abilities[selectedAbilities].Description + "\n\n" + "Current ability level is : " + player.playerAbility.networkAbilities[selectedAbilities].level;
+                if (selectedAbilities > -1 && player.playerAbility.CanUpgradeAbilities(selectedAbilities))
+                {
+                    description.text += "\n\nTo upgrade to the next level you need : " + player.playerAbility.networkAbilities[selectedAbilities].baseValue * (player.playerAbility.networkAbilities[selectedAbilities].level + 1) + " gold!";
+                }
+                else if (selectedAbilities > -1 && !player.playerAbility.CanUpgradeAbilities(selectedAbilities))
+                {
+                    description.text += "\n\nCongratulations, you reach the maximum level for this ability!";
+                }
+
+            }
+        }
         UpgradeButton.gameObject.SetActive(selectedAbilities > -1 && player.playerAbility.CanUpgradeAbilities(selectedAbilities));
+    }
+
+    void Update()
+    {
+        //if (!player) player = Player.localPlayer;
+        //if (!player) return;
+
+
+
+        //UIUtils.BalancePrefabs(gameObjectToSpawn, player.playerAbility.networkAbilities.Count, content);
+        //for (int i = 0; i < player.playerAbility.networkAbilities.Count; i++)
+        //{
+        //    int index = i;
+        //    AbilitySlot slot = content.GetChild(index).GetComponent<AbilitySlot>();
+        //    slot.statName.text = player.playerAbility.networkAbilities[index].name;
+        //    slot.image.sprite = player.playerAbility.abilities[index].image;
+        //    slot.statAmount.text = player.playerAbility.networkAbilities[index].level + " / " + player.playerAbility.networkAbilities[index].maxLevel;
+        //    slot.button.gameObject.SetActive(true);
+        //    slot.button.onClick.SetListener(() =>
+        //    {
+        //        selectedAbilities = index;
+        //    });
+
+        //    if (selectedAbilities > -1)
+        //    {
+        //        if (GeneralManager.singleton.languagesManager.defaultLanguages == "Italian")
+        //        {
+        //            description.text = player.playerAbility.abilities[selectedAbilities].DescriptionIta + "\n\n" + "Il livello attuale dell'abilita' e' : " + player.playerAbility.networkAbilities[selectedAbilities].level;
+        //            if (selectedAbilities > -1 && player.playerAbility.CanUpgradeAbilities(selectedAbilities))
+        //            {
+        //                description.text += "\n\nPer effettuare l'upgrade al prossimo livello e' necessario : " + player.playerAbility.networkAbilities[selectedAbilities].baseValue * (player.playerAbility.networkAbilities[selectedAbilities].level + 1) + " oro!";
+        //            }
+        //            else if (selectedAbilities > -1 && !player.playerAbility.CanUpgradeAbilities(selectedAbilities))
+        //            {
+        //                description.text += "\n\nCongratulazioni, hai raggiunto il livello massimo per questa abilita'!";
+        //            }
+        //        }
+        //        else
+        //        {
+        //            description.text = player.playerAbility.abilities[selectedAbilities].Description + "\n\n" + "Current ability level is : " + player.playerAbility.networkAbilities[selectedAbilities].level;
+        //            if (selectedAbilities > -1 && player.playerAbility.CanUpgradeAbilities(selectedAbilities))
+        //            {
+        //                description.text += "\n\nTo upgrade to the next level you need : " + player.playerAbility.networkAbilities[selectedAbilities].baseValue * (player.playerAbility.networkAbilities[selectedAbilities].level + 1) + " gold!";
+        //            }
+        //            else if (selectedAbilities > -1 && !player.playerAbility.CanUpgradeAbilities(selectedAbilities))
+        //            {
+        //                description.text += "\n\nCongratulations, you reach the maximum level for this ability!";
+        //            }
+
+        //        }
+        //    }
+
+        //}
+
+        //UpgradeButton.gameObject.SetActive(selectedAbilities > -1 && player.playerAbility.CanUpgradeAbilities(selectedAbilities));
     }
 }
 
@@ -534,19 +610,27 @@ public partial class UIBoost
     {
         if (!singleton) singleton = this;
         changeBoost = false;
-    }
 
-    void Update()
-    {
         if (!player) player = Player.localPlayer;
         if (!player) return;
 
-        personalBoost.onClick.SetListener(() =>
+        personalBoost.onClick.AddListener(() =>
         {
             changeBoost = !changeBoost;
+            UpdateBoost();
         });
 
+        UpdateBoost();
+    }
+
+    public void UpdateBoost()
+    {
         personalBoost.gameObject.SetActive(player && player.playerBoost.networkBoost.Count > 0);
+
+        foreach(Transform t in boostContent)
+        {
+            Destroy(t.gameObject);
+        }
 
         boostContent.gameObject.SetActive(!changeBoost);
         generalBoostContent.gameObject.SetActive(changeBoost);
@@ -564,7 +648,7 @@ public partial class UIBoost
                 slot.coins.text = GeneralManager.singleton.listCompleteOfBoost[index].coin.ToString();
                 slot.gold.text = GeneralManager.singleton.listCompleteOfBoost[index].gold.ToString();
                 slot.boostImage.sprite = GeneralManager.singleton.listCompleteOfBoost[index].image;
-                slot.boostButton.onClick.SetListener(() =>
+                slot.boostButton.onClick.AddListener(() =>
                 {
                     if (instantiatedPanel) Destroy(instantiatedPanel);
                     selectedBoost = GeneralManager.singleton.listCompleteOfBoost[index];
@@ -2112,18 +2196,19 @@ public partial class UIStatistics
     public GameObject slotToInstantiate;
     public Transform content;
     private Player player;
-    // Start is called before the first frame update
+
     void Start()
     {
         if (!singleton) singleton = this;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
         if (!player) player = Player.localPlayer;
         if (!player) return;
 
+        SpawnStats();
+    }
+
+    public void SpawnStats()
+    {
         UIUtils.BalancePrefabs(slotToInstantiate, 16, content);
         for (int i = 0; i < 16; i++)
         {
@@ -2133,26 +2218,25 @@ public partial class UIStatistics
         }
     }
 
-
     public void ManageStatType(StatisticSlot slot, int index)
     {
-        if (index == 0) { slot.armor = true; return; }
-        if (index == 1) { slot.health = true; return; }
+        if (index == 0) { slot.armor = true; slot.Refresh(); return; }
+        if (index == 1) { slot.health = true; slot.Refresh(); return; }
         //if (index == 2) { slot.damage = true; return; }
-        if (index == 2) { slot.adrenaline = true; return; }
-        if (index == 3) { slot.defense = true; return; }
-        if (index == 4) { slot.accuracy = true; return; }
-        if (index == 5) { slot.miss = true; return; }
-        if (index == 6) { slot.critPerc = true; return; }
-        if (index == 7) { slot.weight = true; return; }
-        if (index == 8) { slot.poisoned = true; return; }
-        if (index == 9) { slot.hungry = true; return; }
-        if (index == 10) { slot.thirsty = true; return; }
-        if (index == 11) { slot.blood = true; return; }
-        if (index == 12) { slot.marriage = true; return; }
-        if (index == 13) { slot.defenseBonusPerc = true; return; }
-        if (index == 14) { slot.manaBonusPerc = true; return; }
-        if (index == 15) { slot.healthBonusPerc = true; return; }
+        if (index == 2) { slot.adrenaline = true; slot.Refresh(); return; }
+        if (index == 3) { slot.defense = true; slot.Refresh(); return; }
+        if (index == 4) { slot.accuracy = true; slot.Refresh(); return; }
+        if (index == 5) { slot.miss = true; slot.Refresh(); return; }
+        if (index == 6) { slot.critPerc = true; slot.Refresh(); return; }
+        if (index == 7) { slot.weight = true; slot.Refresh(); return; }
+        if (index == 8) { slot.poisoned = true; slot.Refresh(); return; }
+        if (index == 9) { slot.hungry = true; slot.Refresh(); return; }
+        if (index == 10) { slot.thirsty = true; slot.Refresh(); return; }
+        if (index == 11) { slot.blood = true; slot.Refresh(); return; }
+        if (index == 12) { slot.marriage = true; slot.Refresh(); return; }
+        if (index == 13) { slot.defenseBonusPerc = true; slot.Refresh(); return; }
+        if (index == 14) { slot.manaBonusPerc = true; slot.Refresh(); return; }
+        if (index == 15) { slot.healthBonusPerc = true; slot.Refresh(); return; }
     }
 }
 

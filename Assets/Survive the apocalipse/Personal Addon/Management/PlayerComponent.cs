@@ -27,6 +27,12 @@ public partial class PlayerAbility
                 networkAbilities.Add(new Ability(ab.name, 0, ab.maxLevel, ab.baseValue));
             }
         }
+        networkAbilities.Callback += OnAbilitiesChanged;
+
+    }
+    void OnAbilitiesChanged(SyncListAbility.Operation op, int index, Ability oldSlot, Ability newSlot)
+    {
+        UIAbilities.singleton.RefreshAbilities();
     }
 
     [Command]
@@ -72,11 +78,15 @@ public partial class PlayerAccuracy
 
             if (player.playerBoost.networkBoost.Count == 0)
             {
-                return equipmentBonus + baseAccuracy.Get(player.level) + (0.1f * Convert.ToSingle(GeneralManager.singleton.FindNetworkAbilityLevel(ability.name, player.name)));
+                if(player.playerUIManager) player.playerUIManager.accuracy = equipmentBonus + baseAccuracy.Get(player.level) + (0.1f * Convert.ToSingle(GeneralManager.singleton.FindNetworkAbilityLevel(ability.name, player.name)));
+                return player.playerUIManager != null ? player.playerUIManager.accuracy : equipmentBonus + baseAccuracy.Get(player.level) + (0.1f * Convert.ToSingle(GeneralManager.singleton.FindNetworkAbilityLevel(ability.name, player.name)));
             }
             else
             {
-                return (equipmentBonus + baseAccuracy.Get(player.level) + (0.1f * Convert.ToSingle(GeneralManager.singleton.FindNetworkAbilityLevel(ability.name, player.name))) +
+                if (player.playerUIManager) player.playerUIManager.accuracy = (equipmentBonus + baseAccuracy.Get(player.level) + (0.1f * Convert.ToSingle(GeneralManager.singleton.FindNetworkAbilityLevel(ability.name, player.name))) +
+                       player.playerBoost.networkBoost[0].accuracyPerc);
+
+                return player.playerUIManager != null ? player.playerUIManager.accuracy : (equipmentBonus + baseAccuracy.Get(player.level) + (0.1f * Convert.ToSingle(GeneralManager.singleton.FindNetworkAbilityLevel(ability.name, player.name))) +
                        player.playerBoost.networkBoost[0].accuracyPerc);
             }
         }
@@ -109,11 +119,15 @@ public partial class PlayerMiss
             // base (health + buff) + equip + attributes
             if (player.playerBoost.networkBoost.Count == 0)
             {
-                return equipmentBonus + baseMiss.Get(player.level) + (0.1f * Convert.ToSingle(GeneralManager.singleton.FindNetworkAbilityLevel(ability.name, player.name)));
+                if (player.playerUIManager) player.playerUIManager.miss = equipmentBonus + baseMiss.Get(player.level) + (0.1f * Convert.ToSingle(GeneralManager.singleton.FindNetworkAbilityLevel(ability.name, player.name)));
+                return player.playerUIManager != null ? player.playerUIManager.miss : equipmentBonus + baseMiss.Get(player.level) + (0.1f * Convert.ToSingle(GeneralManager.singleton.FindNetworkAbilityLevel(ability.name, player.name)));
             }
             else
             {
-                return (equipmentBonus + baseMiss.Get(player.level) + (0.1f * Convert.ToSingle(GeneralManager.singleton.FindNetworkAbilityLevel(ability.name, player.name))) +
+                if (player.playerUIManager) player.playerUIManager.miss = (equipmentBonus + baseMiss.Get(player.level) + (0.1f * Convert.ToSingle(GeneralManager.singleton.FindNetworkAbilityLevel(ability.name, player.name))) +
+                       player.playerBoost.networkBoost[0].missPerc);
+
+                return player.playerUIManager != null ? player.playerUIManager.miss : (equipmentBonus + baseMiss.Get(player.level) + (0.1f * Convert.ToSingle(GeneralManager.singleton.FindNetworkAbilityLevel(ability.name, player.name))) +
                        player.playerBoost.networkBoost[0].missPerc);
 
             }
@@ -279,6 +293,8 @@ public partial class PlayerArmor
                 if (slot.amount > 0)
                     equipmentBonus += slot.item.currentArmor;
 
+            if (player.playerUIManager) player.playerUIManager.armor = equipmentBonus;
+
             return equipmentBonus;
         }
     }
@@ -292,6 +308,8 @@ public partial class PlayerArmor
             foreach (ItemSlot slot in player.equipment)
                 if (slot.amount > 0)
                     equipmentBonus += ((EquipmentItem)slot.item.data).armor.Get(slot.item.armorLevel);
+
+            if (player.playerUIManager) player.playerUIManager.maxArmor = equipmentBonus;
 
             // base (health + buff) + equip + attributes
             return equipmentBonus;
@@ -319,6 +337,21 @@ public partial class PlayerBoost
         {
             cycleAmount = GeneralManager.singleton.boostInvoke;
             InvokeRepeating(nameof(DecreaseTimer), cycleAmount, cycleAmount);
+        }
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        networkBoost.Callback += OnBoostChanged;
+    }
+
+    void OnBoostChanged(SyncListBoost.Operation op, int index, Boost oldSlot, Boost newSlot)
+    {
+        if (UIBoost.singleton)
+        {
+            UIBoost.singleton.changeBoost = true;
+            UIBoost.singleton.UpdateBoost();
         }
     }
 
@@ -738,7 +771,7 @@ public partial class PlayerHungry
     public Player player;
 
     public int maxHungry = 100;
-    [SyncVar]
+    [SyncVar (hook = (nameof(CacheNewHungryValue)))]
     public int currentHungry;
 
     public float cycleAmount = 60.0f;
@@ -759,6 +792,11 @@ public partial class PlayerHungry
                 InvokeRepeating(nameof(SpawnMessageRoutine), 90.0f, 90.0f);
             }
         }
+    }
+
+    public void CacheNewHungryValue(int oldValue, int newValue)
+    {
+        if (player.playerUIManager) player.playerUIManager.hungry = newValue;
     }
 
     public void SpawnMessageRoutine()
@@ -783,7 +821,7 @@ public partial class PlayerPoisoning
     public Player player;
 
     public int maxPoisoning = 100;
-    [SyncVar]
+    [SyncVar(hook = nameof(CacheNewPosionValue))]
     public int currentPoisoning;
 
     public float cycleAmount = 60.0f;
@@ -801,6 +839,11 @@ public partial class PlayerPoisoning
         }
     }
 
+    public void CacheNewPosionValue ( int oldValued, int newValue)
+    {
+        if (player.playerUIManager) player.playerUIManager.poisoned = newValue;
+    }
+
     public void DecreasePoisoning()
     {
         if (player.playerPoisoning.currentPoisoning >= 100)
@@ -816,7 +859,7 @@ public partial class PlayerThirsty
     public Player player;
 
     public int maxThirsty = 100;
-    [SyncVar]
+    [SyncVar(hook = (nameof(CacheNewThirtstyValue)))]
     public int currentThirsty;
 
     public float cycleAmount = 60.0f;
@@ -837,6 +880,11 @@ public partial class PlayerThirsty
                 InvokeRepeating(nameof(SpawnMessageRoutine), 90.0f, 90.0f);
             }
         }
+    }
+
+    public void CacheNewThirtstyValue(int oldValue, int newValue)
+    {
+        if (player.playerUIManager) player.playerUIManager.thirsty = newValue;
     }
 
     public void SpawnMessageRoutine()
@@ -1607,10 +1655,20 @@ public partial class PlayerTorch
 public partial class PlayerWeight
 {
     public Player player;
-    [SyncVar]
+    [SyncVar(hook = nameof(CacheNewWeightValues))]
     public float currentWeight;
-    [SyncVar]
+    [SyncVar(hook = nameof(CacheNewMaxWeightValues))]
     public float maxWeight;
+
+    public void CacheNewWeightValues(float oldValue, float newValue)
+    {
+        if (player.playerUIManager) player.playerUIManager.weight = newValue;
+    }
+
+    public void CacheNewMaxWeightValues(float oldValue, float newValue)
+    {
+        if (player.playerUIManager) player.playerUIManager.maxWeight = newValue;
+    }
 }
 
 
@@ -3071,7 +3129,7 @@ public partial class PlayerMarriage
 
     [SyncVar]
     public string inviter;
-    [SyncVar]
+    [SyncVar(hook = nameof(CacheNewPartnerValue))]
     public string partnerName;
 
     [Header("Partner")]
@@ -3106,6 +3164,10 @@ public partial class PlayerMarriage
         }
     }
 
+    public void CacheNewPartnerValue (string oldValue, string newValue)
+    {
+        if (player.playerUIManager) player.playerUIManager.partner = newValue;
+    }
 
     public void OnDisconnect()
     {
@@ -4032,7 +4094,7 @@ public partial class PlayerBlood
 
     public float decreaseBloodTimer;
 
-    [SyncVar]
+    [SyncVar(hook = (nameof(CacheNewBloodValue)))]
     public int currentBlood;
 
     void Start()
@@ -4044,6 +4106,10 @@ public partial class PlayerBlood
         }
     }
 
+    public void CacheNewBloodValue( int oldValue, int newValue)
+    {
+        if (player.playerUIManager) player.playerUIManager.blood = newValue;
+    }
 
     public void DecreaseBlood()
     {

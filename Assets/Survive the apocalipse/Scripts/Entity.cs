@@ -93,7 +93,7 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
         }
     }
     public bool invincible = false; // GMs, Npcs, ...
-    [SyncVar] public int _health = 1;
+    [SyncVar(hook = nameof(CacheNewHealthValue))] public int _health = 1;
     public int health
     {
         get { return Mathf.Min(_health, healthMax); } // min in case hp>hpmax after buff ends etc.
@@ -142,7 +142,7 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
             return _manaMax.Get(level);
         }
     }
-    [SyncVar] public int _mana = 1;
+    [SyncVar(hook = nameof(CacheNewManaValue))] public int _mana = 1;
     public int mana
     {
         get { return Mathf.Min(_mana, manaMax); } // min in case hp>hpmax after buff ends etc.
@@ -311,7 +311,7 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
     // useful for monster loot, chests etc.
     // note: int is not enough (can have > 2 mil. easily)
     [Header("Gold")]
-    [SyncVar, SerializeField] long _gold = 0;
+    [SyncVar(hook = (nameof(CacheNewGoldValue))), SerializeField] long _gold = 0;
     public long gold { get { return _gold; } set { _gold = Math.Max(value, 0); } }
 
     // 3D text mesh for name above the entity's head
@@ -344,8 +344,34 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
     [HideInInspector] public Rock rockObject;
     [HideInInspector] public Plant plantObject;
     [HideInInspector] public Monster monsterObject;
+    [HideInInspector] public Player playerObject;
 
     public int spawnManager;
+
+    public void CacheNewHealthValue(int oldValue, int newValue)
+    {
+        if(playerObject && playerObject.playerUIManager)
+        {
+            playerObject.playerUIManager.health = newValue;
+        }
+    }
+
+    public void CacheNewManaValue(int oldValue, int newValue)
+    {
+
+        if (playerObject && playerObject.playerUIManager)
+        {
+            playerObject.playerUIManager.mana = newValue;
+        }
+    }
+
+    public void CacheNewGoldValue(long oldValue, long newValue)
+    {
+        if (playerObject && playerObject.playerUIManager)
+        {
+            playerObject.playerUIManager.gold = newValue;
+        }
+    }
 
     // networkbehaviour ////////////////////////////////////////////////////////
     protected virtual void Awake()

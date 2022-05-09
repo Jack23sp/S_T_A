@@ -15,13 +15,8 @@ public class ButtonAudioPlayer : MonoBehaviour
     public void Start()
     {
         if (!button) button = GetComponent<Button>();
-        if (!audioSource) audioSource = GetComponent<AudioSource>();;
-    }
-
-
-    public void Update()
-    {
-        if (!manualCalled)
+        if (!audioSource) audioSource = GetComponent<AudioSource>();
+        if (button)
         {
             button.onClick.AddListener(() =>
             {
@@ -29,6 +24,19 @@ public class ButtonAudioPlayer : MonoBehaviour
                 SoundManager.singleton.PlaySound(audioSource, audioCategory);
             });
         }
+    }
+
+
+    public void Update()
+    {
+        //if (!manualCalled)
+        //{
+        //    button.onClick.AddListener(() =>
+        //    {
+        //        if (!audioSource) audioSource = GetComponent<AudioSource>();
+        //        SoundManager.singleton.PlaySound(audioSource, audioCategory);
+        //    });
+        //}
     }
 
     public void PlaySound()

@@ -10,7 +10,7 @@
 // the maximum experience for level 2 can be found in expMax[1] and so on. The
 // player's health and mana are also level dependent in most MMORPGs, hence why
 // there are hpMax and mpMax arrays too. We can find out a players's max health
-// in level 1 by using hpMax[0] and so on.
+// in level 1 by using hpMax[0] and so on.h
 //
 // The class also takes care of selection handling, which detects 3D world
 // clicks and then targets/navigates somewhere/interacts with someone.
@@ -152,8 +152,10 @@ public partial class Player : Entity
             // calculate strength bonus (1 strength means 1% of hpMax bonus)
             int attributeBonus = Convert.ToInt32(_healthMax.Get(level));
 
+            if (playerUIManager) playerUIManager.healthMax = attributeBonus + equipmentBonus + (addMarriageBonus == true ? (Convert.ToInt32((float)(_healthMax.Get(level) / 100.0f) * (float)GeneralManager.singleton.marriageHealth)) : 0);
+
             // base (health + buff) + equip + attributes
-            return attributeBonus + equipmentBonus + (addMarriageBonus == true ? (Convert.ToInt32((float)(_healthMax.Get(level) / 100.0f) * (float)GeneralManager.singleton.marriageHealth)) : 0);
+            return playerUIManager != null ? playerUIManager.healthMax : attributeBonus + equipmentBonus + (addMarriageBonus == true ? (Convert.ToInt32((float)(_healthMax.Get(level) / 100.0f) * (float)GeneralManager.singleton.marriageHealth)) : 0);
         }
     }
 
@@ -174,8 +176,10 @@ public partial class Player : Entity
             // calculate intelligence bonus (1 intelligence means 1% of hpMax bonus)
             int attributeBonus = Convert.ToInt32(_manaMax.Get(level));
 
+            if (playerUIManager) playerUIManager.manaMax = base.manaMax + equipmentBonus + (addMarriageBonus == true ? (Convert.ToInt32((float)(_manaMax.Get(level) / 100.0f) * (float)GeneralManager.singleton.marriageMana)) : 0);
+
             // base (mana + buff) + equip + attributes
-            return base.manaMax + equipmentBonus + (addMarriageBonus == true ? (Convert.ToInt32((float)(_manaMax.Get(level) / 100.0f) * (float)GeneralManager.singleton.marriageMana)) : 0);
+            return playerUIManager != null ? playerUIManager.manaMax : base.manaMax + equipmentBonus + (addMarriageBonus == true ? (Convert.ToInt32((float)(_manaMax.Get(level) / 100.0f) * (float)GeneralManager.singleton.marriageMana)) : 0);
         }
     }
 
@@ -191,8 +195,10 @@ public partial class Player : Entity
                 if (slot.amount > 0)
                     equipmentBonus += ((EquipmentItem)slot.item.data).damageBonus;
 
+            if (playerUIManager) playerUIManager.damage = base.damage + equipmentBonus;
+
             // return base (damage + buff) + equip
-            return base.damage + equipmentBonus;
+            return playerUIManager != null ? playerUIManager.damage : base.damage + equipmentBonus;
         }
     }
 
@@ -209,9 +215,10 @@ public partial class Player : Entity
                 if (slot.amount > 0)
                     equipmentBonus += ((EquipmentItem)slot.item.data).defenseBonus;
 
-            // return base (defense + buff) + equip
+            if (playerUIManager) playerUIManager.defense = base.defense + equipmentBonus + (addMarriageBonus == true ? (Convert.ToInt32((float)(_defense.Get(level) / 100.0f) * (float)GeneralManager.singleton.marriageDefense)) : 0);
 
-            return base.defense + equipmentBonus + (addMarriageBonus == true ? (Convert.ToInt32((float)(_defense.Get(level) / 100.0f) * (float)GeneralManager.singleton.marriageDefense)) : 0);
+            // return base (defense + buff) + equip
+            return playerUIManager != null ? playerUIManager.defense : base.defense + equipmentBonus + (addMarriageBonus == true ? (Convert.ToInt32((float)(_defense.Get(level) / 100.0f) * (float)GeneralManager.singleton.marriageDefense)) : 0);
         }
     }
 
@@ -227,8 +234,10 @@ public partial class Player : Entity
                 if (slot.amount > 0)
                     equipmentBonus += ((EquipmentItem)slot.item.data).blockChanceBonus;
 
+            if (playerUIManager) playerUIManager.blockChange = base.blockChance + equipmentBonus;
+
             // return base (blockChance + buff) + equip
-            return base.blockChance + equipmentBonus;
+            return playerUIManager != null ? playerUIManager.blockChange : base.blockChance + equipmentBonus;
         }
     }
 
@@ -244,8 +253,10 @@ public partial class Player : Entity
                 if (slot.amount > 0)
                     equipmentBonus += ((EquipmentItem)slot.item.data).criticalChanceBonus;
 
+            if (playerUIManager) playerUIManager.critChance = base.criticalChance + equipmentBonus;
+
             // return base (criticalChance + buff) + equip
-            return base.criticalChance + equipmentBonus;
+            return playerUIManager != null ? playerUIManager.critChance : base.criticalChance + equipmentBonus;
         }
     }
 
@@ -254,8 +265,10 @@ public partial class Player : Entity
     {
         get
         {
+            if (playerUIManager) playerUIManager.speed = activeMount != null && activeMount.health > 0 ? activeMount.speed : agent.speed;
+
             // mount speed if mounted, regular speed otherwise
-            return activeMount != null && activeMount.health > 0 ? activeMount.speed : agent.speed;
+            return playerUIManager != null ? playerUIManager.speed : activeMount != null && activeMount.health > 0 ? activeMount.speed : agent.speed;
         }
     }
 
@@ -402,12 +415,12 @@ public partial class Player : Entity
 
     [Header("Item Mall")]
     public ItemMallCategory[] itemMallCategories; // the items that can be purchased in the item mall
-    [SyncVar] public long coins = 0;
+    [SyncVar (hook = (nameof(CacheNewCoinsValue)))] public long coins = 0;
     public float couponWaitSeconds = 3;
 
     [Header("Guild")]
     [SyncVar] public string guildInviteFrom = "";
-    [SyncVar, HideInInspector] public Guild guild; // TODO SyncToOwner later
+    [SyncVar (hook = (nameof(RefreshGuild))), HideInInspector] public Guild guild; // TODO SyncToOwner later
     public float guildInviteWaitSeconds = 3;
 
     // .party is a copy for easier reading/syncing. Use PartySystem to manage
@@ -504,6 +517,16 @@ public partial class Player : Entity
     public UIVisibleHealthArmor UIVisibleHealthArmor;
 
     public Transform enemyDetector;
+
+    public void RefreshGuild(Guild oldValue , Guild newValue)
+    {
+        if (UIGroup.singleton) UIGroup.singleton.RefreshGuild();
+    }
+
+    public void CacheNewCoinsValue(long oldValue, long newValue)
+    {
+        if (playerUIManager) playerUIManager.coins = newValue;
+    }
 
     // networkbehaviour ////////////////////////////////////////////////////////
     protected override void Awake()
@@ -726,6 +749,8 @@ public partial class Player : Entity
             if (!playerCreation.characterCustomization) playerCreation.characterCustomization = GetComponentInChildren<CharacterCustomization>();
             return;
         }
+
+        playerObject = this;
 
         base.Start();
 
@@ -4324,6 +4349,7 @@ public partial class Player : Entity
     public PlayerInjury playerInjury;
     public PlayerPlant playerPlant;
     public PlayerPreviewData playerPreviewData;
+    public PlayerUIManager playerUIManager;
 
     // joystick
     public Joystick joystick;

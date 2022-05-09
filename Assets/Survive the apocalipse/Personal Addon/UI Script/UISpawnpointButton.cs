@@ -15,18 +15,7 @@ public class UISpawnpointButton : MonoBehaviour
     {
         if (!singleton) singleton = this;
         InvokeRepeating(nameof(CheckSpawnPanel), 1.0f, 2.0f);
-    }
-
-    public void CheckSpawnPanel()
-    {
-        if (!player) player = Player.localPlayer;
-        if (!player) return;
-
-        if (player.health == 0 && !spawnedObject)
-        {
-            spawnedObject = Instantiate(GeneralManager.singleton.spawnpointPanelToCreate, GeneralManager.singleton.canvas);
-        }
-        spawnpointButton.onClick.SetListener(() =>
+        spawnpointButton.onClick.AddListener(() =>
         {
             if (player.health > 0)
             {
@@ -40,6 +29,16 @@ public class UISpawnpointButton : MonoBehaviour
                 }
             }
         });
+    }
 
+    public void CheckSpawnPanel()
+    {
+        if (!player) player = Player.localPlayer;
+        if (!player) return;
+
+        if (player.health == 0 && !spawnedObject)
+        {
+            spawnedObject = Instantiate(GeneralManager.singleton.spawnpointPanelToCreate, GeneralManager.singleton.canvas);
+        }
     }
 }

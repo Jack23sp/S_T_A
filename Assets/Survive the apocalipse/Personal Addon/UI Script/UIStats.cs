@@ -6,6 +6,7 @@ using TMPro;
 
 public class UIStats : MonoBehaviour
 {
+    public static UIStats singleton;
     public Image hungryImage;
     public TextMeshProUGUI hungryText;
 
@@ -30,25 +31,22 @@ public class UIStats : MonoBehaviour
 
     public GeneralManager generalManager;
 
-    // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating(nameof(SyncCurrency), 1.0f, 1.0f);
+        if (!singleton) singleton = this;
+        SyncCurrency();
         hungryImage.sprite = generalManager.hungry;
         thirstImage.sprite = generalManager.thirsty;
         weightImage.sprite = generalManager.temperatureImage;
         coinImage.sprite = generalManager.coinsImage;
         goldImage.sprite = generalManager.goldImage;
-    }
 
-    public void Update()
-    {
-        goldButton.onClick.SetListener(() =>
+        goldButton.onClick.AddListener(() =>
         {
             OpenItemMall();
         });
 
-        gemsButton.onClick.SetListener(() =>
+        gemsButton.onClick.AddListener(() =>
         {
             OpenItemMall();
         });
@@ -59,26 +57,22 @@ public class UIStats : MonoBehaviour
         if (!player) player = Player.localPlayer;
         if (!player) return;
 
-        if (player)
+        transform.GetChild(0).gameObject.SetActive(player);
+        goldText.text = player.gold.ToString();
+        coinText.text = player.coins.ToString();
+
+        if (player.equipment[7].amount > 0)
         {
-            transform.GetChild(0).gameObject.SetActive(player);
-            goldText.text = player.gold.ToString();
-            coinText.text = player.coins.ToString();
-
-            if (player.equipment[7].amount > 0)
-            {
-                weightImage.sprite = player.equipment[7].item.image;
-            }
-            else
-            {
-                weightImage.sprite = generalManager.temperatureImage;
-            }
-
-            hungryText.text = string.Concat(PlayerValueCatcher.singleton.hungry, " / ", player.playerHungry.maxHungry);
-            thirstText.text = string.Concat(PlayerValueCatcher.singleton.thirsty, " / ", player.playerThirsty.maxThirsty);
-            weightText.text = string.Concat(player.playerWeight.currentWeight, " / ", player.playerWeight.maxWeight);
-
+            weightImage.sprite = player.equipment[7].item.image;
         }
+        else
+        {
+            weightImage.sprite = generalManager.temperatureImage;
+        }
+
+        hungryText.text = string.Concat(player.playerHungry.currentHungry, " / ", player.playerHungry.maxHungry);
+        thirstText.text = string.Concat(player.playerThirsty.currentThirsty, " / ", player.playerThirsty.maxThirsty);
+        weightText.text = string.Concat(player.playerWeight.currentWeight, " / ", player.playerWeight.maxWeight);
     }
 
     public void OpenItemMall()
