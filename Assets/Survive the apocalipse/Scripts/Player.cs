@@ -2203,6 +2203,8 @@ public partial class Player : Entity
         if (index == 4)
         {
             playerRadio.CheckRadio();
+            if (UIRadioTorchManager.singleton) UIRadioTorchManager.singleton.RefreshRadioTorchUI();
+            if (TorchRadioManager.singleton) TorchRadioManager.singleton.RefreshRadioTorch();
         }
         if (index == 5)
         {
@@ -2278,6 +2280,8 @@ public partial class Player : Entity
         if (index == 9)
         {
             playerTorch.CheckTorch();
+            if (UIRadioTorchManager.singleton) UIRadioTorchManager.singleton.RefreshRadioTorchUI();
+            if (TorchRadioManager.singleton) TorchRadioManager.singleton.RefreshRadioTorch();
         }
         if (index == 10)
         {
@@ -4947,8 +4951,11 @@ public partial class Player : Entity
         }
         else
         {
-            CmdManageDoor(playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(playerMove.nearestModularPiece.floorDoor.ToArray()));
-            return;
+            if (playerMove.nearestModularPiece != null)
+            {
+                CmdManageDoor(playerMove.nearestModularPiece.netIdentity, GeneralManager.singleton.GetClosestDistanceIndex(playerMove.nearestModularPiece.floorDoor.ToArray()));
+                return;
+            }
         }
     }
 

@@ -886,12 +886,15 @@ public partial class UIInventory
     public void Start()
     {
         if (!singleton) singleton = this;
+        SpawnInventory();
     }
 
-    void Update()
+    public void SpawnInventory()
     {
         if (!player) player = Player.localPlayer;
         if (!player) return;
+
+        Debug.Log("Called inventory Change");
 
         // gold
         goldText.text = player.gold.ToString();
@@ -920,6 +923,7 @@ public partial class UIInventory
                     {
                         // refresh valid item
                         int icopy = i; // needed for lambdas, otherwise i is Count
+                        slot.button.interactable = true;
                         slot.button.onClick.SetListener(() =>
                         {
                             if (player.playerBuilding.actualBuilding) Destroy(player.playerBuilding.actualBuilding);
@@ -949,7 +953,7 @@ public partial class UIInventory
 
                         slot.image.color = Color.white;
                         slot.image.sprite = itemSlot.item.image;
-                        if (icopy < player.playerConservative.AmountOfItemProtected()) slot.protectedImage.gameObject.SetActive(true);
+                        if (icopy <= player.playerConservative.AmountOfItemProtected()) slot.protectedImage.gameObject.SetActive(true);
                         else slot.protectedImage.gameObject.SetActive(false);
                         // cooldown if usable item
                         if (itemSlot.item.data is UsableItem usable2)
@@ -967,6 +971,7 @@ public partial class UIInventory
                     {
                         // refresh invalid item
                         slot.button.onClick.RemoveAllListeners();
+                        slot.button.interactable = false;
                         slot.tooltip.enabled = false;
                         slot.dragAndDropable.dragable = false;
                         slot.image.color = Color.clear;
@@ -1292,12 +1297,20 @@ public partial class UIEquipmentCustom
 
 public partial class UIEquipment
 {
+    public static UIEquipment singleton;
     public KeyCode hotKey = KeyCode.E;
     public GameObject panel;
     public UIEquipmentSlot slotPrefab;
     public Transform content;
     public bool settedCategory;
-    void Update()
+
+    public void Start()
+    {
+        if (!singleton) singleton = this;
+        SpawnEquipment();
+    }
+
+    public void SpawnEquipment()
     {
         Player player = Player.localPlayer;
         if (player)
@@ -1578,7 +1591,6 @@ public partial class UIAttackManager
             player.playerMove.CmdSneak();
         });
 
-        modularBuildingButton.gameObject.SetActive(ModularBuildingManager.singleton && ModularBuildingManager.singleton.selectedPiece);
         modularBuildingButton.onClick.SetListener(() =>
         {
             Instantiate(GeneralManager.singleton.modularBuildingManager, GeneralManager.singleton.canvas);
@@ -1594,6 +1606,9 @@ public partial class UIAttackManager
         if (player.target != null) target = player.target;
         else
             target = null;
+
+        modularBuildingButton.gameObject.SetActive(ModularBuildingManager.singleton && ModularBuildingManager.singleton.selectedPiece);
+
     }
 
     public void ManageButton()
@@ -1707,6 +1722,7 @@ public partial class UISelectedAmmo : MonoBehaviour
 
 public partial class UIRadioTorchManager
 {
+    public static UIRadioTorchManager singleton;
     private Player player;
     public Button buttonManageTorch;
     public TextMeshProUGUI torchTXT;
@@ -1717,22 +1733,25 @@ public partial class UIRadioTorchManager
 
     void Start()
     {
+        if (!singleton) singleton = this;
         if (!player) player = Player.localPlayer;
         if (!player) return;
-    }
 
-    void Update()
-    {
-        buttonManageTorch.onClick.SetListener(() =>
+        buttonManageTorch.onClick.AddListener(() =>
         {
             player.playerTorch.CmdSetTorch();
         });
 
-        buttonManageRadio.onClick.SetListener(() =>
+        buttonManageRadio.onClick.AddListener(() =>
         {
             player.playerRadio.CmdSetRadio();
         });
 
+        RefreshRadioTorchUI();
+    }
+
+    public void RefreshRadioTorchUI()
+    {
         buttonManageTorch.interactable = player.playerTorch.torchItem.amount > 0 && NetworkTime.time >= player.playerTorch.nextRiskyActionTime;
         if (player.equipment[9].amount > 0)
         {

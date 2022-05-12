@@ -7,34 +7,34 @@ public class FlooreBasementOccupied : MonoBehaviour
 {
     public bool up, down, left, right;
     public SpriteRenderer spriteRenderer;
+    public ModularPiece mainModularPiece;
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("FloorBasement"))
         {
             ModularPiece piece = collision.GetComponentInParent<ModularPiece>();
-            ModularPiece modularPiece = GetComponentInParent<ModularPiece>();
-            if (piece.isServer && piece.GetComponent<NetworkIdentity>().netId != 0)
+            if (piece.isServer && piece != mainModularPiece && piece.GetComponent<NetworkIdentity>().netId != 0)
             {
                 if (up)
                 {
                     piece.occupiedDOWN = true;
-                    modularPiece.occupiedUP = true;
+                    mainModularPiece.occupiedUP = true;
                 }
                 else if (down)
                 {
                     piece.occupiedUP = true;
-                    modularPiece.occupiedDOWN = true;
+                    mainModularPiece.occupiedDOWN = true;
                 }
                 else if (left)
                 {
                     piece.occupiedRIGHT = true;
-                    modularPiece.occupiedLEFT = true;
+                    mainModularPiece.occupiedLEFT = true;
                 }
                 else
                 {
                     piece.occupiedLEFT = true;
-                    modularPiece.occupiedRIGHT = true;
+                    mainModularPiece.occupiedRIGHT = true;
                 }
             }
         }

@@ -8,16 +8,10 @@ public class UIItemMallButton : MonoBehaviour
     public static UIItemMallButton singleton;
     public Button openItemMall;
 
-    // Start is called before the first frame update
     void Start()
     {
-        if (!singleton) singleton = this;      
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        openItemMall.onClick.SetListener(() =>
+        if (!singleton) singleton = this;
+        openItemMall.onClick.AddListener(() =>
         {
             if (!GeneralManager.singleton.uiItemMallPanel)
             {
@@ -26,4 +20,5 @@ public class UIItemMallButton : MonoBehaviour
             }
         });
     }
+
 }

@@ -167,6 +167,7 @@ MonoBehaviour:
   left: 0
   right: 0
   spriteRenderer: {fileID: 62183989345280050}
+  mainModularPiece: {fileID: 7763156348568254892}
 --- !u!1 &452078151101316059
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,6 +636,7 @@ MonoBehaviour:
   left: 1
   right: 0
   spriteRenderer: {fileID: 3819936191370227923}
+  mainModularPiece: {fileID: 7763156348568254892}
 --- !u!1 &876337137860357916
 GameObject:
   m_ObjectHideFlags: 0
@@ -1785,6 +1787,7 @@ MonoBehaviour:
   left: 0
   right: 1
   spriteRenderer: {fileID: 7219451584167537776}
+  mainModularPiece: {fileID: 7763156348568254892}
 --- !u!1 &2220647937412930122
 GameObject:
   m_ObjectHideFlags: 0
@@ -2321,6 +2324,7 @@ MonoBehaviour:
   left: 0
   right: 0
   spriteRenderer: {fileID: 6827604899248216805}
+  mainModularPiece: {fileID: 7763156348568254892}
 --- !u!212 &6827604899248216805
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2488,6 +2492,7 @@ MonoBehaviour:
   left: 0
   right: 0
   spriteRenderer: {fileID: 8717191112462935970}
+  mainModularPiece: {fileID: 7763156348568254892}
 --- !u!212 &8717191112462935970
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2803,6 +2808,7 @@ MonoBehaviour:
   left: 0
   right: 1
   spriteRenderer: {fileID: 5707341215125960697}
+  mainModularPiece: {fileID: 7763156348568254892}
 --- !u!212 &5707341215125960697
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4000,6 +4006,7 @@ MonoBehaviour:
   left: 1
   right: 0
   spriteRenderer: {fileID: 5404190988190850048}
+  mainModularPiece: {fileID: 7763156348568254892}
 --- !u!212 &5404190988190850048
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5351,6 +5358,7 @@ MonoBehaviour:
   left: 0
   right: 0
   spriteRenderer: {fileID: 6742450933570974438}
+  mainModularPiece: {fileID: 7763156348568254892}
 --- !u!1 &5271224509514939658
 GameObject:
   m_ObjectHideFlags: 0

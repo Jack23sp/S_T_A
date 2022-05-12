@@ -6,6 +6,7 @@ using TMPro;
 
 public class TorchRadioManager : MonoBehaviour
 {
+    public static TorchRadioManager singleton;
     public Player player;
 
     public GameObject torchObject;
@@ -23,6 +24,8 @@ public class TorchRadioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        if (!singleton) singleton = this;
         if (!player) player = Player.localPlayer;
         if (!player) return;
 
@@ -35,10 +38,12 @@ public class TorchRadioManager : MonoBehaviour
         {
             player.playerTorch.CmdSetTorch();
         });
+
+        RefreshRadioTorch();
     }
 
     // Update is called once per frame
-    void Update()
+    public void RefreshRadioTorch()
     {
         if (!player) player = Player.localPlayer;
         if (!player) return;

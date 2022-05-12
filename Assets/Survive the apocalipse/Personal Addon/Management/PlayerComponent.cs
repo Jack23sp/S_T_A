@@ -1293,7 +1293,7 @@ public partial class PlayerRadio
 {
     public Player player;
 
-    [SyncVar]
+    [SyncVar(hook = nameof(RefreshUI))]
     public bool isOn;
     public ItemSlot radioItem;
     public float cycleAmount;
@@ -1314,6 +1314,12 @@ public partial class PlayerRadio
                 InvokeRepeating(nameof(SpawnMessageRoutine), 300.0f, 300.0f);
             }
         }
+    }
+
+    public void RefreshUI(bool oldBool, bool newBool)
+    {
+        if (UIRadioTorchManager.singleton) UIRadioTorchManager.singleton.RefreshRadioTorchUI();
+        if (TorchRadioManager.singleton) TorchRadioManager.singleton.RefreshRadioTorch();
     }
 
     public void SpawnMessageRoutine()
@@ -1568,7 +1574,7 @@ public partial class PlayerTorch
 {
     public Player player;
 
-    [SyncVar(hook = nameof(ManageTorch))]
+    [SyncVar(hook = nameof(RefreshUI))]
     public bool isOn;
     public ItemSlot torchItem;
     public GameObject torch;
@@ -1619,12 +1625,17 @@ public partial class PlayerTorch
         }
     }
 
-    void ManageTorch(bool oldBool, bool newBool)
+    public void RefreshUI(bool oldBool, bool newBool)
     {
-
+        if (UIRadioTorchManager.singleton) UIRadioTorchManager.singleton.RefreshRadioTorchUI();
+        if (TorchRadioManager.singleton) TorchRadioManager.singleton.RefreshRadioTorch();
         torch.SetActive(newBool);
     }
 
+    void ManageTorch(bool oldBool, bool newBool)
+    {
+        torch.SetActive(newBool);
+    }
 
     public void DecreaseTorch()
     {
@@ -6347,18 +6358,13 @@ public partial class PlayerDance
         }
     }
 
-    public void Update()
+    public void ResetAnimation()
     {
-        if (isServer)
-        {
-            if (player.state != "IDLE")
-            {
-                danceIndex = -1;
-            }
-        }
+        danceIndex = -1;
     }
 
-    public void ResetAnimation()
+    [Command]
+    public void CmdResetAnimation()
     {
         danceIndex = -1;
     }

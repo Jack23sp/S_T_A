@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
 public class PlayerUIManager : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class PlayerUIManager : MonoBehaviour
     public long
         prevGold, gold,
         prevCoins, coins;
+
+    public List<string> timeChange;
 
 
     void Start()
@@ -71,6 +74,8 @@ public class PlayerUIManager : MonoBehaviour
             if (UIStats.singleton) UIStats.singleton.SyncCurrency();
             if (UIStatistics.singleton) UIStatistics.singleton.SpawnStats();
 
+            timeChange.Add(NetworkTime.time.ToString());
+
             SyncToOld();
         }
         Invoke(nameof(CheckValueChange), 0.5f);
@@ -90,6 +95,7 @@ public class PlayerUIManager : MonoBehaviour
         prevBlood = blood;
         prevDamage = damage;
         prevWeight = weight;
+        prevMaxWeight = maxWeight;
         prevDefense = defense;
         prevMiss = miss;
         prevAccuracy = accuracy;
@@ -97,5 +103,7 @@ public class PlayerUIManager : MonoBehaviour
         prevCritChace = critChance;
         prevSpeed = speed;
         prevPartner = partner;
+        prevGold = gold;
+        prevCoins = coins;
     }
 }

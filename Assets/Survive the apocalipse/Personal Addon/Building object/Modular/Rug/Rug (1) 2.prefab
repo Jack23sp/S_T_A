@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 0}
-  precision: 101.71
+  precision: 101.2
   offset: 0
   relatedToPlayer: 0
   amountRelatedToPlayer: 1

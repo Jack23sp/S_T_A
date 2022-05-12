@@ -51,7 +51,7 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
     // finite state machine
     // -> state only writable by entity class to avoid all kinds of confusion
     [Header("State")]
-    [SyncVar, SerializeField] public string _state = "IDLE";
+    [SyncVar (hook = (nameof(IsChangedState))), SerializeField] public string _state = "IDLE";
     public string state => _state;
 
     // it's useful to know an entity's last combat time (did/was attacked)
@@ -372,6 +372,15 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
             playerObject.playerUIManager.gold = newValue;
         }
     }
+    
+
+    public void IsChangedState(string oldValue, string newValue)
+    {
+        if (playerObject && playerObject.playerDance.danceIndex != -1)
+        {
+            playerObject.playerDance.CmdResetAnimation();
+        }
+    }
 
     // networkbehaviour ////////////////////////////////////////////////////////
     protected virtual void Awake()
@@ -386,6 +395,23 @@ public abstract partial class Entity : NetworkBehaviourNonAlloc
     {
         // addon system hooks
         Utils.InvokeMany(typeof(Entity), this, "OnStartServer_");
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        inventory.Callback += ManageInventoryUI;
+        equipment.Callback += ManageEquipmentUI;
+    }
+
+    void ManageInventoryUI(SyncListItemSlot.Operation op, int index, ItemSlot oldSlot, ItemSlot newSlot)
+    {
+        if (playerObject && UIInventory.singleton) UIInventory.singleton.SpawnInventory();
+    }
+
+    void ManageEquipmentUI(SyncListItemSlot.Operation op, int index, ItemSlot oldSlot, ItemSlot newSlot)
+    {
+        if (playerObject && UIEquipment.singleton) UIEquipment.singleton.SpawnEquipment();
     }
 
     public virtual void Start()
